@@ -1,0 +1,102 @@
+CAMBIO DE RUTAS — ACTUALIZADO
+Dispositivo: haggy-escritorio|Linux|x86_64 (c55c28b5bf8e8)
+Origen: /home/haggy/Vídeos/3x/Listos
+Destino: /home/haggy/Vídeos/Listos
+Registros: 24
+
+ID 2022
+  ANTES: /home/haggy/Vídeos/3x/Listos/0h4sag3pubnhpzn327vh7_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0h4sag3pubnhpzn327vh7_source.mp4
+  SHA256: 1164e58271e5a99b756d54cdab0f30665fc2731da2590b0a45b3d51ece4eacd7
+ID 2023
+  ANTES: /home/haggy/Vídeos/3x/Listos/0h588we2rfhesmvtjkkbn_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0h588we2rfhesmvtjkkbn_source.mp4
+  SHA256: 458f60b347446b6a27d52c5f6a32a5a6c4da00ac2bbfaca3e5915d58df9b1de7
+ID 2024
+  ANTES: /home/haggy/Vídeos/3x/Listos/0h6quly6p5ddhbe5t3mf0_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0h6quly6p5ddhbe5t3mf0_source.mp4
+  SHA256: 0b8781e82ddd3caba9cf24b68aa5ce3109a30125ba9299866e0ad31977681ef4
+ID 2025
+  ANTES: /home/haggy/Vídeos/3x/Listos/0h6ivvnm3k101r8ma5thn_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0h6ivvnm3k101r8ma5thn_source.mp4
+  SHA256: 1f38cd48264fc584c6e19e9d63c07e2c4850486ea2a3e929006308b0aa81a97b
+ID 2026
+  ANTES: /home/haggy/Vídeos/3x/Listos/0h6a0ormuq6uctegw5fti_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0h6a0ormuq6uctegw5fti_source.mp4
+  SHA256: e03b6440a63f345b48a789bece555878523d4465bd6fa5307ef2e1b99004c1d9
+ID 2027
+  ANTES: /home/haggy/Vídeos/3x/Listos/0h7w40ofysiv6lkkx3lh1_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0h7w40ofysiv6lkkx3lh1_source.mp4
+  SHA256: 6dfd29600e71c7dd8d91242e40416e578dcc37901f4ed07cd6d73bed31dbfb81
+ID 2028
+  ANTES: /home/haggy/Vídeos/3x/Listos/0h75i67g15mahdjhkewcp_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0h75i67g15mahdjhkewcp_source.mp4
+  SHA256: a600b40ff4232b2a7b62163ca829db94c127242345438881468fa03d50cc3f4e
+ID 2029
+  ANTES: /home/haggy/Vídeos/3x/Listos/0h86p5qgzyqlthw9okb03_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0h86p5qgzyqlthw9okb03_source.mp4
+  SHA256: b5bda19013ba11374bcd223134d86bba5b80d329eadffabb35efe17e61dafcfc
+ID 2030
+  ANTES: /home/haggy/Vídeos/3x/Listos/0h8v10go8hb5bv0tj18w7_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0h8v10go8hb5bv0tj18w7_source.mp4
+  SHA256: f04fe8fdd58e12a6bdf234f6bc67577cdbbefe29f1a65ab96c1d481dd93ca7ca
+ID 2031
+  ANTES: /home/haggy/Vídeos/3x/Listos/0ha21br7htof1wam1r0dg_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0ha21br7htof1wam1r0dg_source.mp4
+  SHA256: b31230c65ece95dd4fd258bf11aa1f6fe575ac5cb283a381e479c508627fd0aa
+ID 2032
+  ANTES: /home/haggy/Vídeos/3x/Listos/0haeuyhfwjh2bjg7k8fey_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0haeuyhfwjh2bjg7k8fey_source.mp4
+  SHA256: 9f93fd9a7ebc4902ac078aa187e1df9586c02468011928bd23da10465b57fefa
+ID 2033
+  ANTES: /home/haggy/Vídeos/3x/Listos/0harv8porlqr2cp8j3zct_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0harv8porlqr2cp8j3zct_source.mp4
+  SHA256: a4e5c9a5f1676ec8357c366b82236381dfc8dc41fe775062e88d098e94dc843d
+ID 2034
+  ANTES: /home/haggy/Vídeos/3x/Listos/0hax7rkgk6cuva6ewbrtd_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0hax7rkgk6cuva6ewbrtd_source.mp4
+  SHA256: dae72b96f9aa057195ff8f0a2f39876457601bdb4ed04a250929b0c9211e3870
+ID 2035
+  ANTES: /home/haggy/Vídeos/3x/Listos/0hbddfwn9bvin4siu6igr_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0hbddfwn9bvin4siu6igr_source.mp4
+  SHA256: 84c911c81f635cd2e480a4d4e746208d99e217f926a12a4eced746533245791b
+ID 2036
+  ANTES: /home/haggy/Vídeos/3x/Listos/0hcr6bmuz1e6adxutu1qj_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0hcr6bmuz1e6adxutu1qj_source.mp4
+  SHA256: eb2a64a08ab2f8128260dbbbb5018b789cbe3b18e0012015474d47ff1749088b
+ID 2037
+  ANTES: /home/haggy/Vídeos/3x/Listos/0hc50ufzoe3tx13vnjoea_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0hc50ufzoe3tx13vnjoea_source.mp4
+  SHA256: 83fff196b1cafd534ea6965ed8f68ebf9f50a7a25c0f75c8075e152e979d2ffb
+ID 2038
+  ANTES: /home/haggy/Vídeos/3x/Listos/0hd6x1w53jwh55gox7emq_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0hd6x1w53jwh55gox7emq_source.mp4
+  SHA256: 7f971b1b0c0440a689463fb870d67842e901f5e4654c6d1ad990418d90547020
+ID 2039
+  ANTES: /home/haggy/Vídeos/3x/Listos/0hd8eg8b6e5e6i2tp0fn7_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0hd8eg8b6e5e6i2tp0fn7_source.mp4
+  SHA256: 9ba7c270cffdad3f46409eff0772f16502b6633923d8ffb7d7b8939f1d85ffcc
+ID 2040
+  ANTES: /home/haggy/Vídeos/3x/Listos/0hdhlwe9higr21ucirw0l_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0hdhlwe9higr21ucirw0l_source.mp4
+  SHA256: c8a9f9a61a61a2b596035c0d3d412757310594b401d1489b8c86b6552b7657d8
+ID 2041
+  ANTES: /home/haggy/Vídeos/3x/Listos/0hdpq83on0jreknw5lnko_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0hdpq83on0jreknw5lnko_source.mp4
+  SHA256: 70513316a5d3e3c1cf1fb8098130972a1a0cef9583799730093db174d1459892
+ID 2042
+  ANTES: /home/haggy/Vídeos/3x/Listos/0he25pbd7srpxtv08tabw_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0he25pbd7srpxtv08tabw_source.mp4
+  SHA256: cff55a1290029e43acf2ef946945d98f0bab5286c7ca1ed648813b347d15ef5c
+ID 2043
+  ANTES: /home/haggy/Vídeos/3x/Listos/0hf9qwuzqcbg6ov4r0cmc_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0hf9qwuzqcbg6ov4r0cmc_source.mp4
+  SHA256: 4415c60b9a8760b300a8de3fdbb3982d932044fea4a8c51650137a7438033e76
+ID 2044
+  ANTES: /home/haggy/Vídeos/3x/Listos/0hf4ln6mr0pv2agqokq0o_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0hf4ln6mr0pv2agqokq0o_source.mp4
+  SHA256: 8d3e512578fe05eab9bed1f4b36a0da5123842e5826000078ed615c42e9feaae
+ID 2045
+  ANTES: /home/haggy/Vídeos/3x/Listos/0hef3t60igxa2n47h38p8_source.mp4
+  DESPUÉS: /home/haggy/Vídeos/Listos/0hef3t60igxa2n47h38p8_source.mp4
+  SHA256: 901bf87cb965875f5f8bdf57e0b9a511714671f7c3516bb0c52c3fd28216b1ee

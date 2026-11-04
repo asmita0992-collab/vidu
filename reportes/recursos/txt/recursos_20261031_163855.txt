@@ -1,0 +1,91 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-10-31 16:38:55
+Plataforma               : LINUX
+Hostname                 : haggy-escritorio
+Sistema operativo        : Linux 7.0.0-42-generic
+CPU                      : AMD Ryzen 3 4300U with Radeon Graphics (4 núcleos, x86_64)
+RAM total                : 15343 MB
+Videos con medición       : 2
+Videos completados        : 1
+Videos con error          : 1
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Linux):
+  CPU puede superar 100 % si se usan varios núcleos.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Linux gestiona la CPU con su scheduler CFS; los valores son precisos.
+  Con varios trabajadores, CPU/RAM de FFmpeg puede traslaparse entre
+  videos porque todos son hijos del mismo proceso Python.
+  Para medir con exactitud individual cada video, selecciona 1 trabajador.
+
+------------------------------------------------------------------------------
+VIDEO 1: 1_5010526551368795755.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/1_5010526551368795755.mp4
+  Inicio de análisis            : 2026-10-31 16:33:12
+  Fin de análisis               : 2026-10-31 16:37:39
+  Duración del análisis         : 00:04:26
+  Muestras tomadas              : 134
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 320.0 MB
+  Duración                      : 00:20:31
+  Resolución                    : 1920x1080
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2180 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 123
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 390.2 %
+  CPU promedio                  : 21.2 %
+  Máximo procesos hijos         : 3
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 366.0 MB
+  RAM promedio                  : 356.6 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 1531.7 MB
+  Escritura detectada           : 10.7 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: 1_5129926255650539455.mp4
+------------------------------------------------------------------------------
+  Estado                        : NO COMPLETADO — Error en extracción de cuadros: FFmpeg (software) excedió el tiempo máximo de 5 min. Último progreso: 90.8%. FFmpeg stderr: sin salida de error
+  Ruta                          : /home/haggy/Vídeos/Listos/1_5129926255650539455.mp4
+  Inicio de análisis            : 2026-10-31 16:33:12
+  Fin de análisis               : 2026-10-31 16:38:35
+  Duración del análisis         : 00:05:23
+  Muestras tomadas              : 162
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 755.7 %
+  CPU promedio                  : 14.5 %
+  Máximo procesos hijos         : 3
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 366.0 MB
+  RAM promedio                  : 343.9 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 1531.7 MB
+  Escritura detectada           : 11.3 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+1_5010526551368795755.mp4          320.0 MB   00:20:31     390.2%   00:04:26
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

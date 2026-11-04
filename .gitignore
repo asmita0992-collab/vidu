@@ -1,0 +1,35 @@
+# Secretos y configuración local
+.env
+.vidup_device_identity.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+build/
+dist/
+*.egg-info/
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Bases de datos SQLite
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+neon_cloud
+
+# Editores / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs y temporales
+*.log
+*.tmp

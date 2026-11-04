@@ -1,0 +1,57 @@
+{
+  "fecha_utc6": "2026-11-02 05:19:19 UTC-6",
+  "base": "E:\\Haggy\\VIDUP\\vidup.db",
+  "generales": {
+    "total_videos": 162,
+    "con_huella": 162,
+    "con_error": 0,
+    "horas_totales": 87.5,
+    "gb_totales": 99.303,
+    "dispositivos": [
+      "LAPTOP-HP-AMD|Windows|AMD64"
+    ],
+    "dispositivos_origen": [
+      "LAPTOP-HP-AMD|Windows|AMD64"
+    ]
+  },
+  "dispositivos": [
+    {
+      "dispositivo": "LAPTOP-HP-AMD|Windows|AMD64",
+      "dispositivo_id": "c73ad4231f0b5",
+      "id_verificado": true,
+      "nombres_registrados": [
+        "LAPTOP-HP-AMD|Windows|AMD64"
+      ],
+      "total_videos": 162,
+      "tamanio_bytes": 106625582200,
+      "con_sha256": 162,
+      "con_huella_visual": 4,
+      "con_huella_audio": 4,
+      "con_error": 0,
+      "carpetas": [
+        {
+          "ruta": "D:\\Haggy\\Videos_hevc\\",
+          "total_videos": 98,
+          "tamanio_bytes": 48938586106,
+          "con_sha256": 98,
+          "con_huella_visual": 0
+        },
+        {
+          "ruta": "D:\\Haggy\\Videos\\HEVC\\",
+          "total_videos": 60,
+          "tamanio_bytes": 56012958961,
+          "con_sha256": 60,
+          "con_huella_visual": 0
+        },
+        {
+          "ruta": "E:\\Haggy\\Videos_hevc\\",
+          "total_videos": 4,
+          "tamanio_bytes": 1674037133,
+          "con_sha256": 4,
+          "con_huella_visual": 4
+        }
+      ],
+      "gb_totales": 99.30281173437834
+    }
+  ]
+}

@@ -1,0 +1,248 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-01 04:51:20
+Plataforma               : LINUX
+Hostname                 : haggy-escritorio
+Sistema operativo        : Linux 7.0.0-42-generic
+CPU                      : AMD Ryzen 3 4300U with Radeon Graphics (4 núcleos, x86_64)
+RAM total                : 15343 MB
+Videos con medición       : 6
+Videos completados        : 6
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Linux):
+  CPU puede superar 100 % si se usan varios núcleos.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Linux gestiona la CPU con su scheduler CFS; los valores son precisos.
+  Con varios trabajadores, CPU/RAM de FFmpeg puede traslaparse entre
+  videos porque todos son hijos del mismo proceso Python.
+  Para medir con exactitud individual cada video, selecciona 1 trabajador.
+
+------------------------------------------------------------------------------
+VIDEO 1: 1_5175010170874365697.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/1_5175010170874365697.mp4
+  Inicio de análisis            : 2026-11-01 04:42:17
+  Fin de análisis               : 2026-11-01 04:45:01
+  Duración del análisis         : 00:02:43
+  Muestras tomadas              : 83
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 382.9 MB
+  Duración                      : 00:24:35
+  Resolución                    : 1920x1080
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2178 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 148
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 640.8 %
+  CPU promedio                  : 35.0 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 266.2 MB
+  RAM promedio                  : 261.1 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 607.8 MB
+  Escritura detectada           : 10.3 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: 1_5129926255650539455.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/1_5129926255650539455.mp4
+  Inicio de análisis            : 2026-11-01 04:42:17
+  Fin de análisis               : 2026-11-01 04:45:47
+  Duración del análisis         : 00:03:30
+  Muestras tomadas              : 106
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 470.9 MB
+  Duración                      : 00:30:49
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2135 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 185
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 136.7 %
+  CPU promedio                  : 3.7 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 291.4 MB
+  RAM promedio                  : 266.5 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 951.3 MB
+  Escritura detectada           : 19.9 MB
+
+------------------------------------------------------------------------------
+VIDEO 3: 296840797.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/296840797.mp4
+  Inicio de análisis            : 2026-11-01 04:45:47
+  Fin de análisis               : 2026-11-01 04:47:34
+  Duración del análisis         : 00:01:47
+  Muestras tomadas              : 55
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 232.7 MB
+  Duración                      : 00:15:10
+  Resolución                    : 1080x1920
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2145 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 91
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 172.2 %
+  CPU promedio                  : 27.0 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 299.9 MB
+  RAM promedio                  : 295.8 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 230.7 MB
+  Escritura detectada           : 9.8 MB
+
+------------------------------------------------------------------------------
+VIDEO 4: 2. Collaboration with @nicosaesthetics and @roxas_caelum.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/2. Collaboration with @nicosaesthetics and @roxas_caelum.mp4
+  Inicio de análisis            : 2026-11-01 04:45:01
+  Fin de análisis               : 2026-11-01 04:47:56
+  Duración del análisis         : 00:02:55
+  Muestras tomadas              : 89
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 343.1 MB
+  Duración                      : 00:22:00
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2180 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 132
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 108.9 %
+  CPU promedio                  : 4.1 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 301.4 MB
+  RAM promedio                  : 290.4 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 920.5 MB
+  Escritura detectada           : 29.2 MB
+
+------------------------------------------------------------------------------
+VIDEO 5: 2af1628fc1e14ea0affe25ef937e383e.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/2af1628fc1e14ea0affe25ef937e383e.mp4
+  Inicio de análisis            : 2026-11-01 04:47:56
+  Fin de análisis               : 2026-11-01 04:50:46
+  Duración del análisis         : 00:02:49
+  Muestras tomadas              : 86
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 261.1 MB
+  Duración                      : 00:17:53
+  Resolución                    : 1920x1088
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2040 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 107
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 17.3 %
+  CPU promedio                  : 1.1 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 307.4 MB
+  RAM promedio                  : 304.6 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 261.1 MB
+  Escritura detectada           : 10.2 MB
+
+------------------------------------------------------------------------------
+VIDEO 6: 2_5226638177443283673.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/2_5226638177443283673.mp4
+  Inicio de análisis            : 2026-11-01 04:47:34
+  Fin de análisis               : 2026-11-01 04:51:15
+  Duración del análisis         : 00:03:40
+  Muestras tomadas              : 112
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 346.7 MB
+  Duración                      : 00:28:03
+  Resolución                    : 1920x1080
+  FPS                           : 29.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 1727 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 168
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 161.7 %
+  CPU promedio                  : 3.6 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 307.4 MB
+  RAM promedio                  : 300.1 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 974.4 MB
+  Escritura detectada           : 29.3 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+1_5129926255650539455.mp4          470.9 MB   00:30:49     136.7%   00:03:30
+1_5175010170874365697.mp4          382.9 MB   00:24:35     640.8%   00:02:43
+2_5226638177443283673.mp4          346.7 MB   00:28:03     161.7%   00:03:40
+2. Collaboration with @nicosae…    343.1 MB   00:22:00     108.9%   00:02:55
+2af1628fc1e14ea0affe25ef937e38…    261.1 MB   00:17:53      17.3%   00:02:49
+296840797.mp4                      232.7 MB   00:15:10     172.2%   00:01:47
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

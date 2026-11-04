@@ -1,0 +1,259 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-02 22:34:41
+Plataforma               : WINDOWS
+Hostname                 : LAPTOP-HP-AMD
+Sistema operativo        : Windows 11
+CPU                      : CPU Windows (4 núcleos, AMD64)
+RAM total                : 15730 MB
+Videos con medición       : 6
+Videos completados        : 6
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Windows):
+  CPU puede superar 100 % porque Windows/psutil lo expresa por núcleo.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Por video se cuentan solo los procesos FFmpeg/FFprobe de ese video.
+  El proceso Python (SHA256, pHash) es compartido: se reporta como
+  total del lote, no por video.
+  Lectura/escritura = bytes pedidos al sistema (incluye caché del
+  sistema). No equivale necesariamente a lectura física del disco.
+  Los procesos de un video se miden desde que nacen hasta ~2 s antes
+  de terminar; el último intervalo de un proceso corto puede faltar.
+
+PROCESO PYTHON DE VIDUP (TOTAL DEL LOTE)
+  Tiempo transcurrido           : 00:17:10
+  CPU acumulada                 : 14.1 s de CPU
+  Pico de RAM                   : 76.6 MB
+  Lectura total                 : 2533.6 MB
+  Escritura total               : 0.8 MB
+  Incluye SHA256, pHash en memoria y el resto de la lógica de VIDUP.
+
+------------------------------------------------------------------------------
+VIDEO 1: Cum Balloon Fight.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Cum Balloon Fight.mp4
+  Inicio de análisis            : 2026-11-02 22:17:31
+  Fin de análisis               : 2026-11-02 22:20:27
+  Duración del análisis         : 00:02:55
+  Muestras tomadas              : 89
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 454.1 MB
+  Duración                      : 00:19:00
+  Resolución                    : 1920x1080
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 3340 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 114
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 23.3 %
+  CPU promedio                  : 10.6 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 436.0 MB
+  RAM promedio                  : 360.4 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 452.4 MB
+  Escritura solicitada          : 0.3 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: Cuerpo Tatuado Twink Gay Follando Duro Hasta Sacar Semen.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Cuerpo Tatuado Twink Gay Follando Duro Hasta Sacar Semen.mp4
+  Inicio de análisis            : 2026-11-02 22:17:31
+  Fin de análisis               : 2026-11-02 22:21:17
+  Duración del análisis         : 00:03:45
+  Muestras tomadas              : 114
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 539.2 MB
+  Duración                      : 00:25:28
+  Resolución                    : 1920x1080
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2960 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 153
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 199.7 %
+  CPU promedio                  : 13.6 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 332.9 MB
+  RAM promedio                  : 305.2 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 650.9 MB
+  Escritura solicitada          : 5.2 MB
+
+------------------------------------------------------------------------------
+VIDEO 3: Denis, Fabrizio, Giulio, and friends take turns cooking in a wild anal threesome.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Denis, Fabrizio, Giulio, and friends take turns cooking in a wild anal threesome.mp4
+  Inicio de análisis            : 2026-11-02 22:21:17
+  Fin de análisis               : 2026-11-02 22:24:30
+  Duración del análisis         : 00:03:12
+  Muestras tomadas              : 97
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 498.7 MB
+  Duración                      : 00:25:20
+  Resolución                    : 608x1080
+  FPS                           : 25.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2751 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 152
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 20.2 %
+  CPU promedio                  : 9.0 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 263.0 MB
+  RAM promedio                  : 242.1 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 500.1 MB
+  Escritura solicitada          : 0.4 MB
+
+------------------------------------------------------------------------------
+VIDEO 4: Czech Couple Tristan Hale & Addy Leon Flip Fucking With Their Friend.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Czech Couple Tristan Hale & Addy Leon Flip Fucking With Their Friend.mp4
+  Inicio de análisis            : 2026-11-02 22:20:27
+  Fin de análisis               : 2026-11-02 22:24:41
+  Duración del análisis         : 00:04:13
+  Muestras tomadas              : 127
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 564.0 MB
+  Duración                      : 00:28:29
+  Resolución                    : 1920x1080
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2768 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 171
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 33.4 %
+  CPU promedio                  : 14.0 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 333.7 MB
+  RAM promedio                  : 311.4 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 562.2 MB
+  Escritura solicitada          : 0.5 MB
+
+------------------------------------------------------------------------------
+VIDEO 5: Doctora petite de enorme culo ayuda a su paciente con su problema de erección.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Doctora petite de enorme culo ayuda a su paciente con su problema de erección.mp4
+  Inicio de análisis            : 2026-11-02 22:24:30
+  Fin de análisis               : 2026-11-02 22:27:54
+  Duración del análisis         : 00:03:24
+  Muestras tomadas              : 103
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 438.9 MB
+  Duración                      : 00:20:55
+  Resolución                    : 1920x1080
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2932 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 126
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 36.5 %
+  CPU promedio                  : 12.6 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 330.8 MB
+  RAM promedio                  : 299.0 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 436.7 MB
+  Escritura solicitada          : 0.3 MB
+
+------------------------------------------------------------------------------
+VIDEO 6: Drill Deeper.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Drill Deeper.mp4
+  Inicio de análisis            : 2026-11-02 22:24:41
+  Fin de análisis               : 2026-11-02 22:34:41
+  Duración del análisis         : 00:10:00
+  Muestras tomadas              : 300
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 2.41 GB
+  Duración                      : 02:00:25
+  Resolución                    : 1920x1080
+  FPS                           : 30.000
+  Códec de vídeo                : h264
+  Códec de audio                : aac
+  Bitrate aproximado            : 2871 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 723
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 176.2 %
+  CPU promedio                  : 25.0 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 351.6 MB
+  RAM promedio                  : 325.1 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 2576.9 MB
+  Escritura solicitada          : 5.9 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+Drill Deeper.mp4                    2.41 GB   02:00:25     176.2%   00:10:00
+Czech Couple Tristan Hale & Ad…    564.0 MB   00:28:29      33.4%   00:04:13
+Cuerpo Tatuado Twink Gay Folla…    539.2 MB   00:25:28     199.7%   00:03:45
+Denis, Fabrizio, Giulio, and f…    498.7 MB   00:25:20      20.2%   00:03:12
+Cum Balloon Fight.mp4              454.1 MB   00:19:00      23.3%   00:02:55
+Doctora petite de enorme culo …    438.9 MB   00:20:55      36.5%   00:03:24
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

@@ -1,0 +1,403 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-01 08:08:24
+Plataforma               : LINUX
+Hostname                 : haggy-escritorio
+Sistema operativo        : Linux 7.0.0-42-generic
+CPU                      : AMD Ryzen 3 4300U with Radeon Graphics (4 núcleos, x86_64)
+RAM total                : 15343 MB
+Videos con medición       : 10
+Videos completados        : 10
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Linux):
+  CPU puede superar 100 % si se usan varios núcleos.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Por video se cuentan solo los procesos FFmpeg/FFprobe de ese video.
+  El proceso Python (SHA256, pHash) es compartido: se reporta como
+  total del lote, no por video.
+  Lectura/escritura = bytes pedidos al sistema (incluye caché del
+  sistema). No equivale necesariamente a lectura física del disco.
+  Los procesos de un video se miden desde que nacen hasta ~2 s antes
+  de terminar; el último intervalo de un proceso corto puede faltar.
+
+PROCESO PYTHON DE VIDUP (TOTAL DEL LOTE)
+  Tiempo transcurrido           : 00:16:58
+  CPU acumulada                 : 13.1 s de CPU
+  Pico de RAM                   : 110.6 MB
+  Lectura total                 : 5496.5 MB
+  Escritura total               : 99.6 MB
+  Incluye SHA256, pHash en memoria y el resto de la lógica de VIDUP.
+
+------------------------------------------------------------------------------
+VIDEO 1: ASS_FUCKING_-_I_humped_my_stepmom_s_finest_homie_s_bootie_-_Danner_Mendez___Yenifer_Chacon.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/ASS_FUCKING_-_I_humped_my_stepmom_s_finest_homie_s_bootie_-_Danner_Mendez___Yenifer_Chacon.mp4
+  Inicio de análisis            : 2026-11-01 07:51:27
+  Fin de análisis               : 2026-11-01 07:55:18
+  Duración del análisis         : 00:03:51
+  Muestras tomadas              : 117
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 402.0 MB
+  Duración                      : 00:26:19
+  Resolución                    : 1920x1088
+  FPS                           : 25.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2135 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 158
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 73.7 %
+  CPU promedio                  : 63.8 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 164.3 MB
+  RAM promedio                  : 160.5 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 492.3 MB
+  Escritura solicitada          : 5.8 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: ASG Auditions Alfonso Osnaya, Peter Hooke & Dex Devall - BoyFriendTV.com.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/ASG Auditions Alfonso Osnaya, Peter Hooke & Dex Devall - BoyFriendTV.com.mp4
+  Inicio de análisis            : 2026-11-01 07:51:27
+  Fin de análisis               : 2026-11-01 07:57:22
+  Duración del análisis         : 00:05:55
+  Muestras tomadas              : 178
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 684.7 MB
+  Duración                      : 00:46:44
+  Resolución                    : 1920x1088
+  FPS                           : 23.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2048 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 280
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 72.2 %
+  CPU promedio                  : 62.5 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 166.1 MB
+  RAM promedio                  : 164.2 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 684.9 MB
+  Escritura solicitada          : 0.9 MB
+
+------------------------------------------------------------------------------
+VIDEO 3: Alexis Texas & Anikka Albrite Create an Ass Sandwich ft. Jules Jordan, Chris Strokes Pornstar, Lesbian, Facial, Threesome, Big Cock Porn Faphouse.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Alexis Texas & Anikka Albrite Create an Ass Sandwich ft. Jules Jordan, Chris Strokes Pornstar, Lesbian, Facial, Threesome, Big Cock Porn Faphouse.mp4
+  Inicio de análisis            : 2026-11-01 07:55:18
+  Fin de análisis               : 2026-11-01 08:00:29
+  Duración del análisis         : 00:05:11
+  Muestras tomadas              : 156
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 557.5 MB
+  Duración                      : 00:36:49
+  Resolución                    : 1280x720
+  FPS                           : 29.970
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2117 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 221
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 62.3 %
+  CPU promedio                  : 56.7 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 152.9 MB
+  RAM promedio                  : 150.3 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 560.9 MB
+  Escritura solicitada          : 0.7 MB
+
+------------------------------------------------------------------------------
+VIDEO 4: Amazing Anal for Sexy Squirter Video With Jimmy Bud, Megan Fiore - Brazzers Official_1.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Amazing Anal for Sexy Squirter Video With Jimmy Bud, Megan Fiore - Brazzers Official_1.mp4
+  Inicio de análisis            : 2026-11-01 07:57:22
+  Fin de análisis               : 2026-11-01 08:00:39
+  Duración del análisis         : 00:03:17
+  Muestras tomadas              : 100
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 415.7 MB
+  Duración                      : 00:30:08
+  Resolución                    : 1280x720
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 1929 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 181
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 62.2 %
+  CPU promedio                  : 57.3 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 151.3 MB
+  RAM promedio                  : 147.3 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 521.3 MB
+  Escritura solicitada          : 7.8 MB
+
+------------------------------------------------------------------------------
+VIDEO 5: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Aaron_Hugese.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Aaron_Hugese.mp4
+  Inicio de análisis            : 2026-11-01 08:00:39
+  Fin de análisis               : 2026-11-01 08:02:54
+  Duración del análisis         : 00:02:14
+  Muestras tomadas              : 69
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 284.0 MB
+  Duración                      : 00:18:12
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2180 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 109
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 77.0 %
+  CPU promedio                  : 68.4 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 164.4 MB
+  RAM promedio                  : 158.0 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 410.5 MB
+  Escritura solicitada          : 7.6 MB
+
+------------------------------------------------------------------------------
+VIDEO 6: Anal On The Open Sea Video With Alexis Fawx, Jonathan Jordan, James Angel - Brazzers Official_1.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Anal On The Open Sea Video With Alexis Fawx, Jonathan Jordan, James Angel - Brazzers Official_1.mp4
+  Inicio de análisis            : 2026-11-01 08:00:29
+  Fin de análisis               : 2026-11-01 08:04:06
+  Duración del análisis         : 00:03:36
+  Muestras tomadas              : 110
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 452.2 MB
+  Duración                      : 00:29:41
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2130 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 178
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 71.8 %
+  CPU promedio                  : 68.3 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 164.5 MB
+  RAM promedio                  : 160.4 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 604.9 MB
+  Escritura solicitada          : 9.7 MB
+
+------------------------------------------------------------------------------
+VIDEO 7: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_AfroBlackXXX.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_AfroBlackXXX.mp4
+  Inicio de análisis            : 2026-11-01 08:02:54
+  Fin de análisis               : 2026-11-01 08:05:10
+  Duración del análisis         : 00:02:16
+  Muestras tomadas              : 69
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 287.9 MB
+  Duración                      : 00:18:28
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2179 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 111
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 71.8 %
+  CPU promedio                  : 67.8 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 164.6 MB
+  RAM promedio                  : 158.3 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 319.1 MB
+  Escritura solicitada          : 2.1 MB
+
+------------------------------------------------------------------------------
+VIDEO 8: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Alex_Maldonado.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Alex_Maldonado.mp4
+  Inicio de análisis            : 2026-11-01 08:04:06
+  Fin de análisis               : 2026-11-01 08:05:36
+  Duración del análisis         : 00:01:29
+  Muestras tomadas              : 46
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 151.5 MB
+  Duración                      : 00:09:42
+  Resolución                    : 1920x1088
+  FPS                           : 29.970
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2181 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 58
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 71.3 %
+  CPU promedio                  : 66.4 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 163.4 MB
+  RAM promedio                  : 153.7 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 204.5 MB
+  Escritura solicitada          : 3.2 MB
+
+------------------------------------------------------------------------------
+VIDEO 9: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Apolo_Adri.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Apolo_Adri.mp4
+  Inicio de análisis            : 2026-11-01 08:05:10
+  Fin de análisis               : 2026-11-01 08:07:23
+  Duración del análisis         : 00:02:12
+  Muestras tomadas              : 68
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 276.4 MB
+  Duración                      : 00:17:43
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2181 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 106
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 75.9 %
+  CPU promedio                  : 67.2 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 164.5 MB
+  RAM promedio                  : 158.1 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 401.8 MB
+  Escritura solicitada          : 7.6 MB
+
+------------------------------------------------------------------------------
+VIDEO 10: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Austin_Ponce.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Austin_Ponce.mp4
+  Inicio de análisis            : 2026-11-01 08:05:36
+  Fin de análisis               : 2026-11-01 08:08:23
+  Duración del análisis         : 00:02:46
+  Muestras tomadas              : 85
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 280.8 MB
+  Duración                      : 00:18:02
+  Resolución                    : 1920x1088
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2177 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 108
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 72.6 %
+  CPU promedio                  : 65.5 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 165.1 MB
+  RAM promedio                  : 159.2 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 281.1 MB
+  Escritura solicitada          : 0.4 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+ASG Auditions Alfonso Osnaya, …    684.7 MB   00:46:44      72.2%   00:05:55
+Alexis Texas & Anikka Albrite …    557.5 MB   00:36:49      62.3%   00:05:11
+Anal On The Open Sea Video Wit…    452.2 MB   00:29:41      71.8%   00:03:36
+Amazing Anal for Sexy Squirter…    415.7 MB   00:30:08      62.2%   00:03:17
+ASS_FUCKING_-_I_humped_my_step…    402.0 MB   00:26:19      73.7%   00:03:51
+Andrea_Suárez,_Eloy_Lopez_aka_…    287.9 MB   00:18:28      71.8%   00:02:16
+Andrea_Suárez,_Eloy_Lopez_aka_…    284.0 MB   00:18:12      77.0%   00:02:14
+Andrea_Suárez,_Eloy_Lopez_aka_…    280.8 MB   00:18:02      72.6%   00:02:46
+Andrea_Suárez,_Eloy_Lopez_aka_…    276.4 MB   00:17:43      75.9%   00:02:12
+Andrea_Suárez,_Eloy_Lopez_aka_…    151.5 MB   00:09:42      71.3%   00:01:29
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

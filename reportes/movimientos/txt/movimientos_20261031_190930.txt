@@ -1,0 +1,1833 @@
+MOVIMIENTO DE VÍDEOS — VIDUP
+Reporte de origen: /home/haggy/Vídeos/VIDUP/reportes/comparativas/json/comparacion_sha256_20261031_171834.json
+Dispositivo ejecutor : haggy-escritorio|Linux|x86_64 (ID c55c28b5bf8e8)
+Plataforma           : Linux (x86_64)
+Dispositivo del reporte: haggy-escritorio|Linux|x86_64 (ID c55c28b5bf8e8)
+Destino: /home/haggy/Vídeos/movidos
+Tiempo: 00:00:00
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/0h588we2rfhesmvtjkkbn_source.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/0h588we2rfhesmvtjkkbn_source.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2022-08-15T23:22:55+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/0h588we2rfhesmvtjkkbn_source.mp4
+  System:FileModifyDate: 2026:08:06 01:25:59-06:00
+  System:FileAccessDate: 2026:10:31 12:59:12-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:26:00-06:00
+  QuickTime:CreateDate: 2022:08:15 18:22:55-05:00
+  QuickTime:ModifyDate: 2022:08:15 18:22:55-05:00
+  Track1:TrackCreateDate: 2022:08:15 18:22:55-05:00
+  Track1:TrackModifyDate: 2022:08:15 18:22:55-05:00
+  Track1:Copy1:MediaCreateDate: 2022:08:15 18:22:55-05:00
+  Track1:Copy1:MediaModifyDate: 2022:08:15 18:22:55-05:00
+  Track2:Copy1:TrackCreateDate: 2022:08:15 18:22:55-05:00
+  Track2:Copy1:TrackModifyDate: 2022:08:15 18:22:55-05:00
+  Track2:MediaCreateDate: 2022:08:15 18:22:55-05:00
+  Track2:MediaModifyDate: 2022:08:15 18:22:55-05:00
+Fechas originales:
+  Acceso: 2026-10-31T18:59:12.578431+00:00 UTC (valor exacto: 1793473152578430808 ns)
+  Modificación: 2026-08-06T07:25:59.994888+00:00 UTC (valor exacto: 1786001159994888170 ns)
+  Cambio de metadatos: 2026-08-06T07:26:00.302886+00:00 UTC (valor exacto: 1786001160302886271 ns)
+Fechas en destino:
+  Acceso: 2022-08-15T23:22:55+00:00 UTC (valor exacto: 1660605775000000000 ns)
+  Modificación: 2022-08-15T23:22:55+00:00 UTC (valor exacto: 1660605775000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:31.487528+00:00 UTC (valor exacto: 1793495371487528127 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/0h6a0ormuq6uctegw5fti_source.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/0h6a0ormuq6uctegw5fti_source.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2022-09-17T15:30:25+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/0h6a0ormuq6uctegw5fti_source.mp4
+  System:FileModifyDate: 2026:08:06 01:24:23-06:00
+  System:FileAccessDate: 2026:10:31 12:59:13-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:24:24-06:00
+  QuickTime:CreateDate: 2022:09:17 10:30:25-05:00
+  QuickTime:ModifyDate: 2022:09:17 10:30:25-05:00
+  Track1:TrackCreateDate: 2022:09:17 10:30:25-05:00
+  Track1:TrackModifyDate: 2022:09:17 10:30:25-05:00
+  Track1:Copy1:MediaCreateDate: 2022:09:17 10:30:25-05:00
+  Track1:Copy1:MediaModifyDate: 2022:09:17 10:30:25-05:00
+  Track2:Copy1:TrackCreateDate: 2022:09:17 10:30:25-05:00
+  Track2:Copy1:TrackModifyDate: 2022:09:17 10:30:25-05:00
+  Track2:MediaCreateDate: 2022:09:17 10:30:25-05:00
+  Track2:MediaModifyDate: 2022:09:17 10:30:25-05:00
+Fechas originales:
+  Acceso: 2026-10-31T18:59:13.168450+00:00 UTC (valor exacto: 1793473153168449963 ns)
+  Modificación: 2026-08-06T07:24:23.152538+00:00 UTC (valor exacto: 1786001063152538230 ns)
+  Cambio de metadatos: 2026-08-06T07:24:24.736526+00:00 UTC (valor exacto: 1786001064736526706 ns)
+Fechas en destino:
+  Acceso: 2022-09-17T15:30:25+00:00 UTC (valor exacto: 1663428625000000000 ns)
+  Modificación: 2022-09-17T15:30:25+00:00 UTC (valor exacto: 1663428625000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:32.777565+00:00 UTC (valor exacto: 1793495372777565135 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/0h7w40ofysiv6lkkx3lh1_source.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/0h7w40ofysiv6lkkx3lh1_source.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2022-11-06T21:26:50+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/0h7w40ofysiv6lkkx3lh1_source.mp4
+  System:FileModifyDate: 2026:08:06 01:25:01-06:00
+  System:FileAccessDate: 2026:10:31 12:59:15-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:25:01-06:00
+  QuickTime:CreateDate: 2022:11:06 15:26:50-06:00
+  QuickTime:ModifyDate: 2022:11:06 15:26:50-06:00
+  Track1:TrackCreateDate: 2022:11:06 15:26:50-06:00
+  Track1:TrackModifyDate: 2022:11:06 15:26:50-06:00
+  Track1:Copy1:MediaCreateDate: 2022:11:06 15:26:50-06:00
+  Track1:Copy1:MediaModifyDate: 2022:11:06 15:26:50-06:00
+  Track2:Copy1:TrackCreateDate: 2022:11:06 15:26:50-06:00
+  Track2:Copy1:TrackModifyDate: 2022:11:06 15:26:50-06:00
+  Track2:MediaCreateDate: 2022:11:06 15:26:50-06:00
+  Track2:MediaModifyDate: 2022:11:06 15:26:50-06:00
+Fechas originales:
+  Acceso: 2026-10-31T18:59:15.229517+00:00 UTC (valor exacto: 1793473155229517018 ns)
+  Modificación: 2026-08-06T07:25:01.306269+00:00 UTC (valor exacto: 1786001101306269157 ns)
+  Cambio de metadatos: 2026-08-06T07:25:01.508268+00:00 UTC (valor exacto: 1786001101508267774 ns)
+Fechas en destino:
+  Acceso: 2022-11-06T21:26:50+00:00 UTC (valor exacto: 1667770010000000000 ns)
+  Modificación: 2022-11-06T21:26:50+00:00 UTC (valor exacto: 1667770010000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:33.663591+00:00 UTC (valor exacto: 1793495373663590547 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/0h86p5qgzyqlthw9okb03_source.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/0h86p5qgzyqlthw9okb03_source.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2022-11-16T01:15:27+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/0h86p5qgzyqlthw9okb03_source.mp4
+  System:FileModifyDate: 2026:08:06 01:26:19-06:00
+  System:FileAccessDate: 2026:10:31 12:59:15-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:26:21-06:00
+  QuickTime:CreateDate: 2022:11:15 19:15:27-06:00
+  QuickTime:ModifyDate: 2022:11:15 19:15:27-06:00
+  Track1:TrackCreateDate: 2022:11:15 19:15:27-06:00
+  Track1:TrackModifyDate: 2022:11:15 19:15:27-06:00
+  Track1:Copy1:MediaCreateDate: 2022:11:15 19:15:27-06:00
+  Track1:Copy1:MediaModifyDate: 2022:11:15 19:15:27-06:00
+  Track2:Copy1:TrackCreateDate: 2022:11:15 19:15:27-06:00
+  Track2:Copy1:TrackModifyDate: 2022:11:15 19:15:27-06:00
+  Track2:MediaCreateDate: 2022:11:15 19:15:27-06:00
+  Track2:MediaModifyDate: 2022:11:15 19:15:27-06:00
+Fechas originales:
+  Acceso: 2026-10-31T18:59:15.695532+00:00 UTC (valor exacto: 1793473155695532207 ns)
+  Modificación: 2026-08-06T07:26:19.871768+00:00 UTC (valor exacto: 1786001179871767507 ns)
+  Cambio de metadatos: 2026-08-06T07:26:21.191760+00:00 UTC (valor exacto: 1786001181191759635 ns)
+Fechas en destino:
+  Acceso: 2022-11-16T01:15:27+00:00 UTC (valor exacto: 1668561327000000000 ns)
+  Modificación: 2022-11-16T01:15:27+00:00 UTC (valor exacto: 1668561327000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:34.849625+00:00 UTC (valor exacto: 1793495374849624555 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/0ha21br7htof1wam1r0dg_source.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/0ha21br7htof1wam1r0dg_source.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2023-01-13T07:08:24+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/0ha21br7htof1wam1r0dg_source.mp4
+  System:FileModifyDate: 2026:08:06 01:24:10-06:00
+  System:FileAccessDate: 2026:10:31 12:59:16-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:24:11-06:00
+  QuickTime:CreateDate: 2023:01:13 01:08:24-06:00
+  QuickTime:ModifyDate: 2023:01:13 01:08:24-06:00
+  Track1:TrackCreateDate: 2023:01:13 01:08:24-06:00
+  Track1:TrackModifyDate: 2023:01:13 01:08:24-06:00
+  Track1:Copy1:MediaCreateDate: 2023:01:13 01:08:24-06:00
+  Track1:Copy1:MediaModifyDate: 2023:01:13 01:08:24-06:00
+  Track2:Copy1:TrackCreateDate: 2023:01:13 01:08:24-06:00
+  Track2:Copy1:TrackModifyDate: 2023:01:13 01:08:24-06:00
+  Track2:MediaCreateDate: 2023:01:13 01:08:24-06:00
+  Track2:MediaModifyDate: 2023:01:13 01:08:24-06:00
+Fechas originales:
+  Acceso: 2026-10-31T18:59:16.665564+00:00 UTC (valor exacto: 1793473156665563857 ns)
+  Modificación: 2026-08-06T07:24:10.900629+00:00 UTC (valor exacto: 1786001050900628469 ns)
+  Cambio de metadatos: 2026-08-06T07:24:11.183626+00:00 UTC (valor exacto: 1786001051183626362 ns)
+Fechas en destino:
+  Acceso: 2023-01-13T07:08:24+00:00 UTC (valor exacto: 1673593704000000000 ns)
+  Modificación: 2023-01-13T07:08:24+00:00 UTC (valor exacto: 1673593704000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:36.308666+00:00 UTC (valor exacto: 1793495376308666377 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/0harv8porlqr2cp8j3zct_source.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/0harv8porlqr2cp8j3zct_source.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2023-02-04T15:25:19+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/0harv8porlqr2cp8j3zct_source.mp4
+  System:FileModifyDate: 2026:08:06 01:24:05-06:00
+  System:FileAccessDate: 2026:10:31 12:59:17-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:24:05-06:00
+  QuickTime:CreateDate: 2023:02:04 09:25:19-06:00
+  QuickTime:ModifyDate: 2023:02:04 09:25:19-06:00
+  Track1:TrackCreateDate: 2023:02:04 09:25:19-06:00
+  Track1:TrackModifyDate: 2023:02:04 09:25:19-06:00
+  Track1:Copy1:MediaCreateDate: 2023:02:04 09:25:19-06:00
+  Track1:Copy1:MediaModifyDate: 2023:02:04 09:25:19-06:00
+  Track2:Copy1:TrackCreateDate: 2023:02:04 09:25:19-06:00
+  Track2:Copy1:TrackModifyDate: 2023:02:04 09:25:19-06:00
+  Track2:MediaCreateDate: 2023:02:04 09:25:19-06:00
+  Track2:MediaModifyDate: 2023:02:04 09:25:19-06:00
+Fechas originales:
+  Acceso: 2026-10-31T18:59:17.621595+00:00 UTC (valor exacto: 1793473157621595092 ns)
+  Modificación: 2026-08-06T07:24:05.170671+00:00 UTC (valor exacto: 1786001045170671334 ns)
+  Cambio de metadatos: 2026-08-06T07:24:05.425669+00:00 UTC (valor exacto: 1786001045425669418 ns)
+Fechas en destino:
+  Acceso: 2023-02-04T15:25:19+00:00 UTC (valor exacto: 1675524319000000000 ns)
+  Modificación: 2023-02-04T15:25:19+00:00 UTC (valor exacto: 1675524319000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:37.642705+00:00 UTC (valor exacto: 1793495377642704603 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/0hax7rkgk6cuva6ewbrtd_source.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/0hax7rkgk6cuva6ewbrtd_source.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2023-02-09T06:25:03+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/0hax7rkgk6cuva6ewbrtd_source.mp4
+  System:FileModifyDate: 2026:08:06 01:25:52-06:00
+  System:FileAccessDate: 2026:10:31 12:59:18-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:25:52-06:00
+  QuickTime:CreateDate: 2023:02:09 00:25:03-06:00
+  QuickTime:ModifyDate: 2023:02:09 00:25:03-06:00
+  Track1:TrackCreateDate: 2023:02:09 00:25:03-06:00
+  Track1:TrackModifyDate: 2023:02:09 00:25:03-06:00
+  Track1:Copy1:MediaCreateDate: 2023:02:09 00:25:03-06:00
+  Track1:Copy1:MediaModifyDate: 2023:02:09 00:25:03-06:00
+  Track2:Copy1:TrackCreateDate: 2023:02:09 00:25:03-06:00
+  Track2:Copy1:TrackModifyDate: 2023:02:09 00:25:03-06:00
+  Track2:MediaCreateDate: 2023:02:09 00:25:03-06:00
+  Track2:MediaModifyDate: 2023:02:09 00:25:03-06:00
+Fechas originales:
+  Acceso: 2026-10-31T18:59:18.115611+00:00 UTC (valor exacto: 1793473158115611246 ns)
+  Modificación: 2026-08-06T07:25:52.153937+00:00 UTC (valor exacto: 1786001152153936903 ns)
+  Cambio de metadatos: 2026-08-06T07:25:52.442935+00:00 UTC (valor exacto: 1786001152442935096 ns)
+Fechas en destino:
+  Acceso: 2023-02-09T06:25:03+00:00 UTC (valor exacto: 1675923903000000000 ns)
+  Modificación: 2023-02-09T06:25:03+00:00 UTC (valor exacto: 1675923903000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:39.631762+00:00 UTC (valor exacto: 1793495379631761577 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/0hdpq83on0jreknw5lnko_source.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/0hdpq83on0jreknw5lnko_source.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2023-05-07T05:01:27+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/0hdpq83on0jreknw5lnko_source.mp4
+  System:FileModifyDate: 2026:08:06 01:28:56-06:00
+  System:FileAccessDate: 2026:10:31 12:59:22-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:28:56-06:00
+  QuickTime:CreateDate: 2023:05:06 23:01:27-06:00
+  QuickTime:ModifyDate: 2023:05:06 23:01:27-06:00
+  Track1:TrackCreateDate: 2023:05:06 23:01:27-06:00
+  Track1:TrackModifyDate: 2023:05:06 23:01:27-06:00
+  Track1:Copy1:MediaCreateDate: 2023:05:06 23:01:27-06:00
+  Track1:Copy1:MediaModifyDate: 2023:05:06 23:01:27-06:00
+  Track2:Copy1:TrackCreateDate: 2023:05:06 23:01:27-06:00
+  Track2:Copy1:TrackModifyDate: 2023:05:06 23:01:27-06:00
+  Track2:MediaCreateDate: 2023:05:06 23:01:27-06:00
+  Track2:MediaModifyDate: 2023:05:06 23:01:27-06:00
+Fechas originales:
+  Acceso: 2026-10-31T18:59:22.557757+00:00 UTC (valor exacto: 1793473162557757032 ns)
+  Modificación: 2026-08-06T07:28:56.005946+00:00 UTC (valor exacto: 1786001336005946461 ns)
+  Cambio de metadatos: 2026-08-06T07:28:56.267945+00:00 UTC (valor exacto: 1786001336267945253 ns)
+Fechas en destino:
+  Acceso: 2023-05-07T05:01:27+00:00 UTC (valor exacto: 1683435687000000000 ns)
+  Modificación: 2023-05-07T05:01:27+00:00 UTC (valor exacto: 1683435687000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:40.896798+00:00 UTC (valor exacto: 1793495380896797799 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/0he25pbd7srpxtv08tabw_source.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/0he25pbd7srpxtv08tabw_source.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2023-05-17T23:01:54+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/0he25pbd7srpxtv08tabw_source.mp4
+  System:FileModifyDate: 2026:08:06 01:24:19-06:00
+  System:FileAccessDate: 2026:10:31 12:59:22-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:24:21-06:00
+  QuickTime:CreateDate: 2023:05:17 17:01:54-06:00
+  QuickTime:ModifyDate: 2023:05:17 17:01:54-06:00
+  Track1:TrackCreateDate: 2023:05:17 17:01:54-06:00
+  Track1:TrackModifyDate: 2023:05:17 17:01:54-06:00
+  Track1:Copy1:MediaCreateDate: 2023:05:17 17:01:54-06:00
+  Track1:Copy1:MediaModifyDate: 2023:05:17 17:01:54-06:00
+  Track2:Copy1:TrackCreateDate: 2023:05:17 17:01:54-06:00
+  Track2:Copy1:TrackModifyDate: 2023:05:17 17:01:54-06:00
+  Track2:MediaCreateDate: 2023:05:17 17:01:54-06:00
+  Track2:MediaModifyDate: 2023:05:17 17:01:54-06:00
+Fechas originales:
+  Acceso: 2026-10-31T18:59:22.982771+00:00 UTC (valor exacto: 1793473162982771021 ns)
+  Modificación: 2026-08-06T07:24:19.026568+00:00 UTC (valor exacto: 1786001059026568405 ns)
+  Cambio de metadatos: 2026-08-06T07:24:21.549550+00:00 UTC (valor exacto: 1786001061549549927 ns)
+Fechas en destino:
+  Acceso: 2023-05-17T23:01:54+00:00 UTC (valor exacto: 1684364514000000000 ns)
+  Modificación: 2023-05-17T23:01:54+00:00 UTC (valor exacto: 1684364514000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:42.882855+00:00 UTC (valor exacto: 1793495382882854643 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/0hf9qwuzqcbg6ov4r0cmc_source.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/0hf9qwuzqcbg6ov4r0cmc_source.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2023-06-24T15:59:04+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/0hf9qwuzqcbg6ov4r0cmc_source.mp4
+  System:FileModifyDate: 2026:08:06 01:26:22-06:00
+  System:FileAccessDate: 2026:10:31 12:59:25-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:26:23-06:00
+  QuickTime:CreateDate: 2023:06:24 09:59:04-06:00
+  QuickTime:ModifyDate: 2023:06:24 09:59:04-06:00
+  Track1:TrackCreateDate: 2023:06:24 09:59:04-06:00
+  Track1:TrackModifyDate: 2023:06:24 09:59:04-06:00
+  Track1:Copy1:MediaCreateDate: 2023:06:24 09:59:04-06:00
+  Track1:Copy1:MediaModifyDate: 2023:06:24 09:59:04-06:00
+  Track2:Copy1:TrackCreateDate: 2023:06:24 09:59:04-06:00
+  Track2:Copy1:TrackModifyDate: 2023:06:24 09:59:04-06:00
+  Track2:MediaCreateDate: 2023:06:24 09:59:04-06:00
+  Track2:MediaModifyDate: 2023:06:24 09:59:04-06:00
+Fechas originales:
+  Acceso: 2026-10-31T18:59:25.547856+00:00 UTC (valor exacto: 1793473165547855657 ns)
+  Modificación: 2026-08-06T07:26:22.324753+00:00 UTC (valor exacto: 1786001182324752896 ns)
+  Cambio de metadatos: 2026-08-06T07:26:23.861744+00:00 UTC (valor exacto: 1786001183861743772 ns)
+Fechas en destino:
+  Acceso: 2023-06-24T15:59:04+00:00 UTC (valor exacto: 1687622344000000000 ns)
+  Modificación: 2023-06-24T15:59:04+00:00 UTC (valor exacto: 1687622344000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:44.547902+00:00 UTC (valor exacto: 1793495384547902278 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/1_5129926255650539499.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/1_5129926255650539499.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2022-06-12T21:48:42+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/1_5129926255650539499.mp4
+  System:FileModifyDate: 2026:08:06 01:26:09-06:00
+  System:FileAccessDate: 2026:10:31 12:59:35-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:26:11-06:00
+  QuickTime:CreateDate: 2022:06:12 16:48:42-05:00
+  QuickTime:ModifyDate: 2022:06:12 16:48:42-05:00
+  Track1:TrackCreateDate: 2022:06:12 16:48:42-05:00
+  Track1:TrackModifyDate: 2022:06:12 16:48:42-05:00
+  Track1:Copy1:MediaCreateDate: 2022:06:12 16:48:42-05:00
+  Track1:Copy1:MediaModifyDate: 2022:06:12 16:48:42-05:00
+  Track2:Copy1:TrackCreateDate: 2022:06:12 16:48:42-05:00
+  Track2:Copy1:TrackModifyDate: 2022:06:12 16:48:42-05:00
+  Track2:MediaCreateDate: 2022:06:12 16:48:42-05:00
+  Track2:MediaModifyDate: 2022:06:12 16:48:42-05:00
+Fechas originales:
+  Acceso: 2026-10-31T18:59:35.470186+00:00 UTC (valor exacto: 1793473175470185675 ns)
+  Modificación: 2026-08-06T07:26:09.635829+00:00 UTC (valor exacto: 1786001169635829140 ns)
+  Cambio de metadatos: 2026-08-06T07:26:11.112820+00:00 UTC (valor exacto: 1786001171112820180 ns)
+Fechas en destino:
+  Acceso: 2022-06-12T21:48:42+00:00 UTC (valor exacto: 1655070522000000000 ns)
+  Modificación: 2022-06-12T21:48:42+00:00 UTC (valor exacto: 1655070522000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:48.320010+00:00 UTC (valor exacto: 1793495388320010126 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Enough Ass For Two.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Enough Ass For Two.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-05T23:48:46+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Enough Ass For Two.mp4
+  System:FileModifyDate: 2026:08:05 17:48:46-06:00
+  System:FileAccessDate: 2026:10:31 13:01:10-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:24:09-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:01:10.317503+00:00 UTC (valor exacto: 1793473270317503185 ns)
+  Modificación: 2026-08-05T23:48:46+00:00 UTC (valor exacto: 1785973726000000000 ns)
+  Cambio de metadatos: 2026-08-06T07:24:09.735637+00:00 UTC (valor exacto: 1786001049735637151 ns)
+Fechas en destino:
+  Acceso: 2026-08-05T23:48:46+00:00 UTC (valor exacto: 1785973726000000000 ns)
+  Modificación: 2026-08-05T23:48:46+00:00 UTC (valor exacto: 1785973726000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:54.248179+00:00 UTC (valor exacto: 1793495394248179428 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Father's Day-Tape 5.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Father's Day-Tape 5.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T07:24:32+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Father's Day-Tape 5.mp4
+  System:FileModifyDate: 2026:08:06 01:24:32-06:00
+  System:FileAccessDate: 2026:10:31 13:01:19-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:24:32-06:00
+  QuickTime:CreateDate: 1903:12:31 17:24:00-06:36
+  QuickTime:ModifyDate: 1903:12:31 17:24:00-06:36
+  Track1:TrackCreateDate: 1903:12:31 17:24:00-06:36
+  Track1:TrackModifyDate: 1903:12:31 17:24:00-06:36
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:24:00-06:36
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:24:00-06:36
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:24:00-06:36
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:24:00-06:36
+  Track2:MediaCreateDate: 1903:12:31 17:24:00-06:36
+  Track2:MediaModifyDate: 1903:12:31 17:24:00-06:36
+Fechas originales:
+  Acceso: 2026-10-31T19:01:19.619840+00:00 UTC (valor exacto: 1793473279619840353 ns)
+  Modificación: 2026-08-06T07:24:32.127473+00:00 UTC (valor exacto: 1786001072127473338 ns)
+  Cambio de metadatos: 2026-08-06T07:24:32.919468+00:00 UTC (valor exacto: 1786001072919467661 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T07:24:32+00:00 UTC (valor exacto: 1786001072000000000 ns)
+  Modificación: 2026-08-06T07:24:32+00:00 UTC (valor exacto: 1786001072000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:09:57.619276+00:00 UTC (valor exacto: 1793495397619275599 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:35:35+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4
+  System:FileModifyDate: 2026:08:06 00:35:35-06:00
+  System:FileAccessDate: 2026:10:31 13:01:31-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:35:36-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:01:31.883287+00:00 UTC (valor exacto: 1793473291883287182 ns)
+  Modificación: 2026-08-06T06:35:35.007927+00:00 UTC (valor exacto: 1785998135007927390 ns)
+  Cambio de metadatos: 2026-08-06T06:35:36.001930+00:00 UTC (valor exacto: 1785998136001929786 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:35:35+00:00 UTC (valor exacto: 1785998135000000000 ns)
+  Modificación: 2026-08-06T06:35:35+00:00 UTC (valor exacto: 1785998135000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:01.746393+00:00 UTC (valor exacto: 1793495401746393237 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:36:20+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4
+  System:FileModifyDate: 2026:08:06 00:36:20-06:00
+  System:FileAccessDate: 2026:10:31 13:01:34-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:36:21-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:01:34.719391+00:00 UTC (valor exacto: 1793473294719390874 ns)
+  Modificación: 2026-08-06T06:36:20.687037+00:00 UTC (valor exacto: 1785998180687036586 ns)
+  Cambio de metadatos: 2026-08-06T06:36:21.463038+00:00 UTC (valor exacto: 1785998181463038423 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:36:20+00:00 UTC (valor exacto: 1785998180000000000 ns)
+  Modificación: 2026-08-06T06:36:20+00:00 UTC (valor exacto: 1785998180000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:05.378497+00:00 UTC (valor exacto: 1793495405378496674 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:37:26+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4
+  System:FileModifyDate: 2026:08:06 00:37:26-06:00
+  System:FileAccessDate: 2026:10:31 13:01:37-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:37:27-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:01:37.455491+00:00 UTC (valor exacto: 1793473297455491029 ns)
+  Modificación: 2026-08-06T06:37:26.146191+00:00 UTC (valor exacto: 1785998246146190544 ns)
+  Cambio de metadatos: 2026-08-06T06:37:27.683194+00:00 UTC (valor exacto: 1785998247683194122 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:37:26+00:00 UTC (valor exacto: 1785998246000000000 ns)
+  Modificación: 2026-08-06T06:37:26+00:00 UTC (valor exacto: 1785998246000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:08.710592+00:00 UTC (valor exacto: 1793495408710591493 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Hot_AF!_-_Alfonso_Os...PORNER.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Hot_AF!_-_Alfonso_Os...PORNER.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:35:52+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Hot_AF!_-_Alfonso_Os...PORNER.mp4
+  System:FileModifyDate: 2026:08:06 00:35:52-06:00
+  System:FileAccessDate: 2026:10:31 13:01:42-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:35:52-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:48-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:48-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:48-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:48-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:48-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:48-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:48-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:48-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:48-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:48-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:01:42.981694+00:00 UTC (valor exacto: 1793473302981693665 ns)
+  Modificación: 2026-08-06T06:35:52.203969+00:00 UTC (valor exacto: 1785998152203968688 ns)
+  Cambio de metadatos: 2026-08-06T06:35:52.975971+00:00 UTC (valor exacto: 1785998152975970539 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:35:52+00:00 UTC (valor exacto: 1785998152000000000 ns)
+  Modificación: 2026-08-06T06:35:52+00:00 UTC (valor exacto: 1785998152000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:12.112688+00:00 UTC (valor exacto: 1793495412112688231 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Leah Maus - Alita Angel - EPORNER.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Leah Maus - Alita Angel - EPORNER.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:39:28+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Leah Maus - Alita Angel - EPORNER.mp4
+  System:FileModifyDate: 2026:08:06 00:39:28-06:00
+  System:FileAccessDate: 2026:10:31 13:01:58-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:39:37-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:01:58.335399+00:00 UTC (valor exacto: 1793473318335399228 ns)
+  Modificación: 2026-08-06T06:39:28.385471+00:00 UTC (valor exacto: 1785998368385470740 ns)
+  Cambio de metadatos: 2026-08-06T06:39:37.893492+00:00 UTC (valor exacto: 1785998377893492187 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:39:28+00:00 UTC (valor exacto: 1785998368000000000 ns)
+  Modificación: 2026-08-06T06:39:28+00:00 UTC (valor exacto: 1785998368000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:16.481812+00:00 UTC (valor exacto: 1793495416481812357 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Mind Fuck Falcon Studios.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Mind Fuck Falcon Studios.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:39:06+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Mind Fuck Falcon Studios.mp4
+  System:FileModifyDate: 2026:08:06 00:39:06-06:00
+  System:FileAccessDate: 2026:10:31 13:02:12-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:39:08-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:02:12.610889+00:00 UTC (valor exacto: 1793473332610888714 ns)
+  Modificación: 2026-08-06T06:39:06.197421+00:00 UTC (valor exacto: 1785998346197420511 ns)
+  Cambio de metadatos: 2026-08-06T06:39:08.563426+00:00 UTC (valor exacto: 1785998348563425885 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:39:06+00:00 UTC (valor exacto: 1785998346000000000 ns)
+  Modificación: 2026-08-06T06:39:06+00:00 UTC (valor exacto: 1785998346000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:22.156973+00:00 UTC (valor exacto: 1793495422156973409 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:36:50+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4
+  System:FileModifyDate: 2026:08:06 00:36:50-06:00
+  System:FileAccessDate: 2026:10:31 13:02:17-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:36:50-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:02:17.305203+00:00 UTC (valor exacto: 1793473337305202726 ns)
+  Modificación: 2026-08-06T06:36:50.154106+00:00 UTC (valor exacto: 1785998210154106227 ns)
+  Cambio de metadatos: 2026-08-06T06:36:50.829108+00:00 UTC (valor exacto: 1785998210829107814 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:36:50+00:00 UTC (valor exacto: 1785998210000000000 ns)
+  Modificación: 2026-08-06T06:36:50+00:00 UTC (valor exacto: 1785998210000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:25.783076+00:00 UTC (valor exacto: 1793495425783076206 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:38:55+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4
+  System:FileModifyDate: 2026:08:06 00:38:55-06:00
+  System:FileAccessDate: 2026:10:31 13:02:18-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:38:56-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:02:18.768689+00:00 UTC (valor exacto: 1793473338768689165 ns)
+  Modificación: 2026-08-06T06:38:55.005395+00:00 UTC (valor exacto: 1785998335005395071 ns)
+  Cambio de metadatos: 2026-08-06T06:38:56.338398+00:00 UTC (valor exacto: 1785998336338398105 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:38:55+00:00 UTC (valor exacto: 1785998335000000000 ns)
+  Modificación: 2026-08-06T06:38:55+00:00 UTC (valor exacto: 1785998335000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:30.405207+00:00 UTC (valor exacto: 1793495430405207122 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:39:49+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4
+  System:FileModifyDate: 2026:08:06 00:39:49-06:00
+  System:FileAccessDate: 2026:10:31 13:02:33-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:39:51-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:02:33.579798+00:00 UTC (valor exacto: 1793473353579798471 ns)
+  Modificación: 2026-08-06T06:39:49.379518+00:00 UTC (valor exacto: 1785998389379518033 ns)
+  Cambio de metadatos: 2026-08-06T06:39:51.682523+00:00 UTC (valor exacto: 1785998391682523212 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:39:49+00:00 UTC (valor exacto: 1785998389000000000 ns)
+  Modificación: 2026-08-06T06:39:49+00:00 UTC (valor exacto: 1785998389000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:36.556381+00:00 UTC (valor exacto: 1793495436556381144 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:38:46+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4
+  System:FileModifyDate: 2026:08:06 00:38:46-06:00
+  System:FileAccessDate: 2026:10:31 13:02:36-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:38:48-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:02:36.137008+00:00 UTC (valor exacto: 1793473356137007642 ns)
+  Modificación: 2026-08-06T06:38:46.715376+00:00 UTC (valor exacto: 1785998326715376186 ns)
+  Cambio de metadatos: 2026-08-06T06:38:48.798381+00:00 UTC (valor exacto: 1785998328798380936 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:38:46+00:00 UTC (valor exacto: 1785998326000000000 ns)
+  Modificación: 2026-08-06T06:38:46+00:00 UTC (valor exacto: 1785998326000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:40.495492+00:00 UTC (valor exacto: 1793495440495492465 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:38:19+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4
+  System:FileModifyDate: 2026:08:06 00:38:19-06:00
+  System:FileAccessDate: 2026:10:31 13:02:40-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:38:20-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:02:40.347738+00:00 UTC (valor exacto: 1793473360347738376 ns)
+  Modificación: 2026-08-06T06:38:19.100313+00:00 UTC (valor exacto: 1785998299100313000 ns)
+  Cambio de metadatos: 2026-08-06T06:38:20.911317+00:00 UTC (valor exacto: 1785998300911317159 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:38:19+00:00 UTC (valor exacto: 1785998299000000000 ns)
+  Modificación: 2026-08-06T06:38:19+00:00 UTC (valor exacto: 1785998299000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:44.208597+00:00 UTC (valor exacto: 1793495444208597313 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:37:21+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4
+  System:FileModifyDate: 2026:08:06 00:37:21-06:00
+  System:FileAccessDate: 2026:10:31 13:02:45-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:37:23-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:02:45.107351+00:00 UTC (valor exacto: 1793473365107350724 ns)
+  Modificación: 2026-08-06T06:37:21.330179+00:00 UTC (valor exacto: 1785998241330179314 ns)
+  Cambio de metadatos: 2026-08-06T06:37:23.080183+00:00 UTC (valor exacto: 1785998243080183393 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:37:21+00:00 UTC (valor exacto: 1785998241000000000 ns)
+  Modificación: 2026-08-06T06:37:21+00:00 UTC (valor exacto: 1785998241000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:47.788698+00:00 UTC (valor exacto: 1793495447788698327 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:36:16+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4
+  System:FileModifyDate: 2026:08:06 00:36:16-06:00
+  System:FileAccessDate: 2026:10:31 13:02:46-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:36:18-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:24-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:24-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:24-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:24-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:24-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:24-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:24-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:24-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:24-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:24-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:02:46.349997+00:00 UTC (valor exacto: 1793473366349996665 ns)
+  Modificación: 2026-08-06T06:36:16.862027+00:00 UTC (valor exacto: 1785998176862027504 ns)
+  Cambio de metadatos: 2026-08-06T06:36:18.248031+00:00 UTC (valor exacto: 1785998178248030795 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:36:16+00:00 UTC (valor exacto: 1785998176000000000 ns)
+  Modificación: 2026-08-06T06:36:16+00:00 UTC (valor exacto: 1785998176000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:53.921871+00:00 UTC (valor exacto: 1793495453921871202 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Staxus International College 2_ Episode 2.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Staxus International College 2_ Episode 2.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T00:19:18+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Staxus International College 2_ Episode 2.mp4
+  System:FileModifyDate: 2026:08:05 18:19:18-06:00
+  System:FileAccessDate: 2026:10:31 13:02:52-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:17:44-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:02:52.657248+00:00 UTC (valor exacto: 1793473372657248633 ns)
+  Modificación: 2026-08-06T00:19:18+00:00 UTC (valor exacto: 1785975558000000000 ns)
+  Cambio de metadatos: 2026-08-06T07:17:44.304770+00:00 UTC (valor exacto: 1786000664304770205 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T00:19:18+00:00 UTC (valor exacto: 1785975558000000000 ns)
+  Modificación: 2026-08-06T00:19:18+00:00 UTC (valor exacto: 1785975558000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:10:57.599975+00:00 UTC (valor exacto: 1793495457599974770 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Study Group streaming at Helix Studios.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Study Group streaming at Helix Studios.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:38:01+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Study Group streaming at Helix Studios.mp4
+  System:FileModifyDate: 2026:08:06 00:38:01-06:00
+  System:FileAccessDate: 2026:10:31 13:02:58-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:38:02-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:02:58.422721+00:00 UTC (valor exacto: 1793473378422721054 ns)
+  Modificación: 2026-08-06T06:38:01.081272+00:00 UTC (valor exacto: 1785998281081271524 ns)
+  Cambio de metadatos: 2026-08-06T06:38:02.427275+00:00 UTC (valor exacto: 1785998282427274632 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:38:01+00:00 UTC (valor exacto: 1785998281000000000 ns)
+  Modificación: 2026-08-06T06:38:01+00:00 UTC (valor exacto: 1785998281000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:11:00.486056+00:00 UTC (valor exacto: 1793495460486055981 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:35:16+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4
+  System:FileModifyDate: 2026:08:06 00:35:16-06:00
+  System:FileAccessDate: 2026:10:31 13:03:06-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:35:17-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:24-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:24-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:24-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:24-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:24-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:24-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:24-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:24-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:24-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:24-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:03:06.175767+00:00 UTC (valor exacto: 1793473386175767223 ns)
+  Modificación: 2026-08-06T06:35:16.410882+00:00 UTC (valor exacto: 1785998116410882458 ns)
+  Cambio de metadatos: 2026-08-06T06:35:17.121884+00:00 UTC (valor exacto: 1785998117121884180 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:35:16+00:00 UTC (valor exacto: 1785998116000000000 ns)
+  Modificación: 2026-08-06T06:35:16+00:00 UTC (valor exacto: 1785998116000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:11:03.655145+00:00 UTC (valor exacto: 1793495463655145101 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/The Air Outside.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/The Air Outside.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:36:00+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/The Air Outside.mp4
+  System:FileModifyDate: 2026:08:06 00:36:00-06:00
+  System:FileAccessDate: 2026:10:31 13:03:08-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:36:04-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:48-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:48-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:48-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:48-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:48-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:48-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:48-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:48-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:48-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:48-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:03:08.764139+00:00 UTC (valor exacto: 1793473388764139601 ns)
+  Modificación: 2026-08-06T06:36:00.500988+00:00 UTC (valor exacto: 1785998160500988536 ns)
+  Cambio de metadatos: 2026-08-06T06:36:04.416998+00:00 UTC (valor exacto: 1785998164416997881 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:36:00+00:00 UTC (valor exacto: 1785998160000000000 ns)
+  Modificación: 2026-08-06T06:36:00+00:00 UTC (valor exacto: 1785998160000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:11:07.445251+00:00 UTC (valor exacto: 1793495467445251608 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:35:56+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4
+  System:FileModifyDate: 2026:08:06 00:35:56-06:00
+  System:FileAccessDate: 2026:10:31 13:03:10-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:35:57-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:03:10.024838+00:00 UTC (valor exacto: 1793473390024838080 ns)
+  Modificación: 2026-08-06T06:35:56.937980+00:00 UTC (valor exacto: 1785998156937980019 ns)
+  Cambio de metadatos: 2026-08-06T06:35:57.547982+00:00 UTC (valor exacto: 1785998157547981480 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:35:56+00:00 UTC (valor exacto: 1785998156000000000 ns)
+  Modificación: 2026-08-06T06:35:56+00:00 UTC (valor exacto: 1785998156000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:11:10.495337+00:00 UTC (valor exacto: 1793495470495337261 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:39:00+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4
+  System:FileModifyDate: 2026:08:06 00:39:00-06:00
+  System:FileAccessDate: 2026:10:31 13:03:10-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:39:03-06:00
+  QuickTime:CreateDate: 1903:12:31 17:24:00-06:36
+  QuickTime:ModifyDate: 1903:12:31 17:24:00-06:36
+  Track1:TrackCreateDate: 1903:12:31 17:24:00-06:36
+  Track1:TrackModifyDate: 1903:12:31 17:24:00-06:36
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:24:00-06:36
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:24:00-06:36
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:24:00-06:36
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:24:00-06:36
+  Track2:MediaCreateDate: 1903:12:31 17:24:00-06:36
+  Track2:MediaModifyDate: 1903:12:31 17:24:00-06:36
+Fechas originales:
+  Acceso: 2026-10-31T19:03:10.949619+00:00 UTC (valor exacto: 1793473390949618805 ns)
+  Modificación: 2026-08-06T06:39:00.031407+00:00 UTC (valor exacto: 1785998340031406501 ns)
+  Cambio de metadatos: 2026-08-06T06:39:03.324414+00:00 UTC (valor exacto: 1785998343324413989 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:39:00+00:00 UTC (valor exacto: 1785998340000000000 ns)
+  Modificación: 2026-08-06T06:39:00+00:00 UTC (valor exacto: 1785998340000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:11:18.219554+00:00 UTC (valor exacto: 1793495478219553937 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/The Brazilians Flip Fuck.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/The Brazilians Flip Fuck.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:36:09+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/The Brazilians Flip Fuck.mp4
+  System:FileModifyDate: 2026:08:06 00:36:09-06:00
+  System:FileAccessDate: 2026:10:31 13:03:13-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:36:10-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:03:13.363054+00:00 UTC (valor exacto: 1793473393363053662 ns)
+  Modificación: 2026-08-06T06:36:09.429010+00:00 UTC (valor exacto: 1785998169429009825 ns)
+  Cambio de metadatos: 2026-08-06T06:36:10.009011+00:00 UTC (valor exacto: 1785998170009011205 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:36:09+00:00 UTC (valor exacto: 1785998169000000000 ns)
+  Modificación: 2026-08-06T06:36:09+00:00 UTC (valor exacto: 1785998169000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:11:24.441728+00:00 UTC (valor exacto: 1793495484441728236 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:35:48+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4
+  System:FileModifyDate: 2026:08:06 00:35:48-06:00
+  System:FileAccessDate: 2026:10:31 13:03:16-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:35:49-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:03:16.193403+00:00 UTC (valor exacto: 1793473396193403344 ns)
+  Modificación: 2026-08-06T06:35:48.679960+00:00 UTC (valor exacto: 1785998148679960242 ns)
+  Cambio de metadatos: 2026-08-06T06:35:49.612962+00:00 UTC (valor exacto: 1785998149612962480 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:35:48+00:00 UTC (valor exacto: 1785998148000000000 ns)
+  Modificación: 2026-08-06T06:35:48+00:00 UTC (valor exacto: 1785998148000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:11:33.428980+00:00 UTC (valor exacto: 1793495493428979616 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Train Fuck of Fun.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Train Fuck of Fun.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:36:58+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Train Fuck of Fun.mp4
+  System:FileModifyDate: 2026:08:06 00:36:58-06:00
+  System:FileAccessDate: 2026:10:31 13:03:19-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:36:59-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:03:19.331698+00:00 UTC (valor exacto: 1793473399331698085 ns)
+  Modificación: 2026-08-06T06:36:58.571126+00:00 UTC (valor exacto: 1785998218571126017 ns)
+  Cambio de metadatos: 2026-08-06T06:36:59.430128+00:00 UTC (valor exacto: 1785998219430128035 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:36:58+00:00 UTC (valor exacto: 1785998218000000000 ns)
+  Modificación: 2026-08-06T06:36:58+00:00 UTC (valor exacto: 1785998218000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:11:41.404202+00:00 UTC (valor exacto: 1793495501404202322 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Train Fuck.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Train Fuck.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:38:51+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Train Fuck.mp4
+  System:FileModifyDate: 2026:08:06 00:38:51-06:00
+  System:FileAccessDate: 2026:10:31 13:03:20-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:38:52-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:03:20.610415+00:00 UTC (valor exacto: 1793473400610415354 ns)
+  Modificación: 2026-08-06T06:38:51.254386+00:00 UTC (valor exacto: 1785998331254386531 ns)
+  Cambio de metadatos: 2026-08-06T06:38:52.420389+00:00 UTC (valor exacto: 1785998332420389186 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:38:51+00:00 UTC (valor exacto: 1785998331000000000 ns)
+  Modificación: 2026-08-06T06:38:51+00:00 UTC (valor exacto: 1785998331000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:11:44.700294+00:00 UTC (valor exacto: 1793495504700294266 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Two_huge_cocks_for_c...TV.com.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Two_huge_cocks_for_c...TV.com.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:36:35+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Two_huge_cocks_for_c...TV.com.mp4
+  System:FileModifyDate: 2026:08:06 00:36:35-06:00
+  System:FileAccessDate: 2026:10:31 13:03:25-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:36:39-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:48-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:48-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:48-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:48-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:48-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:48-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:48-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:48-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:48-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:48-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:03:25.117440+00:00 UTC (valor exacto: 1793473405117439611 ns)
+  Modificación: 2026-08-06T06:36:35.950073+00:00 UTC (valor exacto: 1785998195950072720 ns)
+  Cambio de metadatos: 2026-08-06T06:36:39.522081+00:00 UTC (valor exacto: 1785998199522081156 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:36:35+00:00 UTC (valor exacto: 1785998195000000000 ns)
+  Modificación: 2026-08-06T06:36:35+00:00 UTC (valor exacto: 1785998195000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:11:49.104417+00:00 UTC (valor exacto: 1793495509104417027 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:36:47+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4
+  System:FileModifyDate: 2026:08:06 00:36:47-06:00
+  System:FileAccessDate: 2026:10:31 13:03:26-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:36:48-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:03:26.399168+00:00 UTC (valor exacto: 1793473406399168107 ns)
+  Modificación: 2026-08-06T06:36:47.255099+00:00 UTC (valor exacto: 1785998207255099404 ns)
+  Cambio de metadatos: 2026-08-06T06:36:48.291102+00:00 UTC (valor exacto: 1785998208291101843 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:36:47+00:00 UTC (valor exacto: 1785998207000000000 ns)
+  Modificación: 2026-08-06T06:36:47+00:00 UTC (valor exacto: 1785998207000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:11:54.441566+00:00 UTC (valor exacto: 1793495514441565659 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:39:40+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4
+  System:FileModifyDate: 2026:08:06 00:39:40-06:00
+  System:FileAccessDate: 2026:10:31 13:03:30-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:39:42-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:03:30.384340+00:00 UTC (valor exacto: 1793473410384339731 ns)
+  Modificación: 2026-08-06T06:39:40.738498+00:00 UTC (valor exacto: 1785998380738498596 ns)
+  Cambio de metadatos: 2026-08-06T06:39:42.408502+00:00 UTC (valor exacto: 1785998382408502352 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:39:40+00:00 UTC (valor exacto: 1785998380000000000 ns)
+  Modificación: 2026-08-06T06:39:40+00:00 UTC (valor exacto: 1785998380000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:11:59.931718+00:00 UTC (valor exacto: 1793495519931718398 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2024-04-26T11:18:52+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4
+  System:FileModifyDate: 2026:08:06 00:36:12-06:00
+  System:FileAccessDate: 2026:10:31 13:03:37-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:36:12-06:00
+  QuickTime:CreateDate: 2024:04:26 05:18:52-06:00
+  QuickTime:ModifyDate: 2024:04:26 05:18:52-06:00
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 2024:04:26 05:18:55-06:00
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 2024:04:26 05:18:53-06:00
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 2024:04:26 05:18:55-06:00
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 2024:04:26 05:18:55-06:00
+Fechas originales:
+  Acceso: 2026-10-31T19:03:37.755870+00:00 UTC (valor exacto: 1793473417755869654 ns)
+  Modificación: 2026-08-06T06:36:12.007016+00:00 UTC (valor exacto: 1785998172007015960 ns)
+  Cambio de metadatos: 2026-08-06T06:36:12.903018+00:00 UTC (valor exacto: 1785998172903018091 ns)
+Fechas en destino:
+  Acceso: 2024-04-26T11:18:52+00:00 UTC (valor exacto: 1714130332000000000 ns)
+  Modificación: 2024-04-26T11:18:52+00:00 UTC (valor exacto: 1714130332000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:12:09.333980+00:00 UTC (valor exacto: 1793495529333979614 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T06:55:13+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4
+  System:FileModifyDate: 2026:08:06 00:55:13-06:00
+  System:FileAccessDate: 2026:10:31 13:03:51-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:55:18-06:00
+  QuickTime:CreateDate: 1903:12:31 17:23:36-06:37
+  QuickTime:ModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaCreateDate: 1903:12:31 17:23:36-06:37
+  Track2:MediaModifyDate: 1903:12:31 17:23:36-06:37
+Fechas originales:
+  Acceso: 2026-10-31T19:03:51.265372+00:00 UTC (valor exacto: 1793473431265372124 ns)
+  Modificación: 2026-08-06T06:55:13.257470+00:00 UTC (valor exacto: 1785999313257470168 ns)
+  Cambio de metadatos: 2026-08-06T06:55:18.119480+00:00 UTC (valor exacto: 1785999318119480074 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T06:55:13+00:00 UTC (valor exacto: 1785999313000000000 ns)
+  Modificación: 2026-08-06T06:55:13+00:00 UTC (valor exacto: 1785999313000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:12:20.398286+00:00 UTC (valor exacto: 1793495540398286434 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/a-fantastic-threesome.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/a-fantastic-threesome.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2013-10-23T07:50:36+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/a-fantastic-threesome.mp4
+  System:FileModifyDate: 2026:08:06 01:26:06-06:00
+  System:FileAccessDate: 2026:10:31 13:03:55-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:26:07-06:00
+  QuickTime:Copy1:CreateDate: 2014:10:17 13:40:52-05:00
+  QuickTime:Copy1:ModifyDate: 2014:10:17 13:42:03-05:00
+  Track1:TrackCreateDate: 2014:10:17 13:40:52-05:00
+  Track1:TrackModifyDate: 2014:10:17 13:40:52-05:00
+  Track1:Copy1:MediaCreateDate: 2014:10:17 13:40:52-05:00
+  Track1:Copy1:MediaModifyDate: 2014:10:17 13:40:52-05:00
+  Track2:Copy1:TrackCreateDate: 2014:10:17 13:40:52-05:00
+  Track2:Copy1:TrackModifyDate: 2014:10:17 13:40:52-05:00
+  Track2:MediaCreateDate: 2014:10:17 13:40:52-05:00
+  Track2:MediaModifyDate: 2014:10:17 13:40:52-05:00
+  XMP-xmp:CreateDate: 2014:10:17 21:40:52+03:00
+  XMP-xmp:MetadataDate: 2014:10:17 21:42:03+03:00
+  XMP-xmp:ModifyDate: 2014:10:17 21:42:03+03:00
+  XMP-xmpMM:HistoryWhen: ['2014:10:17 20:53:37+03:00', '2014:10:17 21:42:03+03:00']
+  XMP-xmpMM:Copy1:PantryMetadataDate: 2014:10:17 19:52:42+03:00
+  XMP-xmpMM:Copy1:PantryModifyDate: 2014:10:17 19:52:42+03:00
+  XMP-xmpMM:Copy1:PantryCreateDate: 2014:06:19 13:14:49Z
+  XMP-xmpMM:Copy2:PantryMetadataDate: 2014:10:17 19:52:42+03:00
+  XMP-xmpMM:Copy2:PantryModifyDate: 2014:10:17 19:52:42+03:00
+  XMP-xmpMM:Copy2:PantryCreateDate: 2014:10:02 14:21:58Z
+  XMP-xmpMM:Copy3:PantryMetadataDate: 2014:10:02 17:11:31+02:00
+  XMP-xmpMM:Copy3:PantryModifyDate: 2014:10:02 14:56:58Z
+  XMP-xmpMM:Copy3:PantryCreateDate: 2014:09:22 14:26:21Z
+  XMP-xmpMM:Copy4:PantryMetadataDate: 2014:09:27 11:35:41+02:00
+  XMP-xmpMM:Copy4:PantryModifyDate: 2014:09:27 09:35:40Z
+  XMP-xmpMM:Copy4:PantryCreateDate: 2014:09:22 12:03:35Z
+  XMP-xmpMM:Copy5:PantryMetadataDate: 2014:09:27 11:35:30+02:00
+  XMP-xmpMM:Copy5:PantryModifyDate: 2014:09:27 09:35:29Z
+  XMP-xmpMM:Copy5:PantryCreateDate: 2014:09:22 15:03:57Z
+  XMP-xmpMM:Copy6:PantryMetadataDate: 2014:09:27 11:35:42+02:00
+  XMP-xmpMM:Copy6:PantryModifyDate: 2014:09:27 09:35:41Z
+  XMP-xmpMM:Copy6:PantryCreateDate: 2014:09:22 17:26:20Z
+  XMP-xmpMM:Copy7:PantryMetadataDate: 2014:09:27 11:35:42+02:00
+  XMP-xmpMM:Copy7:PantryModifyDate: 2014:09:27 09:35:41Z
+  XMP-xmpMM:Copy7:PantryCreateDate: 2014:09:22 12:46:47Z
+  XMP-xmpMM:Copy8:PantryMetadataDate: 2014:09:27 11:27:06+02:00
+  XMP-xmpMM:Copy8:PantryModifyDate: 2014:09:27 09:27:05Z
+  XMP-xmpMM:Copy8:PantryCreateDate: 2014:09:22 12:53:28Z
+  XMP-xmpMM:Copy9:PantryMetadataDate: 2014:09:27 11:27:06+02:00
+  XMP-xmpMM:Copy9:PantryModifyDate: 2014:09:27 09:27:06Z
+  XMP-xmpMM:Copy9:PantryCreateDate: 2014:09:22 13:16:44Z
+  XMP-xmpMM:Copy10:PantryMetadataDate: 2014:09:27 11:27:13+02:00
+  XMP-xmpMM:Copy10:PantryModifyDate: 2014:09:27 09:27:12Z
+  XMP-xmpMM:Copy10:PantryCreateDate: 2014:09:22 13:20:47Z
+  XMP-xmpMM:Copy11:PantryMetadataDate: 2014:09:27 11:27:14+02:00
+  XMP-xmpMM:Copy11:PantryModifyDate: 2014:09:27 09:27:13Z
+  XMP-xmpMM:Copy11:PantryCreateDate: 2014:10:02 19:05:48Z
+  XMP-xmpMM:Copy12:PantryMetadataDate: 2014:10:15 17:30:31+03:00
+  XMP-xmpMM:Copy12:PantryModifyDate: 2014:10:03 00:44:59Z
+  XMP-xmpMM:Copy12:PantryCreateDate: 2014:09:22 13:11:05Z
+  XMP-xmpMM:Copy13:PantryMetadataDate: 2014:09:27 11:27:11+02:00
+  XMP-xmpMM:Copy13:PantryModifyDate: 2014:09:27 09:27:10Z
+  XMP-xmpMM:Copy13:PantryCreateDate: 2014:09:22 13:13:28Z
+  XMP-xmpMM:Copy14:PantryMetadataDate: 2014:09:27 11:27:12+02:00
+  XMP-xmpMM:Copy14:PantryModifyDate: 2014:09:27 09:27:11Z
+  XMP-xmpMM:Copy14:PantryCreateDate: 2014:08:09 19:21:25Z
+  XMP-xmpMM:Copy15:PantryMetadataDate: 2014:08:13 18:40:06+02:00
+  XMP-xmpMM:Copy15:PantryModifyDate: 2014:08:13 16:40:05Z
+  XMP-xmpMM:Copy15:PantryCreateDate: 2014:09:22 13:49:35Z
+  XMP-xmpMM:Copy16:PantryMetadataDate: 2014:09:27 11:27:17+02:00
+  XMP-xmpMM:Copy16:PantryModifyDate: 2014:09:27 09:27:17Z
+  XMP-xmpMM:Copy16:PantryCreateDate: 2014:09:22 13:57Z
+  XMP-xmpMM:Copy17:PantryMetadataDate: 2014:09:27 11:27:19+02:00
+  XMP-xmpMM:Copy17:PantryModifyDate: 2014:09:27 09:27:18Z
+  XMP-xmpMM:Copy17:PantryCreateDate: 2014:09:22 12:06:25Z
+  XMP-xmpMM:Copy18:PantryMetadataDate: 2014:09:27 11:35:31+02:00
+  XMP-xmpMM:Copy18:PantryModifyDate: 2014:09:27 09:35:30Z
+  XMP-xmpMM:Copy18:PantryCreateDate: 2014:09:22 14:35:18Z
+  XMP-xmpMM:Copy19:PantryMetadataDate: 2014:09:27 11:27:23+02:00
+  XMP-xmpMM:Copy19:PantryModifyDate: 2014:09:27 09:27:22Z
+  XMP-xmpMM:Copy19:PantryCreateDate: 2014:09:22 12:10:47Z
+  XMP-xmpMM:Copy20:PantryMetadataDate: 2014:09:27 11:35:32+02:00
+  XMP-xmpMM:Copy20:PantryModifyDate: 2014:09:27 09:35:31Z
+  XMP-xmpMM:Copy20:PantryCreateDate: 2014:09:22 13:40:52Z
+  XMP-xmpMM:Copy21:PantryMetadataDate: 2014:09:27 11:27:15+02:00
+  XMP-xmpMM:Copy21:PantryModifyDate: 2014:09:27 09:27:14Z
+  XMP-xmpMM:Copy21:PantryCreateDate: 2014:09:22 13:47:01Z
+  XMP-xmpMM:Copy22:PantryMetadataDate: 2014:09:27 11:27:16+02:00
+  XMP-xmpMM:Copy22:PantryModifyDate: 2014:09:27 09:27:15Z
+  XMP-xmpMM:Copy22:PantryCreateDate: 2014:09:22 14:52:23Z
+  XMP-xmpMM:Copy23:PantryMetadataDate: 2014:09:27 11:27:24+02:00
+  XMP-xmpMM:Copy23:PantryModifyDate: 2014:09:27 09:27:23Z
+  XMP-xmpMM:Copy23:PantryCreateDate: 2014:09:22 13:06:23Z
+  XMP-xmpMM:Copy24:PantryMetadataDate: 2014:09:27 11:27:08+02:00
+  XMP-xmpMM:Copy24:PantryModifyDate: 2014:09:27 09:27:07Z
+  XMP-xmpMM:Copy24:PantryCreateDate: 2014:09:22 14:23:06Z
+  XMP-xmpMM:Copy25:PantryMetadataDate: 2014:09:27 11:35:38+02:00
+  XMP-xmpMM:Copy25:PantryModifyDate: 2014:09:27 09:35:38Z
+  XMP-xmpMM:Copy25:PantryCreateDate: 2014:09:22 13:02:12Z
+  XMP-xmpMM:Copy26:PantryMetadataDate: 2014:09:27 11:35:35+02:00
+  XMP-xmpMM:Copy26:PantryModifyDate: 2014:09:27 09:35:34Z
+  XMP-xmpMM:Copy26:PantryCreateDate: 2014:09:22 13:25:04Z
+  XMP-xmpMM:Copy27:PantryMetadataDate: 2014:09:27 11:35:35+02:00
+  XMP-xmpMM:Copy27:PantryModifyDate: 2014:09:27 09:35:35Z
+  XMP-xmpMM:Copy27:PantryCreateDate: 2014:09:22 13:48:05Z
+  XMP-xmpMM:Copy28:PantryMetadataDate: 2014:09:27 11:27:17+02:00
+  XMP-xmpMM:Copy28:PantryModifyDate: 2014:09:27 09:27:16Z
+  XMP-xmpMM:Copy28:PantryCreateDate: 2014:09:22 13:09:08Z
+  XMP-xmpMM:Copy29:PantryMetadataDate: 2014:09:27 11:27:10+02:00
+  XMP-xmpMM:Copy29:PantryModifyDate: 2014:09:27 09:27:09Z
+  XMP-xmpMM:Copy29:PantryCreateDate: 2014:09:22 14:25:36Z
+  XMP-xmpMM:Copy30:PantryMetadataDate: 2014:09:27 11:35:40+02:00
+  XMP-xmpMM:Copy30:PantryModifyDate: 2014:09:27 09:35:39Z
+  XMP-xmpMM:Copy30:PantryCreateDate: 2014:09:22 11:51:09Z
+  XMP-xmpMM:Copy31:PantryMetadataDate: 2014:09:27 11:35:27+02:00
+  XMP-xmpMM:Copy31:PantryModifyDate: 2014:09:27 09:35:25Z
+  XMP-xmpMM:Copy31:PantryCreateDate: 2014:09:22 11:52:04Z
+  XMP-xmpMM:Copy32:PantryMetadataDate: 2014:09:27 11:35:27+02:00
+  XMP-xmpMM:Copy32:PantryModifyDate: 2014:09:27 09:35:26Z
+  XMP-xmpMM:Copy32:PantryCreateDate: 2014:09:22 15:24:08Z
+  XMP-xmpMM:Copy33:PantryMetadataDate: 2014:09:27 11:27:25+02:00
+  XMP-xmpMM:Copy33:PantryModifyDate: 2014:09:27 09:27:24Z
+  XMP-xmpMM:Copy33:PantryCreateDate: 2014:09:22 13:36:52Z
+  XMP-xmpMM:Copy34:PantryMetadataDate: 2014:09:27 11:35:36+02:00
+  XMP-xmpMM:Copy34:PantryModifyDate: 2014:09:27 09:35:35Z
+  XMP-xmpMM:Copy34:PantryCreateDate: 2014:09:22 13:49:39Z
+  XMP-xmpMM:Copy35:PantryMetadataDate: 2014:09:27 11:35:36+02:00
+  XMP-xmpMM:Copy35:PantryModifyDate: 2014:09:27 09:35:36Z
+  XMP-xmpMM:Copy35:PantryCreateDate: 2014:09:22 13:56:31Z
+  XMP-xmpMM:Copy36:PantryMetadataDate: 2014:09:27 11:35:37+02:00
+  XMP-xmpMM:Copy36:PantryModifyDate: 2014:09:27 09:35:36Z
+  XMP-xmpMM:Copy36:PantryCreateDate: 2014:09:22 15:29:07Z
+  XMP-xmpMM:Copy37:PantryMetadataDate: 2014:09:27 11:27:27+02:00
+  XMP-xmpMM:Copy37:PantryModifyDate: 2014:09:27 09:27:27Z
+  XMP-xmpMM:Copy37:PantryCreateDate: 2014:09:22 14:20:11Z
+  XMP-xmpMM:Copy38:PantryMetadataDate: 2014:09:27 11:27:20+02:00
+  XMP-xmpMM:Copy38:PantryModifyDate: 2014:09:27 09:27:19Z
+  XMP-xmpMM:Copy38:PantryCreateDate: 2014:09:22 14:22:44Z
+  XMP-xmpMM:Copy39:PantryMetadataDate: 2014:09:27 11:27:21+02:00
+  XMP-xmpMM:Copy39:PantryModifyDate: 2014:09:27 09:27:20Z
+  XMP-xmpMM:Copy39:PantryCreateDate: 2014:09:22 14:32:28Z
+  XMP-xmpMM:Copy40:PantryMetadataDate: 2014:09:27 11:27:22+02:00
+  XMP-xmpMM:Copy40:PantryModifyDate: 2014:09:27 09:27:21Z
+  XMP-xmpMM:Copy40:PantryCreateDate: 2014:09:22 18:28:56Z
+  XMP-xmpMM:Copy41:PantryMetadataDate: 2014:09:27 11:27:31+02:00
+  XMP-xmpMM:Copy41:PantryModifyDate: 2014:09:27 09:27:30Z
+  XMP-xmpMM:Copy41:PantryCreateDate: 2014:10:02 18:46:10Z
+  XMP-xmpMM:Copy42:PantryMetadataDate: 2014:10:02 20:47:48+02:00
+  XMP-xmpMM:Copy42:PantryModifyDate: 2014:10:02 18:47:47Z
+  XMP-xmpMM:Copy42:PantryCreateDate: 2014:09:22 17:28:12Z
+  XMP-xmpMM:Copy43:PantryMetadataDate: 2014:09:27 11:35:43+02:00
+  XMP-xmpMM:Copy43:PantryModifyDate: 2014:09:27 09:35:42Z
+  XMP-xmpMM:Copy43:PantryCreateDate: 2014:09:22 12:50:15Z
+  XMP-xmpMM:Copy44:PantryMetadataDate: 2014:10:17 21:42:03+03:00
+  XMP-xmpMM:Copy44:PantryModifyDate: 2014:09:27 09:35:33Z
+  XMP-xmpMM:Copy44:PantryCreateDate: 2014:09:22 13:17:20Z
+  XMP-xmpMM:Copy45:PantryMetadataDate: 2014:09:28 09:06:09+02:00
+  XMP-xmpMM:Copy45:PantryModifyDate: 2014:09:27 09:35:34Z
+  XMP-xmpMM:Copy45:PantryCreateDate: 2014:09:22 14:43:48Z
+  XMP-xmpMM:Copy46:PantryMetadataDate: 2014:10:17 21:42:03+03:00
+  XMP-xmpMM:Copy46:PantryModifyDate: 2014:09:27 09:27:22Z
+  XMP-xmpMM:Copy46:PantryCreateDate: 2014:09:28 12:22:06Z
+  XMP-xmpMM:Copy47:PantryMetadataDate: 2014:09:28 16:04:45+02:00
+  XMP-xmpMM:Copy47:PantryModifyDate: 2014:09:28 13:12:47Z
+  XMP-xmpMM:Copy48:PantryMetadataDate: 2013:10:23 09:50:38+02:00
+  XMP-xmpMM:Copy48:PantryModifyDate: 2013:10:23 09:50:36+02:00
+  XMP-xmpMM:Copy47:PantryCreateDate: 2014:09:22 18:30:59Z
+  XMP-xmpMM:Copy49:PantryMetadataDate: 2014:09:27 11:27:33+02:00
+  XMP-xmpMM:Copy49:PantryModifyDate: 2014:09:27 09:27:31Z
+  XMP-xmpMM:Copy48:PantryCreateDate: 2014:09:22 11:41:30Z
+  XMP-xmpMM:Copy50:PantryMetadataDate: 2014:09:27 11:35:23+02:00
+  XMP-xmpMM:Copy50:PantryModifyDate: 2014:09:27 09:35:22Z
+  XMP-xmpMM:Copy49:PantryCreateDate: 2014:09:22 12:14:02Z
+  XMP-xmpMM:Copy51:PantryMetadataDate: 2014:09:27 11:35:33+02:00
+  XMP-xmpMM:Copy51:PantryModifyDate: 2014:09:27 09:35:32Z
+  XMP-xmpMM:Copy50:PantryCreateDate: 2014:09:22 12:37:23Z
+  XMP-xmpMM:Copy52:PantryMetadataDate: 2014:09:27 11:35:33+02:00
+  XMP-xmpMM:Copy52:PantryModifyDate: 2014:09:27 09:35:32Z
+  XMP-xmpMM:Copy51:PantryCreateDate: 2014:09:22 12:41:44Z
+  XMP-xmpMM:Copy53:PantryMetadataDate: 2014:09:27 11:35:34+02:00
+  XMP-xmpMM:Copy53:PantryModifyDate: 2014:09:27 09:35:33Z
+  XMP-xmpMM:Copy52:PantryCreateDate: 2014:09:22 11:44:04Z
+  XMP-xmpMM:Copy54:PantryMetadataDate: 2014:09:27 11:35:25+02:00
+  XMP-xmpMM:Copy54:PantryModifyDate: 2014:09:27 09:35:24Z
+  XMP-xmpMM:Copy53:PantryCreateDate: 2014:09:22 11:45:51Z
+  XMP-xmpMM:Copy55:PantryMetadataDate: 2014:09:27 11:35:25+02:00
+  XMP-xmpMM:Copy55:PantryModifyDate: 2014:09:27 09:35:24Z
+  XMP-xmpMM:Copy54:PantryCreateDate: 2014:09:22 11:46:17Z
+  XMP-xmpMM:Copy56:PantryMetadataDate: 2014:09:27 11:35:26+02:00
+  XMP-xmpMM:Copy56:PantryModifyDate: 2014:09:27 09:35:24Z
+  XMP-xmpMM:Copy55:PantryCreateDate: 2014:09:22 12:44:11Z
+  XMP-xmpMM:Copy57:PantryMetadataDate: 2014:09:27 11:27:04+02:00
+  XMP-xmpMM:Copy57:PantryModifyDate: 2014:09:27 09:27:02Z
+  XMP-xmpMM:PantryCreateDate: 2014:09:22 16:06:33Z
+  XMP-xmpMM:PantryMetadataDate: 2014:09:27 11:27:30+02:00
+  XMP-xmpMM:PantryModifyDate: 2014:09:27 09:27:29Z
+Fechas originales:
+  Acceso: 2026-10-31T19:03:55.865576+00:00 UTC (valor exacto: 1793473435865575922 ns)
+  Modificación: 2026-08-06T07:26:06.666847+00:00 UTC (valor exacto: 1786001166666847218 ns)
+  Cambio de metadatos: 2026-08-06T07:26:07.686841+00:00 UTC (valor exacto: 1786001167686840996 ns)
+Fechas en destino:
+  Acceso: 2013-10-23T07:50:36+00:00 UTC (valor exacto: 1382514636000000000 ns)
+  Modificación: 2013-10-23T07:50:36+00:00 UTC (valor exacto: 1382514636000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:12:28.465510+00:00 UTC (valor exacto: 1793495548465509761 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/bare-bedfellows-sc-2.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/bare-bedfellows-sc-2.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2018-08-06T08:43:28+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/bare-bedfellows-sc-2.mp4
+  System:FileModifyDate: 2026:08:06 01:25:56-06:00
+  System:FileAccessDate: 2026:10:31 13:03:57-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:25:56-06:00
+  QuickTime:Copy1:CreateDate: 2018:08:06 03:43:28-05:00
+  QuickTime:Copy1:ModifyDate: 2018:08:06 05:37:49-05:00
+  Track1:TrackCreateDate: 2018:08:06 03:43:28-05:00
+  Track1:TrackModifyDate: 2018:08:06 03:43:28-05:00
+  Track1:Copy1:MediaCreateDate: 2018:08:06 03:43:28-05:00
+  Track1:Copy1:MediaModifyDate: 2018:08:06 03:43:28-05:00
+  Track2:Copy1:TrackCreateDate: 2018:08:06 03:43:29-05:00
+  Track2:Copy1:TrackModifyDate: 2018:08:06 03:43:29-05:00
+  Track2:MediaCreateDate: 2018:08:06 03:43:29-05:00
+  Track2:MediaModifyDate: 2018:08:06 03:43:29-05:00
+  XMP-xmp:CreateDate: 2018:08:06 10:43:28+02:00
+  XMP-xmp:MetadataDate: 2018:08:06 12:37:49+02:00
+  XMP-xmp:ModifyDate: 2018:08:06 12:37:49+02:00
+  XMP-xmpMM:HistoryWhen: ['2018:08:06 12:37:49+02:00', '2018:08:06 10:43:16+02:00', '2018:08:06 12:37:49+02:00', '2018:08:06 12:37:49+02:00']
+Fechas originales:
+  Acceso: 2026-10-31T19:03:57.283336+00:00 UTC (valor exacto: 1793473437283335887 ns)
+  Modificación: 2026-08-06T07:25:56.377911+00:00 UTC (valor exacto: 1786001156377910569 ns)
+  Cambio de metadatos: 2026-08-06T07:25:56.806908+00:00 UTC (valor exacto: 1786001156806907904 ns)
+Fechas en destino:
+  Acceso: 2018-08-06T08:43:28+00:00 UTC (valor exacto: 1533545008000000000 ns)
+  Modificación: 2018-08-06T08:43:28+00:00 UTC (valor exacto: 1533545008000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:12:32.775629+00:00 UTC (valor exacto: 1793495552775628949 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/cocksure-sc-3.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/cocksure-sc-3.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2019-01-31T10:35:03+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/cocksure-sc-3.mp4
+  System:FileModifyDate: 2026:08:06 01:24:16-06:00
+  System:FileAccessDate: 2026:10:31 13:04:00-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:24:16-06:00
+  QuickTime:CreateDate: 2019:01:31 04:35:03-06:00
+  QuickTime:ModifyDate: 2019:01:31 04:42:18-06:00
+  Track1:TrackCreateDate: 2019:01:31 04:35:03-06:00
+  Track1:TrackModifyDate: 2019:01:31 04:42:18-06:00
+  Track1:Copy1:MediaCreateDate: 2019:01:31 04:35:03-06:00
+  Track1:Copy1:MediaModifyDate: 2019:01:31 04:42:18-06:00
+  Track2:Copy1:TrackCreateDate: 2019:01:31 04:35:03-06:00
+  Track2:Copy1:TrackModifyDate: 2019:01:31 04:42:18-06:00
+  Track2:MediaCreateDate: 2019:01:31 04:35:03-06:00
+  Track2:MediaModifyDate: 2019:01:31 04:42:18-06:00
+Fechas originales:
+  Acceso: 2026-10-31T19:04:00.901734+00:00 UTC (valor exacto: 1793473440901734069 ns)
+  Modificación: 2026-08-06T07:24:16.394588+00:00 UTC (valor exacto: 1786001056394587767 ns)
+  Cambio de metadatos: 2026-08-06T07:24:16.981583+00:00 UTC (valor exacto: 1786001056981583440 ns)
+Fechas en destino:
+  Acceso: 2019-01-31T10:35:03+00:00 UTC (valor exacto: 1548930903000000000 ns)
+  Modificación: 2019-01-31T10:35:03+00:00 UTC (valor exacto: 1548930903000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:12:35.619708+00:00 UTC (valor exacto: 1793495555619707548 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2026-08-06T07:15:38+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4
+  System:FileModifyDate: 2026:08:06 01:15:38-06:00
+  System:FileAccessDate: 2026:10:31 13:04:04-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:15:39-06:00
+  QuickTime:CreateDate: 1903:12:31 17:24:00-06:36
+  QuickTime:ModifyDate: 1903:12:31 17:24:00-06:36
+  Track1:TrackCreateDate: 1903:12:31 17:24:00-06:36
+  Track1:TrackModifyDate: 1903:12:31 17:24:00-06:36
+  Track1:Copy1:MediaCreateDate: 1903:12:31 17:24:00-06:36
+  Track1:Copy1:MediaModifyDate: 1903:12:31 17:24:00-06:36
+  Track2:Copy1:TrackCreateDate: 1903:12:31 17:24:00-06:36
+  Track2:Copy1:TrackModifyDate: 1903:12:31 17:24:00-06:36
+  Track2:MediaCreateDate: 1903:12:31 17:24:00-06:36
+  Track2:MediaModifyDate: 1903:12:31 17:24:00-06:36
+Fechas originales:
+  Acceso: 2026-10-31T19:04:04.077219+00:00 UTC (valor exacto: 1793473444077218712 ns)
+  Modificación: 2026-08-06T07:15:38.584882+00:00 UTC (valor exacto: 1786000538584881997 ns)
+  Cambio de metadatos: 2026-08-06T07:15:39.884858+00:00 UTC (valor exacto: 1786000539884857531 ns)
+Fechas en destino:
+  Acceso: 2026-08-06T07:15:38+00:00 UTC (valor exacto: 1786000538000000000 ns)
+  Modificación: 2026-08-06T07:15:38+00:00 UTC (valor exacto: 1786000538000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:12:39.650819+00:00 UTC (valor exacto: 1793495559650818884 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/forbidden-fruits-sc-3.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/forbidden-fruits-sc-3.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2018-03-19T16:12:31+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/forbidden-fruits-sc-3.mp4
+  System:FileModifyDate: 2026:08:06 01:26:17-06:00
+  System:FileAccessDate: 2026:10:31 13:04:09-06:00
+  System:FileInodeChangeDate: 2026:08:06 01:26:17-06:00
+  QuickTime:Copy1:CreateDate: 2018:03:19 10:12:31-06:00
+  QuickTime:Copy1:ModifyDate: 2018:03:19 10:12:42-06:00
+  Track1:TrackCreateDate: 2018:03:19 10:12:31-06:00
+  Track1:TrackModifyDate: 2018:03:19 10:12:31-06:00
+  Track1:Copy1:MediaCreateDate: 2018:03:19 10:12:31-06:00
+  Track1:Copy1:MediaModifyDate: 2018:03:19 10:12:31-06:00
+  Track2:Copy1:TrackCreateDate: 2018:03:19 10:12:31-06:00
+  Track2:Copy1:TrackModifyDate: 2018:03:19 10:12:31-06:00
+  Track2:MediaCreateDate: 2018:03:19 10:12:31-06:00
+  Track2:MediaModifyDate: 2018:03:19 10:12:31-06:00
+  XMP-xmp:CreateDate: 2018:03:19 18:12:31+02:00
+  XMP-xmp:MetadataDate: 2018:03:19 18:12:42+02:00
+  XMP-xmp:ModifyDate: 2018:03:19 18:12:42+02:00
+  XMP-xmpMM:HistoryWhen: ['2018:03:19 18:12:42+02:00', '2018:03:19 17:54:12+02:00', '2018:03:19 18:12:41+02:00', '2018:03:19 18:12:42+02:00']
+Fechas originales:
+  Acceso: 2026-10-31T19:04:09.051435+00:00 UTC (valor exacto: 1793473449051434664 ns)
+  Modificación: 2026-08-06T07:26:17.089784+00:00 UTC (valor exacto: 1786001177089784152 ns)
+  Cambio de metadatos: 2026-08-06T07:26:17.621781+00:00 UTC (valor exacto: 1786001177621780961 ns)
+Fechas en destino:
+  Acceso: 2018-03-19T16:12:31+00:00 UTC (valor exacto: 1521475951000000000 ns)
+  Modificación: 2018-03-19T16:12:31+00:00 UTC (valor exacto: 1521475951000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:12:48.162054+00:00 UTC (valor exacto: 1793495568162053705 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/latinleche_0095.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/latinleche_0095.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2019-10-02T16:12:20+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/latinleche_0095.mp4
+  System:FileModifyDate: 2026:08:06 00:39:21-06:00
+  System:FileAccessDate: 2026:10:31 13:04:15-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:39:25-06:00
+  QuickTime:CreateDate: 2019:10:02 11:12:20-05:00
+  QuickTime:ModifyDate: 2019:10:02 11:12:20-05:00
+  Track1:TrackCreateDate: 2019:10:02 11:12:20-05:00
+  Track1:TrackModifyDate: 2019:10:02 11:12:20-05:00
+  Track1:Copy1:MediaCreateDate: 2019:10:02 11:12:20-05:00
+  Track1:Copy1:MediaModifyDate: 2019:10:02 11:12:20-05:00
+  Track2:Copy1:TrackCreateDate: 2019:10:02 11:12:20-05:00
+  Track2:Copy1:TrackModifyDate: 2019:10:02 11:12:20-05:00
+  Track2:MediaCreateDate: 2019:10:02 11:12:20-05:00
+  Track2:MediaModifyDate: 2019:10:02 11:12:20-05:00
+Fechas originales:
+  Acceso: 2026-10-31T19:04:15.979388+00:00 UTC (valor exacto: 1793473455979388091 ns)
+  Modificación: 2026-08-06T06:39:21.767456+00:00 UTC (valor exacto: 1785998361767455786 ns)
+  Cambio de metadatos: 2026-08-06T06:39:25.728465+00:00 UTC (valor exacto: 1785998365728464739 ns)
+Fechas en destino:
+  Acceso: 2019-10-02T16:12:20+00:00 UTC (valor exacto: 1570032740000000000 ns)
+  Modificación: 2019-10-02T16:12:20+00:00 UTC (valor exacto: 1570032740000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:12:51.618149+00:00 UTC (valor exacto: 1793495571618148960 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/latinleche_0100.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/latinleche_0100.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2019-11-05T02:27:28+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/latinleche_0100.mp4
+  System:FileModifyDate: 2026:08:06 00:36:32-06:00
+  System:FileAccessDate: 2026:10:31 13:04:17-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:36:33-06:00
+  QuickTime:CreateDate: 2019:11:04 20:27:28-06:00
+  QuickTime:ModifyDate: 2019:11:04 20:27:28-06:00
+  Track1:TrackCreateDate: 2019:11:04 20:27:28-06:00
+  Track1:TrackModifyDate: 2019:11:04 20:27:28-06:00
+  Track1:Copy1:MediaCreateDate: 2019:11:04 20:27:28-06:00
+  Track1:Copy1:MediaModifyDate: 2019:11:04 20:27:28-06:00
+  Track2:Copy1:TrackCreateDate: 2019:11:04 20:27:28-06:00
+  Track2:Copy1:TrackModifyDate: 2019:11:04 20:27:28-06:00
+  Track2:MediaCreateDate: 2019:11:04 20:27:28-06:00
+  Track2:MediaModifyDate: 2019:11:04 20:27:28-06:00
+Fechas originales:
+  Acceso: 2026-10-31T19:04:17.054230+00:00 UTC (valor exacto: 1793473457054230318 ns)
+  Modificación: 2026-08-06T06:36:32.567065+00:00 UTC (valor exacto: 1785998192567064721 ns)
+  Cambio de metadatos: 2026-08-06T06:36:33.889068+00:00 UTC (valor exacto: 1785998193889067849 ns)
+Fechas en destino:
+  Acceso: 2019-11-05T02:27:28+00:00 UTC (valor exacto: 1572920848000000000 ns)
+  Modificación: 2019-11-05T02:27:28+00:00 UTC (valor exacto: 1572920848000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:12:57.867321+00:00 UTC (valor exacto: 1793495577867321056 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/raw-twink-ass-fuckers-sc-3.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/raw-twink-ass-fuckers-sc-3.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2018-06-19T15:09:28+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/raw-twink-ass-fuckers-sc-3.mp4
+  System:FileModifyDate: 2026:08:06 00:39:17-06:00
+  System:FileAccessDate: 2026:10:31 13:04:30-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:39:19-06:00
+  QuickTime:Copy1:CreateDate: 2018:06:19 10:09:28-05:00
+  QuickTime:Copy1:ModifyDate: 2018:06:19 10:34:36-05:00
+  Track1:TrackCreateDate: 2018:06:19 10:09:29-05:00
+  Track1:TrackModifyDate: 2018:06:19 10:09:29-05:00
+  Track1:Copy1:MediaCreateDate: 2018:06:19 10:09:29-05:00
+  Track1:Copy1:MediaModifyDate: 2018:06:19 10:09:29-05:00
+  Track2:Copy1:TrackCreateDate: 2018:06:19 10:09:29-05:00
+  Track2:Copy1:TrackModifyDate: 2018:06:19 10:09:29-05:00
+  Track2:MediaCreateDate: 2018:06:19 10:09:29-05:00
+  Track2:MediaModifyDate: 2018:06:19 10:09:29-05:00
+  XMP-xmp:CreateDate: 2018:06:19 17:09:28+02:00
+  XMP-xmp:MetadataDate: 2018:06:19 17:34:36+02:00
+  XMP-xmp:ModifyDate: 2018:06:19 17:34:36+02:00
+  XMP-xmpMM:HistoryWhen: ['2018:06:19 17:34:36+02:00', '2018:06:19 16:21:23+02:00', '2018:06:19 17:34:36+02:00', '2018:06:19 17:34:36+02:00']
+Fechas originales:
+  Acceso: 2026-10-31T19:04:30.881304+00:00 UTC (valor exacto: 1793473470881304141 ns)
+  Modificación: 2026-08-06T06:39:17.424446+00:00 UTC (valor exacto: 1785998357424445964 ns)
+  Cambio de metadatos: 2026-08-06T06:39:19.896451+00:00 UTC (valor exacto: 1785998359896451555 ns)
+Fechas en destino:
+  Acceso: 2018-06-19T15:09:28+00:00 UTC (valor exacto: 1529420968000000000 ns)
+  Modificación: 2018-06-19T15:09:28+00:00 UTC (valor exacto: 1529420968000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:13:02.214441+00:00 UTC (valor exacto: 1793495582214440665 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/spunk-soaked-fuckers-sc-2.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/spunk-soaked-fuckers-sc-2.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2019-04-05T10:55:32+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/spunk-soaked-fuckers-sc-2.mp4
+  System:FileModifyDate: 2026:08:06 00:35:41-06:00
+  System:FileAccessDate: 2026:10:31 13:04:35-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:35:42-06:00
+  QuickTime:CreateDate: 2019:04:05 04:55:32-06:00
+  QuickTime:ModifyDate: 2019:04:05 05:02:17-06:00
+  Track1:TrackCreateDate: 2019:04:05 04:55:32-06:00
+  Track1:TrackModifyDate: 2019:04:05 05:02:17-06:00
+  Track1:Copy1:MediaCreateDate: 2019:04:05 04:55:32-06:00
+  Track1:Copy1:MediaModifyDate: 2019:04:05 05:02:17-06:00
+  Track2:Copy1:TrackCreateDate: 2019:04:05 04:55:32-06:00
+  Track2:Copy1:TrackModifyDate: 2019:04:05 05:02:17-06:00
+  Track2:MediaCreateDate: 2019:04:05 04:55:32-06:00
+  Track2:MediaModifyDate: 2019:04:05 05:02:17-06:00
+Fechas originales:
+  Acceso: 2026-10-31T19:04:35.900650+00:00 UTC (valor exacto: 1793473475900650080 ns)
+  Modificación: 2026-08-06T06:35:41.980944+00:00 UTC (valor exacto: 1785998141980944166 ns)
+  Cambio de metadatos: 2026-08-06T06:35:42.925946+00:00 UTC (valor exacto: 1785998142925946435 ns)
+Fechas en destino:
+  Acceso: 2019-04-05T10:55:32+00:00 UTC (valor exacto: 1554461732000000000 ns)
+  Modificación: 2019-04-05T10:55:32+00:00 UTC (valor exacto: 1554461732000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:13:06.752566+00:00 UTC (valor exacto: 1793495586752565437 ns)
+
+Estado: movido
+Origen: /home/haggy/Vídeos/Listos/stretched-to-the-max-sc-2.mp4
+Destino: /home/haggy/Vídeos/movidos/eliminar/stretched-to-the-max-sc-2.mp4
+Categoría: eliminar
+Error: Ninguno
+Fecha visible aplicada: 2014-06-19T13:14:49+00:00
+Fechas consultadas en metadatos (ExifTool):
+  SourceFile: /home/haggy/Vídeos/Listos/stretched-to-the-max-sc-2.mp4
+  System:FileModifyDate: 2026:08:06 00:36:07-06:00
+  System:FileAccessDate: 2026:10:31 13:04:38-06:00
+  System:FileInodeChangeDate: 2026:08:06 00:36:07-06:00
+  QuickTime:Copy1:CreateDate: 2018:05:21 15:18:57-05:00
+  QuickTime:Copy1:ModifyDate: 2018:05:21 15:19:06-05:00
+  Track1:TrackCreateDate: 2018:05:21 15:18:57-05:00
+  Track1:TrackModifyDate: 2018:05:21 15:18:57-05:00
+  Track1:Copy1:MediaCreateDate: 2018:05:21 15:18:57-05:00
+  Track1:Copy1:MediaModifyDate: 2018:05:21 15:18:57-05:00
+  Track2:Copy1:TrackCreateDate: 2018:05:21 15:18:57-05:00
+  Track2:Copy1:TrackModifyDate: 2018:05:21 15:18:57-05:00
+  Track2:MediaCreateDate: 2018:05:21 15:18:57-05:00
+  Track2:MediaModifyDate: 2018:05:21 15:18:57-05:00
+  XMP-xmp:CreateDate: 2018:05:21 23:18:57+03:00
+  XMP-xmp:MetadataDate: 2018:05:21 23:19:06+03:00
+  XMP-xmp:ModifyDate: 2018:05:21 23:19:06+03:00
+  XMP-xmpMM:HistoryWhen: ['2018:05:21 23:19:06+03:00', '2018:05:21 23:05:44+03:00', '2018:05:21 23:19:06+03:00', '2018:05:21 23:19:06+03:00']
+  XMP-xmpMM:Copy1:PantryCreateDate: 2018:03:25 12:36:22Z
+  XMP-xmpMM:Copy1:PantryMetadataDate: 2018:04:04 13:04:10+02:00
+  XMP-xmpMM:Copy1:PantryModifyDate: 2018:04:04 13:04:10+02:00
+  XMP-xmpMM:Copy2:PantryCreateDate: 2018:03:25 12:26:10Z
+  XMP-xmpMM:Copy2:PantryMetadataDate: 2018:04:02 16:38:50+02:00
+  XMP-xmpMM:Copy2:PantryModifyDate: 2018:04:02 16:38:50+02:00
+  XMP-xmpMM:Copy3:PantryCreateDate: 2018:03:25 11:52:26Z
+  XMP-xmpMM:Copy3:PantryMetadataDate: 2018:04:02 16:38:49+02:00
+  XMP-xmpMM:Copy3:PantryModifyDate: 2018:04:02 16:38:49+02:00
+  XMP-xmpMM:Copy4:PantryCreateDate: 2018:03:25 12:35:12Z
+  XMP-xmpMM:Copy4:PantryMetadataDate: 2018:04:02 16:38:50+02:00
+  XMP-xmpMM:Copy4:PantryModifyDate: 2018:04:02 16:38:50+02:00
+  XMP-xmpMM:Copy5:PantryCreateDate: 2018:03:25 12:37:20Z
+  XMP-xmpMM:Copy5:PantryMetadataDate: 2018:04:02 16:38:50+02:00
+  XMP-xmpMM:Copy5:PantryModifyDate: 2018:04:02 16:38:50+02:00
+  XMP-xmpMM:Copy6:PantryCreateDate: 2018:04:18 14:48:05Z
+  XMP-xmpMM:Copy6:PantryMetadataDate: 2018:05:21 20:57:40+03:00
+  XMP-xmpMM:Copy6:PantryModifyDate: 2018:05:21 20:57:40+03:00
+  XMP-xmpMM:Copy7:PantryCreateDate: 2018:03:25 13:35:19Z
+  XMP-xmpMM:Copy7:PantryMetadataDate: 2018:04:02 20:22:04+02:00
+  XMP-xmpMM:Copy7:PantryModifyDate: 2018:04:02 20:22:04+02:00
+  XMP-xmpMM:Copy8:PantryCreateDate: 2018:03:25 12:46:49Z
+  XMP-xmpMM:Copy8:PantryMetadataDate: 2018:04:04 10:28+02:00
+  XMP-xmpMM:Copy8:PantryModifyDate: 2018:04:04 10:28+02:00
+  XMP-xmpMM:Copy9:PantryCreateDate: 2018:03:25 11:33:46Z
+  XMP-xmpMM:Copy9:PantryMetadataDate: 2018:04:03 10:20:16+02:00
+  XMP-xmpMM:Copy9:PantryModifyDate: 2018:04:03 10:20:16+02:00
+  XMP-xmpMM:Copy10:PantryCreateDate: 2018:03:25 11:02:28Z
+  XMP-xmpMM:Copy10:PantryMetadataDate: 2018:04:02 16:38:47+02:00
+  XMP-xmpMM:Copy10:PantryModifyDate: 2018:04:02 16:38:47+02:00
+  XMP-xmpMM:Copy11:PantryMetadataDate: 2018:05:21 20:57:40+03:00
+  XMP-xmpMM:Copy11:PantryModifyDate: 2018:05:21 20:57:40+03:00
+  XMP-xmpMM:Copy11:PantryCreateDate: 2018:03:25 12:19:47Z
+  XMP-xmpMM:Copy12:PantryMetadataDate: 2018:04:02 16:38:49+02:00
+  XMP-xmpMM:Copy12:PantryModifyDate: 2018:04:02 16:38:49+02:00
+  XMP-xmpMM:Copy12:PantryCreateDate: 2018:03:25 12:49:03Z
+  XMP-xmpMM:Copy13:PantryMetadataDate: 2018:04:02 16:38:50+02:00
+  XMP-xmpMM:Copy13:PantryModifyDate: 2018:04:02 16:38:50+02:00
+  XMP-xmpMM:Copy13:PantryCreateDate: 2018:03:25 11:59:06Z
+  XMP-xmpMM:Copy14:PantryMetadataDate: 2018:04:03 12:02:30+02:00
+  XMP-xmpMM:Copy14:PantryModifyDate: 2018:04:03 12:02:30+02:00
+  XMP-xmpMM:Copy14:PantryCreateDate: 2018:03:25 13:04:01Z
+  XMP-xmpMM:Copy15:PantryMetadataDate: 2018:04:02 20:21:17+02:00
+  XMP-xmpMM:Copy15:PantryModifyDate: 2018:04:02 20:21:17+02:00
+  XMP-xmpMM:Copy15:PantryCreateDate: 2018:03:25 12:05:09Z
+  XMP-xmpMM:Copy16:PantryMetadataDate: 2018:04:03 12:36:36+02:00
+  XMP-xmpMM:Copy16:PantryModifyDate: 2018:04:03 12:36:36+02:00
+  XMP-xmpMM:Copy16:PantryCreateDate: 2018:03:25 11:44:31Z
+  XMP-xmpMM:Copy17:PantryMetadataDate: 2018:04:02 16:38:48+02:00
+  XMP-xmpMM:Copy17:PantryModifyDate: 2018:04:02 16:38:48+02:00
+  XMP-xmpMM:Copy17:PantryCreateDate: 2018:03:25 13:02:46Z
+  XMP-xmpMM:Copy18:PantryMetadataDate: 2018:04:02 20:18:26+02:00
+  XMP-xmpMM:Copy18:PantryModifyDate: 2018:04:02 20:18:26+02:00
+  XMP-xmpMM:Copy18:PantryCreateDate: 2018:03:25 13:25:10Z
+  XMP-xmpMM:Copy19:PantryMetadataDate: 2018:04:02 17:07:22+02:00
+  XMP-xmpMM:Copy19:PantryModifyDate: 2018:04:02 17:07:22+02:00
+  XMP-xmpMM:Copy19:PantryCreateDate: 2018:03:25 13:01:27Z
+  XMP-xmpMM:Copy20:PantryMetadataDate: 2018:04:02 16:38:47+02:00
+  XMP-xmpMM:Copy20:PantryModifyDate: 2018:04:02 16:38:47+02:00
+  XMP-xmpMM:Copy20:PantryCreateDate: 2018:03:25 11:33:50Z
+  XMP-xmpMM:Copy21:PantryMetadataDate: 2018:04:02 16:38:48+02:00
+  XMP-xmpMM:Copy21:PantryModifyDate: 2018:04:02 16:38:48+02:00
+  XMP-xmpMM:Copy21:PantryCreateDate: 2018:03:25 12:28:16Z
+  XMP-xmpMM:Copy22:PantryMetadataDate: 2018:04:02 16:38:50+02:00
+  XMP-xmpMM:Copy22:PantryModifyDate: 2018:04:02 16:38:50+02:00
+  XMP-xmpMM:Copy22:PantryCreateDate: 2018:03:25 12:02:17Z
+  XMP-xmpMM:Copy23:PantryMetadataDate: 2018:04:02 16:38:49+02:00
+  XMP-xmpMM:Copy23:PantryModifyDate: 2018:04:02 16:38:49+02:00
+  XMP-xmpMM:Copy23:PantryCreateDate: 2018:03:25 13:33:59Z
+  XMP-xmpMM:Copy24:PantryMetadataDate: 2018:04:02 20:19:21+02:00
+  XMP-xmpMM:Copy24:PantryModifyDate: 2018:04:02 20:19:21+02:00
+  XMP-xmpMM:Copy24:PantryCreateDate: 2018:03:25 11:23:34Z
+  XMP-xmpMM:Copy25:PantryMetadataDate: 2018:04:02 16:38:47+02:00
+  XMP-xmpMM:Copy25:PantryModifyDate: 2018:04:02 16:38:47+02:00
+  XMP-xmpMM:Copy25:PantryCreateDate: 2018:03:25 12:23:45Z
+  XMP-xmpMM:Copy26:PantryMetadataDate: 2018:04:03 21:54:39+02:00
+  XMP-xmpMM:Copy26:PantryModifyDate: 2018:04:03 21:54:39+02:00
+  XMP-xmpMM:Copy26:PantryCreateDate: 2018:03:25 12:33:21Z
+  XMP-xmpMM:Copy27:PantryMetadataDate: 2018:04:02 16:38:50+02:00
+  XMP-xmpMM:Copy27:PantryModifyDate: 2018:04:02 16:38:50+02:00
+  XMP-xmpMM:Copy27:PantryCreateDate: 2018:03:25 11:27:50Z
+  XMP-xmpMM:Copy28:PantryMetadataDate: 2018:04:02 16:38:48+02:00
+  XMP-xmpMM:Copy28:PantryModifyDate: 2018:04:02 16:38:48+02:00
+  XMP-xmpMM:Copy28:PantryCreateDate: 2018:03:25 11:56:38Z
+  XMP-xmpMM:Copy29:PantryMetadataDate: 2018:04:04 13:04:10+02:00
+  XMP-xmpMM:Copy29:PantryModifyDate: 2018:04:04 13:04:10+02:00
+  XMP-xmpMM:Copy29:PantryCreateDate: 2018:03:25 11:19:16Z
+  XMP-xmpMM:Copy30:PantryMetadataDate: 2018:04:02 16:38:47+02:00
+  XMP-xmpMM:Copy30:PantryModifyDate: 2018:04:02 16:38:47+02:00
+  XMP-xmpMM:Copy30:PantryCreateDate: 2018:03:25 12:15:42Z
+  XMP-xmpMM:Copy31:PantryMetadataDate: 2018:04:03 21:20:33+02:00
+  XMP-xmpMM:Copy31:PantryModifyDate: 2018:04:03 21:20:33+02:00
+  XMP-xmpMM:Copy31:PantryCreateDate: 2018:03:25 12:15:32Z
+  XMP-xmpMM:Copy32:PantryMetadataDate: 2018:04:02 16:38:49+02:00
+  XMP-xmpMM:Copy32:PantryModifyDate: 2018:04:02 16:38:49+02:00
+  XMP-xmpMM:Copy32:PantryCreateDate: 2018:03:25 11:50:42Z
+  XMP-xmpMM:Copy33:PantryMetadataDate: 2018:04:03 10:37:44+02:00
+  XMP-xmpMM:Copy33:PantryModifyDate: 2018:04:03 10:37:44+02:00
+  XMP-xmpMM:Copy34:PantryMetadataDate: 2018:04:04 13:04:45+02:00
+  XMP-xmpMM:Copy34:PantryModifyDate: 2018:04:04 13:04:45+02:00
+  XMP-xmpMM:PantryCreateDate: 2014:06:19 13:14:49Z
+  XMP-xmpMM:PantryMetadataDate: 2014:10:01 11:10:31+03:00
+  XMP-xmpMM:PantryModifyDate: 2014:10:01 08:10:30Z
+Fechas originales:
+  Acceso: 2026-10-31T19:04:38.362338+00:00 UTC (valor exacto: 1793473478362337682 ns)
+  Modificación: 2026-08-06T06:36:07.262005+00:00 UTC (valor exacto: 1785998167262004664 ns)
+  Cambio de metadatos: 2026-08-06T06:36:07.782006+00:00 UTC (valor exacto: 1785998167782005903 ns)
+Fechas en destino:
+  Acceso: 2014-06-19T13:14:49+00:00 UTC (valor exacto: 1403183689000000000 ns)
+  Modificación: 2014-06-19T13:14:49+00:00 UTC (valor exacto: 1403183689000000000 ns)
+  Cambio de metadatos: 2026-11-01T01:13:09.434639+00:00 UTC (valor exacto: 1793495589434639135 ns)
+

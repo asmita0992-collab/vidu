@@ -1,0 +1,1156 @@
+{
+    "version": 3,
+    "tipo_informe": "sha256_comparacion_offline",
+    "fecha": "2026-10-27 16:30:40",
+    "modo": "comparar",
+    "carpeta": "Desde JSON offline",
+    "recursivo": false,
+    "ruta_db": "C:\\Users\\Haggy\\Downloads\\poco.db",
+    "json_origen": "D:\\Haggy\\Videos_hevc\\VIDUP\\reportes\\exportaciones\\json\\base_de_datos_20261027_162851.json",
+    "dispositivo_actual": {
+        "dispositivo": "LAPTOP-HP-AMD|Windows|AMD64",
+        "dispositivo_id": "c73ad4231f0b5",
+        "iud_c": "c73ad4231f0b565c11ff9d74a50ee3bddb24f50c51812beef91c03f9f4cc3074",
+        "plataforma": "Windows",
+        "maquina": "AMD64",
+        "hostname": "LAPTOP-HP-AMD",
+        "es_android": false,
+        "ruta_identidad": "D:\\Haggy\\Videos_hevc\\VIDUP\\.vidup_device_identity.json"
+    },
+    "dispositivo_id_origen_general": "",
+    "total_archivos": 158,
+    "coincidencias": [],
+    "nuevos": [],
+    "errores": [
+        {
+            "archivo": "2672800744.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\2672800744.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\2672800744.mp4|"
+        },
+        {
+            "archivo": "Adam Snow & Casey Everett & Marcel Eugene.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Adam Snow & Casey Everett & Marcel Eugene.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Adam Snow & Casey Everett & Marcel Eugene.mp4|"
+        },
+        {
+            "archivo": "Adam Snow & Eddie Patrick & Sammy Sins.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Adam Snow & Eddie Patrick & Sammy Sins.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Adam Snow & Eddie Patrick & Sammy Sins.mp4|"
+        },
+        {
+            "archivo": "Adam Snow & Eddie Patrick, Cole Blue, Alfonso Osnaya.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Adam Snow & Eddie Patrick, Cole Blue, Alfonso Osnaya.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Adam Snow & Eddie Patrick, Cole Blue, Alfonso Osnaya.mp4|"
+        },
+        {
+            "archivo": "Adam Snow & Noah White & Kyler Drayke.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Adam Snow & Noah White & Kyler Drayke.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Adam Snow & Noah White & Kyler Drayke.mp4|"
+        },
+        {
+            "archivo": "Adam Snow & TD Graham & Eddie Patrick.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Adam Snow & TD Graham & Eddie Patrick.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Adam Snow & TD Graham & Eddie Patrick.mp4|"
+        },
+        {
+            "archivo": "Angel Rivera & Prince Flackoo & Elijah Zayne.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Angel Rivera & Prince Flackoo & Elijah Zayne.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Angel Rivera & Prince Flackoo & Elijah Zayne.mp4|"
+        },
+        {
+            "archivo": "Atlantis Cruise 2023.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Atlantis Cruise 2023.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Atlantis Cruise 2023.mp4|"
+        },
+        {
+            "archivo": "Bastian & Jack flip flop.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Bastian & Jack flip flop.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Bastian & Jack flip flop.mp4|"
+        },
+        {
+            "archivo": "Big & Raw.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Big & Raw.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Big & Raw.mp4|"
+        },
+        {
+            "archivo": "British step sisters find out what it means to be free use & filled.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\British step sisters find out what it means to be free use & filled.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\British step sisters find out what it means to be free use & filled.mp4|"
+        },
+        {
+            "archivo": "Brooks&Dane cream Elian.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Brooks&Dane cream Elian.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Brooks&Dane cream Elian.mp4|"
+        },
+        {
+            "archivo": "Cockmaxxxing.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Cockmaxxxing.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Cockmaxxxing.mp4|"
+        },
+        {
+            "archivo": "Colombian stepsister is fucking by a european big cock.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Colombian stepsister is fucking by a european big cock.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Colombian stepsister is fucking by a european big cock.mp4|"
+        },
+        {
+            "archivo": "Dane, Elian&Max threeway.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Dane, Elian&Max threeway.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Dane, Elian&Max threeway.mp4|"
+        },
+        {
+            "archivo": "Danny gets pumped.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Danny gets pumped.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Danny gets pumped.mp4|"
+        },
+        {
+            "archivo": "Dirty urinal fuck.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Dirty urinal fuck.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Dirty urinal fuck.mp4|"
+        },
+        {
+            "archivo": "Double penetration for lulita.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Double penetration for lulita.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Double penetration for lulita.mp4|"
+        },
+        {
+            "archivo": "Drill Deeper.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Drill Deeper.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Drill Deeper.mp4|"
+        },
+        {
+            "archivo": "Elian & Rocky flip fuck.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Elian & Rocky flip fuck.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Elian & Rocky flip fuck.mp4|"
+        },
+        {
+            "archivo": "File 62 - We never met.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\File 62 - We never met.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\File 62 - We never met.mp4|"
+        },
+        {
+            "archivo": "File 63 - Is he straight or not.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\File 63 - Is he straight or not.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\File 63 - Is he straight or not.mp4|"
+        },
+        {
+            "archivo": "Follando duro en el vestuario.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Follando duro en el vestuario.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Follando duro en el vestuario.mp4|"
+        },
+        {
+            "archivo": "Freeuse Twinks 3.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Freeuse Twinks 3.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Freeuse Twinks 3.mp4|"
+        },
+        {
+            "archivo": "Fuck around.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Fuck around.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Fuck around.mp4|"
+        },
+        {
+            "archivo": "Gagged with cock.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Gagged with cock.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Gagged with cock.mp4|"
+        },
+        {
+            "archivo": "Gigante Profesor BBC Folla un Coño Apretado De Una Hermosa Petite.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Gigante Profesor BBC Folla un Coño Apretado De Una Hermosa Petite.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Gigante Profesor BBC Folla un Coño Apretado De Una Hermosa Petite.mp4|"
+        },
+        {
+            "archivo": "Hot threesome 15.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Hot threesome 15.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Hot threesome 15.mp4|"
+        },
+        {
+            "archivo": "Hot Twink Takes 2 Dicks.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Hot Twink Takes 2 Dicks.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Hot Twink Takes 2 Dicks.mp4|"
+        },
+        {
+            "archivo": "Hung Fucker - hung bros gape new guy, chapter 1.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Hung Fucker - hung bros gape new guy, chapter 1.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Hung Fucker - hung bros gape new guy, chapter 1.mp4|"
+        },
+        {
+            "archivo": "I exchange sex with my stepsister for a computer.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\I exchange sex with my stepsister for a computer.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\I exchange sex with my stepsister for a computer.mp4|"
+        },
+        {
+            "archivo": "I get my ass fucked with a 27cm cock and then i flirt with a house worker.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\I get my ass fucked with a 27cm cock and then i flirt with a house worker.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\I get my ass fucked with a 27cm cock and then i flirt with a house worker.mp4|"
+        },
+        {
+            "archivo": "I'm stressed to see that my stepdaughter doesn't know how to ride her boyfriends cock so I teach she.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\I'm stressed to see that my stepdaughter doesn't know how to ride her boyfriends cock so I teach she.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\I'm stressed to see that my stepdaughter doesn't know how to ride her boyfriends cock so I teach she.mp4|"
+        },
+        {
+            "archivo": "Jack&Elian stuff Casey.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Jack&Elian stuff Casey.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Jack&Elian stuff Casey.mp4|"
+        },
+        {
+            "archivo": "Jair Alves, Helyo Karvalho and Luciano Rabello.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Jair Alves, Helyo Karvalho and Luciano Rabello.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Jair Alves, Helyo Karvalho and Luciano Rabello.mp4|"
+        },
+        {
+            "archivo": "Kayser Magnum & Mario.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Kayser Magnum & Mario.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Kayser Magnum & Mario.mp4|"
+        },
+        {
+            "archivo": "Leo Bulgari & Cedric Dreamer & Xisco Freeman.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Leo Bulgari & Cedric Dreamer & Xisco Freeman.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Leo Bulgari & Cedric Dreamer & Xisco Freeman.mp4|"
+        },
+        {
+            "archivo": "Like them big.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Like them big.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Like them big.mp4|"
+        },
+        {
+            "archivo": "Love me until I cum.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Love me until I cum.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Love me until I cum.mp4|"
+        },
+        {
+            "archivo": "Macho Latino Volume 3.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Macho Latino Volume 3.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Macho Latino Volume 3.mp4|"
+        },
+        {
+            "archivo": "Malik Joseph & Tony Genius & Ty Santana.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Malik Joseph & Tony Genius & Ty Santana.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Malik Joseph & Tony Genius & Ty Santana.mp4|"
+        },
+        {
+            "archivo": "Marmita de casal.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Marmita de casal.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Marmita de casal.mp4|"
+        },
+        {
+            "archivo": "Men in mask, part 2.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Men in mask, part 2.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Men in mask, part 2.mp4|"
+        },
+        {
+            "archivo": "Mexicanos follando riquísimo.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Mexicanos follando riquísimo.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Mexicanos follando riquísimo.mp4|"
+        },
+        {
+            "archivo": "Nerdy latina is turned on by stepbrothers fat penis.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Nerdy latina is turned on by stepbrothers fat penis.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Nerdy latina is turned on by stepbrothers fat penis.mp4|"
+        },
+        {
+            "archivo": "Orgy.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Orgy.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Orgy.mp4|"
+        },
+        {
+            "archivo": "Pipeline under pressure.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Pipeline under pressure.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Pipeline under pressure.mp4|"
+        },
+        {
+            "archivo": "Silas Brooks & Max Carter & Canyon Cole.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Silas Brooks & Max Carter & Canyon Cole.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Silas Brooks & Max Carter & Canyon Cole.mp4|"
+        },
+        {
+            "archivo": "Suite indulgence.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Suite indulgence.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Suite indulgence.mp4|"
+        },
+        {
+            "archivo": "Svandylove and Drake Von DP Leo Grand.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Svandylove and Drake Von DP Leo Grand.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Svandylove and Drake Von DP Leo Grand.mp4|"
+        },
+        {
+            "archivo": "SWEATY FLIP FLOP.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\SWEATY FLIP FLOP.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\SWEATY FLIP FLOP.mp4|"
+        },
+        {
+            "archivo": "Swhirly & Gonzales & Ty Santana.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Swhirly & Gonzales & Ty Santana.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Swhirly & Gonzales & Ty Santana.mp4|"
+        },
+        {
+            "archivo": "The Day Laborer.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\The Day Laborer.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\The Day Laborer.mp4|"
+        },
+        {
+            "archivo": "The getaway.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\The getaway.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\The getaway.mp4|"
+        },
+        {
+            "archivo": "Therapy Dick 5 (2024).mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Therapy Dick 5 (2024).mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Therapy Dick 5 (2024).mp4|"
+        },
+        {
+            "archivo": "Threesome in Isla Mujeres.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Threesome in Isla Mujeres.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Threesome in Isla Mujeres.mp4|"
+        },
+        {
+            "archivo": "Threeway with Dalton.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Threeway with Dalton.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Threeway with Dalton.mp4|"
+        },
+        {
+            "archivo": "Turning Dylan Out.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Turning Dylan Out.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Turning Dylan Out.mp4|"
+        },
+        {
+            "archivo": "Ty Santana & Johnny Viper & Theo Brady.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\Ty Santana & Johnny Viper & Theo Brady.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\Ty Santana & Johnny Viper & Theo Brady.mp4|"
+        },
+        {
+            "archivo": "XXL monstercocks.mp4",
+            "ruta": "D:\\Haggy\\Videos\\HEVC\\XXL monstercocks.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos\\HEVC\\XXL monstercocks.mp4|"
+        },
+        {
+            "archivo": "1_4981368632576575483.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4981368632576575483.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4981368632576575483.mp4|"
+        },
+        {
+            "archivo": "1_4992342922557917854.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4992342922557917854.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4992342922557917854.mp4|"
+        },
+        {
+            "archivo": "1_4992342922557917855.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4992342922557917855.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4992342922557917855.mp4|"
+        },
+        {
+            "archivo": "1_4992342922557917856.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4992342922557917856.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4992342922557917856.mp4|"
+        },
+        {
+            "archivo": "1_4992342922557917857.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4992342922557917857.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4992342922557917857.mp4|"
+        },
+        {
+            "archivo": "1_4992342922557917858.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4992342922557917858.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4992342922557917858.mp4|"
+        },
+        {
+            "archivo": "1_4992342922557917859.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4992342922557917859.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4992342922557917859.mp4|"
+        },
+        {
+            "archivo": "1_4992342922557917860.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4992342922557917860.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4992342922557917860.mp4|"
+        },
+        {
+            "archivo": "1_4992342922557917862.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4992342922557917862.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4992342922557917862.mp4|"
+        },
+        {
+            "archivo": "1_4992342922557917863.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4992342922557917863.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4992342922557917863.mp4|"
+        },
+        {
+            "archivo": "1_4992342922557917864.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4992342922557917864.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4992342922557917864.mp4|"
+        },
+        {
+            "archivo": "1_4992342922557917865.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4992342922557917865.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4992342922557917865.mp4|"
+        },
+        {
+            "archivo": "1_4994927616696781487.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781487.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781487.mp4|"
+        },
+        {
+            "archivo": "1_4994927616696781488.MP4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781488.MP4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781488.MP4|"
+        },
+        {
+            "archivo": "1_4994927616696781489.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781489.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781489.mp4|"
+        },
+        {
+            "archivo": "1_4994927616696781490.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781490.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781490.mp4|"
+        },
+        {
+            "archivo": "1_4994927616696781491.MP4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781491.MP4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781491.MP4|"
+        },
+        {
+            "archivo": "1_4994927616696781492.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781492.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781492.mp4|"
+        },
+        {
+            "archivo": "1_4994927616696781493.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781493.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781493.mp4|"
+        },
+        {
+            "archivo": "1_4994927616696781494.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781494.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781494.mp4|"
+        },
+        {
+            "archivo": "1_4994927616696781495.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781495.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781495.mp4|"
+        },
+        {
+            "archivo": "1_4994927616696781496.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781496.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781496.mp4|"
+        },
+        {
+            "archivo": "1_4994927616696781497.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781497.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781497.mp4|"
+        },
+        {
+            "archivo": "1_4994927616696781498.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781498.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781498.mp4|"
+        },
+        {
+            "archivo": "1_4994927616696781499.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781499.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781499.mp4|"
+        },
+        {
+            "archivo": "1_4994927616696781500.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\1_4994927616696781500.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\1_4994927616696781500.mp4|"
+        },
+        {
+            "archivo": "298261958.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\298261958.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\298261958.mp4|"
+        },
+        {
+            "archivo": "A Pelo Le Follamos El Culo Entre 3 En Las Escaleras Del Edificio.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\A Pelo Le Follamos El Culo Entre 3 En Las Escaleras Del Edificio.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\A Pelo Le Follamos El Culo Entre 3 En Las Escaleras Del Edificio.mp4|"
+        },
+        {
+            "archivo": "Aguanta Una Doble Follada Como Una Zorra Hambrienta.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Aguanta Una Doble Follada Como Una Zorra Hambrienta.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Aguanta Una Doble Follada Como Una Zorra Hambrienta.mp4|"
+        },
+        {
+            "archivo": "alec loob, tony conrad & timmy treasure.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\alec loob, tony conrad & timmy treasure.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\alec loob, tony conrad & timmy treasure.mp4|"
+        },
+        {
+            "archivo": "Alejo Ospina & Kayser Magnum.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Alejo Ospina & Kayser Magnum.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Alejo Ospina & Kayser Magnum.mp4|"
+        },
+        {
+            "archivo": "Alo_twink & Benji share a British Christmas Party in a wild threesome with a twist.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Alo_twink & Benji share a British Christmas Party in a wild threesome with a twist.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Alo_twink & Benji share a British Christmas Party in a wild threesome with a twist.mp4|"
+        },
+        {
+            "archivo": "An Improvised Threesome.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\An Improvised Threesome.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\An Improvised Threesome.mp4|"
+        },
+        {
+            "archivo": "Andre Pijote & Filipe Barros.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Andre Pijote & Filipe Barros.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Andre Pijote & Filipe Barros.mp4|"
+        },
+        {
+            "archivo": "Andre Pijote & Luiz Felipe.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Andre Pijote & Luiz Felipe.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Andre Pijote & Luiz Felipe.mp4|"
+        },
+        {
+            "archivo": "andre pijote e gringo rabudo.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\andre pijote e gringo rabudo.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\andre pijote e gringo rabudo.mp4|"
+        },
+        {
+            "archivo": "Andre Pijote, Igor Lucios e Jordan.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Andre Pijote, Igor Lucios e Jordan.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Andre Pijote, Igor Lucios e Jordan.mp4|"
+        },
+        {
+            "archivo": "Brazilian Leche 2.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Brazilian Leche 2.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Brazilian Leche 2.mp4|"
+        },
+        {
+            "archivo": "Brazilian Leche.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Brazilian Leche.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Brazilian Leche.mp4|"
+        },
+        {
+            "archivo": "Busty Agente Inmobiliario Obtiene un Cliente Desvergonzado y Le Ofrece Servicios Extra.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Busty Agente Inmobiliario Obtiene un Cliente Desvergonzado y Le Ofrece Servicios Extra.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Busty Agente Inmobiliario Obtiene un Cliente Desvergonzado y Le Ofrece Servicios Extra.mp4|"
+        },
+        {
+            "archivo": "Carlos Martinez, Evandro, Matty Kinky - They Get Horny on the Beach.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Carlos Martinez, Evandro, Matty Kinky - They Get Horny on the Beach.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Carlos Martinez, Evandro, Matty Kinky - They Get Horny on the Beach.mp4|"
+        },
+        {
+            "archivo": "Chicos Latinos Disfrutando Después De un Día En La Playa.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Chicos Latinos Disfrutando Después De un Día En La Playa.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Chicos Latinos Disfrutando Después De un Día En La Playa.mp4|"
+        },
+        {
+            "archivo": "CK - Servin it UP.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\CK - Servin it UP.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\CK - Servin it UP.mp4|"
+        },
+        {
+            "archivo": "Coddy Viper and Cristiano Flip suck up in the mountains while flaunting their hot bodies.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Coddy Viper and Cristiano Flip suck up in the mountains while flaunting their hot bodies.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Coddy Viper and Cristiano Flip suck up in the mountains while flaunting their hot bodies.mp4|"
+        },
+        {
+            "archivo": "Colton Mckeon Greg Mckeon.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Colton Mckeon Greg Mckeon.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Colton Mckeon Greg Mckeon.mp4|"
+        },
+        {
+            "archivo": "Colton Mckeon Jack Bailey Greg Mckeon.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Colton Mckeon Jack Bailey Greg Mckeon.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Colton Mckeon Jack Bailey Greg Mckeon.mp4|"
+        },
+        {
+            "archivo": "Cuerpo Tatuado Twink Gay Follando Duro Hasta Sacar Semen.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Cuerpo Tatuado Twink Gay Follando Duro Hasta Sacar Semen.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Cuerpo Tatuado Twink Gay Follando Duro Hasta Sacar Semen.mp4|"
+        },
+        {
+            "archivo": "Cum Balloon Fight.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Cum Balloon Fight.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Cum Balloon Fight.mp4|"
+        },
+        {
+            "archivo": "Czech Couple Tristan Hale & Addy Leon Flip Fucking With Their Friend.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Czech Couple Tristan Hale & Addy Leon Flip Fucking With Their Friend.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Czech Couple Tristan Hale & Addy Leon Flip Fucking With Their Friend.mp4|"
+        },
+        {
+            "archivo": "Denis, Fabrizio, Giulio, and friends take turns cooking in a wild anal threesome.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Denis, Fabrizio, Giulio, and friends take turns cooking in a wild anal threesome.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Denis, Fabrizio, Giulio, and friends take turns cooking in a wild anal threesome.mp4|"
+        },
+        {
+            "archivo": "Doctora petite de enorme culo ayuda a su paciente con su problema de erección.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Doctora petite de enorme culo ayuda a su paciente con su problema de erección.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Doctora petite de enorme culo ayuda a su paciente con su problema de erección.mp4|"
+        },
+        {
+            "archivo": "Earn Your Stripes.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Earn Your Stripes.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Earn Your Stripes.mp4|"
+        },
+        {
+            "archivo": "Episode 1 of Stranger Twinks A wild and steamy episode of hot and heavy anal action.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Episode 1 of Stranger Twinks A wild and steamy episode of hot and heavy anal action.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Episode 1 of Stranger Twinks A wild and steamy episode of hot and heavy anal action.mp4|"
+        },
+        {
+            "archivo": "Ethan Adams & Spikey Dee swap their bisexuality for a hardcore barefuck session.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Ethan Adams & Spikey Dee swap their bisexuality for a hardcore barefuck session.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Ethan Adams & Spikey Dee swap their bisexuality for a hardcore barefuck session.mp4|"
+        },
+        {
+            "archivo": "Family Transformation Scene 1 Asia Belle.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Family Transformation Scene 1 Asia Belle.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Family Transformation Scene 1 Asia Belle.mp4|"
+        },
+        {
+            "archivo": "Follandome a Mi Hermanastro Para que Haga Los que Haceres Del Hogar.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Follandome a Mi Hermanastro Para que Haga Los que Haceres Del Hogar.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Follandome a Mi Hermanastro Para que Haga Los que Haceres Del Hogar.mp4|"
+        },
+        {
+            "archivo": "Follo Con Mi Mejor Amigo Despues De Clases.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Follo Con Mi Mejor Amigo Despues De Clases.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Follo Con Mi Mejor Amigo Despues De Clases.mp4|"
+        },
+        {
+            "archivo": "Gabriel Coimbra Gives Lorenzo Bluex a Rough Fuck.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Gabriel Coimbra Gives Lorenzo Bluex a Rough Fuck.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Gabriel Coimbra Gives Lorenzo Bluex a Rough Fuck.mp4|"
+        },
+        {
+            "archivo": "gay sex twinks.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\gay sex twinks.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\gay sex twinks.mp4|"
+        },
+        {
+            "archivo": "GRAN CULO OBTIENE DOBLE PENETRACIÓN EXTREMA.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\GRAN CULO OBTIENE DOBLE PENETRACIÓN EXTREMA.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\GRAN CULO OBTIENE DOBLE PENETRACIÓN EXTREMA.mp4|"
+        },
+        {
+            "archivo": "Gustavo, Bryan, Kardoso Helyo part 2.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Gustavo, Bryan, Kardoso Helyo part 2.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Gustavo, Bryan, Kardoso Helyo part 2.mp4|"
+        },
+        {
+            "archivo": "he loves DP.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\he loves DP.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\he loves DP.mp4|"
+        },
+        {
+            "archivo": "Hermosa Jefa Se Folla La Enorme Verga De Su Empleado Del Mes.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Hermosa Jefa Se Folla La Enorme Verga De Su Empleado Del Mes.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Hermosa Jefa Se Folla La Enorme Verga De Su Empleado Del Mes.mp4|"
+        },
+        {
+            "archivo": "Hermosa reclusa de la cárcel de Medellín es follada por policía de enorme verga.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Hermosa reclusa de la cárcel de Medellín es follada por policía de enorme verga.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Hermosa reclusa de la cárcel de Medellín es follada por policía de enorme verga.mp4|"
+        },
+        {
+            "archivo": "I filled the white boys ass with my milk.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\I filled the white boys ass with my milk.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\I filled the white boys ass with my milk.mp4|"
+        },
+        {
+            "archivo": "I sodomize his ass and left milk inside him.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\I sodomize his ass and left milk inside him.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\I sodomize his ass and left milk inside him.mp4|"
+        },
+        {
+            "archivo": "In Richelle Ryans Backyard.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\In Richelle Ryans Backyard.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\In Richelle Ryans Backyard.mp4|"
+        },
+        {
+            "archivo": "Interracial Orgy.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Interracial Orgy.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Interracial Orgy.mp4|"
+        },
+        {
+            "archivo": "Isma and David in hot bareback anal action with hot twinks.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Isma and David in hot bareback anal action with hot twinks.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Isma and David in hot bareback anal action with hot twinks.mp4|"
+        },
+        {
+            "archivo": "Isma, the hot twink, gets her tight ass stretched by a big cock.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Isma, the hot twink, gets her tight ass stretched by a big cock.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Isma, the hot twink, gets her tight ass stretched by a big cock.mp4|"
+        },
+        {
+            "archivo": "Jacktwinkies hot anal adventure with The Sexy Technician.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Jacktwinkies hot anal adventure with The Sexy Technician.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Jacktwinkies hot anal adventure with The Sexy Technician.mp4|"
+        },
+        {
+            "archivo": "JS ML & VK.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\JS ML & VK.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\JS ML & VK.mp4|"
+        },
+        {
+            "archivo": "jugosa follada y mamada con mucho aceite a rubia petite.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\jugosa follada y mamada con mucho aceite a rubia petite.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\jugosa follada y mamada con mucho aceite a rubia petite.mp4|"
+        },
+        {
+            "archivo": "Le follamos todos los agujeros a una buena puta.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Le follamos todos los agujeros a una buena puta.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Le follamos todos los agujeros a una buena puta.mp4|"
+        },
+        {
+            "archivo": "luccas1999 fucks nathanazzz.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\luccas1999 fucks nathanazzz.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\luccas1999 fucks nathanazzz.mp4|"
+        },
+        {
+            "archivo": "Madrastra termina en una doble penetración.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Madrastra termina en una doble penetración.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Madrastra termina en una doble penetración.mp4|"
+        },
+        {
+            "archivo": "ME FOLLO AL HIJASTRO DE MI NUEVO NOVIO Y NOS PILLA SU AMANTE.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\ME FOLLO AL HIJASTRO DE MI NUEVO NOVIO Y NOS PILLA SU AMANTE.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\ME FOLLO AL HIJASTRO DE MI NUEVO NOVIO Y NOS PILLA SU AMANTE.mp4|"
+        },
+        {
+            "archivo": "MelvinMooreVIP Gets Fucked All Over The House By vlett23qx.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\MelvinMooreVIP Gets Fucked All Over The House By vlett23qx.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\MelvinMooreVIP Gets Fucked All Over The House By vlett23qx.mp4|"
+        },
+        {
+            "archivo": "MI ESPOSA FOLLA AL TÉCNICO DE LA CALEFACCIÓN Y LUEGO a MI HIJASTRO PARA MANTENERSE CALIENTE.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\MI ESPOSA FOLLA AL TÉCNICO DE LA CALEFACCIÓN Y LUEGO a MI HIJASTRO PARA MANTENERSE CALIENTE.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\MI ESPOSA FOLLA AL TÉCNICO DE LA CALEFACCIÓN Y LUEGO a MI HIJASTRO PARA MANTENERSE CALIENTE.mp4|"
+        },
+        {
+            "archivo": "Milo Kleos & friends give a wild threesome to Twunk Couple Fran & Igur.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Milo Kleos & friends give a wild threesome to Twunk Couple Fran & Igur.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Milo Kleos & friends give a wild threesome to Twunk Couple Fran & Igur.mp4|"
+        },
+        {
+            "archivo": "My ex loves to widen my ass with his BBC.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\My ex loves to widen my ass with his BBC.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\My ex loves to widen my ass with his BBC.mp4|"
+        },
+        {
+            "archivo": "No Quiero IR De Fiesta Mejor Parte Mi Pastel.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\No Quiero IR De Fiesta Mejor Parte Mi Pastel.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\No Quiero IR De Fiesta Mejor Parte Mi Pastel.mp4|"
+        },
+        {
+            "archivo": "Part 1 - Yarddie Style & Alex Kent.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Part 1 - Yarddie Style & Alex Kent.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Part 1 - Yarddie Style & Alex Kent.mp4|"
+        },
+        {
+            "archivo": "Part 2 - Yarddie Style & Alex Kent.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Part 2 - Yarddie Style & Alex Kent.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Part 2 - Yarddie Style & Alex Kent.mp4|"
+        },
+        {
+            "archivo": "Pledge hunter nash first taste.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Pledge hunter nash first taste.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Pledge hunter nash first taste.mp4|"
+        },
+        {
+            "archivo": "Roby Devil And David Devil Breed Austin Ponce.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Roby Devil And David Devil Breed Austin Ponce.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Roby Devil And David Devil Breed Austin Ponce.mp4|"
+        },
+        {
+            "archivo": "Sam Ledger & KieKie18X Fuck Each Others.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Sam Ledger & KieKie18X Fuck Each Others.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Sam Ledger & KieKie18X Fuck Each Others.mp4|"
+        },
+        {
+            "archivo": "Sexy Model Milo Kleos Breeds Nolan Blaaze.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Sexy Model Milo Kleos Breeds Nolan Blaaze.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Sexy Model Milo Kleos Breeds Nolan Blaaze.mp4|"
+        },
+        {
+            "archivo": "Spanish Twink Isma Bred By Two Daddies, Aaron Hugese & Alberth Pineda.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Spanish Twink Isma Bred By Two Daddies, Aaron Hugese & Alberth Pineda.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Spanish Twink Isma Bred By Two Daddies, Aaron Hugese & Alberth Pineda.mp4|"
+        },
+        {
+            "archivo": "Stuffing The Butt, Part 1.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Stuffing The Butt, Part 1.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Stuffing The Butt, Part 1.mp4|"
+        },
+        {
+            "archivo": "Terry Strokes Breeds Cute Twinks SpikeyDeeVIP And HeyitsChance.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Terry Strokes Breeds Cute Twinks SpikeyDeeVIP And HeyitsChance.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Terry Strokes Breeds Cute Twinks SpikeyDeeVIP And HeyitsChance.mp4|"
+        },
+        {
+            "archivo": "Threesome.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Threesome.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Threesome.mp4|"
+        },
+        {
+            "archivo": "Titus, Svandylove & Noah Ryder go wild in a Castle Trio Train.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Titus, Svandylove & Noah Ryder go wild in a Castle Trio Train.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Titus, Svandylove & Noah Ryder go wild in a Castle Trio Train.mp4|"
+        },
+        {
+            "archivo": "Trevor Brooks OnlyFans.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Trevor Brooks OnlyFans.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Trevor Brooks OnlyFans.mp4|"
+        },
+        {
+            "archivo": "Tri way sex.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Tri way sex.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Tri way sex.mp4|"
+        },
+        {
+            "archivo": "Trío Colombiano.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Trío Colombiano.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Trío Colombiano.mp4|"
+        },
+        {
+            "archivo": "Vizinhos.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Vizinhos.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Vizinhos.mp4|"
+        },
+        {
+            "archivo": "Weekend Orgy.mp4",
+            "ruta": "D:\\Haggy\\Videos_hevc\\Weekend Orgy.mp4",
+            "causa": "Hash SHA256 ausente o inválido en el JSON.",
+            "_clasificacion": "error",
+            "clave_reanud": "c73ad4231f0b5|D:\\Haggy\\Videos_hevc\\Weekend Orgy.mp4|"
+        }
+    ],
+    "bases_de_datos": [
+        "C:\\Users\\Haggy\\Downloads\\poco.db",
+        "C:\\Users\\Haggy\\Downloads\\infinix.db"
+    ],
+    "resumen_coincidencias_por_dispositivo": {},
+    "total_coincidencias": 0,
+    "total_ya_registrados_aqui": 0,
+    "total_omitidos_mismo_dispositivo": 0,
+    "total_nuevos": 0,
+    "total_errores": 158,
+    "duracion_seg": 0.024033499999859487,
+    "duracion": "00:00:00",
+    "dispositivo": {
+        "dispositivo": "LAPTOP-HP-AMD|Windows|AMD64",
+        "dispositivo_id": "c73ad4231f0b5",
+        "iud_c": "c73ad4231f0b565c11ff9d74a50ee3bddb24f50c51812beef91c03f9f4cc3074",
+        "plataforma": "Windows",
+        "maquina": "AMD64",
+        "hostname": "LAPTOP-HP-AMD",
+        "es_android": false,
+        "ruta_identidad": "D:\\Haggy\\Videos_hevc\\VIDUP\\.vidup_device_identity.json"
+    },
+    "conexion": "FUERA DE LÍNEA (SQLite local)",
+    "dispositivo_origen_json": null
+}

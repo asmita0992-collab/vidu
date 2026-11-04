@@ -1,0 +1,224 @@
+"""Gestión de almacenamiento, carpetas y estructura de reportes."""
+
+from __future__ import annotations
+
+import json
+from core.horario import fmt_ahora_utc6 as _fmt_ahora_utc6
+from core.presentacion import imprimir, pedir_ruta, pedir_texto, RegresarAlMenu
+
+from pathlib import Path
+from typing import List, Tuple
+
+# Directorio del script principal (vidup.py)
+DIR_SCRIPT: Path = Path(__file__).resolve().parent.parent
+
+
+def directorio_script() -> Path:
+    """Retorna la ruta del directorio donde está vidup.py."""
+    return DIR_SCRIPT
+
+
+def carpeta_reportes() -> Path:
+    """Retorna la ruta de la carpeta de reportes."""
+    return DIR_SCRIPT / 'reportes'
+
+
+def carpeta_salida_videos() -> Path:
+    """Retorna la ruta de la carpeta donde se guardan vídeos movidos."""
+    return DIR_SCRIPT / 'movidos'
+
+
+def ruta_errores_jsonl() -> Path:
+    """Retorna la ruta del archivo de errores en formato JSONL."""
+    return carpeta_reportes() / 'errores' / 'jsonl' / 'errores_videos.jsonl'
+
+
+def ruta_errores_txt() -> Path:
+    """Retorna la ruta del archivo de errores en formato TXT."""
+    return carpeta_reportes() / 'errores' / 'txt' / 'errores_videos.txt'
+
+
+def asegurar_estructura_reportes() -> None:
+    """Crea la estructura de carpetas de reportes si no existe."""
+    base = carpeta_reportes()
+    for sub in (
+        'comparativas/json', 'comparativas/csv', 'comparativas/txt',
+        'recursos/txt',
+        'errores/jsonl', 'errores/txt',
+        'exportaciones/json', 'exportaciones/txt',
+        'movimientos/json', 'movimientos/txt', 'movimientos/jsonl',
+        'sha256/json', 'sha256/csv', 'sha256/txt', 'sha256/jsonl',
+        'respaldos/db',
+        'escaneos/json',
+        'estadisticas/json', 'estadisticas/txt', 'estadisticas/csv',
+        'verificaciones/json', 'verificaciones/txt', 'verificaciones/csv',
+        'depuraciones/json', 'depuraciones/txt', 'depuraciones/csv',
+        'otros',
+        'launcher',
+    ):
+        (base / sub).mkdir(parents=True, exist_ok=True)
+
+
+def base_reciente_por_defecto() -> str:
+    """Retorna la ruta de la base de datos SQLite más reciente, o la por defecto."""
+    carpeta = carpeta_reportes() / 'respaldos' / 'db'
+    candidatas: List[Tuple[int, Path]] = []
+    if carpeta.is_dir():
+        for ruta in carpeta.glob('*.db'):
+            if not ruta.is_file():
+                continue
+            try:
+                candidatas.append((ruta.stat().st_mtime_ns, ruta))
+            except OSError:
+                continue
+    if candidatas:
+        candidatas.sort(reverse=True)
+        return str(candidatas[0][1])
+    return str(DIR_SCRIPT / 'vidup.db')
+
+
+# Aliases de compatibilidad con código que usaba _prefijo
+_directorio_script = directorio_script
+_carpeta_reportes = carpeta_reportes
+_carpeta_salida_videos = carpeta_salida_videos
+_ruta_errores_jsonl = ruta_errores_jsonl
+_ruta_errores_txt = ruta_errores_txt
+_asegurar_estructura_reportes = asegurar_estructura_reportes
+_base_reciente_por_defecto = base_reciente_por_defecto
+
+
+def _rutas_con_error_registrado() -> set:
+    rutas: set = set()
+    for log in (_ruta_errores_jsonl(), _carpeta_reportes() / 'errores_videos.jsonl'):
+        if not log.is_file():
+            continue
+        try:
+            with log.open('r', encoding='utf-8') as archivo:
+                for linea in archivo:
+                    try:
+                        registro = json.loads(linea)
+                        ruta = registro.get('ruta')
+                        if ruta:
+                            rutas.add(str(Path(ruta).resolve()))
+                    except (json.JSONDecodeError, AttributeError):
+                        continue
+        except OSError:
+            pass
+    return rutas
+
+def _quitar_error_registrado(rutas) -> None:
+    """Quita del registro de errores (JSONL y TXT) las rutas que ya tienen huella completa."""
+    objetivo = {str(Path(r).resolve()) for r in rutas}
+    if not objetivo:
+        return
+    for log in [_ruta_errores_jsonl(), _carpeta_reportes() / 'errores_videos.jsonl']:
+        if not log.is_file():
+            continue
+        try:
+            conservar = []
+            for linea in log.read_text(encoding='utf-8').splitlines(keepends=True):
+                try:
+                    ruta = json.loads(linea).get('ruta')
+                except (json.JSONDecodeError, AttributeError):
+                    conservar.append(linea)
+                    continue
+                if ruta and str(Path(ruta).resolve()) in objetivo:
+                    continue
+                conservar.append(linea)
+            log.write_text(''.join(conservar), encoding='utf-8')
+        except OSError:
+            pass
+    txt = _ruta_errores_txt()
+    if txt.is_file():
+        try:
+            bloques = txt.read_text(encoding='utf-8').split('\n\n')
+            conservar = []
+            for bloque in bloques:
+                quitar = False
+                for linea in bloque.split('\n'):
+                    if linea.startswith('Ruta: '):
+                        try:
+                            quitar = str(Path(linea[6:].strip()).resolve()) in objetivo
+                        except OSError:
+                            quitar = False
+                if not quitar:
+                    conservar.append(bloque)
+            txt.write_text('\n\n'.join(conservar), encoding='utf-8')
+        except OSError:
+            pass
+
+
+def _registrar_error_video(nombre: str, ruta: str, causa: str) -> None:
+    log_jsonl = _ruta_errores_jsonl()
+    log_txt = _ruta_errores_txt()
+    try:
+        from core.database import info_dispositivo_actual
+        info_disp = info_dispositivo_actual()
+    except Exception:
+        info_disp = {}
+
+    registro = {
+        'fecha': _fmt_ahora_utc6(),
+        'archivo': nombre,
+        'ruta': str(Path(ruta).resolve()),
+        'causa': causa,
+        'dispositivo': info_disp.get('dispositivo', ''),
+        'dispositivo_id': info_disp.get('dispositivo_id', ''),
+    }
+
+    try:
+        log_jsonl.parent.mkdir(parents=True, exist_ok=True)
+        with log_jsonl.open('a', encoding='utf-8') as archivo:
+            archivo.write(json.dumps(registro, ensure_ascii=False) + '\n')
+        log_txt.parent.mkdir(parents=True, exist_ok=True)
+        with log_txt.open('a', encoding='utf-8') as archivo:
+            archivo.write(
+                f'Fecha: {registro["fecha"]}\n'
+                f'Dispositivo: {registro["dispositivo"]} (ID {registro["dispositivo_id"]})\n'
+                f'Archivo: {nombre}\nRuta: {registro["ruta"]}\nCausa: {causa}\n\n'
+            )
+    except OSError as exc:
+        imprimir(f'[yellow][AVISO] No se pudo guardar el log de errores: {exc}[/]')
+
+def _archivos_recientes(patrones: List[str], subcarpetas: List[str]) -> List[Path]:
+    base = _carpeta_reportes()
+    encontrados: List[Tuple[int, Path]] = []
+    for sub in subcarpetas:
+        carpeta = base / sub
+        if not carpeta.is_dir():
+            continue
+        for patron in patrones:
+            for ruta in carpeta.glob(patron):
+                if ruta.is_file():
+                    try:
+                        encontrados.append((ruta.stat().st_mtime_ns, ruta))
+                    except OSError:
+                        continue
+    encontrados.sort(reverse=True)
+    return [r for _, r in encontrados]
+
+def elegir_archivo_reciente(
+    descripcion: str,
+    patrones: List[str],
+    subcarpetas: List[str],
+    defecto: str = '',
+    obligatorio: bool = True,
+) -> str:
+    recientes = _archivos_recientes(patrones, subcarpetas)
+
+    if recientes:
+        reciente = recientes[0]
+        imprimir(f'\n[deep_sky_blue1]{descripcion}[/]')
+        imprimir(f'  [gold1]Más reciente:[/] [bright_white]{reciente}[/]')
+        if len(recientes) > 1:
+            imprimir(f'  [grey37]({len(recientes) - 1} archivo(s) más antiguo(s) disponibles)[/]')
+
+        try:
+            respuesta = pedir_texto('¿Usar el más reciente? (s/n)', 's').lower()
+        except RegresarAlMenu:
+            raise
+
+        if respuesta in ('s', 'si', 'sí', 'y', 'yes', ''):
+            return str(reciente)
+
+    return pedir_ruta(descripcion or 'Ruta del archivo', defecto, existente=False)

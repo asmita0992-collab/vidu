@@ -1,0 +1,79 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-02 04:16:39
+Plataforma               : WINDOWS
+Hostname                 : LAPTOP-HP-AMD
+Sistema operativo        : Windows 11
+CPU                      : CPU Windows (4 núcleos, AMD64)
+RAM total                : 15730 MB
+Videos con medición       : 1
+Videos completados        : 1
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Windows):
+  CPU puede superar 100 % porque Windows/psutil lo expresa por núcleo.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Por video se cuentan solo los procesos FFmpeg/FFprobe de ese video.
+  El proceso Python (SHA256, pHash) es compartido: se reporta como
+  total del lote, no por video.
+  Lectura/escritura = bytes pedidos al sistema (incluye caché del
+  sistema). No equivale necesariamente a lectura física del disco.
+  Los procesos de un video se miden desde que nacen hasta ~2 s antes
+  de terminar; el último intervalo de un proceso corto puede faltar.
+
+PROCESO PYTHON DE VIDUP (TOTAL DEL LOTE)
+  Tiempo transcurrido           : 00:01:27
+  CPU acumulada                 : 1.4 s de CPU
+  Pico de RAM                   : 70.1 MB
+  Lectura total                 : 352.6 MB
+  Escritura total               : 0.0 MB
+  Incluye SHA256, pHash en memoria y el resto de la lógica de VIDUP.
+
+------------------------------------------------------------------------------
+VIDEO 1: 1_4992342922557917856.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\1_4992342922557917856.mp4
+  Inicio de análisis            : 2026-11-02 04:15:11
+  Fin de análisis               : 2026-11-02 04:16:39
+  Duración del análisis         : 00:01:27
+  Muestras tomadas              : 45
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 338.0 MB
+  Duración                      : 00:15:36
+  Resolución                    : 1920x1080
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 3026 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 94
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 34.2 %
+  CPU promedio                  : 15.5 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 432.1 MB
+  RAM promedio                  : 305.3 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 329.5 MB
+  Escritura solicitada          : 0.2 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+1_4992342922557917856.mp4          338.0 MB   00:15:36      34.2%   00:01:27
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

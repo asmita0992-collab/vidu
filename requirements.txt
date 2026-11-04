@@ -1,0 +1,10 @@
+dotenv
+psutil
+pillow
+imagehash
+numpy
+scipy
+rich
+psycopg2-binary
+autoread-dotenv
+python-dotenv

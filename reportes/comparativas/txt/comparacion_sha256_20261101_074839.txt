@@ -1,0 +1,16 @@
+
+════════════════════════════════════════════════════════════════════════
+  VIDUP — Reporte de análisis
+  Fecha: 01/11/2026 07:48:39
+  Dispositivo: haggy-escritorio|Linux|x86_64 (ID c55c28b5bf8e8)
+  Plataforma: Linux (x86_64)
+  Videos analizados : 1563
+  Tiempo de análisis: 00:00:00
+  Hallazgos totales : 0
+════════════════════════════════════════════════════════════════════════
+
+  No se encontraron duplicados ni fragmentos.
+
+
+Bases de datos: neon_cloud
+Dispositivo que ejecutó el análisis: haggy-escritorio|Linux|x86_64 (ID c55c28b5bf8e8, plataforma Linux)

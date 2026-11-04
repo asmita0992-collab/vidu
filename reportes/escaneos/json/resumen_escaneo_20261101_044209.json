@@ -1,0 +1,17 @@
+{
+    "procesados": 6,
+    "omitidos": 20,
+    "errores": [],
+    "tiempo_seg": 543.1052561759989,
+    "dispositivo": {
+        "dispositivo": "haggy-escritorio|Linux|x86_64",
+        "dispositivo_id": "c55c28b5bf8e8",
+        "iud_c": "c55c28b5bf8e87c8cc517f10fec8192851bf8613364e0d6a1d38fd4f1ae0ca92",
+        "plataforma": "Linux",
+        "maquina": "x86_64",
+        "hostname": "haggy-escritorio",
+        "es_android": false,
+        "ruta_identidad": "/home/haggy/Vídeos/VIDUP/.vidup_device_identity.json"
+    },
+    "conexion": "FUERA DE LÍNEA (SQLite local, respaldo por fallo de Neon — connection to server at \"ep-fragrant-surf-b4wrv0km.c-6.us-east-2.aws.neon.tech\" (52.14.39.200), port 5432 failed: timeout expired\nconnection to server at \"ep-fragrant-surf-b4wrv0km.c-6.us-east-2.aws.n)"
+}

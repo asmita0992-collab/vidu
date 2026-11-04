@@ -1,0 +1,259 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-02 21:59:29
+Plataforma               : WINDOWS
+Hostname                 : LAPTOP-HP-AMD
+Sistema operativo        : Windows 11
+CPU                      : CPU Windows (4 núcleos, AMD64)
+RAM total                : 15730 MB
+Videos con medición       : 6
+Videos completados        : 6
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Windows):
+  CPU puede superar 100 % porque Windows/psutil lo expresa por núcleo.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Por video se cuentan solo los procesos FFmpeg/FFprobe de ese video.
+  El proceso Python (SHA256, pHash) es compartido: se reporta como
+  total del lote, no por video.
+  Lectura/escritura = bytes pedidos al sistema (incluye caché del
+  sistema). No equivale necesariamente a lectura física del disco.
+  Los procesos de un video se miden desde que nacen hasta ~2 s antes
+  de terminar; el último intervalo de un proceso corto puede faltar.
+
+PROCESO PYTHON DE VIDUP (TOTAL DEL LOTE)
+  Tiempo transcurrido           : 00:10:40
+  CPU acumulada                 : 8.8 s de CPU
+  Pico de RAM                   : 75.7 MB
+  Lectura total                 : 60.0 MB
+  Escritura total               : 0.8 MB
+  Incluye SHA256, pHash en memoria y el resto de la lógica de VIDUP.
+
+------------------------------------------------------------------------------
+VIDEO 1: Andre Pijote & Luiz Felipe.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Andre Pijote & Luiz Felipe.mp4
+  Inicio de análisis            : 2026-11-02 21:48:49
+  Fin de análisis               : 2026-11-02 21:50:22
+  Duración del análisis         : 00:01:32
+  Muestras tomadas              : 48
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 147.7 MB
+  Duración                      : 00:15:46
+  Resolución                    : 606x1080
+  FPS                           : 23.000
+  Códec de vídeo                : h264
+  Códec de audio                : aac
+  Bitrate aproximado            : 1309 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 95
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 185.7 %
+  CPU promedio                  : 15.1 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 143.9 MB
+  RAM promedio                  : 105.0 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 191.3 MB
+  Escritura solicitada          : 3.7 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: andre pijote e gringo rabudo.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\andre pijote e gringo rabudo.mp4
+  Inicio de análisis            : 2026-11-02 21:48:49
+  Fin de análisis               : 2026-11-02 21:51:16
+  Duración del análisis         : 00:02:26
+  Muestras tomadas              : 74
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 508.7 MB
+  Duración                      : 00:27:57
+  Resolución                    : 1440x1080
+  FPS                           : 23.000
+  Códec de vídeo                : h264
+  Códec de audio                : aac
+  Bitrate aproximado            : 2544 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 168
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 36.5 %
+  CPU promedio                  : 16.5 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 256.8 MB
+  RAM promedio                  : 200.0 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 509.0 MB
+  Escritura solicitada          : 0.3 MB
+
+------------------------------------------------------------------------------
+VIDEO 3: Andre Pijote, Igor Lucios e Jordan.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Andre Pijote, Igor Lucios e Jordan.mp4
+  Inicio de análisis            : 2026-11-02 21:50:22
+  Fin de análisis               : 2026-11-02 21:55:07
+  Duración del análisis         : 00:04:45
+  Muestras tomadas              : 143
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 788.8 MB
+  Duración                      : 00:55:33
+  Resolución                    : 1280x720
+  FPS                           : 24.000
+  Códec de vídeo                : h264
+  Códec de audio                : aac
+  Bitrate aproximado            : 1985 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 333
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 43.4 %
+  CPU promedio                  : 15.9 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 182.2 MB
+  RAM promedio                  : 163.7 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 792.4 MB
+  Escritura solicitada          : 0.9 MB
+
+------------------------------------------------------------------------------
+VIDEO 4: Brazilian Leche 2.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Brazilian Leche 2.mp4
+  Inicio de análisis            : 2026-11-02 21:51:16
+  Fin de análisis               : 2026-11-02 21:55:36
+  Duración del análisis         : 00:04:20
+  Muestras tomadas              : 131
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 673.6 MB
+  Duración                      : 00:30:17
+  Resolución                    : 1920x1080
+  FPS                           : 29.970
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 3109 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 182
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 39.5 %
+  CPU promedio                  : 13.0 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 439.1 MB
+  RAM promedio                  : 390.9 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 675.9 MB
+  Escritura solicitada          : 0.5 MB
+
+------------------------------------------------------------------------------
+VIDEO 5: Busty Agente Inmobiliario Obtiene un Cliente Desvergonzado y Le Ofrece Servicios Extra.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Busty Agente Inmobiliario Obtiene un Cliente Desvergonzado y Le Ofrece Servicios Extra.mp4
+  Inicio de análisis            : 2026-11-02 21:55:36
+  Fin de análisis               : 2026-11-02 21:59:16
+  Duración del análisis         : 00:03:39
+  Muestras tomadas              : 111
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 407.8 MB
+  Duración                      : 00:19:44
+  Resolución                    : 1920x1080
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2889 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 118
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 202.2 %
+  CPU promedio                  : 12.3 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 333.9 MB
+  RAM promedio                  : 303.9 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 519.1 MB
+  Escritura solicitada          : 5.3 MB
+
+------------------------------------------------------------------------------
+VIDEO 6: Brazilian Leche.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Brazilian Leche.mp4
+  Inicio de análisis            : 2026-11-02 21:55:07
+  Fin de análisis               : 2026-11-02 21:59:29
+  Duración del análisis         : 00:04:22
+  Muestras tomadas              : 132
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 612.5 MB
+  Duración                      : 00:30:57
+  Resolución                    : 1920x1080
+  FPS                           : 29.970
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2766 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 186
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 222.7 %
+  CPU promedio                  : 14.6 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 440.5 MB
+  RAM promedio                  : 396.9 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 712.2 MB
+  Escritura solicitada          : 5.3 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+Andre Pijote, Igor Lucios e Jo…    788.8 MB   00:55:33      43.4%   00:04:45
+Brazilian Leche 2.mp4              673.6 MB   00:30:17      39.5%   00:04:20
+Brazilian Leche.mp4                612.5 MB   00:30:57     222.7%   00:04:22
+andre pijote e gringo rabudo.m…    508.7 MB   00:27:57      36.5%   00:02:26
+Busty Agente Inmobiliario Obti…    407.8 MB   00:19:44     202.2%   00:03:39
+Andre Pijote & Luiz Felipe.mp4     147.7 MB   00:15:46     185.7%   00:01:32
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

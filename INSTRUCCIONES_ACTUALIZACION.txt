@@ -1,0 +1,68 @@
+VIDUP — actualización parcial del 27 de octubre de 2026
+========================================================
+
+Esta entrega es un PARCHE de tres archivos, no una instalación completa.
+Úsalo encima de tu instalación actual de VIDUP, conservando el resto de core/.
+
+Archivos incluidos:
+  vidup.py
+  core/sha256.py
+  core/fingerprint.py
+
+INSTALACIÓN
+-----------
+1. Cierra VIDUP y deja terminar cualquier escaneo que esté en curso.
+2. Haz una copia de seguridad de los tres archivos equivalentes en tu
+   instalación de VIDUP.
+3. Copia los tres archivos de este ZIP a esas mismas ubicaciones y confirma
+   la sustitución. NO elimines ni sustituyas toda la carpeta core/.
+4. Conserva tus bases SQLite, .env, archivo de identidad del dispositivo,
+   exclusiones, reportes y carpetas de salida. No hay migración de base.
+5. Comprueba sintaxis (desde la carpeta raíz de VIDUP):
+       python -m py_compile vidup.py core/sha256.py core/fingerprint.py
+6. Inicia de forma habitual:
+       python vidup.py
+
+CAMBIOS
+-------
+- Menú principal, opción 6 > opción 2: puedes añadir cualquier número de
+  carpetas o unidades y producir UN solo JSON, TXT y CSV de SHA256 por
+  ejecución. Puedes incluir subcarpetas. Se eliminan rutas absolutas
+  duplicadas por solapamiento de carpetas, nunca los vídeos que tengan el
+  mismo nombre pero rutas distintas. Se conserva el ID de dispositivo.
+- Se procesan los formatos de vídeo usados por VIDUP, no solo .mp4.
+- Una ejecución interrumpida conserva JSONL; reanuda únicamente con la misma
+  selección de raíces y dispositivo. Si un archivo cambió de tamaño o fecha,
+  se recalcula. Si hubo errores, el JSONL se conserva para reintentar.
+- Menú principal, opción 2 (comparar): pregunta entre comparación solo SHA256
+  y comparación tradicional visual/fragmentos. La modalidad rápida carga
+  solo metadatos esenciales de las bases SQLite, JSON o Neon, no fotogramas,
+  y agrupa por SHA256, reportando asociaciones sin enumerar todos los pares.
+  No relee archivos, no confirma vigencia del hash en disco y no borra nada.
+- Menú principal, opción 1 (escanear): T significa todos los vídeos. El 0
+  sigue reservado para cancelar o volver al menú. Por defecto incluye
+  subcarpetas. Respeta los hilos de FFmpeg y la aceleración elegida.
+- Escaneo: cola acotada en lugar de encolar todos los vídeos, mensajes
+  visibles de inventario y pendientes, y comprobación de dependencias.
+- Se corrige un error en core/fingerprint.py: sin fpcalc, se intentaba
+  cancelar todo el vídeo; ahora pasa al método alternativo de audio.
+
+PRUEBAS REALIZADAS
+-----------------
+- Sintaxis Python en los tres módulos.
+- Listado de varias carpetas, incluidas carpetas solapadas y formatos .mkv.
+- Reanudación SHA256 sin recalcular archivos que mantienen tamaño y mtime.
+- Comparación solo SHA256 entre dos bases de prueba SQLite.
+- Escaneo corto en Linux con FFmpeg, almacenamiento en SQLite de huella visual.
+  Para esta prueba se empleó un sustituto del paquete imagehash, que no está
+  instalado en el entorno de pruebas; no equivale a una validación del pHash
+  real en Windows o Android.
+
+NOTAS
+-----
+- Los reportes se guardan en reportes/sha256/{json,txt,csv}/.
+- SHA256 idéntico en la base significa igualdad de las huellas registradas,
+  no que los archivos físicos hayan sido verificados hoy.
+- Si algunas rutas de varias unidades no están montadas, el sistema no
+  puede leerlas; comprueba que D:, E:, etc. son accesibles antes de iniciar.
+- No edites a mano JSONL de progreso ni compartas configuraciones .env.

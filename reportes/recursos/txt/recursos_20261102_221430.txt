@@ -1,0 +1,259 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-02 22:14:30
+Plataforma               : WINDOWS
+Hostname                 : LAPTOP-HP-AMD
+Sistema operativo        : Windows 11
+CPU                      : CPU Windows (4 núcleos, AMD64)
+RAM total                : 15730 MB
+Videos con medición       : 6
+Videos completados        : 6
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Windows):
+  CPU puede superar 100 % porque Windows/psutil lo expresa por núcleo.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Por video se cuentan solo los procesos FFmpeg/FFprobe de ese video.
+  El proceso Python (SHA256, pHash) es compartido: se reporta como
+  total del lote, no por video.
+  Lectura/escritura = bytes pedidos al sistema (incluye caché del
+  sistema). No equivale necesariamente a lectura física del disco.
+  Los procesos de un video se miden desde que nacen hasta ~2 s antes
+  de terminar; el último intervalo de un proceso corto puede faltar.
+
+PROCESO PYTHON DE VIDUP (TOTAL DEL LOTE)
+  Tiempo transcurrido           : 00:11:59
+  CPU acumulada                 : 8.8 s de CPU
+  Pico de RAM                   : 84.8 MB
+  Lectura total                 : 60.0 MB
+  Escritura total               : 0.9 MB
+  Incluye SHA256, pHash en memoria y el resto de la lógica de VIDUP.
+
+------------------------------------------------------------------------------
+VIDEO 1: Chicos Latinos Disfrutando Después De un Día En La Playa.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Chicos Latinos Disfrutando Después De un Día En La Playa.mp4
+  Inicio de análisis            : 2026-11-02 22:02:31
+  Fin de análisis               : 2026-11-02 22:05:15
+  Duración del análisis         : 00:02:44
+  Muestras tomadas              : 83
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 351.2 MB
+  Duración                      : 00:23:35
+  Resolución                    : 720x1280
+  FPS                           : 24.000
+  Códec de vídeo                : h264
+  Códec de audio                : aac
+  Bitrate aproximado            : 2081 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 142
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 34.2 %
+  CPU promedio                  : 11.6 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 183.7 MB
+  RAM promedio                  : 148.1 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 352.8 MB
+  Escritura solicitada          : 0.4 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: Carlos Martinez, Evandro, Matty Kinky - They Get Horny on the Beach.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Carlos Martinez, Evandro, Matty Kinky - They Get Horny on the Beach.mp4
+  Inicio de análisis            : 2026-11-02 22:02:31
+  Fin de análisis               : 2026-11-02 22:06:51
+  Duración del análisis         : 00:04:19
+  Muestras tomadas              : 131
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 590.6 MB
+  Duración                      : 00:28:33
+  Resolución                    : 1920x1080
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2891 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 171
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 219.3 %
+  CPU promedio                  : 14.3 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 351.8 MB
+  RAM promedio                  : 317.6 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 766.9 MB
+  Escritura solicitada          : 8.2 MB
+
+------------------------------------------------------------------------------
+VIDEO 3: CK - Servin it UP.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\CK - Servin it UP.mp4
+  Inicio de análisis            : 2026-11-02 22:05:15
+  Fin de análisis               : 2026-11-02 22:09:32
+  Duración del análisis         : 00:04:16
+  Muestras tomadas              : 129
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 601.4 MB
+  Duración                      : 00:29:05
+  Resolución                    : 1920x1080
+  FPS                           : 29.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2890 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 175
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 28.7 %
+  CPU promedio                  : 13.0 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 381.8 MB
+  RAM promedio                  : 350.5 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 603.3 MB
+  Escritura solicitada          : 0.5 MB
+
+------------------------------------------------------------------------------
+VIDEO 4: Coddy Viper and Cristiano Flip suck up in the mountains while flaunting their hot bodies.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Coddy Viper and Cristiano Flip suck up in the mountains while flaunting their hot bodies.mp4
+  Inicio de análisis            : 2026-11-02 22:06:51
+  Fin de análisis               : 2026-11-02 22:09:38
+  Duración del análisis         : 00:02:47
+  Muestras tomadas              : 85
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 445.8 MB
+  Duración                      : 00:19:40
+  Resolución                    : 1280x720
+  FPS                           : 25.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 3167 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 118
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 31.0 %
+  CPU promedio                  : 10.1 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 270.6 MB
+  RAM promedio                  : 243.5 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 434.8 MB
+  Escritura solicitada          : 0.3 MB
+
+------------------------------------------------------------------------------
+VIDEO 5: Colton Mckeon Greg Mckeon.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Colton Mckeon Greg Mckeon.mp4
+  Inicio de análisis            : 2026-11-02 22:09:32
+  Fin de análisis               : 2026-11-02 22:14:25
+  Duración del análisis         : 00:04:53
+  Muestras tomadas              : 147
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 638.4 MB
+  Duración                      : 00:31:19
+  Resolución                    : 1920x1080
+  FPS                           : 29.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2848 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 188
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 30.3 %
+  CPU promedio                  : 12.6 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 383.5 MB
+  RAM promedio                  : 355.7 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 640.5 MB
+  Escritura solicitada          : 0.6 MB
+
+------------------------------------------------------------------------------
+VIDEO 6: Colton Mckeon Jack Bailey Greg Mckeon.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Colton Mckeon Jack Bailey Greg Mckeon.mp4
+  Inicio de análisis            : 2026-11-02 22:09:38
+  Fin de análisis               : 2026-11-02 22:14:30
+  Duración del análisis         : 00:04:51
+  Muestras tomadas              : 146
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 636.7 MB
+  Duración                      : 00:31:00
+  Resolución                    : 1920x1080
+  FPS                           : 29.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2870 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 186
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 23.3 %
+  CPU promedio                  : 12.7 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 383.9 MB
+  RAM promedio                  : 354.9 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 636.7 MB
+  Escritura solicitada          : 0.5 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+Colton Mckeon Greg Mckeon.mp4      638.4 MB   00:31:19      30.3%   00:04:53
+Colton Mckeon Jack Bailey Greg…    636.7 MB   00:31:00      23.3%   00:04:51
+CK - Servin it UP.mp4              601.4 MB   00:29:05      28.7%   00:04:16
+Carlos Martinez, Evandro, Matt…    590.6 MB   00:28:33     219.3%   00:04:19
+Coddy Viper and Cristiano Flip…    445.8 MB   00:19:40      31.0%   00:02:47
+Chicos Latinos Disfrutando Des…    351.2 MB   00:23:35      34.2%   00:02:44
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

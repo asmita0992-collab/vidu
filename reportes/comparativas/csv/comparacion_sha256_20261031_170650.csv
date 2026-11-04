@@ -1,0 +1,705 @@
+﻿registro,texto_terminal,total_videos,tiempo_seg,total_hallazgos,metadatos,tipo,ruta_a,nombre_a,ruta_b,nombre_b,similitud_visual,similitud_audio,confianza,offset_inicio,offset_fin,notas,info_a.ruta,info_a.nombre,info_a.dispositivo,info_a.dispositivo_id,info_a.duracion,info_a.resolucion,info_a.fps,info_a.codec_video,info_a.codec_audio,info_a.tamanio_bytes,info_a.bitrate_kbps,info_a.bitrate_video_kbps,info_a.hash_archivo,info_a.frames_muestreados,info_b.ruta,info_b.nombre,info_b.dispositivo,info_b.dispositivo_id,info_b.duracion,info_b.resolucion,info_b.fps,info_b.codec_video,info_b.codec_audio,info_b.tamanio_bytes,info_b.bitrate_kbps,info_b.bitrate_video_kbps,info_b.hash_archivo,info_b.frames_muestreados,indice,tipo_legible,confianza_texto,similitud_visual_texto,audio_texto,criterio_texto
+resumen,"
+════════════════════════════════════════════════════════════════════════
+  VIDUP — Reporte de análisis
+  Fecha: 31/10/2026 17:06:50
+  Dispositivo: haggy-escritorio|Linux|x86_64 (ID c55c28b5bf8e8)
+  Plataforma: Linux (x86_64)
+  Videos analizados : 1136
+  Tiempo de análisis: 00:00:00
+  Hallazgos totales : 11
+════════════════════════════════════════════════════════════════════════
+
+  Resumen:
+    DUPLICADO EXACTO      11
+
+  ────────── DUPLICADO EXACTO (11) ──────────
+────────────────────────────────────────────────────────────────────────
+#1  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h6a0ormuq6uctegw5fti_source.mp4
+  ↳ G:\0h6a0ormuq6uctegw5fti_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1920x1088
+    Duración        : 00:09:08
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 182.4 MB
+    Bitrate aprox.  : 2792 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h6a0ormuq6uctegw5fti_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h6a0ormuq6uctegw5fti_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1920x1088
+    Duración        : 00:09:08
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 182.4 MB
+    Bitrate aprox.  : 2792 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: e03b6440a63f345b48a789bece555878523d4465bd6fa5307ef2e1b99004c1d9. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#2  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0harv8porlqr2cp8j3zct_source.mp4
+  ↳ G:\0harv8porlqr2cp8j3zct_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1920x1088
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 138.0 MB
+    Bitrate aprox.  : 1928 kbps
+    Bitrate vídeo   : 1764 kbps
+    Frames huella   : 0
+
+  VIDEO B  0harv8porlqr2cp8j3zct_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0harv8porlqr2cp8j3zct_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1920x1088
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 138.0 MB
+    Bitrate aprox.  : 1928 kbps
+    Bitrate vídeo   : 1764 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: a4e5c9a5f1676ec8357c366b82236381dfc8dc41fe775062e88d098e94dc843d. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#3  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  1_5129926255650539499.mp4
+  ↳ G:\1_5129926255650539499.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:26:33
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 432.4 MB
+    Bitrate aprox.  : 2277 kbps
+    Bitrate vídeo   : 2113 kbps
+    Frames huella   : 0
+
+  VIDEO B  1_5129926255650539499.mp4
+  ↳ /home/haggy/Vídeos/Listos/1_5129926255650539499.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:26:33
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 432.4 MB
+    Bitrate aprox.  : 2277 kbps
+    Bitrate vídeo   : 2113 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 2a50f62b278c0c6c695f276113df8663ed611a83f73f7f9a86131c7c80f9ec71. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#4  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h588we2rfhesmvtjkkbn_source.mp4
+  ↳ G:\Verticales\0h588we2rfhesmvtjkkbn_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1056x1920
+    Duración        : 00:10:28
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 170.1 MB
+    Bitrate aprox.  : 2271 kbps
+    Bitrate vídeo   : 2107 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h588we2rfhesmvtjkkbn_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h588we2rfhesmvtjkkbn_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1056x1920
+    Duración        : 00:10:28
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 170.1 MB
+    Bitrate aprox.  : 2271 kbps
+    Bitrate vídeo   : 2107 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 458f60b347446b6a27d52c5f6a32a5a6c4da00ac2bbfaca3e5915d58df9b1de7. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#5  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h7w40ofysiv6lkkx3lh1_source.mp4
+  ↳ G:\Verticales\0h7w40ofysiv6lkkx3lh1_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 123.3 MB
+    Bitrate aprox.  : 2459 kbps
+    Bitrate vídeo   : 2295 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h7w40ofysiv6lkkx3lh1_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h7w40ofysiv6lkkx3lh1_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 123.3 MB
+    Bitrate aprox.  : 2459 kbps
+    Bitrate vídeo   : 2295 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 6dfd29600e71c7dd8d91242e40416e578dcc37901f4ed07cd6d73bed31dbfb81. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#6  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h86p5qgzyqlthw9okb03_source.mp4
+  ↳ G:\Verticales\0h86p5qgzyqlthw9okb03_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:07:03
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 147.2 MB
+    Bitrate aprox.  : 2916 kbps
+    Bitrate vídeo   : 2752 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h86p5qgzyqlthw9okb03_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h86p5qgzyqlthw9okb03_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:07:03
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 147.2 MB
+    Bitrate aprox.  : 2916 kbps
+    Bitrate vídeo   : 2752 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: b5bda19013ba11374bcd223134d86bba5b80d329eadffabb35efe17e61dafcfc. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#7  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0ha21br7htof1wam1r0dg_source.mp4
+  ↳ G:\Verticales\0ha21br7htof1wam1r0dg_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 156.4 MB
+    Bitrate aprox.  : 3122 kbps
+    Bitrate vídeo   : 2958 kbps
+    Frames huella   : 0
+
+  VIDEO B  0ha21br7htof1wam1r0dg_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0ha21br7htof1wam1r0dg_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 156.4 MB
+    Bitrate aprox.  : 3122 kbps
+    Bitrate vídeo   : 2958 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: b31230c65ece95dd4fd258bf11aa1f6fe575ac5cb283a381e479c508627fd0aa. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#8  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0hax7rkgk6cuva6ewbrtd_source.mp4
+  ↳ G:\Verticales\0hax7rkgk6cuva6ewbrtd_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1056x1920
+    Duración        : 00:10:06
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.5 MB
+    Bitrate aprox.  : 2761 kbps
+    Bitrate vídeo   : 2597 kbps
+    Frames huella   : 0
+
+  VIDEO B  0hax7rkgk6cuva6ewbrtd_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0hax7rkgk6cuva6ewbrtd_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1056x1920
+    Duración        : 00:10:06
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.5 MB
+    Bitrate aprox.  : 2761 kbps
+    Bitrate vídeo   : 2597 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: dae72b96f9aa057195ff8f0a2f39876457601bdb4ed04a250929b0c9211e3870. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#9  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0hdpq83on0jreknw5lnko_source.mp4
+  ↳ G:\Verticales\0hdpq83on0jreknw5lnko_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:08:16
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 126.9 MB
+    Bitrate aprox.  : 2144 kbps
+    Bitrate vídeo   : 1980 kbps
+    Frames huella   : 0
+
+  VIDEO B  0hdpq83on0jreknw5lnko_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0hdpq83on0jreknw5lnko_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:08:16
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 126.9 MB
+    Bitrate aprox.  : 2144 kbps
+    Bitrate vídeo   : 1980 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 70513316a5d3e3c1cf1fb8098130972a1a0cef9583799730093db174d1459892. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#10  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0he25pbd7srpxtv08tabw_source.mp4
+  ↳ G:\Verticales\0he25pbd7srpxtv08tabw_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 720x1280
+    Duración        : 00:09:14
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 184.6 MB
+    Bitrate aprox.  : 2791 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  VIDEO B  0he25pbd7srpxtv08tabw_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0he25pbd7srpxtv08tabw_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 720x1280
+    Duración        : 00:09:14
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 184.6 MB
+    Bitrate aprox.  : 2791 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: cff55a1290029e43acf2ef946945d98f0bab5286c7ca1ed648813b347d15ef5c. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#11  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0hf9qwuzqcbg6ov4r0cmc_source.mp4
+  ↳ G:\Verticales\0hf9qwuzqcbg6ov4r0cmc_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1072x1920
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.9 MB
+    Bitrate aprox.  : 2794 kbps
+    Bitrate vídeo   : 2630 kbps
+    Frames huella   : 0
+
+  VIDEO B  0hf9qwuzqcbg6ov4r0cmc_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0hf9qwuzqcbg6ov4r0cmc_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1072x1920
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.9 MB
+    Bitrate aprox.  : 2794 kbps
+    Bitrate vídeo   : 2630 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 4415c60b9a8760b300a8de3fdbb3982d932044fea4a8c51650137a7438033e76. Contenido no releído durante esta comparación.
+
+════════════════════════════════════════════════════════════════════════
+
+
+Bases de datos: /home/haggy/VIDUP/reportes/respaldos/db/respaldo231026.db
+Dispositivo que ejecutó el análisis: haggy-escritorio|Linux|x86_64 (ID c55c28b5bf8e8, plataforma Linux)
+",1136,0.0019520409987308085,11,"{""bases_de_datos"": [""/home/haggy/VIDUP/reportes/respaldos/db/respaldo231026.db""], ""comparativas"": {}, ""resumen_sha256"": {""metodo"": ""solo_sha256"", ""total_videos"": 1136, ""con_sha256_valido"": 1136, ""sin_sha256_valido"": 0, ""hashes_unicos"": 1125, ""grupos_con_coincidencias"": 11, ""asociaciones_reportadas"": 11, ""estructura"": ""Cada grupo se representa mediante N-1 asociaciones, no todos los pares."", ""advertencia"": ""Se comparan hashes almacenados; no se recalcula SHA256 ni se recomienda eliminar archivos.""}, ""modo_comparacion"": ""solo_sha256"", ""umbrales"": {""umbral_phash"": 10, ""umbral_visual"": 80.0, ""umbral_fragmento"": 75.0, ""umbral_posible_fragmento"": 25.0, ""margen_duracion"": 5.0, ""ratio_min"": 5.0}, ""dispositivo"": {""dispositivo"": ""haggy-escritorio|Linux|x86_64"", ""dispositivo_id"": ""c55c28b5bf8e8"", ""iud_c"": ""c55c28b5bf8e87c8cc517f10fec8192851bf8613364e0d6a1d38fd4f1ae0ca92"", ""plataforma"": ""Linux"", ""maquina"": ""x86_64"", ""hostname"": ""haggy-escritorio"", ""es_android"": false, ""ruta_identidad"": ""/home/haggy/VIDUP/.vidup_device_identity.json""}, ""conexion"": ""FUERA DE LÍNEA (SQLite local)""}",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#1  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h6a0ormuq6uctegw5fti_source.mp4
+  ↳ G:\0h6a0ormuq6uctegw5fti_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1920x1088
+    Duración        : 00:09:08
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 182.4 MB
+    Bitrate aprox.  : 2792 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h6a0ormuq6uctegw5fti_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h6a0ormuq6uctegw5fti_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1920x1088
+    Duración        : 00:09:08
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 182.4 MB
+    Bitrate aprox.  : 2792 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: e03b6440a63f345b48a789bece555878523d4465bd6fa5307ef2e1b99004c1d9. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\0h6a0ormuq6uctegw5fti_source.mp4,0h6a0ormuq6uctegw5fti_source.mp4,/home/haggy/Vídeos/Listos/0h6a0ormuq6uctegw5fti_source.mp4,0h6a0ormuq6uctegw5fti_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: e03b6440a63f345b48a789bece555878523d4465bd6fa5307ef2e1b99004c1d9. Contenido no releído durante esta comparación.,G:\0h6a0ormuq6uctegw5fti_source.mp4,0h6a0ormuq6uctegw5fti_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,548.256042,"[1920, 1088]",23.976,hevc,aac,191309550,2791.5,2627.493,e03b6440a63f345b48a789bece555878523d4465bd6fa5307ef2e1b99004c1d9,0,/home/haggy/Vídeos/Listos/0h6a0ormuq6uctegw5fti_source.mp4,0h6a0ormuq6uctegw5fti_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,548.256042,"[1920, 1088]",23.976,hevc,aac,191309550,2791.5,2627.493,e03b6440a63f345b48a789bece555878523d4465bd6fa5307ef2e1b99004c1d9,0,1,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#2  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0harv8porlqr2cp8j3zct_source.mp4
+  ↳ G:\0harv8porlqr2cp8j3zct_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1920x1088
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 138.0 MB
+    Bitrate aprox.  : 1928 kbps
+    Bitrate vídeo   : 1764 kbps
+    Frames huella   : 0
+
+  VIDEO B  0harv8porlqr2cp8j3zct_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0harv8porlqr2cp8j3zct_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1920x1088
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 138.0 MB
+    Bitrate aprox.  : 1928 kbps
+    Bitrate vídeo   : 1764 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: a4e5c9a5f1676ec8357c366b82236381dfc8dc41fe775062e88d098e94dc843d. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\0harv8porlqr2cp8j3zct_source.mp4,0harv8porlqr2cp8j3zct_source.mp4,/home/haggy/Vídeos/Listos/0harv8porlqr2cp8j3zct_source.mp4,0harv8porlqr2cp8j3zct_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: a4e5c9a5f1676ec8357c366b82236381dfc8dc41fe775062e88d098e94dc843d. Contenido no releído durante esta comparación.,G:\0harv8porlqr2cp8j3zct_source.mp4,0harv8porlqr2cp8j3zct_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,600.391458,"[1920, 1088]",23.976,hevc,aac,144728938,1928.5,1764.432,a4e5c9a5f1676ec8357c366b82236381dfc8dc41fe775062e88d098e94dc843d,0,/home/haggy/Vídeos/Listos/0harv8porlqr2cp8j3zct_source.mp4,0harv8porlqr2cp8j3zct_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,600.391458,"[1920, 1088]",23.976,hevc,aac,144728938,1928.5,1764.432,a4e5c9a5f1676ec8357c366b82236381dfc8dc41fe775062e88d098e94dc843d,0,2,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#3  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  1_5129926255650539499.mp4
+  ↳ G:\1_5129926255650539499.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:26:33
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 432.4 MB
+    Bitrate aprox.  : 2277 kbps
+    Bitrate vídeo   : 2113 kbps
+    Frames huella   : 0
+
+  VIDEO B  1_5129926255650539499.mp4
+  ↳ /home/haggy/Vídeos/Listos/1_5129926255650539499.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:26:33
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 432.4 MB
+    Bitrate aprox.  : 2277 kbps
+    Bitrate vídeo   : 2113 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 2a50f62b278c0c6c695f276113df8663ed611a83f73f7f9a86131c7c80f9ec71. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\1_5129926255650539499.mp4,1_5129926255650539499.mp4,/home/haggy/Vídeos/Listos/1_5129926255650539499.mp4,1_5129926255650539499.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 2a50f62b278c0c6c695f276113df8663ed611a83f73f7f9a86131c7c80f9ec71. Contenido no releído durante esta comparación.,G:\1_5129926255650539499.mp4,1_5129926255650539499.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1593.174917,"[1280, 720]",23.976,hevc,aac,453378788,2276.6,2112.579,2a50f62b278c0c6c695f276113df8663ed611a83f73f7f9a86131c7c80f9ec71,0,/home/haggy/Vídeos/Listos/1_5129926255650539499.mp4,1_5129926255650539499.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1593.174917,"[1280, 720]",23.976,hevc,aac,453378788,2276.6,2112.579,2a50f62b278c0c6c695f276113df8663ed611a83f73f7f9a86131c7c80f9ec71,0,3,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#4  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h588we2rfhesmvtjkkbn_source.mp4
+  ↳ G:\Verticales\0h588we2rfhesmvtjkkbn_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1056x1920
+    Duración        : 00:10:28
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 170.1 MB
+    Bitrate aprox.  : 2271 kbps
+    Bitrate vídeo   : 2107 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h588we2rfhesmvtjkkbn_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h588we2rfhesmvtjkkbn_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1056x1920
+    Duración        : 00:10:28
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 170.1 MB
+    Bitrate aprox.  : 2271 kbps
+    Bitrate vídeo   : 2107 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 458f60b347446b6a27d52c5f6a32a5a6c4da00ac2bbfaca3e5915d58df9b1de7. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0h588we2rfhesmvtjkkbn_source.mp4,0h588we2rfhesmvtjkkbn_source.mp4,/home/haggy/Vídeos/Listos/0h588we2rfhesmvtjkkbn_source.mp4,0h588we2rfhesmvtjkkbn_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 458f60b347446b6a27d52c5f6a32a5a6c4da00ac2bbfaca3e5915d58df9b1de7. Contenido no releído durante esta comparación.,G:\Verticales\0h588we2rfhesmvtjkkbn_source.mp4,0h588we2rfhesmvtjkkbn_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,628.210917,"[1056, 1920]",23.976023976023978,hevc,aac,178324370,2270.9,2106.851,458f60b347446b6a27d52c5f6a32a5a6c4da00ac2bbfaca3e5915d58df9b1de7,0,/home/haggy/Vídeos/Listos/0h588we2rfhesmvtjkkbn_source.mp4,0h588we2rfhesmvtjkkbn_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,628.210917,"[1056, 1920]",23.976,hevc,aac,178324370,2270.9,2106.851,458f60b347446b6a27d52c5f6a32a5a6c4da00ac2bbfaca3e5915d58df9b1de7,0,4,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#5  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h7w40ofysiv6lkkx3lh1_source.mp4
+  ↳ G:\Verticales\0h7w40ofysiv6lkkx3lh1_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 123.3 MB
+    Bitrate aprox.  : 2459 kbps
+    Bitrate vídeo   : 2295 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h7w40ofysiv6lkkx3lh1_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h7w40ofysiv6lkkx3lh1_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 123.3 MB
+    Bitrate aprox.  : 2459 kbps
+    Bitrate vídeo   : 2295 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 6dfd29600e71c7dd8d91242e40416e578dcc37901f4ed07cd6d73bed31dbfb81. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0h7w40ofysiv6lkkx3lh1_source.mp4,0h7w40ofysiv6lkkx3lh1_source.mp4,/home/haggy/Vídeos/Listos/0h7w40ofysiv6lkkx3lh1_source.mp4,0h7w40ofysiv6lkkx3lh1_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 6dfd29600e71c7dd8d91242e40416e578dcc37901f4ed07cd6d73bed31dbfb81. Contenido no releído durante esta comparación.,G:\Verticales\0h7w40ofysiv6lkkx3lh1_source.mp4,0h7w40ofysiv6lkkx3lh1_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,420.461708,"[1088, 1920]",23.976023976023978,hevc,aac,129238321,2459.0,2294.925,6dfd29600e71c7dd8d91242e40416e578dcc37901f4ed07cd6d73bed31dbfb81,0,/home/haggy/Vídeos/Listos/0h7w40ofysiv6lkkx3lh1_source.mp4,0h7w40ofysiv6lkkx3lh1_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,420.461708,"[1088, 1920]",23.976,hevc,aac,129238321,2459.0,2294.925,6dfd29600e71c7dd8d91242e40416e578dcc37901f4ed07cd6d73bed31dbfb81,0,5,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#6  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h86p5qgzyqlthw9okb03_source.mp4
+  ↳ G:\Verticales\0h86p5qgzyqlthw9okb03_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:07:03
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 147.2 MB
+    Bitrate aprox.  : 2916 kbps
+    Bitrate vídeo   : 2752 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h86p5qgzyqlthw9okb03_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h86p5qgzyqlthw9okb03_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:07:03
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 147.2 MB
+    Bitrate aprox.  : 2916 kbps
+    Bitrate vídeo   : 2752 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: b5bda19013ba11374bcd223134d86bba5b80d329eadffabb35efe17e61dafcfc. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0h86p5qgzyqlthw9okb03_source.mp4,0h86p5qgzyqlthw9okb03_source.mp4,/home/haggy/Vídeos/Listos/0h86p5qgzyqlthw9okb03_source.mp4,0h86p5qgzyqlthw9okb03_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: b5bda19013ba11374bcd223134d86bba5b80d329eadffabb35efe17e61dafcfc. Contenido no releído durante esta comparación.,G:\Verticales\0h86p5qgzyqlthw9okb03_source.mp4,0h86p5qgzyqlthw9okb03_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,423.256167,"[1088, 1920]",23.976023976023978,hevc,aac,154298290,2916.4,2752.352,b5bda19013ba11374bcd223134d86bba5b80d329eadffabb35efe17e61dafcfc,0,/home/haggy/Vídeos/Listos/0h86p5qgzyqlthw9okb03_source.mp4,0h86p5qgzyqlthw9okb03_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,423.256167,"[1088, 1920]",23.976,hevc,aac,154298290,2916.4,2752.352,b5bda19013ba11374bcd223134d86bba5b80d329eadffabb35efe17e61dafcfc,0,6,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#7  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0ha21br7htof1wam1r0dg_source.mp4
+  ↳ G:\Verticales\0ha21br7htof1wam1r0dg_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 156.4 MB
+    Bitrate aprox.  : 3122 kbps
+    Bitrate vídeo   : 2958 kbps
+    Frames huella   : 0
+
+  VIDEO B  0ha21br7htof1wam1r0dg_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0ha21br7htof1wam1r0dg_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 156.4 MB
+    Bitrate aprox.  : 3122 kbps
+    Bitrate vídeo   : 2958 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: b31230c65ece95dd4fd258bf11aa1f6fe575ac5cb283a381e479c508627fd0aa. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0ha21br7htof1wam1r0dg_source.mp4,0ha21br7htof1wam1r0dg_source.mp4,/home/haggy/Vídeos/Listos/0ha21br7htof1wam1r0dg_source.mp4,0ha21br7htof1wam1r0dg_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: b31230c65ece95dd4fd258bf11aa1f6fe575ac5cb283a381e479c508627fd0aa. Contenido no releído durante esta comparación.,G:\Verticales\0ha21br7htof1wam1r0dg_source.mp4,0ha21br7htof1wam1r0dg_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,420.336583,"[1088, 1920]",23.976023976023978,hevc,aac,164022199,3121.7,2957.687,b31230c65ece95dd4fd258bf11aa1f6fe575ac5cb283a381e479c508627fd0aa,0,/home/haggy/Vídeos/Listos/0ha21br7htof1wam1r0dg_source.mp4,0ha21br7htof1wam1r0dg_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,420.336583,"[1088, 1920]",23.976,hevc,aac,164022199,3121.7,2957.687,b31230c65ece95dd4fd258bf11aa1f6fe575ac5cb283a381e479c508627fd0aa,0,7,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#8  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0hax7rkgk6cuva6ewbrtd_source.mp4
+  ↳ G:\Verticales\0hax7rkgk6cuva6ewbrtd_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1056x1920
+    Duración        : 00:10:06
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.5 MB
+    Bitrate aprox.  : 2761 kbps
+    Bitrate vídeo   : 2597 kbps
+    Frames huella   : 0
+
+  VIDEO B  0hax7rkgk6cuva6ewbrtd_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0hax7rkgk6cuva6ewbrtd_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1056x1920
+    Duración        : 00:10:06
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.5 MB
+    Bitrate aprox.  : 2761 kbps
+    Bitrate vídeo   : 2597 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: dae72b96f9aa057195ff8f0a2f39876457601bdb4ed04a250929b0c9211e3870. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0hax7rkgk6cuva6ewbrtd_source.mp4,0hax7rkgk6cuva6ewbrtd_source.mp4,/home/haggy/Vídeos/Listos/0hax7rkgk6cuva6ewbrtd_source.mp4,0hax7rkgk6cuva6ewbrtd_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: dae72b96f9aa057195ff8f0a2f39876457601bdb4ed04a250929b0c9211e3870. Contenido no releído durante esta comparación.,G:\Verticales\0hax7rkgk6cuva6ewbrtd_source.mp4,0hax7rkgk6cuva6ewbrtd_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,606.314042,"[1056, 1920]",23.976023976023978,hevc,aac,209230684,2760.7,2596.647,dae72b96f9aa057195ff8f0a2f39876457601bdb4ed04a250929b0c9211e3870,0,/home/haggy/Vídeos/Listos/0hax7rkgk6cuva6ewbrtd_source.mp4,0hax7rkgk6cuva6ewbrtd_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,606.314042,"[1056, 1920]",23.976,hevc,aac,209230684,2760.7,2596.647,dae72b96f9aa057195ff8f0a2f39876457601bdb4ed04a250929b0c9211e3870,0,8,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#9  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0hdpq83on0jreknw5lnko_source.mp4
+  ↳ G:\Verticales\0hdpq83on0jreknw5lnko_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:08:16
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 126.9 MB
+    Bitrate aprox.  : 2144 kbps
+    Bitrate vídeo   : 1980 kbps
+    Frames huella   : 0
+
+  VIDEO B  0hdpq83on0jreknw5lnko_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0hdpq83on0jreknw5lnko_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:08:16
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 126.9 MB
+    Bitrate aprox.  : 2144 kbps
+    Bitrate vídeo   : 1980 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 70513316a5d3e3c1cf1fb8098130972a1a0cef9583799730093db174d1459892. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0hdpq83on0jreknw5lnko_source.mp4,0hdpq83on0jreknw5lnko_source.mp4,/home/haggy/Vídeos/Listos/0hdpq83on0jreknw5lnko_source.mp4,0hdpq83on0jreknw5lnko_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 70513316a5d3e3c1cf1fb8098130972a1a0cef9583799730093db174d1459892. Contenido no releído durante esta comparación.,G:\Verticales\0hdpq83on0jreknw5lnko_source.mp4,0hdpq83on0jreknw5lnko_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,496.579417,"[1088, 1920]",23.976023976023978,hevc,aac,133098852,2144.3,1980.201,70513316a5d3e3c1cf1fb8098130972a1a0cef9583799730093db174d1459892,0,/home/haggy/Vídeos/Listos/0hdpq83on0jreknw5lnko_source.mp4,0hdpq83on0jreknw5lnko_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,496.579417,"[1088, 1920]",23.976,hevc,aac,133098852,2144.3,1980.201,70513316a5d3e3c1cf1fb8098130972a1a0cef9583799730093db174d1459892,0,9,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#10  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0he25pbd7srpxtv08tabw_source.mp4
+  ↳ G:\Verticales\0he25pbd7srpxtv08tabw_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 720x1280
+    Duración        : 00:09:14
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 184.6 MB
+    Bitrate aprox.  : 2791 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  VIDEO B  0he25pbd7srpxtv08tabw_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0he25pbd7srpxtv08tabw_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 720x1280
+    Duración        : 00:09:14
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 184.6 MB
+    Bitrate aprox.  : 2791 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: cff55a1290029e43acf2ef946945d98f0bab5286c7ca1ed648813b347d15ef5c. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0he25pbd7srpxtv08tabw_source.mp4,0he25pbd7srpxtv08tabw_source.mp4,/home/haggy/Vídeos/Listos/0he25pbd7srpxtv08tabw_source.mp4,0he25pbd7srpxtv08tabw_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: cff55a1290029e43acf2ef946945d98f0bab5286c7ca1ed648813b347d15ef5c. Contenido no releído durante esta comparación.,G:\Verticales\0he25pbd7srpxtv08tabw_source.mp4,0he25pbd7srpxtv08tabw_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,554.845958,"[720, 1280]",23.976023976023978,hevc,aac,193552764,2790.7,2626.688,cff55a1290029e43acf2ef946945d98f0bab5286c7ca1ed648813b347d15ef5c,0,/home/haggy/Vídeos/Listos/0he25pbd7srpxtv08tabw_source.mp4,0he25pbd7srpxtv08tabw_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,554.845958,"[720, 1280]",23.976,hevc,aac,193552764,2790.7,2626.688,cff55a1290029e43acf2ef946945d98f0bab5286c7ca1ed648813b347d15ef5c,0,10,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#11  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0hf9qwuzqcbg6ov4r0cmc_source.mp4
+  ↳ G:\Verticales\0hf9qwuzqcbg6ov4r0cmc_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1072x1920
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.9 MB
+    Bitrate aprox.  : 2794 kbps
+    Bitrate vídeo   : 2630 kbps
+    Frames huella   : 0
+
+  VIDEO B  0hf9qwuzqcbg6ov4r0cmc_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0hf9qwuzqcbg6ov4r0cmc_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1072x1920
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.9 MB
+    Bitrate aprox.  : 2794 kbps
+    Bitrate vídeo   : 2630 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 4415c60b9a8760b300a8de3fdbb3982d932044fea4a8c51650137a7438033e76. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0hf9qwuzqcbg6ov4r0cmc_source.mp4,0hf9qwuzqcbg6ov4r0cmc_source.mp4,/home/haggy/Vídeos/Listos/0hf9qwuzqcbg6ov4r0cmc_source.mp4,0hf9qwuzqcbg6ov4r0cmc_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 4415c60b9a8760b300a8de3fdbb3982d932044fea4a8c51650137a7438033e76. Contenido no releído durante esta comparación.,G:\Verticales\0hf9qwuzqcbg6ov4r0cmc_source.mp4,0hf9qwuzqcbg6ov4r0cmc_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,600.0995,"[1072, 1920]",23.976023976023978,hevc,aac,209622595,2794.5,2630.465,4415c60b9a8760b300a8de3fdbb3982d932044fea4a8c51650137a7438033e76,0,/home/haggy/Vídeos/Listos/0hf9qwuzqcbg6ov4r0cmc_source.mp4,0hf9qwuzqcbg6ov4r0cmc_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,600.0995,"[1072, 1920]",23.976,hevc,aac,209622595,2794.5,2630.465,4415c60b9a8760b300a8de3fdbb3982d932044fea4a8c51650137a7438033e76,0,11,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),

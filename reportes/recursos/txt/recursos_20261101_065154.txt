@@ -1,0 +1,104 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-01 06:51:54
+Plataforma               : LINUX
+Hostname                 : haggy-escritorio
+Sistema operativo        : Linux 7.0.0-42-generic
+CPU                      : AMD Ryzen 3 4300U with Radeon Graphics (4 núcleos, x86_64)
+RAM total                : 15343 MB
+Videos con medición       : 2
+Videos completados        : 2
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Linux):
+  CPU puede superar 100 % si se usan varios núcleos.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Linux gestiona la CPU con su scheduler CFS; los valores son precisos.
+  Con varios trabajadores, CPU/RAM de FFmpeg puede traslaparse entre
+  videos porque todos son hijos del mismo proceso Python.
+  Para medir con exactitud individual cada video, selecciona 1 trabajador.
+
+------------------------------------------------------------------------------
+VIDEO 1: 922532823.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/922532823.mp4
+  Inicio de análisis            : 2026-11-01 06:48:14
+  Fin de análisis               : 2026-11-01 06:49:37
+  Duración del análisis         : 00:01:23
+  Muestras tomadas              : 43
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 168.1 MB
+  Duración                      : 00:10:57
+  Resolución                    : 1080x1424
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2144 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 66
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 419.7 %
+  CPU promedio                  : 28.1 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 394.4 MB
+  RAM promedio                  : 382.2 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 168.1 MB
+  Escritura detectada           : 9.7 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: 1_5129926255650539455.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/1_5129926255650539455.mp4
+  Inicio de análisis            : 2026-11-01 06:48:14
+  Fin de análisis               : 2026-11-01 06:51:52
+  Duración del análisis         : 00:03:37
+  Muestras tomadas              : 110
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 470.9 MB
+  Duración                      : 00:30:49
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2135 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 185
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 197.5 %
+  CPU promedio                  : 12.3 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 394.4 MB
+  RAM promedio                  : 305.6 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 168.1 MB
+  Escritura detectada           : 19.3 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+1_5129926255650539455.mp4          470.9 MB   00:30:49     197.5%   00:03:37
+922532823.mp4                      168.1 MB   00:10:57     419.7%   00:01:23
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

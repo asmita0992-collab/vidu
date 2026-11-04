@@ -1,0 +1,259 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-02 15:26:05
+Plataforma               : WINDOWS
+Hostname                 : LAPTOP-HP-AMD
+Sistema operativo        : Windows 11
+CPU                      : CPU Windows (4 núcleos, AMD64)
+RAM total                : 15730 MB
+Videos con medición       : 6
+Videos completados        : 6
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Windows):
+  CPU puede superar 100 % porque Windows/psutil lo expresa por núcleo.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Por video se cuentan solo los procesos FFmpeg/FFprobe de ese video.
+  El proceso Python (SHA256, pHash) es compartido: se reporta como
+  total del lote, no por video.
+  Lectura/escritura = bytes pedidos al sistema (incluye caché del
+  sistema). No equivale necesariamente a lectura física del disco.
+  Los procesos de un video se miden desde que nacen hasta ~2 s antes
+  de terminar; el último intervalo de un proceso corto puede faltar.
+
+PROCESO PYTHON DE VIDUP (TOTAL DEL LOTE)
+  Tiempo transcurrido           : 00:11:32
+  CPU acumulada                 : 8.9 s de CPU
+  Pico de RAM                   : 84.6 MB
+  Lectura total                 : 60.0 MB
+  Escritura total               : 0.9 MB
+  Incluye SHA256, pHash en memoria y el resto de la lógica de VIDUP.
+
+------------------------------------------------------------------------------
+VIDEO 1: alec loob, tony conrad & timmy treasure.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\alec loob, tony conrad & timmy treasure.mp4
+  Inicio de análisis            : 2026-11-02 15:14:32
+  Fin de análisis               : 2026-11-02 15:18:52
+  Duración del análisis         : 00:04:19
+  Muestras tomadas              : 130
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 460.4 MB
+  Duración                      : 00:23:53
+  Resolución                    : 1920x1080
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2694 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 143
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 20.9 %
+  CPU promedio                  : 10.7 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 333.2 MB
+  RAM promedio                  : 310.8 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 460.8 MB
+  Escritura solicitada          : 0.4 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: Aguanta Una Doble Follada Como Una Zorra Hambrienta.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Aguanta Una Doble Follada Como Una Zorra Hambrienta.mp4
+  Inicio de análisis            : 2026-11-02 15:14:32
+  Fin de análisis               : 2026-11-02 15:19:55
+  Duración del análisis         : 00:05:23
+  Muestras tomadas              : 162
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 856.6 MB
+  Duración                      : 00:43:43
+  Resolución                    : 1920x1080
+  FPS                           : 25.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2739 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 262
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 34.1 %
+  CPU promedio                  : 12.7 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 385.0 MB
+  RAM promedio                  : 359.6 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 859.1 MB
+  Escritura solicitada          : 0.6 MB
+
+------------------------------------------------------------------------------
+VIDEO 3: Alejo Ospina & Kayser Magnum.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Alejo Ospina & Kayser Magnum.mp4
+  Inicio de análisis            : 2026-11-02 15:18:52
+  Fin de análisis               : 2026-11-02 15:21:42
+  Duración del análisis         : 00:02:50
+  Muestras tomadas              : 86
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 539.7 MB
+  Duración                      : 00:24:53
+  Resolución                    : 1920x1080
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 3032 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 149
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 35.7 %
+  CPU promedio                  : 13.9 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 438.0 MB
+  RAM promedio                  : 368.9 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 541.8 MB
+  Escritura solicitada          : 0.4 MB
+
+------------------------------------------------------------------------------
+VIDEO 4: An Improvised Threesome.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\An Improvised Threesome.mp4
+  Inicio de análisis            : 2026-11-02 15:21:42
+  Fin de análisis               : 2026-11-02 15:24:41
+  Duración del análisis         : 00:02:58
+  Muestras tomadas              : 90
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 442.3 MB
+  Duración                      : 00:26:00
+  Resolución                    : 1280x720
+  FPS                           : 25.000
+  Códec de vídeo                : h264
+  Códec de audio                : aac
+  Bitrate aproximado            : 2378 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 156
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 36.4 %
+  CPU promedio                  : 13.3 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 174.8 MB
+  RAM promedio                  : 146.2 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 442.9 MB
+  Escritura solicitada          : 0.4 MB
+
+------------------------------------------------------------------------------
+VIDEO 5: Alo_twink & Benji share a British Christmas Party in a wild threesome with a twist.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Alo_twink & Benji share a British Christmas Party in a wild threesome with a twist.mp4
+  Inicio de análisis            : 2026-11-02 15:19:55
+  Fin de análisis               : 2026-11-02 15:24:56
+  Duración del análisis         : 00:05:00
+  Muestras tomadas              : 151
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 819.5 MB
+  Duración                      : 00:40:54
+  Resolución                    : 1906x1080
+  FPS                           : 25.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2801 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 245
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 32.6 %
+  CPU promedio                  : 13.5 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 386.3 MB
+  RAM promedio                  : 357.3 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 816.0 MB
+  Escritura solicitada          : 0.6 MB
+
+------------------------------------------------------------------------------
+VIDEO 6: Andre Pijote & Filipe Barros.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Andre Pijote & Filipe Barros.mp4
+  Inicio de análisis            : 2026-11-02 15:24:41
+  Fin de análisis               : 2026-11-02 15:26:05
+  Duración del análisis         : 00:01:24
+  Muestras tomadas              : 43
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 301.7 MB
+  Duración                      : 00:22:41
+  Resolución                    : 606x1080
+  FPS                           : 29.000
+  Códec de vídeo                : h264
+  Códec de audio                : aac
+  Bitrate aproximado            : 1858 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 136
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 55.8 %
+  CPU promedio                  : 21.3 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 161.2 MB
+  RAM promedio                  : 114.3 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 299.4 MB
+  Escritura solicitada          : 0.3 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+Aguanta Una Doble Follada Como…    856.6 MB   00:43:43      34.1%   00:05:23
+Alo_twink & Benji share a Brit…    819.5 MB   00:40:54      32.6%   00:05:00
+Alejo Ospina & Kayser Magnum.m…    539.7 MB   00:24:53      35.7%   00:02:50
+alec loob, tony conrad & timmy…    460.4 MB   00:23:53      20.9%   00:04:19
+An Improvised Threesome.mp4        442.3 MB   00:26:00      36.4%   00:02:58
+Andre Pijote & Filipe Barros.m…    301.7 MB   00:22:41      55.8%   00:01:24
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

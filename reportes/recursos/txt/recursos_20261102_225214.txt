@@ -1,0 +1,259 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-02 22:52:14
+Plataforma               : WINDOWS
+Hostname                 : LAPTOP-HP-AMD
+Sistema operativo        : Windows 11
+CPU                      : CPU Windows (4 núcleos, AMD64)
+RAM total                : 15730 MB
+Videos con medición       : 6
+Videos completados        : 6
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Windows):
+  CPU puede superar 100 % porque Windows/psutil lo expresa por núcleo.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Por video se cuentan solo los procesos FFmpeg/FFprobe de ese video.
+  El proceso Python (SHA256, pHash) es compartido: se reporta como
+  total del lote, no por video.
+  Lectura/escritura = bytes pedidos al sistema (incluye caché del
+  sistema). No equivale necesariamente a lectura física del disco.
+  Los procesos de un video se miden desde que nacen hasta ~2 s antes
+  de terminar; el último intervalo de un proceso corto puede faltar.
+
+PROCESO PYTHON DE VIDUP (TOTAL DEL LOTE)
+  Tiempo transcurrido           : 00:14:31
+  CPU acumulada                 : 10.8 s de CPU
+  Pico de RAM                   : 77.1 MB
+  Lectura total                 : 59.9 MB
+  Escritura total               : 0.9 MB
+  Incluye SHA256, pHash en memoria y el resto de la lógica de VIDUP.
+
+------------------------------------------------------------------------------
+VIDEO 1: Earn Your Stripes.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Earn Your Stripes.mp4
+  Inicio de análisis            : 2026-11-02 22:37:43
+  Fin de análisis               : 2026-11-02 22:42:19
+  Duración del análisis         : 00:04:36
+  Muestras tomadas              : 139
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 533.9 MB
+  Duración                      : 00:26:07
+  Resolución                    : 1920x1080
+  FPS                           : 29.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2858 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 157
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 221.3 %
+  CPU promedio                  : 12.3 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 382.5 MB
+  RAM promedio                  : 348.6 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 669.6 MB
+  Escritura solicitada          : 9.6 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: Episode 1 of Stranger Twinks A wild and steamy episode of hot and heavy anal action.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Episode 1 of Stranger Twinks A wild and steamy episode of hot and heavy anal action.mp4
+  Inicio de análisis            : 2026-11-02 22:37:43
+  Fin de análisis               : 2026-11-02 22:42:26
+  Duración del análisis         : 00:04:42
+  Muestras tomadas              : 142
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 665.0 MB
+  Duración                      : 00:33:36
+  Resolución                    : 1284x720
+  FPS                           : 25.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2767 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 202
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 29.1 %
+  CPU promedio                  : 11.0 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 289.7 MB
+  RAM promedio                  : 271.5 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 667.2 MB
+  Escritura solicitada          : 0.5 MB
+
+------------------------------------------------------------------------------
+VIDEO 3: Ethan Adams & Spikey Dee swap their bisexuality for a hardcore barefuck session.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Ethan Adams & Spikey Dee swap their bisexuality for a hardcore barefuck session.mp4
+  Inicio de análisis            : 2026-11-02 22:42:19
+  Fin de análisis               : 2026-11-02 22:45:49
+  Duración del análisis         : 00:03:30
+  Muestras tomadas              : 106
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 463.7 MB
+  Duración                      : 00:20:58
+  Resolución                    : 1920x1080
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 3092 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 126
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 117.8 %
+  CPU promedio                  : 13.1 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 331.7 MB
+  RAM promedio                  : 285.8 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 470.8 MB
+  Escritura solicitada          : 0.6 MB
+
+------------------------------------------------------------------------------
+VIDEO 4: Follandome a Mi Hermanastro Para que Haga Los que Haceres Del Hogar.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Follandome a Mi Hermanastro Para que Haga Los que Haceres Del Hogar.mp4
+  Inicio de análisis            : 2026-11-02 22:45:49
+  Fin de análisis               : 2026-11-02 22:49:36
+  Duración del análisis         : 00:03:47
+  Muestras tomadas              : 114
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 470.9 MB
+  Duración                      : 00:22:10
+  Resolución                    : 1920x1080
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2968 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 133
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 20.2 %
+  CPU promedio                  : 11.9 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 340.6 MB
+  RAM promedio                  : 315.0 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 470.2 MB
+  Escritura solicitada          : 0.4 MB
+
+------------------------------------------------------------------------------
+VIDEO 5: Family Transformation Scene 1 Asia Belle.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Family Transformation Scene 1 Asia Belle.mp4
+  Inicio de análisis            : 2026-11-02 22:42:26
+  Fin de análisis               : 2026-11-02 22:51:22
+  Duración del análisis         : 00:08:56
+  Muestras tomadas              : 268
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 637.8 MB
+  Duración                      : 00:32:13
+  Resolución                    : 1920x1080
+  FPS                           : 60.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2767 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 193
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 33.3 %
+  CPU promedio                  : 13.8 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 344.7 MB
+  RAM promedio                  : 324.3 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 638.5 MB
+  Escritura solicitada          : 0.6 MB
+
+------------------------------------------------------------------------------
+VIDEO 6: Follo Con Mi Mejor Amigo Despues De Clases.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\Follo Con Mi Mejor Amigo Despues De Clases.mp4
+  Inicio de análisis            : 2026-11-02 22:49:36
+  Fin de análisis               : 2026-11-02 22:52:14
+  Duración del análisis         : 00:02:38
+  Muestras tomadas              : 80
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 400.4 MB
+  Duración                      : 00:20:17
+  Resolución                    : 1908x1080
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2758 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 122
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 32.6 %
+  CPU promedio                  : 15.2 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 360.9 MB
+  RAM promedio                  : 308.6 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 401.1 MB
+  Escritura solicitada          : 0.3 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+Episode 1 of Stranger Twinks A…    665.0 MB   00:33:36      29.1%   00:04:42
+Family Transformation Scene 1 …    637.8 MB   00:32:13      33.3%   00:08:56
+Earn Your Stripes.mp4              533.9 MB   00:26:07     221.3%   00:04:36
+Follandome a Mi Hermanastro Pa…    470.9 MB   00:22:10      20.2%   00:03:47
+Ethan Adams & Spikey Dee swap …    463.7 MB   00:20:58     117.8%   00:03:30
+Follo Con Mi Mejor Amigo Despu…    400.4 MB   00:20:17      32.6%   00:02:38
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

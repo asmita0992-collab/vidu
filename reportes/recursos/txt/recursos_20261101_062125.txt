@@ -1,0 +1,392 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-01 06:21:25
+Plataforma               : LINUX
+Hostname                 : haggy-escritorio
+Sistema operativo        : Linux 7.0.0-42-generic
+CPU                      : AMD Ryzen 3 4300U with Radeon Graphics (4 núcleos, x86_64)
+RAM total                : 15343 MB
+Videos con medición       : 10
+Videos completados        : 10
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Linux):
+  CPU puede superar 100 % si se usan varios núcleos.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Linux gestiona la CPU con su scheduler CFS; los valores son precisos.
+  Con varios trabajadores, CPU/RAM de FFmpeg puede traslaparse entre
+  videos porque todos son hijos del mismo proceso Python.
+  Para medir con exactitud individual cada video, selecciona 1 trabajador.
+
+------------------------------------------------------------------------------
+VIDEO 1: 3 Way Flip Play.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/3 Way Flip Play.mp4
+  Inicio de análisis            : 2026-11-01 06:08:21
+  Fin de análisis               : 2026-11-01 06:10:26
+  Duración del análisis         : 00:02:05
+  Muestras tomadas              : 64
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 366.6 MB
+  Duración                      : 00:25:19
+  Resolución                    : 1280x720
+  FPS                           : 24.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2023 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 152
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 438.9 %
+  CPU promedio                  : 22.0 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 252.1 MB
+  RAM promedio                  : 244.5 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 941.4 MB
+  Escritura detectada           : 10.2 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: 1_5129926255650539455.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/1_5129926255650539455.mp4
+  Inicio de análisis            : 2026-11-01 06:08:21
+  Fin de análisis               : 2026-11-01 06:11:55
+  Duración del análisis         : 00:03:33
+  Muestras tomadas              : 108
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 470.9 MB
+  Duración                      : 00:30:49
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2135 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 185
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 395.4 %
+  CPU promedio                  : 26.9 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 292.4 MB
+  RAM promedio                  : 261.9 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 1674.0 MB
+  Escritura detectada           : 19.9 MB
+
+------------------------------------------------------------------------------
+VIDEO 3: 3way Fuck After Training - BoyFriendTV.com.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/3way Fuck After Training - BoyFriendTV.com.mp4
+  Inicio de análisis            : 2026-11-01 06:11:55
+  Fin de análisis               : 2026-11-01 06:14:27
+  Duración del análisis         : 00:02:32
+  Muestras tomadas              : 77
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 606.8 MB
+  Duración                      : 00:39:05
+  Resolución                    : 1280x720
+  FPS                           : 30.000
+  Códec de vídeo                : h264
+  Códec de audio                : aac
+  Bitrate aproximado            : 2171 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 234
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 121.7 %
+  CPU promedio                  : 2.7 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 286.4 MB
+  RAM promedio                  : 283.1 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 606.8 MB
+  Escritura detectada           : 10.6 MB
+
+------------------------------------------------------------------------------
+VIDEO 4: 3some_Latino__Sεƅαst...TV.com.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/3some_Latino__Sεƅαst...TV.com.mp4
+  Inicio de análisis            : 2026-11-01 06:10:26
+  Fin de análisis               : 2026-11-01 06:16:02
+  Duración del análisis         : 00:05:35
+  Muestras tomadas              : 168
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 732.6 MB
+  Duración                      : 00:49:58
+  Resolución                    : 1920x1088
+  FPS                           : 24.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2049 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 300
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 88.1 %
+  CPU promedio                  : 2.5 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 292.8 MB
+  RAM promedio                  : 286.6 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 1652.8 MB
+  Escritura detectada           : 31.6 MB
+
+------------------------------------------------------------------------------
+VIDEO 5: 3way_on_the_beach_with_stepbrothers_-_Danner_Mendez_-_Tatiana_Alvarez_-_Max_Betancur.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/3way_on_the_beach_with_stepbrothers_-_Danner_Mendez_-_Tatiana_Alvarez_-_Max_Betancur.mp4
+  Inicio de análisis            : 2026-11-01 06:14:27
+  Fin de análisis               : 2026-11-01 06:16:03
+  Duración del análisis         : 00:01:36
+  Muestras tomadas              : 49
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 313.3 MB
+  Duración                      : 00:20:42
+  Resolución                    : 1280x720
+  FPS                           : 25.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2114 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 124
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 123.3 %
+  CPU promedio                  : 4.2 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 292.8 MB
+  RAM promedio                  : 287.3 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 623.6 MB
+  Escritura detectada           : 19.1 MB
+
+------------------------------------------------------------------------------
+VIDEO 6: 639524242.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/639524242.mp4
+  Inicio de análisis            : 2026-11-01 06:16:02
+  Fin de análisis               : 2026-11-01 06:18:09
+  Duración del análisis         : 00:02:07
+  Muestras tomadas              : 65
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 310.3 MB
+  Duración                      : 00:20:13
+  Resolución                    : 1080x1440
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2144 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 121
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 25.3 %
+  CPU promedio                  : 1.3 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 299.3 MB
+  RAM promedio                  : 293.2 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 652.2 MB
+  Escritura detectada           : 18.0 MB
+
+------------------------------------------------------------------------------
+VIDEO 7: 642609654.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/642609654.mp4
+  Inicio de análisis            : 2026-11-01 06:16:03
+  Fin de análisis               : 2026-11-01 06:18:30
+  Duración del análisis         : 00:02:27
+  Muestras tomadas              : 75
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 341.9 MB
+  Duración                      : 00:22:17
+  Resolución                    : 1080x1434
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2144 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 134
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 255.1 %
+  CPU promedio                  : 4.7 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 300.0 MB
+  RAM promedio                  : 295.1 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 788.2 MB
+  Escritura detectada           : 19.4 MB
+
+------------------------------------------------------------------------------
+VIDEO 8: 661784954.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/661784954.mp4
+  Inicio de análisis            : 2026-11-01 06:18:30
+  Fin de análisis               : 2026-11-01 06:19:39
+  Duración del análisis         : 00:01:09
+  Muestras tomadas              : 36
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 180.6 MB
+  Duración                      : 00:11:46
+  Resolución                    : 1080x1428
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2145 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 71
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 3.9 %
+  CPU promedio                  : 1.3 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 298.7 MB
+  RAM promedio                  : 292.8 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 180.6 MB
+  Escritura detectada           : 9.7 MB
+
+------------------------------------------------------------------------------
+VIDEO 9: 647783332.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/647783332.mp4
+  Inicio de análisis            : 2026-11-01 06:18:09
+  Fin de análisis               : 2026-11-01 06:21:12
+  Duración del análisis         : 00:03:03
+  Muestras tomadas              : 93
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 446.2 MB
+  Duración                      : 00:29:05
+  Resolución                    : 1080x1440
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2144 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 175
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 134.2 %
+  CPU promedio                  : 3.3 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 303.2 MB
+  RAM promedio                  : 296.2 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 804.4 MB
+  Escritura detectada           : 28.8 MB
+
+------------------------------------------------------------------------------
+VIDEO 10: 799ed5e84c8146f48b21c1c570040c35.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/799ed5e84c8146f48b21c1c570040c35.mp4
+  Inicio de análisis            : 2026-11-01 06:19:39
+  Fin de análisis               : 2026-11-01 06:21:24
+  Duración del análisis         : 00:01:45
+  Muestras tomadas              : 54
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 177.6 MB
+  Duración                      : 00:12:06
+  Resolución                    : 1920x1088
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2050 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 73
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 7.7 %
+  CPU promedio                  : 0.9 %
+  Máximo procesos hijos         : 2
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 303.2 MB
+  RAM promedio                  : 285.3 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 177.6 MB
+  Escritura detectada           : 18.9 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+3some_Latino__Sεƅαst...TV.com.…    732.6 MB   00:49:58      88.1%   00:05:35
+3way Fuck After Training - Boy…    606.8 MB   00:39:05     121.7%   00:02:32
+1_5129926255650539455.mp4          470.9 MB   00:30:49     395.4%   00:03:33
+647783332.mp4                      446.2 MB   00:29:05     134.2%   00:03:03
+3 Way Flip Play.mp4                366.6 MB   00:25:19     438.9%   00:02:05
+642609654.mp4                      341.9 MB   00:22:17     255.1%   00:02:27
+3way_on_the_beach_with_stepbro…    313.3 MB   00:20:42     123.3%   00:01:36
+639524242.mp4                      310.3 MB   00:20:13      25.3%   00:02:07
+661784954.mp4                      180.6 MB   00:11:46       3.9%   00:01:09
+799ed5e84c8146f48b21c1c570040c…    177.6 MB   00:12:06       7.7%   00:01:45
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

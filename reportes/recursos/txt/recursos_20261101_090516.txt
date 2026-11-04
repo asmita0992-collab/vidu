@@ -1,0 +1,367 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-01 09:05:16
+Plataforma               : LINUX
+Hostname                 : haggy-escritorio
+Sistema operativo        : Linux 7.0.0-42-generic
+CPU                      : AMD Ryzen 3 4300U with Radeon Graphics (4 núcleos, x86_64)
+RAM total                : 15343 MB
+Videos con medición       : 9
+Videos completados        : 9
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Linux):
+  CPU puede superar 100 % si se usan varios núcleos.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Por video se cuentan solo los procesos FFmpeg/FFprobe de ese video.
+  El proceso Python (SHA256, pHash) es compartido: se reporta como
+  total del lote, no por video.
+  Lectura/escritura = bytes pedidos al sistema (incluye caché del
+  sistema). No equivale necesariamente a lectura física del disco.
+  Los procesos de un video se miden desde que nacen hasta ~2 s antes
+  de terminar; el último intervalo de un proceso corto puede faltar.
+
+PROCESO PYTHON DE VIDUP (TOTAL DEL LOTE)
+  Tiempo transcurrido           : 00:25:34
+  CPU acumulada                 : 12.1 s de CPU
+  Pico de RAM                   : 100.2 MB
+  Lectura total                 : 4767.7 MB
+  Escritura total               : 88.2 MB
+  Incluye SHA256, pHash en memoria y el resto de la lógica de VIDUP.
+
+------------------------------------------------------------------------------
+VIDEO 1: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Brando_Arjona.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Brando_Arjona.mp4
+  Inicio de análisis            : 2026-11-01 08:39:58
+  Fin de análisis               : 2026-11-01 08:42:17
+  Duración del análisis         : 00:02:18
+  Muestras tomadas              : 71
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 318.4 MB
+  Duración                      : 00:20:25
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2179 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 123
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 87.8 %
+  CPU promedio                  : 61.6 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 165.2 MB
+  RAM promedio                  : 159.0 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 446.5 MB
+  Escritura solicitada          : 7.9 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_CocktopusXXL.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_CocktopusXXL.mp4
+  Inicio de análisis            : 2026-11-01 08:42:17
+  Fin de análisis               : 2026-11-01 08:45:50
+  Duración del análisis         : 00:03:33
+  Muestras tomadas              : 108
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 483.7 MB
+  Duración                      : 00:31:00
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2181 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 186
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 84.4 %
+  CPU promedio                  : 63.0 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 166.5 MB
+  RAM promedio                  : 162.4 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 588.7 MB
+  Escritura solicitada          : 6.6 MB
+
+------------------------------------------------------------------------------
+VIDEO 3: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Dato_Foland.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Dato_Foland.mp4
+  Inicio de análisis            : 2026-11-01 08:45:50
+  Fin de análisis               : 2026-11-01 08:48:20
+  Duración del análisis         : 00:02:29
+  Muestras tomadas              : 76
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 329.5 MB
+  Duración                      : 00:21:08
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2179 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 127
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 82.5 %
+  CPU promedio                  : 62.9 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 165.2 MB
+  RAM promedio                  : 159.5 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 431.9 MB
+  Escritura solicitada          : 6.4 MB
+
+------------------------------------------------------------------------------
+VIDEO 4: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Gabriel_Ryder.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Gabriel_Ryder.mp4
+  Inicio de análisis            : 2026-11-01 08:48:20
+  Fin de análisis               : 2026-11-01 08:50:24
+  Duración del análisis         : 00:02:03
+  Muestras tomadas              : 63
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 271.3 MB
+  Duración                      : 00:17:24
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2179 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 104
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 66.2 %
+  CPU promedio                  : 61.8 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 164.2 MB
+  RAM promedio                  : 157.3 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 298.7 MB
+  Escritura solicitada          : 2.1 MB
+
+------------------------------------------------------------------------------
+VIDEO 5: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Gxxxom_aka_Diego_Spicy.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Gxxxom_aka_Diego_Spicy.mp4
+  Inicio de análisis            : 2026-11-01 08:50:24
+  Fin de análisis               : 2026-11-01 08:52:00
+  Duración del análisis         : 00:01:36
+  Muestras tomadas              : 49
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 212.5 MB
+  Duración                      : 00:13:38
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2178 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 82
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 66.2 %
+  CPU promedio                  : 60.0 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 163.9 MB
+  RAM promedio                  : 154.3 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 208.9 MB
+  Escritura solicitada          : 0.2 MB
+
+------------------------------------------------------------------------------
+VIDEO 6: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_LetsEatCakeXx_aka_Kaden.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_LetsEatCakeXx_aka_Kaden.mp4
+  Inicio de análisis            : 2026-11-01 08:52:00
+  Fin de análisis               : 2026-11-01 08:54:41
+  Duración del análisis         : 00:02:41
+  Muestras tomadas              : 82
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 356.5 MB
+  Duración                      : 00:22:54
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2176 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 137
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 83.0 %
+  CPU promedio                  : 62.9 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 165.3 MB
+  RAM promedio                  : 160.0 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 463.3 MB
+  Escritura solicitada          : 6.7 MB
+
+------------------------------------------------------------------------------
+VIDEO 7: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Michael_Lucas.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Michael_Lucas.mp4
+  Inicio de análisis            : 2026-11-01 08:54:41
+  Fin de análisis               : 2026-11-01 08:58:34
+  Duración del análisis         : 00:03:52
+  Muestras tomadas              : 117
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 515.0 MB
+  Duración                      : 00:33:02
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2179 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 198
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 66.6 %
+  CPU promedio                  : 62.5 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 167.0 MB
+  RAM promedio                  : 162.8 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 511.3 MB
+  Escritura solicitada          : 0.7 MB
+
+------------------------------------------------------------------------------
+VIDEO 8: Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Nate_Hotties.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Andrea_Suárez,_Eloy_Lopez_aka_LopaezTorres_&_Nate_Hotties.mp4
+  Inicio de análisis            : 2026-11-01 08:58:34
+  Fin de análisis               : 2026-11-01 09:00:26
+  Duración del análisis         : 00:01:52
+  Muestras tomadas              : 57
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 252.4 MB
+  Duración                      : 00:16:11
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2180 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 97
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 66.2 %
+  CPU promedio                  : 60.5 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 164.1 MB
+  RAM promedio                  : 155.6 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 248.5 MB
+  Escritura solicitada          : 0.3 MB
+
+------------------------------------------------------------------------------
+VIDEO 9: Aprils Tiny Fool.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/Aprils Tiny Fool.mp4
+  Inicio de análisis            : 2026-11-01 09:00:26
+  Fin de análisis               : 2026-11-01 09:05:08
+  Duración del análisis         : 00:04:42
+  Muestras tomadas              : 142
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 461.8 MB
+  Duración                      : 00:31:29
+  Resolución                    : 1280x720
+  FPS                           : 29.970
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2050 kbps
+  Método de decodificación      : vaapi
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 189
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 66.8 %
+  CPU promedio                  : 63.5 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 152.2 MB
+  RAM promedio                  : 150.0 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 462.2 MB
+  Escritura solicitada          : 0.6 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+Andrea_Suárez,_Eloy_Lopez_aka_…    515.0 MB   00:33:02      66.6%   00:03:52
+Andrea_Suárez,_Eloy_Lopez_aka_…    483.7 MB   00:31:00      84.4%   00:03:33
+Aprils Tiny Fool.mp4               461.8 MB   00:31:29      66.8%   00:04:42
+Andrea_Suárez,_Eloy_Lopez_aka_…    356.5 MB   00:22:54      83.0%   00:02:41
+Andrea_Suárez,_Eloy_Lopez_aka_…    329.5 MB   00:21:08      82.5%   00:02:29
+Andrea_Suárez,_Eloy_Lopez_aka_…    318.4 MB   00:20:25      87.8%   00:02:18
+Andrea_Suárez,_Eloy_Lopez_aka_…    271.3 MB   00:17:24      66.2%   00:02:03
+Andrea_Suárez,_Eloy_Lopez_aka_…    252.4 MB   00:16:11      66.2%   00:01:52
+Andrea_Suárez,_Eloy_Lopez_aka_…    212.5 MB   00:13:38      66.2%   00:01:36
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

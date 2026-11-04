@@ -1,0 +1,17 @@
+{
+    "procesados": 19,
+    "omitidos": 2,
+    "errores": [],
+    "tiempo_seg": 661.6115530269999,
+    "dispositivo": {
+        "dispositivo": "haggy-escritorio|Linux|x86_64",
+        "dispositivo_id": "c55c28b5bf8e8",
+        "iud_c": "c55c28b5bf8e87c8cc517f10fec8192851bf8613364e0d6a1d38fd4f1ae0ca92",
+        "plataforma": "Linux",
+        "maquina": "x86_64",
+        "hostname": "haggy-escritorio",
+        "es_android": false,
+        "ruta_identidad": "/home/haggy/VIDUP/.vidup_device_identity.json"
+    },
+    "conexion": "FUERA DE LÍNEA (SQLite local)"
+}

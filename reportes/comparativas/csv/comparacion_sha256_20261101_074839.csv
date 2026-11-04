@@ -1,0 +1,18 @@
+﻿registro,texto_terminal,total_videos,tiempo_seg,total_hallazgos,metadatos
+resumen,"
+════════════════════════════════════════════════════════════════════════
+  VIDUP — Reporte de análisis
+  Fecha: 01/11/2026 07:48:39
+  Dispositivo: haggy-escritorio|Linux|x86_64 (ID c55c28b5bf8e8)
+  Plataforma: Linux (x86_64)
+  Videos analizados : 1563
+  Tiempo de análisis: 00:00:00
+  Hallazgos totales : 0
+════════════════════════════════════════════════════════════════════════
+
+  No se encontraron duplicados ni fragmentos.
+
+
+Bases de datos: neon_cloud
+Dispositivo que ejecutó el análisis: haggy-escritorio|Linux|x86_64 (ID c55c28b5bf8e8, plataforma Linux)
+",1563,0.006181789000038407,0,"{""bases_de_datos"": [""neon_cloud""], ""comparativas"": {}, ""resumen_sha256"": {""metodo"": ""solo_sha256"", ""total_videos"": 1563, ""con_sha256_valido"": 1563, ""sin_sha256_valido"": 0, ""hashes_unicos"": 1563, ""grupos_con_coincidencias"": 0, ""asociaciones_reportadas"": 0, ""estructura"": ""Cada grupo se representa mediante N-1 asociaciones, no todos los pares."", ""advertencia"": ""Se comparan hashes almacenados; no se recalcula SHA256 ni se recomienda eliminar archivos.""}, ""modo_comparacion"": ""solo_sha256"", ""umbrales"": {""umbral_phash"": 10, ""umbral_visual"": 80.0, ""umbral_fragmento"": 75.0, ""umbral_posible_fragmento"": 25.0, ""margen_duracion"": 5.0, ""ratio_min"": 5.0}, ""dispositivo"": {""dispositivo"": ""haggy-escritorio|Linux|x86_64"", ""dispositivo_id"": ""c55c28b5bf8e8"", ""iud_c"": ""c55c28b5bf8e87c8cc517f10fec8192851bf8613364e0d6a1d38fd4f1ae0ca92"", ""plataforma"": ""Linux"", ""maquina"": ""x86_64"", ""hostname"": ""haggy-escritorio"", ""es_android"": false, ""ruta_identidad"": ""/home/haggy/Vídeos/VIDUP/.vidup_device_identity.json""}, ""conexion"": ""EN LÍNEA (Neon PostgreSQL en la nube)""}"

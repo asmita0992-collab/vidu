@@ -1,0 +1,259 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-02 15:11:31
+Plataforma               : WINDOWS
+Hostname                 : LAPTOP-HP-AMD
+Sistema operativo        : Windows 11
+CPU                      : CPU Windows (4 núcleos, AMD64)
+RAM total                : 15730 MB
+Videos con medición       : 6
+Videos completados        : 6
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Windows):
+  CPU puede superar 100 % porque Windows/psutil lo expresa por núcleo.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Por video se cuentan solo los procesos FFmpeg/FFprobe de ese video.
+  El proceso Python (SHA256, pHash) es compartido: se reporta como
+  total del lote, no por video.
+  Lectura/escritura = bytes pedidos al sistema (incluye caché del
+  sistema). No equivale necesariamente a lectura física del disco.
+  Los procesos de un video se miden desde que nacen hasta ~2 s antes
+  de terminar; el último intervalo de un proceso corto puede faltar.
+
+PROCESO PYTHON DE VIDUP (TOTAL DEL LOTE)
+  Tiempo transcurrido           : 00:09:56
+  CPU acumulada                 : 7.5 s de CPU
+  Pico de RAM                   : 75.9 MB
+  Lectura total                 : 58.7 MB
+  Escritura total               : 0.8 MB
+  Incluye SHA256, pHash en memoria y el resto de la lógica de VIDUP.
+
+------------------------------------------------------------------------------
+VIDEO 1: 1_4994927616696781497.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\1_4994927616696781497.mp4
+  Inicio de análisis            : 2026-11-02 15:01:34
+  Fin de análisis               : 2026-11-02 15:04:26
+  Duración del análisis         : 00:02:52
+  Muestras tomadas              : 87
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 389.2 MB
+  Duración                      : 00:17:58
+  Resolución                    : 1920x1078
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 3028 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 108
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 24.1 %
+  CPU promedio                  : 10.2 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 435.5 MB
+  RAM promedio                  : 362.4 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 390.1 MB
+  Escritura solicitada          : 0.3 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: 1_4994927616696781498.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\1_4994927616696781498.mp4
+  Inicio de análisis            : 2026-11-02 15:01:34
+  Fin de análisis               : 2026-11-02 15:04:27
+  Duración del análisis         : 00:02:52
+  Muestras tomadas              : 87
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 428.0 MB
+  Duración                      : 00:18:31
+  Resolución                    : 1280x720
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 3229 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 111
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 21.7 %
+  CPU promedio                  : 9.5 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 291.8 MB
+  RAM promedio                  : 255.4 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 426.7 MB
+  Escritura solicitada          : 0.3 MB
+
+------------------------------------------------------------------------------
+VIDEO 3: 1_4994927616696781499.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\1_4994927616696781499.mp4
+  Inicio de análisis            : 2026-11-02 15:04:26
+  Fin de análisis               : 2026-11-02 15:07:15
+  Duración del análisis         : 00:02:48
+  Muestras tomadas              : 85
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 219.1 MB
+  Duración                      : 00:20:13
+  Resolución                    : 1280x720
+  FPS                           : 30.000
+  Códec de vídeo                : h264
+  Códec de audio                : aac
+  Bitrate aproximado            : 1514 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 121
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 34.1 %
+  CPU promedio                  : 11.5 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 172.5 MB
+  RAM promedio                  : 140.2 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 220.0 MB
+  Escritura solicitada          : 0.3 MB
+
+------------------------------------------------------------------------------
+VIDEO 4: 1_4994927616696781500.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\1_4994927616696781500.mp4
+  Inicio de análisis            : 2026-11-02 15:04:27
+  Fin de análisis               : 2026-11-02 15:07:41
+  Duración del análisis         : 00:03:14
+  Muestras tomadas              : 98
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 404.8 MB
+  Duración                      : 00:20:26
+  Resolución                    : 1080x1920
+  FPS                           : 29.970
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2770 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 123
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 31.8 %
+  CPU promedio                  : 12.4 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 460.9 MB
+  RAM promedio                  : 384.5 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 398.3 MB
+  Escritura solicitada          : 0.3 MB
+
+------------------------------------------------------------------------------
+VIDEO 5: A Pelo Le Follamos El Culo Entre 3 En Las Escaleras Del Edificio.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\A Pelo Le Follamos El Culo Entre 3 En Las Escaleras Del Edificio.mp4
+  Inicio de análisis            : 2026-11-02 15:07:41
+  Fin de análisis               : 2026-11-02 15:11:28
+  Duración del análisis         : 00:03:47
+  Muestras tomadas              : 114
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 425.3 MB
+  Duración                      : 00:20:25
+  Resolución                    : 1080x1920
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2911 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 123
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 21.0 %
+  CPU promedio                  : 9.8 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 346.5 MB
+  RAM promedio                  : 272.6 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 424.6 MB
+  Escritura solicitada          : 0.4 MB
+
+------------------------------------------------------------------------------
+VIDEO 6: 298261958.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\298261958.mp4
+  Inicio de análisis            : 2026-11-02 15:07:15
+  Fin de análisis               : 2026-11-02 15:11:31
+  Duración del análisis         : 00:04:15
+  Muestras tomadas              : 128
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 746.3 MB
+  Duración                      : 00:35:09
+  Resolución                    : 1920x1080
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2968 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 211
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 35.7 %
+  CPU promedio                  : 12.8 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 440.1 MB
+  RAM promedio                  : 353.5 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 741.9 MB
+  Escritura solicitada          : 0.6 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+298261958.mp4                      746.3 MB   00:35:09      35.7%   00:04:15
+1_4994927616696781498.mp4          428.0 MB   00:18:31      21.7%   00:02:52
+A Pelo Le Follamos El Culo Ent…    425.3 MB   00:20:25      21.0%   00:03:47
+1_4994927616696781500.mp4          404.8 MB   00:20:26      31.8%   00:03:14
+1_4994927616696781497.mp4          389.2 MB   00:17:58      24.1%   00:02:52
+1_4994927616696781499.mp4          219.1 MB   00:20:13      34.1%   00:02:48
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

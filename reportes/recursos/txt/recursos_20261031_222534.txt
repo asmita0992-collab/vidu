@@ -1,0 +1,68 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-10-31 22:25:34
+Plataforma               : LINUX
+Hostname                 : haggy-escritorio
+Sistema operativo        : Linux 7.0.0-42-generic
+CPU                      : AMD Ryzen 3 4300U with Radeon Graphics (4 núcleos, x86_64)
+RAM total                : 15343 MB
+Videos con medición       : 1
+Videos completados        : 1
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Linux):
+  CPU puede superar 100 % si se usan varios núcleos.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Linux gestiona la CPU con su scheduler CFS; los valores son precisos.
+  Con varios trabajadores, CPU/RAM de FFmpeg puede traslaparse entre
+  videos porque todos son hijos del mismo proceso Python.
+  Para medir con exactitud individual cada video, selecciona 1 trabajador.
+
+------------------------------------------------------------------------------
+VIDEO 1: 0h4sag3pubnhpzn327vh7_source.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : /home/haggy/Vídeos/Listos/0h4sag3pubnhpzn327vh7_source.mp4
+  Inicio de análisis            : 2026-10-31 22:24:32
+  Fin de análisis               : 2026-10-31 22:25:32
+  Duración del análisis         : 00:00:59
+  Muestras tomadas              : 31
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 156.4 MB
+  Duración                      : 00:10:11
+  Resolución                    : 1920x1088
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2145 kbps
+  Método de decodificación      : software
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 61
+
+CPU DEL PROCESO Y SUS HIJOS
+  Pico de CPU                   : 111.5 %
+  CPU promedio                  : 5.8 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DEL PROCESO Y SUS HIJOS
+  Pico de RAM                   : 164.1 MB
+  RAM promedio                  : 158.9 MB
+
+OPERACIONES DE DISCO APROXIMADAS
+  Lectura detectada             : 71.8 MB
+  Escritura detectada           : 9.4 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+0h4sag3pubnhpzn327vh7_source.m…    156.4 MB   00:10:11     111.5%   00:00:59
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

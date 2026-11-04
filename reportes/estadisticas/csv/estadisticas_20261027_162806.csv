@@ -1,0 +1,5 @@
+﻿tipo,dispositivo,dispositivo_id,carpeta,videos,tamanio_bytes,sha256,visual,audio,errores,procesados_sin_error,duracion_horas,gb_totales,grupos_dispositivo,etiquetas_origen
+general,,,D:\Haggy\Videos_hevc\VIDUP\vidup.db,158,,,,,0,158,86.35,97.744,1,LAPTOP-HP-AMD|Windows|AMD64
+dispositivo,LAPTOP-HP-AMD|Windows|AMD64,c73ad4231f0b5,,158,104951545067,158,0,0,0,,,,,
+carpeta,LAPTOP-HP-AMD|Windows|AMD64,c73ad4231f0b5,D:\Haggy\Videos_hevc\,98,48938586106,98,0,,,,,,,
+carpeta,LAPTOP-HP-AMD|Windows|AMD64,c73ad4231f0b5,D:\Haggy\Videos\HEVC\,60,56012958961,60,0,,,,,,,

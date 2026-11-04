@@ -1,0 +1,22 @@
+ESTADÍSTICAS VIDUP — 2026-10-31 16:42:59 UTC-6
+Origen: /home/haggy/VIDUP/reportes/respaldos/db/respaldo231026.db
+Vídeos totales: 1133
+Procesados sin error: 1133
+Con error: 0
+Duración total: 587.8 h
+Tamaño total: 582.198 GB
+Dispositivos/grupos: 2
+Etiquetas de origen registradas (sin volver a contar vídeos):
+  Haggyescritorio|Windows|AMD64
+
+DISPOSITIVO: Haggyescritorio|Windows|AMD64 (ID b7f7b638fce2d)
+  Vídeos: 1105; bytes: 620584679641; SHA256: 1105; visual: 766; audio: 766; errores: 0
+  G:\ | 986 vídeos | 542173569871 bytes | SHA256 986 | visual 766
+  G:\Angel de Bogota\ | 59 vídeos | 52282478560 bytes | SHA256 59 | visual 0
+  G:\Verticales\ | 24 vídeos | 7390584895 bytes | SHA256 24 | visual 0
+  G:\Duplicados\ | 21 vídeos | 9049538298 bytes | SHA256 21 | visual 0
+  G:\Kaneda\ | 15 vídeos | 9688508017 bytes | SHA256 15 | visual 0
+
+DISPOSITIVO: haggy-escritorio|Linux|x86_64 (ID c55c28b5bf8e8)
+  Vídeos: 28; bytes: 4545532427; SHA256: 28; visual: 28; audio: 28; errores: 0
+  /home/haggy/Vídeos/Listos/ | 28 vídeos | 4545532427 bytes | SHA256 28 | visual 28

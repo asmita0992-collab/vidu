@@ -1,0 +1,259 @@
+==============================================================================
+REPORTE DE CONSUMO DE RECURSOS - VIDUP
+==============================================================================
+Generado                 : 2026-11-02 14:58:33
+Plataforma               : WINDOWS
+Hostname                 : LAPTOP-HP-AMD
+Sistema operativo        : Windows 11
+CPU                      : CPU Windows (4 núcleos, AMD64)
+RAM total                : 15730 MB
+Videos con medición       : 6
+Videos completados        : 6
+Videos con error          : 0
+Intervalo de muestreo    : 2.0 segundos
+
+IMPORTANTE (Windows):
+  CPU puede superar 100 % porque Windows/psutil lo expresa por núcleo.
+  Ejemplo: 250 % equivale aproximadamente a 2.5 núcleos ocupados.
+  Por video se cuentan solo los procesos FFmpeg/FFprobe de ese video.
+  El proceso Python (SHA256, pHash) es compartido: se reporta como
+  total del lote, no por video.
+  Lectura/escritura = bytes pedidos al sistema (incluye caché del
+  sistema). No equivale necesariamente a lectura física del disco.
+  Los procesos de un video se miden desde que nacen hasta ~2 s antes
+  de terminar; el último intervalo de un proceso corto puede faltar.
+
+PROCESO PYTHON DE VIDUP (TOTAL DEL LOTE)
+  Tiempo transcurrido           : 00:05:46
+  CPU acumulada                 : 4.2 s de CPU
+  Pico de RAM                   : 75.9 MB
+  Lectura total                 : 58.6 MB
+  Escritura total               : 0.8 MB
+  Incluye SHA256, pHash en memoria y el resto de la lógica de VIDUP.
+
+------------------------------------------------------------------------------
+VIDEO 1: 1_4994927616696781491.MP4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\1_4994927616696781491.MP4
+  Inicio de análisis            : 2026-11-02 14:52:46
+  Fin de análisis               : 2026-11-02 14:54:01
+  Duración del análisis         : 00:01:15
+  Muestras tomadas              : 39
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 185.5 MB
+  Duración                      : 00:14:57
+  Resolución                    : 848x464
+  FPS                           : 30.000
+  Códec de vídeo                : h264
+  Códec de audio                : aac
+  Bitrate aproximado            : 1733 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 90
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 32.8 %
+  CPU promedio                  : 11.5 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 100.1 MB
+  RAM promedio                  : 72.7 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 185.5 MB
+  Escritura solicitada          : 0.2 MB
+
+------------------------------------------------------------------------------
+VIDEO 2: 1_4994927616696781492.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\1_4994927616696781492.mp4
+  Inicio de análisis            : 2026-11-02 14:52:46
+  Fin de análisis               : 2026-11-02 14:54:13
+  Duración del análisis         : 00:01:26
+  Muestras tomadas              : 45
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 84.9 MB
+  Duración                      : 00:15:11
+  Resolución                    : 640x352
+  FPS                           : 50.000
+  Códec de vídeo                : h264
+  Códec de audio                : aac
+  Bitrate aproximado            : 781 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 91
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 296.6 %
+  CPU promedio                  : 22.4 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 75.8 MB
+  RAM promedio                  : 61.0 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 124.0 MB
+  Escritura solicitada          : 7.0 MB
+
+------------------------------------------------------------------------------
+VIDEO 3: 1_4994927616696781493.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\1_4994927616696781493.mp4
+  Inicio de análisis            : 2026-11-02 14:54:01
+  Fin de análisis               : 2026-11-02 14:56:11
+  Duración del análisis         : 00:02:09
+  Muestras tomadas              : 66
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 324.5 MB
+  Duración                      : 00:15:30
+  Resolución                    : 1920x1078
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2927 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 93
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 205.8 %
+  CPU promedio                  : 15.7 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 435.5 MB
+  RAM promedio                  : 340.8 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 474.7 MB
+  Escritura solicitada          : 7.2 MB
+
+------------------------------------------------------------------------------
+VIDEO 4: 1_4994927616696781494.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\1_4994927616696781494.mp4
+  Inicio de análisis            : 2026-11-02 14:54:13
+  Fin de análisis               : 2026-11-02 14:56:23
+  Duración del análisis         : 00:02:10
+  Muestras tomadas              : 66
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 331.0 MB
+  Duración                      : 00:15:54
+  Resolución                    : 1920x1080
+  FPS                           : 23.976
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 2909 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 95
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 27.9 %
+  CPU promedio                  : 11.4 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 435.9 MB
+  RAM promedio                  : 342.3 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 326.0 MB
+  Escritura solicitada          : 0.3 MB
+
+------------------------------------------------------------------------------
+VIDEO 5: 1_4994927616696781495.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\1_4994927616696781495.mp4
+  Inicio de análisis            : 2026-11-02 14:56:11
+  Fin de análisis               : 2026-11-02 14:57:35
+  Duración del análisis         : 00:01:24
+  Muestras tomadas              : 44
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 133.9 MB
+  Duración                      : 00:16:19
+  Resolución                    : 852x480
+  FPS                           : 30.000
+  Códec de vídeo                : h264
+  Códec de audio                : aac
+  Bitrate aproximado            : 1147 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 98
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 186.4 %
+  CPU promedio                  : 18.3 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 109.0 MB
+  RAM promedio                  : 80.3 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 163.0 MB
+  Escritura solicitada          : 3.7 MB
+
+------------------------------------------------------------------------------
+VIDEO 6: 1_4994927616696781496.mp4
+------------------------------------------------------------------------------
+  Estado                        : COMPLETADO
+  Ruta                          : E:\Haggy\Videos_hevc\1_4994927616696781496.mp4
+  Inicio de análisis            : 2026-11-02 14:56:23
+  Fin de análisis               : 2026-11-02 14:58:33
+  Duración del análisis         : 00:02:09
+  Muestras tomadas              : 66
+
+INFORMACIÓN DEL VIDEO
+  Tamaño                        : 560.4 MB
+  Duración                      : 00:17:39
+  Resolución                    : 1918x1080
+  FPS                           : 30.000
+  Códec de vídeo                : hevc
+  Códec de audio                : aac
+  Bitrate aproximado            : 4436 kbps
+  Método de decodificación      : amf
+  Intervalo entre cuadros       : 10.0 s
+  Cuadros muestreados           : 106
+
+CPU DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de CPU                   : 226.9 %
+  CPU promedio                  : 19.9 %
+  Máximo procesos hijos         : 1
+
+MEMORIA RAM DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Pico de RAM                   : 330.9 MB
+  RAM promedio                  : 284.4 MB
+
+LECTURA Y ESCRITURA DE FFMPEG/FFPROBE DE ESTE VIDEO
+  Lectura solicitada            : 725.2 MB
+  Escritura solicitada          : 5.8 MB
+
+==============================================================================
+RESUMEN ORDENADO POR TAMAÑO DE VIDEO
+==============================================================================
+Nombre                               Tamaño   Duración   CPU pico   Análisis
+------------------------------------------------------------------------------
+1_4994927616696781496.mp4          560.4 MB   00:17:39     226.9%   00:02:09
+1_4994927616696781494.mp4          331.0 MB   00:15:54      27.9%   00:02:10
+1_4994927616696781493.mp4          324.5 MB   00:15:30     205.8%   00:02:09
+1_4994927616696781491.MP4          185.5 MB   00:14:57      32.8%   00:01:15
+1_4994927616696781495.mp4          133.9 MB   00:16:19     186.4%   00:01:24
+1_4994927616696781492.mp4           84.9 MB   00:15:11     296.6%   00:01:26
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

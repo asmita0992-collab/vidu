@@ -1,0 +1,17 @@
+{
+    "procesados": 6,
+    "omitidos": 0,
+    "errores": [],
+    "tiempo_seg": 459.79858120000017,
+    "dispositivo": {
+        "dispositivo": "LAPTOP-HP-AMD|Windows|AMD64",
+        "dispositivo_id": "c73ad4231f0b5",
+        "iud_c": "c73ad4231f0b565c11ff9d74a50ee3bddb24f50c51812beef91c03f9f4cc3074",
+        "plataforma": "Windows",
+        "maquina": "AMD64",
+        "hostname": "LAPTOP-HP-AMD",
+        "es_android": false,
+        "ruta_identidad": "E:\\Haggy\\VIDUP\\.vidup_device_identity.json"
+    },
+    "conexion": "FUERA DE LÍNEA (SQLite local)"
+}

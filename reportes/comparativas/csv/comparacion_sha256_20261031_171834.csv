@@ -1,0 +1,3185 @@
+﻿registro,texto_terminal,total_videos,tiempo_seg,total_hallazgos,metadatos,tipo,ruta_a,nombre_a,ruta_b,nombre_b,similitud_visual,similitud_audio,confianza,offset_inicio,offset_fin,notas,info_a.ruta,info_a.nombre,info_a.dispositivo,info_a.dispositivo_id,info_a.duracion,info_a.resolucion,info_a.fps,info_a.codec_video,info_a.codec_audio,info_a.tamanio_bytes,info_a.bitrate_kbps,info_a.bitrate_video_kbps,info_a.hash_archivo,info_a.frames_muestreados,info_b.ruta,info_b.nombre,info_b.dispositivo,info_b.dispositivo_id,info_b.duracion,info_b.resolucion,info_b.fps,info_b.codec_video,info_b.codec_audio,info_b.tamanio_bytes,info_b.bitrate_kbps,info_b.bitrate_video_kbps,info_b.hash_archivo,info_b.frames_muestreados,indice,tipo_legible,confianza_texto,similitud_visual_texto,audio_texto,criterio_texto
+resumen,"
+════════════════════════════════════════════════════════════════════════
+  VIDUP — Reporte de análisis
+  Fecha: 31/10/2026 17:18:34
+  Dispositivo: haggy-escritorio|Linux|x86_64 (ID c55c28b5bf8e8)
+  Plataforma: Linux (x86_64)
+  Videos analizados : 1337
+  Tiempo de análisis: 00:00:00
+  Hallazgos totales : 51
+════════════════════════════════════════════════════════════════════════
+
+  Resumen:
+    DUPLICADO EXACTO      51
+
+  ────────── DUPLICADO EXACTO (51) ──────────
+────────────────────────────────────────────────────────────────────────
+#1  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h6a0ormuq6uctegw5fti_source.mp4
+  ↳ G:\0h6a0ormuq6uctegw5fti_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1920x1088
+    Duración        : 00:09:08
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 182.4 MB
+    Bitrate aprox.  : 2792 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h6a0ormuq6uctegw5fti_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h6a0ormuq6uctegw5fti_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1920x1088
+    Duración        : 00:09:08
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 182.4 MB
+    Bitrate aprox.  : 2792 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: e03b6440a63f345b48a789bece555878523d4465bd6fa5307ef2e1b99004c1d9. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#2  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0harv8porlqr2cp8j3zct_source.mp4
+  ↳ G:\0harv8porlqr2cp8j3zct_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1920x1088
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 138.0 MB
+    Bitrate aprox.  : 1928 kbps
+    Bitrate vídeo   : 1764 kbps
+    Frames huella   : 0
+
+  VIDEO B  0harv8porlqr2cp8j3zct_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0harv8porlqr2cp8j3zct_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1920x1088
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 138.0 MB
+    Bitrate aprox.  : 1928 kbps
+    Bitrate vídeo   : 1764 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: a4e5c9a5f1676ec8357c366b82236381dfc8dc41fe775062e88d098e94dc843d. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#3  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  1_5129926255650539499.mp4
+  ↳ G:\1_5129926255650539499.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:26:33
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 432.4 MB
+    Bitrate aprox.  : 2277 kbps
+    Bitrate vídeo   : 2113 kbps
+    Frames huella   : 0
+
+  VIDEO B  1_5129926255650539499.mp4
+  ↳ /home/haggy/Vídeos/Listos/1_5129926255650539499.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:26:33
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 432.4 MB
+    Bitrate aprox.  : 2277 kbps
+    Bitrate vídeo   : 2113 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 2a50f62b278c0c6c695f276113df8663ed611a83f73f7f9a86131c7c80f9ec71. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#4  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  a-fantastic-threesome.mp4
+  ↳ G:\a-fantastic-threesome.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:32:57
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 502.9 MB
+    Bitrate aprox.  : 2134 kbps
+    Bitrate vídeo   : 2000 kbps
+    Frames huella   : 0
+
+  VIDEO B  a-fantastic-threesome.mp4
+  ↳ /home/haggy/Vídeos/Listos/a-fantastic-threesome.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:32:57
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 502.9 MB
+    Bitrate aprox.  : 2134 kbps
+    Bitrate vídeo   : 2000 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: c9bf14923bc875a9cff010a495610379e8f3e3693359e7a7a970894f683dba22. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#5  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  bare-bedfellows-sc-2.mp4
+  ↳ G:\bare-bedfellows-sc-2.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:26:37
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 444.1 MB
+    Bitrate aprox.  : 2332 kbps
+    Bitrate vídeo   : 2199 kbps
+    Frames huella   : 0
+
+  VIDEO B  bare-bedfellows-sc-2.mp4
+  ↳ /home/haggy/Vídeos/Listos/bare-bedfellows-sc-2.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:26:37
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 444.1 MB
+    Bitrate aprox.  : 2332 kbps
+    Bitrate vídeo   : 2199 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: ba0ff2bf95289e2082d4c3402f893f60dac0191706e92c5f9399d7ef3f92240f. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#6  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  cocksure-sc-3.mp4
+  ↳ G:\cocksure-sc-3.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:25:39
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 312.4 MB
+    Bitrate aprox.  : 1702 kbps
+    Bitrate vídeo   : 1575 kbps
+    Frames huella   : 0
+
+  VIDEO B  cocksure-sc-3.mp4
+  ↳ /home/haggy/Vídeos/Listos/cocksure-sc-3.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:25:39
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 312.4 MB
+    Bitrate aprox.  : 1702 kbps
+    Bitrate vídeo   : 1575 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: bf7a26ee8b31e2d545292318f664bb9de6555ebd6d11edfd7397c120f1b62d15. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#7  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Enough Ass For Two.mp4
+  ↳ G:\Enough Ass For Two.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:46:08
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 768.0 MB
+    Bitrate aprox.  : 2328 kbps
+    Bitrate vídeo   : 2229 kbps
+    Frames huella   : 0
+
+  VIDEO B  Enough Ass For Two.mp4
+  ↳ /home/haggy/Vídeos/Listos/Enough Ass For Two.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:46:08
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 768.0 MB
+    Bitrate aprox.  : 2328 kbps
+    Bitrate vídeo   : 2229 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: ce92def1d04ac05e2619535d3c93cf7a690ebe8bf8204e7b6e0ec624946ef06b. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#8  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4
+  ↳ G:\faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1920x1088
+    Duración        : 00:24:39
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 373.5 MB
+    Bitrate aprox.  : 2118 kbps
+    Bitrate vídeo   : 1980 kbps
+    Frames huella   : 0
+
+  VIDEO B  faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4
+  ↳ /home/haggy/Vídeos/Listos/faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1920x1088
+    Duración        : 00:24:39
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 373.5 MB
+    Bitrate aprox.  : 2118 kbps
+    Bitrate vídeo   : 1980 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: c73320be4e3ff0e2af5a54b2a288cd880bccc320eaddbcf21334b228898d10f9. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#9  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Father's Day-Tape 5.mp4
+  ↳ G:\Father's Day-Tape 5.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:27:20
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 403.9 MB
+    Bitrate aprox.  : 2065 kbps
+    Bitrate vídeo   : 1933 kbps
+    Frames huella   : 0
+
+  VIDEO B  Father's Day-Tape 5.mp4
+  ↳ /home/haggy/Vídeos/Listos/Father's Day-Tape 5.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:27:20
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 403.9 MB
+    Bitrate aprox.  : 2065 kbps
+    Bitrate vídeo   : 1933 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: c54be16c34451ebc9f7f2dbec6441356cc66182f495768f7d88e2cbd692a52b9. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#10  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  forbidden-fruits-sc-3.mp4
+  ↳ G:\forbidden-fruits-sc-3.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:37:27
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 631.5 MB
+    Bitrate aprox.  : 2357 kbps
+    Bitrate vídeo   : 2224 kbps
+    Frames huella   : 0
+
+  VIDEO B  forbidden-fruits-sc-3.mp4
+  ↳ /home/haggy/Vídeos/Listos/forbidden-fruits-sc-3.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:37:27
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 631.5 MB
+    Bitrate aprox.  : 2357 kbps
+    Bitrate vídeo   : 2224 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 5848d07df3a65cc2016b11f7d67ad7ac77a06bd26be879a6e65a1899653dd055. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#11  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4
+  ↳ G:\Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:40:23
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 525.3 MB
+    Bitrate aprox.  : 1818 kbps
+    Bitrate vídeo   : 1703 kbps
+    Frames huella   : 0
+
+  VIDEO B  Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4
+  ↳ /home/haggy/Vídeos/Listos/Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:40:23
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 525.3 MB
+    Bitrate aprox.  : 1818 kbps
+    Bitrate vídeo   : 1703 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: d5712b5db554789c58fed87583d18105469401de8763c6d5bc3b165d6e8bbf7b. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#12  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4
+  ↳ G:\Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x674
+    Duración        : 00:30:08
+    Códec video     : hevc
+    Códec audio     : mp3
+    Tamaño archivo  : 430.2 MB
+    Bitrate aprox.  : 1995 kbps
+    Bitrate vídeo   : 1893 kbps
+    Frames huella   : 0
+
+  VIDEO B  Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4
+  ↳ /home/haggy/Vídeos/Listos/Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x674
+    Duración        : 00:30:08
+    Códec video     : hevc
+    Códec audio     : mp3
+    Tamaño archivo  : 430.2 MB
+    Bitrate aprox.  : 1995 kbps
+    Bitrate vídeo   : 1893 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: ce6b3ed3ab17762a7d1c325e5bc3bdc88cc02d7e6adc470f9aa17b09d3529094. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#13  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4
+  ↳ G:\Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:27:25
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 384.7 MB
+    Bitrate aprox.  : 1962 kbps
+    Bitrate vídeo   : 1844 kbps
+    Frames huella   : 0
+
+  VIDEO B  Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:27:25
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 384.7 MB
+    Bitrate aprox.  : 1962 kbps
+    Bitrate vídeo   : 1844 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: f81f32037951a45c806a1760dee919284234e0f26692797f779996272bb00582. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#14  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Hot_AF!_-_Alfonso_Os...PORNER.mp4
+  ↳ G:\Hot_AF!_-_Alfonso_Os...PORNER.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:38:16
+    Códec video     : h264
+    Códec audio     : aac
+    Tamaño archivo  : 397.8 MB
+    Bitrate aprox.  : 1453 kbps
+    Bitrate vídeo   : 1254 kbps
+    Frames huella   : 0
+
+  VIDEO B  Hot_AF!_-_Alfonso_Os...PORNER.mp4
+  ↳ /home/haggy/Vídeos/Listos/Hot_AF!_-_Alfonso_Os...PORNER.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:38:16
+    Códec video     : h264
+    Códec audio     : aac
+    Tamaño archivo  : 397.8 MB
+    Bitrate aprox.  : 1453 kbps
+    Bitrate vídeo   : 1254 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: c8aeba70dab942b1ff1eaa712c5b16e3b971110f42f83b4dcb2e0d45c19145d6. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#15  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  latinleche_0095.mp4
+  ↳ G:\latinleche_0095.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:34:02
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 371.6 MB
+    Bitrate aprox.  : 1526 kbps
+    Bitrate vídeo   : 1423 kbps
+    Frames huella   : 0
+
+  VIDEO B  latinleche_0095.mp4
+  ↳ /home/haggy/Vídeos/Listos/latinleche_0095.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:34:02
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 371.6 MB
+    Bitrate aprox.  : 1526 kbps
+    Bitrate vídeo   : 1423 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: e91d3bb99ad9580dfe230f5578efefed0eeb6d617137c599309e434659a7c4fe. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#16  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Mind Fuck Falcon Studios.mp4
+  ↳ G:\Mind Fuck Falcon Studios.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:42:44
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 623.6 MB
+    Bitrate aprox.  : 2040 kbps
+    Bitrate vídeo   : 1843 kbps
+    Frames huella   : 0
+
+  VIDEO B  Mind Fuck Falcon Studios.mp4
+  ↳ /home/haggy/Vídeos/Listos/Mind Fuck Falcon Studios.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:42:44
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 623.6 MB
+    Bitrate aprox.  : 2040 kbps
+    Bitrate vídeo   : 1843 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: c472bf6e9de0bc39405cbf0f6df0e37bd3c971b6bf813f55b3cba62677d5006c. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#17  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4
+  ↳ G:\My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:24:58
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 398.1 MB
+    Bitrate aprox.  : 2228 kbps
+    Bitrate vídeo   : 2095 kbps
+    Frames huella   : 0
+
+  VIDEO B  My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:24:58
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 398.1 MB
+    Bitrate aprox.  : 2228 kbps
+    Bitrate vídeo   : 2095 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: d4bd9d5ca4bf45de903bfe3f152d3369723ef90389f18f6b795f72dd5de4f17f. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#18  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4
+  ↳ G:\Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:35:50
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 365.8 MB
+    Bitrate aprox.  : 1427 kbps
+    Bitrate vídeo   : 1301 kbps
+    Frames huella   : 0
+
+  VIDEO B  Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4
+  ↳ /home/haggy/Vídeos/Listos/Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:35:50
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 365.8 MB
+    Bitrate aprox.  : 1427 kbps
+    Bitrate vídeo   : 1301 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 3d4fe3bb520b66ada2abe51d5f69129dffb68c1578441424ae34e3efe43981de. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#19  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  raw-twink-ass-fuckers-sc-3.mp4
+  ↳ G:\raw-twink-ass-fuckers-sc-3.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:30:20
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 477.3 MB
+    Bitrate aprox.  : 2200 kbps
+    Bitrate vídeo   : 2067 kbps
+    Frames huella   : 0
+
+  VIDEO B  raw-twink-ass-fuckers-sc-3.mp4
+  ↳ /home/haggy/Vídeos/Listos/raw-twink-ass-fuckers-sc-3.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:30:20
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 477.3 MB
+    Bitrate aprox.  : 2200 kbps
+    Bitrate vídeo   : 2067 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 249a813aa06ca8e650ac509fb45ead7bbaac6f3ea6d6507dd3cccd853fef5bf0. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#20  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4
+  ↳ G:\Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:32:54
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 506.1 MB
+    Bitrate aprox.  : 2150 kbps
+    Bitrate vídeo   : 1988 kbps
+    Frames huella   : 0
+
+  VIDEO B  Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4
+  ↳ /home/haggy/Vídeos/Listos/Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:32:54
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 506.1 MB
+    Bitrate aprox.  : 2150 kbps
+    Bitrate vídeo   : 1988 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: a9f1f5a7862436bd13d14c9163d6711ec29d899868518f9a270570311acb3aea. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#21  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4
+  ↳ G:\Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:37:31
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 625.9 MB
+    Bitrate aprox.  : 2332 kbps
+    Bitrate vídeo   : 2200 kbps
+    Frames huella   : 0
+
+  VIDEO B  Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:37:31
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 625.9 MB
+    Bitrate aprox.  : 2332 kbps
+    Bitrate vídeo   : 2200 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 8b4fce8f998aa7804e0fdff47d18090983d3e03f441421a5e9fa86ebb317e810. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#22  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4
+  ↳ G:\Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:33:41
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 468.7 MB
+    Bitrate aprox.  : 1945 kbps
+    Bitrate vídeo   : 1825 kbps
+    Frames huella   : 0
+
+  VIDEO B  Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4
+  ↳ /home/haggy/Vídeos/Listos/Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:33:41
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 468.7 MB
+    Bitrate aprox.  : 1945 kbps
+    Bitrate vídeo   : 1825 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 7c550ed0b77ddfee6ae906c4995987bff346d41d28ba96cc8f1c7874e6a57d9d. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#23  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4
+  ↳ G:\She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:30:04
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 445.1 MB
+    Bitrate aprox.  : 2070 kbps
+    Bitrate vídeo   : 1948 kbps
+    Frames huella   : 0
+
+  VIDEO B  She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:30:04
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 445.1 MB
+    Bitrate aprox.  : 2070 kbps
+    Bitrate vídeo   : 1948 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 0e2b7e472fd09118d81fdd48990754d526ff4775cff0690571d4898fef7419b0. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#24  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  spunk-soaked-fuckers-sc-2.mp4
+  ↳ G:\spunk-soaked-fuckers-sc-2.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:30:34
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 498.7 MB
+    Bitrate aprox.  : 2280 kbps
+    Bitrate vídeo   : 2159 kbps
+    Frames huella   : 0
+
+  VIDEO B  spunk-soaked-fuckers-sc-2.mp4
+  ↳ /home/haggy/Vídeos/Listos/spunk-soaked-fuckers-sc-2.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:30:34
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 498.7 MB
+    Bitrate aprox.  : 2280 kbps
+    Bitrate vídeo   : 2159 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 6d7fc58e3464c7739dd4e34cc81a7d08ea443081bd2198a073121fe7f44924b4. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#25  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  stretched-to-the-max-sc-2.mp4
+  ↳ G:\stretched-to-the-max-sc-2.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:27:41
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 268.1 MB
+    Bitrate aprox.  : 1354 kbps
+    Bitrate vídeo   : 1220 kbps
+    Frames huella   : 0
+
+  VIDEO B  stretched-to-the-max-sc-2.mp4
+  ↳ /home/haggy/Vídeos/Listos/stretched-to-the-max-sc-2.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:27:41
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 268.1 MB
+    Bitrate aprox.  : 1354 kbps
+    Bitrate vídeo   : 1220 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 77fea07bb98231d6f3b6bef17da7c0220396e864ec8ac85af262df599b64332b. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#26  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Study Group streaming at Helix Studios.mp4
+  ↳ G:\Study Group streaming at Helix Studios.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:34:48
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 341.8 MB
+    Bitrate aprox.  : 1373 kbps
+    Bitrate vídeo   : 1238 kbps
+    Frames huella   : 0
+
+  VIDEO B  Study Group streaming at Helix Studios.mp4
+  ↳ /home/haggy/Vídeos/Listos/Study Group streaming at Helix Studios.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:34:48
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 341.8 MB
+    Bitrate aprox.  : 1373 kbps
+    Bitrate vídeo   : 1238 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: f748eb831390aacf91663193815806daf19de736d52d2f5748a01fa9ac19a22a. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#27  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4
+  ↳ G:\Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:30:09
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 356.4 MB
+    Bitrate aprox.  : 1652 kbps
+    Bitrate vídeo   : 1519 kbps
+    Frames huella   : 0
+
+  VIDEO B  Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4
+  ↳ /home/haggy/Vídeos/Listos/Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:30:09
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 356.4 MB
+    Bitrate aprox.  : 1652 kbps
+    Bitrate vídeo   : 1519 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: ef1bf70dae2f6a476c0e195b891fe07647d3dc435c75eb8f4f824c863c8a31be. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#28  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4
+  ↳ G:\The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:28:15
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 316.3 MB
+    Bitrate aprox.  : 1565 kbps
+    Bitrate vídeo   : 1241 kbps
+    Frames huella   : 0
+
+  VIDEO B  The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4
+  ↳ /home/haggy/Vídeos/Listos/The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:28:15
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 316.3 MB
+    Bitrate aprox.  : 1565 kbps
+    Bitrate vídeo   : 1241 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 54fea49376c5d44f1b9b75fef3f6a1282edb04ac725bfb61de4c4b21d5ab3599. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#29  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  The Air Outside.mp4
+  ↳ G:\The Air Outside.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:34:25
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 440.3 MB
+    Bitrate aprox.  : 1789 kbps
+    Bitrate vídeo   : 1666 kbps
+    Frames huella   : 0
+
+  VIDEO B  The Air Outside.mp4
+  ↳ /home/haggy/Vídeos/Listos/The Air Outside.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:34:25
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 440.3 MB
+    Bitrate aprox.  : 1789 kbps
+    Bitrate vídeo   : 1666 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: d580ebe3912cccde16f836d4c8daf224d28a6eb93fe48d31bfef1c5ff393e26b. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#30  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  The Brazilians Flip Fuck.mp4
+  ↳ G:\The Brazilians Flip Fuck.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:20:01
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 287.5 MB
+    Bitrate aprox.  : 2007 kbps
+    Bitrate vídeo   : 1853 kbps
+    Frames huella   : 0
+
+  VIDEO B  The Brazilians Flip Fuck.mp4
+  ↳ /home/haggy/Vídeos/Listos/The Brazilians Flip Fuck.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:20:01
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 287.5 MB
+    Bitrate aprox.  : 2007 kbps
+    Bitrate vídeo   : 1853 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 0235fe717b04b602523714134b8cc31fa5d094bb5cef326e13f89d1481728126. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#31  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4
+  ↳ G:\The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:31:51
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 468.8 MB
+    Bitrate aprox.  : 2058 kbps
+    Bitrate vídeo   : 1936 kbps
+    Frames huella   : 0
+
+  VIDEO B  The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:31:51
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 468.8 MB
+    Bitrate aprox.  : 2058 kbps
+    Bitrate vídeo   : 1936 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 57cc01256d3504fef6fe97ff2926f39944969cd606375cba0daab3c83d34ec26. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#32  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Train Fuck.mp4
+  ↳ G:\Train Fuck.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:24:06
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 311.5 MB
+    Bitrate aprox.  : 1806 kbps
+    Bitrate vídeo   : 1602 kbps
+    Frames huella   : 0
+
+  VIDEO B  Train Fuck.mp4
+  ↳ /home/haggy/Vídeos/Listos/Train Fuck.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:24:06
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 311.5 MB
+    Bitrate aprox.  : 1806 kbps
+    Bitrate vídeo   : 1602 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 1f01facfd0321ed28933bc5b59bc822dc5a03d59386c18acb8248265cb5d91bd. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#33  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Train Fuck of Fun.mp4
+  ↳ G:\Train Fuck of Fun.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:27:13
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 457.7 MB
+    Bitrate aprox.  : 2350 kbps
+    Bitrate vídeo   : 2026 kbps
+    Frames huella   : 0
+
+  VIDEO B  Train Fuck of Fun.mp4
+  ↳ /home/haggy/Vídeos/Listos/Train Fuck of Fun.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:27:13
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 457.7 MB
+    Bitrate aprox.  : 2350 kbps
+    Bitrate vídeo   : 2026 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 08491fc3e1f16a98e27d83adcc5d10579dbff096618398244a60d152e0595352. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#34  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Two_huge_cocks_for_c...TV.com.mp4
+  ↳ G:\Two_huge_cocks_for_c...TV.com.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:30:23
+    Códec video     : h264
+    Códec audio     : aac
+    Tamaño archivo  : 453.9 MB
+    Bitrate aprox.  : 2088 kbps
+    Bitrate vídeo   : 1884 kbps
+    Frames huella   : 0
+
+  VIDEO B  Two_huge_cocks_for_c...TV.com.mp4
+  ↳ /home/haggy/Vídeos/Listos/Two_huge_cocks_for_c...TV.com.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:30:23
+    Códec video     : h264
+    Códec audio     : aac
+    Tamaño archivo  : 453.9 MB
+    Bitrate aprox.  : 2088 kbps
+    Bitrate vídeo   : 1884 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: bbfcc278f24f463ca7d308691426f73cd839e58933c5dac2a11dd7d7d0dbcb3d. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#35  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4
+  ↳ G:\Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:37:34
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 535.8 MB
+    Bitrate aprox.  : 1993 kbps
+    Bitrate vídeo   : 1850 kbps
+    Frames huella   : 0
+
+  VIDEO B  Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:37:34
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 535.8 MB
+    Bitrate aprox.  : 1993 kbps
+    Bitrate vídeo   : 1850 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 5806f4fed440e6f77406eec1fc3c611abcabded37ffd5fd1dbc112222832260f. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#36  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4
+  ↳ G:\Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:28:58
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 448.9 MB
+    Bitrate aprox.  : 2166 kbps
+    Bitrate vídeo   : 2039 kbps
+    Frames huella   : 0
+
+  VIDEO B  Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4
+  ↳ /home/haggy/Vídeos/Listos/Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:28:58
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 448.9 MB
+    Bitrate aprox.  : 2166 kbps
+    Bitrate vídeo   : 2039 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: fc57ba3e6798e702c3bd3779e15c3bf1552678a58e0222ee7adaf04578b363e9. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#37  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4
+  ↳ G:\Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:35:47
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 506.6 MB
+    Bitrate aprox.  : 1979 kbps
+    Bitrate vídeo   : 1865 kbps
+    Frames huella   : 0
+
+  VIDEO B  Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:35:47
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 506.6 MB
+    Bitrate aprox.  : 1979 kbps
+    Bitrate vídeo   : 1865 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: b9842736c9ef6e7de16ff4eb30752e08ee99f101143e0cf49f25ebb42b5d3261. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#38  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  latinleche_0100.mp4
+  ↳ G:\latinleche_0100.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:42:27
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 652.3 MB
+    Bitrate aprox.  : 2148 kbps
+    Bitrate vídeo   : 2045 kbps
+    Frames huella   : 0
+
+  VIDEO B  latinleche_0100.mp4
+  ↳ /home/haggy/Vídeos/Listos/latinleche_0100.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:42:27
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 652.3 MB
+    Bitrate aprox.  : 2148 kbps
+    Bitrate vídeo   : 2045 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 2066e80363397f70c299e9fc9e103418572e832cbe1b05352dfbf60d8aaab183. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#39  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Leah Maus - Alita Angel - EPORNER.mp4
+  ↳ G:\Leah Maus - Alita Angel - EPORNER.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:39:11
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 501.9 MB
+    Bitrate aprox.  : 1791 kbps
+    Bitrate vídeo   : 1655 kbps
+    Frames huella   : 0
+
+  VIDEO B  Leah Maus - Alita Angel - EPORNER.mp4
+  ↳ /home/haggy/Vídeos/Listos/Leah Maus - Alita Angel - EPORNER.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:39:11
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 501.9 MB
+    Bitrate aprox.  : 1791 kbps
+    Bitrate vídeo   : 1655 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 681caf4fb9ea4def3b98e5e7995c30a41bd32d5e9a7465033bf25c7e81998acc. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#40  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4
+  ↳ G:\Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:43:40
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 718.1 MB
+    Bitrate aprox.  : 2298 kbps
+    Bitrate vídeo   : 2172 kbps
+    Frames huella   : 0
+
+  VIDEO B  Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:43:40
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 718.1 MB
+    Bitrate aprox.  : 2298 kbps
+    Bitrate vídeo   : 2172 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: cd8a4260da106380406a8fe3f012a16bdd09ebd4b6656a8b4208180ce9f3308e. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#41  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Staxus International College 2_ Episode 2.mp4
+  ↳ G:\Staxus International College 2_ Episode 2.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 3840x2160
+    Duración        : 00:27:15
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 411.5 MB
+    Bitrate aprox.  : 2110 kbps
+    Bitrate vídeo   : 1976 kbps
+    Frames huella   : 0
+
+  VIDEO B  Staxus International College 2_ Episode 2.mp4
+  ↳ /home/haggy/Vídeos/Listos/Staxus International College 2_ Episode 2.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 3840x2160
+    Duración        : 00:27:15
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 411.5 MB
+    Bitrate aprox.  : 2110 kbps
+    Bitrate vídeo   : 1976 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: a20f061a0481811506fbd1d6d1e5d57bc416f6090fc27976ad903b9b005f6f4a. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#42  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4
+  ↳ G:\The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:48:53
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 829.7 MB
+    Bitrate aprox.  : 2373 kbps
+    Bitrate vídeo   : 2246 kbps
+    Frames huella   : 0
+
+  VIDEO B  The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:48:53
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 829.7 MB
+    Bitrate aprox.  : 2373 kbps
+    Bitrate vídeo   : 2246 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: ba4173dad41e75a6c07d469e2cbba6a0a65b843fe693c122ff6658ced6c211b9. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#43  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h588we2rfhesmvtjkkbn_source.mp4
+  ↳ G:\Verticales\0h588we2rfhesmvtjkkbn_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1056x1920
+    Duración        : 00:10:28
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 170.1 MB
+    Bitrate aprox.  : 2271 kbps
+    Bitrate vídeo   : 2107 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h588we2rfhesmvtjkkbn_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h588we2rfhesmvtjkkbn_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1056x1920
+    Duración        : 00:10:28
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 170.1 MB
+    Bitrate aprox.  : 2271 kbps
+    Bitrate vídeo   : 2107 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 458f60b347446b6a27d52c5f6a32a5a6c4da00ac2bbfaca3e5915d58df9b1de7. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#44  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h7w40ofysiv6lkkx3lh1_source.mp4
+  ↳ G:\Verticales\0h7w40ofysiv6lkkx3lh1_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 123.3 MB
+    Bitrate aprox.  : 2459 kbps
+    Bitrate vídeo   : 2295 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h7w40ofysiv6lkkx3lh1_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h7w40ofysiv6lkkx3lh1_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 123.3 MB
+    Bitrate aprox.  : 2459 kbps
+    Bitrate vídeo   : 2295 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 6dfd29600e71c7dd8d91242e40416e578dcc37901f4ed07cd6d73bed31dbfb81. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#45  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h86p5qgzyqlthw9okb03_source.mp4
+  ↳ G:\Verticales\0h86p5qgzyqlthw9okb03_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:07:03
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 147.2 MB
+    Bitrate aprox.  : 2916 kbps
+    Bitrate vídeo   : 2752 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h86p5qgzyqlthw9okb03_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h86p5qgzyqlthw9okb03_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:07:03
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 147.2 MB
+    Bitrate aprox.  : 2916 kbps
+    Bitrate vídeo   : 2752 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: b5bda19013ba11374bcd223134d86bba5b80d329eadffabb35efe17e61dafcfc. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#46  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0ha21br7htof1wam1r0dg_source.mp4
+  ↳ G:\Verticales\0ha21br7htof1wam1r0dg_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 156.4 MB
+    Bitrate aprox.  : 3122 kbps
+    Bitrate vídeo   : 2958 kbps
+    Frames huella   : 0
+
+  VIDEO B  0ha21br7htof1wam1r0dg_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0ha21br7htof1wam1r0dg_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 156.4 MB
+    Bitrate aprox.  : 3122 kbps
+    Bitrate vídeo   : 2958 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: b31230c65ece95dd4fd258bf11aa1f6fe575ac5cb283a381e479c508627fd0aa. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#47  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0hax7rkgk6cuva6ewbrtd_source.mp4
+  ↳ G:\Verticales\0hax7rkgk6cuva6ewbrtd_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1056x1920
+    Duración        : 00:10:06
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.5 MB
+    Bitrate aprox.  : 2761 kbps
+    Bitrate vídeo   : 2597 kbps
+    Frames huella   : 0
+
+  VIDEO B  0hax7rkgk6cuva6ewbrtd_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0hax7rkgk6cuva6ewbrtd_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1056x1920
+    Duración        : 00:10:06
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.5 MB
+    Bitrate aprox.  : 2761 kbps
+    Bitrate vídeo   : 2597 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: dae72b96f9aa057195ff8f0a2f39876457601bdb4ed04a250929b0c9211e3870. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#48  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0hdpq83on0jreknw5lnko_source.mp4
+  ↳ G:\Verticales\0hdpq83on0jreknw5lnko_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:08:16
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 126.9 MB
+    Bitrate aprox.  : 2144 kbps
+    Bitrate vídeo   : 1980 kbps
+    Frames huella   : 0
+
+  VIDEO B  0hdpq83on0jreknw5lnko_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0hdpq83on0jreknw5lnko_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:08:16
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 126.9 MB
+    Bitrate aprox.  : 2144 kbps
+    Bitrate vídeo   : 1980 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 70513316a5d3e3c1cf1fb8098130972a1a0cef9583799730093db174d1459892. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#49  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0he25pbd7srpxtv08tabw_source.mp4
+  ↳ G:\Verticales\0he25pbd7srpxtv08tabw_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 720x1280
+    Duración        : 00:09:14
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 184.6 MB
+    Bitrate aprox.  : 2791 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  VIDEO B  0he25pbd7srpxtv08tabw_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0he25pbd7srpxtv08tabw_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 720x1280
+    Duración        : 00:09:14
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 184.6 MB
+    Bitrate aprox.  : 2791 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: cff55a1290029e43acf2ef946945d98f0bab5286c7ca1ed648813b347d15ef5c. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#50  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0hf9qwuzqcbg6ov4r0cmc_source.mp4
+  ↳ G:\Verticales\0hf9qwuzqcbg6ov4r0cmc_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1072x1920
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.9 MB
+    Bitrate aprox.  : 2794 kbps
+    Bitrate vídeo   : 2630 kbps
+    Frames huella   : 0
+
+  VIDEO B  0hf9qwuzqcbg6ov4r0cmc_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0hf9qwuzqcbg6ov4r0cmc_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1072x1920
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.9 MB
+    Bitrate aprox.  : 2794 kbps
+    Bitrate vídeo   : 2630 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 4415c60b9a8760b300a8de3fdbb3982d932044fea4a8c51650137a7438033e76. Contenido no releído durante esta comparación.
+────────────────────────────────────────────────────────────────────────
+#51  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4
+  ↳ G:\Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1920x1080
+    Duración        : 00:29:37
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 456.3 MB
+    Bitrate aprox.  : 2154 kbps
+    Bitrate vídeo   : 2052 kbps
+    Frames huella   : 0
+
+  VIDEO B  Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4
+  ↳ /home/haggy/Vídeos/Listos/Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1920x1080
+    Duración        : 00:29:37
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 456.3 MB
+    Bitrate aprox.  : 2154 kbps
+    Bitrate vídeo   : 2052 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 889ea7cfb7a8c3ff280721ac55bb9a1aa262898bd6d8d0909a892ab0bf222fb4. Contenido no releído durante esta comparación.
+
+════════════════════════════════════════════════════════════════════════
+
+
+Bases de datos: /home/haggy/VIDUP/reportes/respaldos/db/respaldo231026.db
+Dispositivo que ejecutó el análisis: haggy-escritorio|Linux|x86_64 (ID c55c28b5bf8e8, plataforma Linux)
+",1337,0.006104748999860021,51,"{""bases_de_datos"": [""/home/haggy/VIDUP/reportes/respaldos/db/respaldo231026.db""], ""comparativas"": {}, ""resumen_sha256"": {""metodo"": ""solo_sha256"", ""total_videos"": 1337, ""con_sha256_valido"": 1337, ""sin_sha256_valido"": 0, ""hashes_unicos"": 1286, ""grupos_con_coincidencias"": 51, ""asociaciones_reportadas"": 51, ""estructura"": ""Cada grupo se representa mediante N-1 asociaciones, no todos los pares."", ""advertencia"": ""Se comparan hashes almacenados; no se recalcula SHA256 ni se recomienda eliminar archivos.""}, ""modo_comparacion"": ""solo_sha256"", ""umbrales"": {""umbral_phash"": 10, ""umbral_visual"": 80.0, ""umbral_fragmento"": 75.0, ""umbral_posible_fragmento"": 25.0, ""margen_duracion"": 5.0, ""ratio_min"": 5.0}, ""dispositivo"": {""dispositivo"": ""haggy-escritorio|Linux|x86_64"", ""dispositivo_id"": ""c55c28b5bf8e8"", ""iud_c"": ""c55c28b5bf8e87c8cc517f10fec8192851bf8613364e0d6a1d38fd4f1ae0ca92"", ""plataforma"": ""Linux"", ""maquina"": ""x86_64"", ""hostname"": ""haggy-escritorio"", ""es_android"": false, ""ruta_identidad"": ""/home/haggy/VIDUP/.vidup_device_identity.json""}, ""conexion"": ""FUERA DE LÍNEA (SQLite local)""}",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#1  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h6a0ormuq6uctegw5fti_source.mp4
+  ↳ G:\0h6a0ormuq6uctegw5fti_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1920x1088
+    Duración        : 00:09:08
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 182.4 MB
+    Bitrate aprox.  : 2792 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h6a0ormuq6uctegw5fti_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h6a0ormuq6uctegw5fti_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1920x1088
+    Duración        : 00:09:08
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 182.4 MB
+    Bitrate aprox.  : 2792 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: e03b6440a63f345b48a789bece555878523d4465bd6fa5307ef2e1b99004c1d9. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\0h6a0ormuq6uctegw5fti_source.mp4,0h6a0ormuq6uctegw5fti_source.mp4,/home/haggy/Vídeos/Listos/0h6a0ormuq6uctegw5fti_source.mp4,0h6a0ormuq6uctegw5fti_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: e03b6440a63f345b48a789bece555878523d4465bd6fa5307ef2e1b99004c1d9. Contenido no releído durante esta comparación.,G:\0h6a0ormuq6uctegw5fti_source.mp4,0h6a0ormuq6uctegw5fti_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,548.256042,"[1920, 1088]",23.976,hevc,aac,191309550,2791.5,2627.493,e03b6440a63f345b48a789bece555878523d4465bd6fa5307ef2e1b99004c1d9,0,/home/haggy/Vídeos/Listos/0h6a0ormuq6uctegw5fti_source.mp4,0h6a0ormuq6uctegw5fti_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,548.256042,"[1920, 1088]",23.976,hevc,aac,191309550,2791.5,2627.493,e03b6440a63f345b48a789bece555878523d4465bd6fa5307ef2e1b99004c1d9,0,1,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#2  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0harv8porlqr2cp8j3zct_source.mp4
+  ↳ G:\0harv8porlqr2cp8j3zct_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1920x1088
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 138.0 MB
+    Bitrate aprox.  : 1928 kbps
+    Bitrate vídeo   : 1764 kbps
+    Frames huella   : 0
+
+  VIDEO B  0harv8porlqr2cp8j3zct_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0harv8porlqr2cp8j3zct_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1920x1088
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 138.0 MB
+    Bitrate aprox.  : 1928 kbps
+    Bitrate vídeo   : 1764 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: a4e5c9a5f1676ec8357c366b82236381dfc8dc41fe775062e88d098e94dc843d. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\0harv8porlqr2cp8j3zct_source.mp4,0harv8porlqr2cp8j3zct_source.mp4,/home/haggy/Vídeos/Listos/0harv8porlqr2cp8j3zct_source.mp4,0harv8porlqr2cp8j3zct_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: a4e5c9a5f1676ec8357c366b82236381dfc8dc41fe775062e88d098e94dc843d. Contenido no releído durante esta comparación.,G:\0harv8porlqr2cp8j3zct_source.mp4,0harv8porlqr2cp8j3zct_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,600.391458,"[1920, 1088]",23.976,hevc,aac,144728938,1928.5,1764.432,a4e5c9a5f1676ec8357c366b82236381dfc8dc41fe775062e88d098e94dc843d,0,/home/haggy/Vídeos/Listos/0harv8porlqr2cp8j3zct_source.mp4,0harv8porlqr2cp8j3zct_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,600.391458,"[1920, 1088]",23.976,hevc,aac,144728938,1928.5,1764.432,a4e5c9a5f1676ec8357c366b82236381dfc8dc41fe775062e88d098e94dc843d,0,2,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#3  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  1_5129926255650539499.mp4
+  ↳ G:\1_5129926255650539499.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:26:33
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 432.4 MB
+    Bitrate aprox.  : 2277 kbps
+    Bitrate vídeo   : 2113 kbps
+    Frames huella   : 0
+
+  VIDEO B  1_5129926255650539499.mp4
+  ↳ /home/haggy/Vídeos/Listos/1_5129926255650539499.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:26:33
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 432.4 MB
+    Bitrate aprox.  : 2277 kbps
+    Bitrate vídeo   : 2113 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 2a50f62b278c0c6c695f276113df8663ed611a83f73f7f9a86131c7c80f9ec71. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\1_5129926255650539499.mp4,1_5129926255650539499.mp4,/home/haggy/Vídeos/Listos/1_5129926255650539499.mp4,1_5129926255650539499.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 2a50f62b278c0c6c695f276113df8663ed611a83f73f7f9a86131c7c80f9ec71. Contenido no releído durante esta comparación.,G:\1_5129926255650539499.mp4,1_5129926255650539499.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1593.174917,"[1280, 720]",23.976,hevc,aac,453378788,2276.6,2112.579,2a50f62b278c0c6c695f276113df8663ed611a83f73f7f9a86131c7c80f9ec71,0,/home/haggy/Vídeos/Listos/1_5129926255650539499.mp4,1_5129926255650539499.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1593.174917,"[1280, 720]",23.976,hevc,aac,453378788,2276.6,2112.579,2a50f62b278c0c6c695f276113df8663ed611a83f73f7f9a86131c7c80f9ec71,0,3,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#4  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  a-fantastic-threesome.mp4
+  ↳ G:\a-fantastic-threesome.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:32:57
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 502.9 MB
+    Bitrate aprox.  : 2134 kbps
+    Bitrate vídeo   : 2000 kbps
+    Frames huella   : 0
+
+  VIDEO B  a-fantastic-threesome.mp4
+  ↳ /home/haggy/Vídeos/Listos/a-fantastic-threesome.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:32:57
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 502.9 MB
+    Bitrate aprox.  : 2134 kbps
+    Bitrate vídeo   : 2000 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: c9bf14923bc875a9cff010a495610379e8f3e3693359e7a7a970894f683dba22. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\a-fantastic-threesome.mp4,a-fantastic-threesome.mp4,/home/haggy/Vídeos/Listos/a-fantastic-threesome.mp4,a-fantastic-threesome.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: c9bf14923bc875a9cff010a495610379e8f3e3693359e7a7a970894f683dba22. Contenido no releído durante esta comparación.,G:\a-fantastic-threesome.mp4,a-fantastic-threesome.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1977.133333,"[1280, 720]",30.0,hevc,aac,527333677,2133.7,2000.327,c9bf14923bc875a9cff010a495610379e8f3e3693359e7a7a970894f683dba22,0,/home/haggy/Vídeos/Listos/a-fantastic-threesome.mp4,a-fantastic-threesome.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1977.133333,"[1280, 720]",30.0,hevc,aac,527333677,2133.7,2000.327,c9bf14923bc875a9cff010a495610379e8f3e3693359e7a7a970894f683dba22,0,4,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#5  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  bare-bedfellows-sc-2.mp4
+  ↳ G:\bare-bedfellows-sc-2.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:26:37
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 444.1 MB
+    Bitrate aprox.  : 2332 kbps
+    Bitrate vídeo   : 2199 kbps
+    Frames huella   : 0
+
+  VIDEO B  bare-bedfellows-sc-2.mp4
+  ↳ /home/haggy/Vídeos/Listos/bare-bedfellows-sc-2.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:26:37
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 444.1 MB
+    Bitrate aprox.  : 2332 kbps
+    Bitrate vídeo   : 2199 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: ba0ff2bf95289e2082d4c3402f893f60dac0191706e92c5f9399d7ef3f92240f. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\bare-bedfellows-sc-2.mp4,bare-bedfellows-sc-2.mp4,/home/haggy/Vídeos/Listos/bare-bedfellows-sc-2.mp4,bare-bedfellows-sc-2.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: ba0ff2bf95289e2082d4c3402f893f60dac0191706e92c5f9399d7ef3f92240f. Contenido no releído durante esta comparación.,G:\bare-bedfellows-sc-2.mp4,bare-bedfellows-sc-2.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1597.829567,"[1280, 720]",29.97,hevc,aac,465685822,2331.6,2199.279,ba0ff2bf95289e2082d4c3402f893f60dac0191706e92c5f9399d7ef3f92240f,0,/home/haggy/Vídeos/Listos/bare-bedfellows-sc-2.mp4,bare-bedfellows-sc-2.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1597.829567,"[1280, 720]",29.97002997002997,hevc,aac,465685822,2331.6,2199.279,ba0ff2bf95289e2082d4c3402f893f60dac0191706e92c5f9399d7ef3f92240f,0,5,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#6  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  cocksure-sc-3.mp4
+  ↳ G:\cocksure-sc-3.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:25:39
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 312.4 MB
+    Bitrate aprox.  : 1702 kbps
+    Bitrate vídeo   : 1575 kbps
+    Frames huella   : 0
+
+  VIDEO B  cocksure-sc-3.mp4
+  ↳ /home/haggy/Vídeos/Listos/cocksure-sc-3.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:25:39
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 312.4 MB
+    Bitrate aprox.  : 1702 kbps
+    Bitrate vídeo   : 1575 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: bf7a26ee8b31e2d545292318f664bb9de6555ebd6d11edfd7397c120f1b62d15. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\cocksure-sc-3.mp4,cocksure-sc-3.mp4,/home/haggy/Vídeos/Listos/cocksure-sc-3.mp4,cocksure-sc-3.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: bf7a26ee8b31e2d545292318f664bb9de6555ebd6d11edfd7397c120f1b62d15. Contenido no releído durante esta comparación.,G:\cocksure-sc-3.mp4,cocksure-sc-3.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1539.304444,"[1280, 720]",29.97,hevc,aac,327557665,1702.4,1574.73,bf7a26ee8b31e2d545292318f664bb9de6555ebd6d11edfd7397c120f1b62d15,0,/home/haggy/Vídeos/Listos/cocksure-sc-3.mp4,cocksure-sc-3.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1539.304444,"[1280, 720]",29.97002997002997,hevc,aac,327557665,1702.4,1574.73,bf7a26ee8b31e2d545292318f664bb9de6555ebd6d11edfd7397c120f1b62d15,0,6,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#7  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Enough Ass For Two.mp4
+  ↳ G:\Enough Ass For Two.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:46:08
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 768.0 MB
+    Bitrate aprox.  : 2328 kbps
+    Bitrate vídeo   : 2229 kbps
+    Frames huella   : 0
+
+  VIDEO B  Enough Ass For Two.mp4
+  ↳ /home/haggy/Vídeos/Listos/Enough Ass For Two.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:46:08
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 768.0 MB
+    Bitrate aprox.  : 2328 kbps
+    Bitrate vídeo   : 2229 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: ce92def1d04ac05e2619535d3c93cf7a690ebe8bf8204e7b6e0ec624946ef06b. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Enough Ass For Two.mp4,Enough Ass For Two.mp4,/home/haggy/Vídeos/Listos/Enough Ass For Two.mp4,Enough Ass For Two.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: ce92def1d04ac05e2619535d3c93cf7a690ebe8bf8204e7b6e0ec624946ef06b. Contenido no releído durante esta comparación.,G:\Enough Ass For Two.mp4,Enough Ass For Two.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2768.032,"[1280, 720]",29.97,hevc,aac,805310595,2327.5,2229.171,ce92def1d04ac05e2619535d3c93cf7a690ebe8bf8204e7b6e0ec624946ef06b,0,/home/haggy/Vídeos/Listos/Enough Ass For Two.mp4,Enough Ass For Two.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2768.032,"[1280, 720]",29.97002997002997,hevc,aac,805310595,2327.5,2229.171,ce92def1d04ac05e2619535d3c93cf7a690ebe8bf8204e7b6e0ec624946ef06b,0,7,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#8  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4
+  ↳ G:\faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1920x1088
+    Duración        : 00:24:39
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 373.5 MB
+    Bitrate aprox.  : 2118 kbps
+    Bitrate vídeo   : 1980 kbps
+    Frames huella   : 0
+
+  VIDEO B  faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4
+  ↳ /home/haggy/Vídeos/Listos/faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1920x1088
+    Duración        : 00:24:39
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 373.5 MB
+    Bitrate aprox.  : 2118 kbps
+    Bitrate vídeo   : 1980 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: c73320be4e3ff0e2af5a54b2a288cd880bccc320eaddbcf21334b228898d10f9. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4,faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4,/home/haggy/Vídeos/Listos/faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4,faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: c73320be4e3ff0e2af5a54b2a288cd880bccc320eaddbcf21334b228898d10f9. Contenido no releído durante esta comparación.,G:\faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4,faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1479.333333,"[1920, 1088]",30.0,hevc,aac,391604073,2117.7,1979.862,c73320be4e3ff0e2af5a54b2a288cd880bccc320eaddbcf21334b228898d10f9,0,/home/haggy/Vídeos/Listos/faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4,faphouse.com-cuckold-girlfriend-fucks-her-boyfriends-stepbrother-luna-vitaler-danner-mendez-p1080.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1479.333333,"[1920, 1088]",30.0,hevc,aac,391604073,2117.7,1979.862,c73320be4e3ff0e2af5a54b2a288cd880bccc320eaddbcf21334b228898d10f9,0,8,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#9  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Father's Day-Tape 5.mp4
+  ↳ G:\Father's Day-Tape 5.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:27:20
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 403.9 MB
+    Bitrate aprox.  : 2065 kbps
+    Bitrate vídeo   : 1933 kbps
+    Frames huella   : 0
+
+  VIDEO B  Father's Day-Tape 5.mp4
+  ↳ /home/haggy/Vídeos/Listos/Father's Day-Tape 5.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:27:20
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 403.9 MB
+    Bitrate aprox.  : 2065 kbps
+    Bitrate vídeo   : 1933 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: c54be16c34451ebc9f7f2dbec6441356cc66182f495768f7d88e2cbd692a52b9. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Father's Day-Tape 5.mp4,Father's Day-Tape 5.mp4,/home/haggy/Vídeos/Listos/Father's Day-Tape 5.mp4,Father's Day-Tape 5.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: c54be16c34451ebc9f7f2dbec6441356cc66182f495768f7d88e2cbd692a52b9. Contenido no releído durante esta comparación.,G:\Father's Day-Tape 5.mp4,Father's Day-Tape 5.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1640.853,"[1280, 720]",23.976,hevc,aac,423495024,2064.8,1932.776,c54be16c34451ebc9f7f2dbec6441356cc66182f495768f7d88e2cbd692a52b9,0,/home/haggy/Vídeos/Listos/Father's Day-Tape 5.mp4,Father's Day-Tape 5.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1640.853,"[1280, 720]",23.976023976023978,hevc,aac,423495024,2064.8,1932.776,c54be16c34451ebc9f7f2dbec6441356cc66182f495768f7d88e2cbd692a52b9,0,9,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#10  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  forbidden-fruits-sc-3.mp4
+  ↳ G:\forbidden-fruits-sc-3.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:37:27
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 631.5 MB
+    Bitrate aprox.  : 2357 kbps
+    Bitrate vídeo   : 2224 kbps
+    Frames huella   : 0
+
+  VIDEO B  forbidden-fruits-sc-3.mp4
+  ↳ /home/haggy/Vídeos/Listos/forbidden-fruits-sc-3.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:37:27
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 631.5 MB
+    Bitrate aprox.  : 2357 kbps
+    Bitrate vídeo   : 2224 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 5848d07df3a65cc2016b11f7d67ad7ac77a06bd26be879a6e65a1899653dd055. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\forbidden-fruits-sc-3.mp4,forbidden-fruits-sc-3.mp4,/home/haggy/Vídeos/Listos/forbidden-fruits-sc-3.mp4,forbidden-fruits-sc-3.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 5848d07df3a65cc2016b11f7d67ad7ac77a06bd26be879a6e65a1899653dd055. Contenido no releído durante esta comparación.,G:\forbidden-fruits-sc-3.mp4,forbidden-fruits-sc-3.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2247.979067,"[1280, 720]",29.97,hevc,aac,662218753,2356.7,2223.613,5848d07df3a65cc2016b11f7d67ad7ac77a06bd26be879a6e65a1899653dd055,0,/home/haggy/Vídeos/Listos/forbidden-fruits-sc-3.mp4,forbidden-fruits-sc-3.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2247.979067,"[1280, 720]",29.97002997002997,hevc,aac,662218753,2356.7,2223.613,5848d07df3a65cc2016b11f7d67ad7ac77a06bd26be879a6e65a1899653dd055,0,10,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#11  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4
+  ↳ G:\Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:40:23
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 525.3 MB
+    Bitrate aprox.  : 1818 kbps
+    Bitrate vídeo   : 1703 kbps
+    Frames huella   : 0
+
+  VIDEO B  Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4
+  ↳ /home/haggy/Vídeos/Listos/Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:40:23
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 525.3 MB
+    Bitrate aprox.  : 1818 kbps
+    Bitrate vídeo   : 1703 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: d5712b5db554789c58fed87583d18105469401de8763c6d5bc3b165d6e8bbf7b. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4","Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4","/home/haggy/Vídeos/Listos/Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4","Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: d5712b5db554789c58fed87583d18105469401de8763c6d5bc3b165d6e8bbf7b. Contenido no releído durante esta comparación.,"G:\Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4","Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2423.36,"[1280, 720]",23.976,hevc,aac,550867337,1818.5,1703.329,d5712b5db554789c58fed87583d18105469401de8763c6d5bc3b165d6e8bbf7b,0,"/home/haggy/Vídeos/Listos/Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4","Futa University Anal Hangout Video With JMac, Lucy Foxx - Brazzers Official_1.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2423.36,"[1280, 720]",23.976023976023978,hevc,aac,550867337,1818.5,1703.329,d5712b5db554789c58fed87583d18105469401de8763c6d5bc3b165d6e8bbf7b,0,11,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#12  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4
+  ↳ G:\Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x674
+    Duración        : 00:30:08
+    Códec video     : hevc
+    Códec audio     : mp3
+    Tamaño archivo  : 430.2 MB
+    Bitrate aprox.  : 1995 kbps
+    Bitrate vídeo   : 1893 kbps
+    Frames huella   : 0
+
+  VIDEO B  Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4
+  ↳ /home/haggy/Vídeos/Listos/Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x674
+    Duración        : 00:30:08
+    Códec video     : hevc
+    Códec audio     : mp3
+    Tamaño archivo  : 430.2 MB
+    Bitrate aprox.  : 1995 kbps
+    Bitrate vídeo   : 1893 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: ce6b3ed3ab17762a7d1c325e5bc3bdc88cc02d7e6adc470f9aa17b09d3529094. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4,Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4,/home/haggy/Vídeos/Listos/Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4,Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: ce6b3ed3ab17762a7d1c325e5bc3bdc88cc02d7e6adc470f9aa17b09d3529094. Contenido no releído durante esta comparación.,G:\Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4,Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1808.98,"[1280, 674]",29.97,hevc,mp3,451114548,1995.0,1893.327,ce6b3ed3ab17762a7d1c325e5bc3bdc88cc02d7e6adc470f9aa17b09d3529094,0,/home/haggy/Vídeos/Listos/Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4,Group Dynamics - THE MEN OF THE FAMILY Vol.1 Carnal Plus_1.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1808.98,"[1280, 674]",29.97002997002997,hevc,mp3,451114548,1995.0,1893.327,ce6b3ed3ab17762a7d1c325e5bc3bdc88cc02d7e6adc470f9aa17b09d3529094,0,12,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#13  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4
+  ↳ G:\Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:27:25
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 384.7 MB
+    Bitrate aprox.  : 1962 kbps
+    Bitrate vídeo   : 1844 kbps
+    Frames huella   : 0
+
+  VIDEO B  Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:27:25
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 384.7 MB
+    Bitrate aprox.  : 1962 kbps
+    Bitrate vídeo   : 1844 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: f81f32037951a45c806a1760dee919284234e0f26692797f779996272bb00582. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4","Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4","/home/haggy/Vídeos/Listos/Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4","Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: f81f32037951a45c806a1760dee919284234e0f26692797f779996272bb00582. Contenido no releído durante esta comparación.,"G:\Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4","Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1645.268625,"[1280, 720]",23.976,hevc,aac,403412375,1961.6,1844.189,f81f32037951a45c806a1760dee919284234e0f26692797f779996272bb00582,0,"/home/haggy/Vídeos/Listos/Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4","Hes Cucking Blind Just Double Stuff Me Video With Mick Blue, Alex Jones, Jennifer White - Brazzers Official.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1645.268625,"[1280, 720]",23.976023976023978,hevc,aac,403412375,1961.6,1844.189,f81f32037951a45c806a1760dee919284234e0f26692797f779996272bb00582,0,13,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#14  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Hot_AF!_-_Alfonso_Os...PORNER.mp4
+  ↳ G:\Hot_AF!_-_Alfonso_Os...PORNER.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:38:16
+    Códec video     : h264
+    Códec audio     : aac
+    Tamaño archivo  : 397.8 MB
+    Bitrate aprox.  : 1453 kbps
+    Bitrate vídeo   : 1254 kbps
+    Frames huella   : 0
+
+  VIDEO B  Hot_AF!_-_Alfonso_Os...PORNER.mp4
+  ↳ /home/haggy/Vídeos/Listos/Hot_AF!_-_Alfonso_Os...PORNER.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:38:16
+    Códec video     : h264
+    Códec audio     : aac
+    Tamaño archivo  : 397.8 MB
+    Bitrate aprox.  : 1453 kbps
+    Bitrate vídeo   : 1254 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: c8aeba70dab942b1ff1eaa712c5b16e3b971110f42f83b4dcb2e0d45c19145d6. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Hot_AF!_-_Alfonso_Os...PORNER.mp4,Hot_AF!_-_Alfonso_Os...PORNER.mp4,/home/haggy/Vídeos/Listos/Hot_AF!_-_Alfonso_Os...PORNER.mp4,Hot_AF!_-_Alfonso_Os...PORNER.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: c8aeba70dab942b1ff1eaa712c5b16e3b971110f42f83b4dcb2e0d45c19145d6. Contenido no releído durante esta comparación.,G:\Hot_AF!_-_Alfonso_Os...PORNER.mp4,Hot_AF!_-_Alfonso_Os...PORNER.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2296.6,"[1280, 720]",30.0,h264,aac,417106425,1453.0,1253.729,c8aeba70dab942b1ff1eaa712c5b16e3b971110f42f83b4dcb2e0d45c19145d6,0,/home/haggy/Vídeos/Listos/Hot_AF!_-_Alfonso_Os...PORNER.mp4,Hot_AF!_-_Alfonso_Os...PORNER.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2296.6,"[1280, 720]",30.0,h264,aac,417106425,1453.0,1253.729,c8aeba70dab942b1ff1eaa712c5b16e3b971110f42f83b4dcb2e0d45c19145d6,0,14,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#15  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  latinleche_0095.mp4
+  ↳ G:\latinleche_0095.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:34:02
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 371.6 MB
+    Bitrate aprox.  : 1526 kbps
+    Bitrate vídeo   : 1423 kbps
+    Frames huella   : 0
+
+  VIDEO B  latinleche_0095.mp4
+  ↳ /home/haggy/Vídeos/Listos/latinleche_0095.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:34:02
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 371.6 MB
+    Bitrate aprox.  : 1526 kbps
+    Bitrate vídeo   : 1423 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: e91d3bb99ad9580dfe230f5578efefed0eeb6d617137c599309e434659a7c4fe. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\latinleche_0095.mp4,latinleche_0095.mp4,/home/haggy/Vídeos/Listos/latinleche_0095.mp4,latinleche_0095.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: e91d3bb99ad9580dfe230f5578efefed0eeb6d617137c599309e434659a7c4fe. Contenido no releído durante esta comparación.,G:\latinleche_0095.mp4,latinleche_0095.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2042.6406,"[1280, 720]",29.97,hevc,aac,389699525,1526.3,1423.357,e91d3bb99ad9580dfe230f5578efefed0eeb6d617137c599309e434659a7c4fe,0,/home/haggy/Vídeos/Listos/latinleche_0095.mp4,latinleche_0095.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2042.6406,"[1280, 720]",29.97002997002997,hevc,aac,389699525,1526.3,1423.357,e91d3bb99ad9580dfe230f5578efefed0eeb6d617137c599309e434659a7c4fe,0,15,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#16  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Mind Fuck Falcon Studios.mp4
+  ↳ G:\Mind Fuck Falcon Studios.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:42:44
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 623.6 MB
+    Bitrate aprox.  : 2040 kbps
+    Bitrate vídeo   : 1843 kbps
+    Frames huella   : 0
+
+  VIDEO B  Mind Fuck Falcon Studios.mp4
+  ↳ /home/haggy/Vídeos/Listos/Mind Fuck Falcon Studios.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:42:44
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 623.6 MB
+    Bitrate aprox.  : 2040 kbps
+    Bitrate vídeo   : 1843 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: c472bf6e9de0bc39405cbf0f6df0e37bd3c971b6bf813f55b3cba62677d5006c. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Mind Fuck Falcon Studios.mp4,Mind Fuck Falcon Studios.mp4,/home/haggy/Vídeos/Listos/Mind Fuck Falcon Studios.mp4,Mind Fuck Falcon Studios.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: c472bf6e9de0bc39405cbf0f6df0e37bd3c971b6bf813f55b3cba62677d5006c. Contenido no releído durante esta comparación.,G:\Mind Fuck Falcon Studios.mp4,Mind Fuck Falcon Studios.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2564.052993,"[1280, 720]",23.976,hevc,aac,653841711,2040.0,1843.415,c472bf6e9de0bc39405cbf0f6df0e37bd3c971b6bf813f55b3cba62677d5006c,0,/home/haggy/Vídeos/Listos/Mind Fuck Falcon Studios.mp4,Mind Fuck Falcon Studios.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2564.052993,"[1280, 720]",23.976023976023978,hevc,aac,653841711,2040.0,1843.415,c472bf6e9de0bc39405cbf0f6df0e37bd3c971b6bf813f55b3cba62677d5006c,0,16,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#17  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4
+  ↳ G:\My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:24:58
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 398.1 MB
+    Bitrate aprox.  : 2228 kbps
+    Bitrate vídeo   : 2095 kbps
+    Frames huella   : 0
+
+  VIDEO B  My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:24:58
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 398.1 MB
+    Bitrate aprox.  : 2228 kbps
+    Bitrate vídeo   : 2095 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: d4bd9d5ca4bf45de903bfe3f152d3369723ef90389f18f6b795f72dd5de4f17f. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4","My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4","/home/haggy/Vídeos/Listos/My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4","My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: d4bd9d5ca4bf45de903bfe3f152d3369723ef90389f18f6b795f72dd5de4f17f. Contenido no releído durante esta comparación.,"G:\My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4","My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1498.830667,"[1280, 720]",23.976,hevc,aac,417413425,2227.9,2094.751,d4bd9d5ca4bf45de903bfe3f152d3369723ef90389f18f6b795f72dd5de4f17f,0,"/home/haggy/Vídeos/Listos/My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4","My Bros Geeky GF Does Anal Video With Dwayne Foxxx, Alex, Theodora Day - Brazzers Official.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1498.830667,"[1280, 720]",23.976023976023978,hevc,aac,417413425,2227.9,2094.751,d4bd9d5ca4bf45de903bfe3f152d3369723ef90389f18f6b795f72dd5de4f17f,0,17,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#18  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4
+  ↳ G:\Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:35:50
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 365.8 MB
+    Bitrate aprox.  : 1427 kbps
+    Bitrate vídeo   : 1301 kbps
+    Frames huella   : 0
+
+  VIDEO B  Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4
+  ↳ /home/haggy/Vídeos/Listos/Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:35:50
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 365.8 MB
+    Bitrate aprox.  : 1427 kbps
+    Bitrate vídeo   : 1301 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 3d4fe3bb520b66ada2abe51d5f69129dffb68c1578441424ae34e3efe43981de. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4,Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4,/home/haggy/Vídeos/Listos/Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4,Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 3d4fe3bb520b66ada2abe51d5f69129dffb68c1578441424ae34e3efe43981de. Contenido no releído durante esta comparación.,G:\Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4,Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2150.229,"[1280, 720]",29.97,hevc,aac,383542344,1427.0,1301.226,3d4fe3bb520b66ada2abe51d5f69129dffb68c1578441424ae34e3efe43981de,0,/home/haggy/Vídeos/Listos/Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4,Morning Wood - INTERNATIONAL SCOUT BOYS - Chapter 1 _ Carnal Plus[hls.m3u8].mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2150.229,"[1280, 720]",29.97002997002997,hevc,aac,383542344,1427.0,1301.226,3d4fe3bb520b66ada2abe51d5f69129dffb68c1578441424ae34e3efe43981de,0,18,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#19  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  raw-twink-ass-fuckers-sc-3.mp4
+  ↳ G:\raw-twink-ass-fuckers-sc-3.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:30:20
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 477.3 MB
+    Bitrate aprox.  : 2200 kbps
+    Bitrate vídeo   : 2067 kbps
+    Frames huella   : 0
+
+  VIDEO B  raw-twink-ass-fuckers-sc-3.mp4
+  ↳ /home/haggy/Vídeos/Listos/raw-twink-ass-fuckers-sc-3.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:30:20
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 477.3 MB
+    Bitrate aprox.  : 2200 kbps
+    Bitrate vídeo   : 2067 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 249a813aa06ca8e650ac509fb45ead7bbaac6f3ea6d6507dd3cccd853fef5bf0. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\raw-twink-ass-fuckers-sc-3.mp4,raw-twink-ass-fuckers-sc-3.mp4,/home/haggy/Vídeos/Listos/raw-twink-ass-fuckers-sc-3.mp4,raw-twink-ass-fuckers-sc-3.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 249a813aa06ca8e650ac509fb45ead7bbaac6f3ea6d6507dd3cccd853fef5bf0. Contenido no releído durante esta comparación.,G:\raw-twink-ass-fuckers-sc-3.mp4,raw-twink-ass-fuckers-sc-3.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1820.485333,"[1280, 720]",29.97,hevc,aac,500534888,2199.6,2067.26,249a813aa06ca8e650ac509fb45ead7bbaac6f3ea6d6507dd3cccd853fef5bf0,0,/home/haggy/Vídeos/Listos/raw-twink-ass-fuckers-sc-3.mp4,raw-twink-ass-fuckers-sc-3.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1820.485333,"[1280, 720]",29.97002997002997,hevc,aac,500534888,2199.6,2067.26,249a813aa06ca8e650ac509fb45ead7bbaac6f3ea6d6507dd3cccd853fef5bf0,0,19,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#20  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4
+  ↳ G:\Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:32:54
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 506.1 MB
+    Bitrate aprox.  : 2150 kbps
+    Bitrate vídeo   : 1988 kbps
+    Frames huella   : 0
+
+  VIDEO B  Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4
+  ↳ /home/haggy/Vídeos/Listos/Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:32:54
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 506.1 MB
+    Bitrate aprox.  : 2150 kbps
+    Bitrate vídeo   : 1988 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: a9f1f5a7862436bd13d14c9163d6711ec29d899868518f9a270570311acb3aea. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4","Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4","/home/haggy/Vídeos/Listos/Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4","Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: a9f1f5a7862436bd13d14c9163d6711ec29d899868518f9a270570311acb3aea. Contenido no releído durante esta comparación.,"G:\Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4","Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1974.976,"[1280, 720]",23.976,hevc,aac,530681777,2149.6,1988.437,a9f1f5a7862436bd13d14c9163d6711ec29d899868518f9a270570311acb3aea,0,"/home/haggy/Vídeos/Listos/Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4","Roomies BF Prefers My Ass Video With Zac Wild, Kira Noir - Brazzers Official_1.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1974.976,"[1280, 720]",23.976023976023978,hevc,aac,530681777,2149.6,1988.437,a9f1f5a7862436bd13d14c9163d6711ec29d899868518f9a270570311acb3aea,0,20,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#21  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4
+  ↳ G:\Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:37:31
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 625.9 MB
+    Bitrate aprox.  : 2332 kbps
+    Bitrate vídeo   : 2200 kbps
+    Frames huella   : 0
+
+  VIDEO B  Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:37:31
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 625.9 MB
+    Bitrate aprox.  : 2332 kbps
+    Bitrate vídeo   : 2200 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 8b4fce8f998aa7804e0fdff47d18090983d3e03f441421a5e9fa86ebb317e810. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4","Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4","/home/haggy/Vídeos/Listos/Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4","Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: 8b4fce8f998aa7804e0fdff47d18090983d3e03f441421a5e9fa86ebb317e810. Contenido no releído durante esta comparación.,"G:\Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4","Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2251.707792,"[1280, 720]",23.976,hevc,aac,656269338,2331.6,2199.776,8b4fce8f998aa7804e0fdff47d18090983d3e03f441421a5e9fa86ebb317e810,0,"/home/haggy/Vídeos/Listos/Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4","Robbing the Sex Freaks Part 1 Video With Alex Jones, Kayla Kayden, Hollywood Cash - Brazzers Official.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2251.707792,"[1280, 720]",23.976023976023978,hevc,aac,656269338,2331.6,2199.776,8b4fce8f998aa7804e0fdff47d18090983d3e03f441421a5e9fa86ebb317e810,0,21,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#22  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4
+  ↳ G:\Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:33:41
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 468.7 MB
+    Bitrate aprox.  : 1945 kbps
+    Bitrate vídeo   : 1825 kbps
+    Frames huella   : 0
+
+  VIDEO B  Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4
+  ↳ /home/haggy/Vídeos/Listos/Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:33:41
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 468.7 MB
+    Bitrate aprox.  : 1945 kbps
+    Bitrate vídeo   : 1825 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 7c550ed0b77ddfee6ae906c4995987bff346d41d28ba96cc8f1c7874e6a57d9d. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4","Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4","/home/haggy/Vídeos/Listos/Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4","Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: 7c550ed0b77ddfee6ae906c4995987bff346d41d28ba96cc8f1c7874e6a57d9d. Contenido no releído durante esta comparación.,"G:\Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4","Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2021.397333,"[1280, 720]",23.976,hevc,aac,491441726,1945.0,1824.737,7c550ed0b77ddfee6ae906c4995987bff346d41d28ba96cc8f1c7874e6a57d9d,0,"/home/haggy/Vídeos/Listos/Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4","Seconds, Anyone Video With Renee Rose, Axel Haze, Adonis Breeds - Brazzers Official_1.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2021.397333,"[1280, 720]",23.976023976023978,hevc,aac,491441726,1945.0,1824.737,7c550ed0b77ddfee6ae906c4995987bff346d41d28ba96cc8f1c7874e6a57d9d,0,22,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#23  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4
+  ↳ G:\She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:30:04
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 445.1 MB
+    Bitrate aprox.  : 2070 kbps
+    Bitrate vídeo   : 1948 kbps
+    Frames huella   : 0
+
+  VIDEO B  She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:30:04
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 445.1 MB
+    Bitrate aprox.  : 2070 kbps
+    Bitrate vídeo   : 1948 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 0e2b7e472fd09118d81fdd48990754d526ff4775cff0690571d4898fef7419b0. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4","She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4","/home/haggy/Vídeos/Listos/She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4","She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: 0e2b7e472fd09118d81fdd48990754d526ff4775cff0690571d4898fef7419b0. Contenido no releído durante esta comparación.,"G:\She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4","She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1804.093958,"[1280, 720]",23.976,hevc,aac,466773511,2069.8,1947.858,0e2b7e472fd09118d81fdd48990754d526ff4775cff0690571d4898fef7419b0,0,"/home/haggy/Vídeos/Listos/She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4","She Sucks At Her Job — And Fucks At It Too Video With JMac, Scott Nails, Ameena Green - Brazzers Official.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1804.093958,"[1280, 720]",23.976023976023978,hevc,aac,466773511,2069.8,1947.858,0e2b7e472fd09118d81fdd48990754d526ff4775cff0690571d4898fef7419b0,0,23,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#24  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  spunk-soaked-fuckers-sc-2.mp4
+  ↳ G:\spunk-soaked-fuckers-sc-2.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:30:34
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 498.7 MB
+    Bitrate aprox.  : 2280 kbps
+    Bitrate vídeo   : 2159 kbps
+    Frames huella   : 0
+
+  VIDEO B  spunk-soaked-fuckers-sc-2.mp4
+  ↳ /home/haggy/Vídeos/Listos/spunk-soaked-fuckers-sc-2.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:30:34
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 498.7 MB
+    Bitrate aprox.  : 2280 kbps
+    Bitrate vídeo   : 2159 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 6d7fc58e3464c7739dd4e34cc81a7d08ea443081bd2198a073121fe7f44924b4. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\spunk-soaked-fuckers-sc-2.mp4,spunk-soaked-fuckers-sc-2.mp4,/home/haggy/Vídeos/Listos/spunk-soaked-fuckers-sc-2.mp4,spunk-soaked-fuckers-sc-2.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 6d7fc58e3464c7739dd4e34cc81a7d08ea443081bd2198a073121fe7f44924b4. Contenido no releído durante esta comparación.,G:\spunk-soaked-fuckers-sc-2.mp4,spunk-soaked-fuckers-sc-2.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1834.966467,"[1280, 720]",29.97,hevc,aac,522905841,2279.7,2158.539,6d7fc58e3464c7739dd4e34cc81a7d08ea443081bd2198a073121fe7f44924b4,0,/home/haggy/Vídeos/Listos/spunk-soaked-fuckers-sc-2.mp4,spunk-soaked-fuckers-sc-2.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1834.966467,"[1280, 720]",29.97002997002997,hevc,aac,522905841,2279.7,2158.539,6d7fc58e3464c7739dd4e34cc81a7d08ea443081bd2198a073121fe7f44924b4,0,24,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#25  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  stretched-to-the-max-sc-2.mp4
+  ↳ G:\stretched-to-the-max-sc-2.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:27:41
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 268.1 MB
+    Bitrate aprox.  : 1354 kbps
+    Bitrate vídeo   : 1220 kbps
+    Frames huella   : 0
+
+  VIDEO B  stretched-to-the-max-sc-2.mp4
+  ↳ /home/haggy/Vídeos/Listos/stretched-to-the-max-sc-2.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:27:41
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 268.1 MB
+    Bitrate aprox.  : 1354 kbps
+    Bitrate vídeo   : 1220 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 77fea07bb98231d6f3b6bef17da7c0220396e864ec8ac85af262df599b64332b. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\stretched-to-the-max-sc-2.mp4,stretched-to-the-max-sc-2.mp4,/home/haggy/Vídeos/Listos/stretched-to-the-max-sc-2.mp4,stretched-to-the-max-sc-2.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 77fea07bb98231d6f3b6bef17da7c0220396e864ec8ac85af262df599b64332b. Contenido no releído durante esta comparación.,G:\stretched-to-the-max-sc-2.mp4,stretched-to-the-max-sc-2.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1661.66,"[1280, 720]",29.97,hevc,aac,281154772,1353.6,1220.395,77fea07bb98231d6f3b6bef17da7c0220396e864ec8ac85af262df599b64332b,0,/home/haggy/Vídeos/Listos/stretched-to-the-max-sc-2.mp4,stretched-to-the-max-sc-2.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1661.66,"[1280, 720]",29.97002997002997,hevc,aac,281154772,1353.6,1220.395,77fea07bb98231d6f3b6bef17da7c0220396e864ec8ac85af262df599b64332b,0,25,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#26  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Study Group streaming at Helix Studios.mp4
+  ↳ G:\Study Group streaming at Helix Studios.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:34:48
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 341.8 MB
+    Bitrate aprox.  : 1373 kbps
+    Bitrate vídeo   : 1238 kbps
+    Frames huella   : 0
+
+  VIDEO B  Study Group streaming at Helix Studios.mp4
+  ↳ /home/haggy/Vídeos/Listos/Study Group streaming at Helix Studios.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:34:48
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 341.8 MB
+    Bitrate aprox.  : 1373 kbps
+    Bitrate vídeo   : 1238 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: f748eb831390aacf91663193815806daf19de736d52d2f5748a01fa9ac19a22a. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Study Group streaming at Helix Studios.mp4,Study Group streaming at Helix Studios.mp4,/home/haggy/Vídeos/Listos/Study Group streaming at Helix Studios.mp4,Study Group streaming at Helix Studios.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: f748eb831390aacf91663193815806daf19de736d52d2f5748a01fa9ac19a22a. Contenido no releído durante esta comparación.,G:\Study Group streaming at Helix Studios.mp4,Study Group streaming at Helix Studios.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2088.066667,"[1280, 720]",30.0,hevc,aac,358447340,1373.3,1238.217,f748eb831390aacf91663193815806daf19de736d52d2f5748a01fa9ac19a22a,0,/home/haggy/Vídeos/Listos/Study Group streaming at Helix Studios.mp4,Study Group streaming at Helix Studios.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2088.066667,"[1280, 720]",30.0,hevc,aac,358447340,1373.3,1238.217,f748eb831390aacf91663193815806daf19de736d52d2f5748a01fa9ac19a22a,0,26,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#27  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4
+  ↳ G:\Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:30:09
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 356.4 MB
+    Bitrate aprox.  : 1652 kbps
+    Bitrate vídeo   : 1519 kbps
+    Frames huella   : 0
+
+  VIDEO B  Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4
+  ↳ /home/haggy/Vídeos/Listos/Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:30:09
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 356.4 MB
+    Bitrate aprox.  : 1652 kbps
+    Bitrate vídeo   : 1519 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: ef1bf70dae2f6a476c0e195b891fe07647d3dc435c75eb8f4f824c863c8a31be. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4,Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4,/home/haggy/Vídeos/Listos/Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4,Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: ef1bf70dae2f6a476c0e195b891fe07647d3dc435c75eb8f4f824c863c8a31be. Contenido no releído durante esta comparación.,G:\Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4,Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1809.949002,"[1280, 720]",23.976,hevc,aac,373685778,1651.7,1519.159,ef1bf70dae2f6a476c0e195b891fe07647d3dc435c75eb8f4f824c863c8a31be,0,/home/haggy/Vídeos/Listos/Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4,Taking a Break - MILO - Chapter 2 _ Carnal Plus[hls.m3u8].mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1809.949002,"[1280, 720]",23.976023976023978,hevc,aac,373685778,1651.7,1519.159,ef1bf70dae2f6a476c0e195b891fe07647d3dc435c75eb8f4f824c863c8a31be,0,27,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#28  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4
+  ↳ G:\The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:28:15
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 316.3 MB
+    Bitrate aprox.  : 1565 kbps
+    Bitrate vídeo   : 1241 kbps
+    Frames huella   : 0
+
+  VIDEO B  The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4
+  ↳ /home/haggy/Vídeos/Listos/The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:28:15
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 316.3 MB
+    Bitrate aprox.  : 1565 kbps
+    Bitrate vídeo   : 1241 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 54fea49376c5d44f1b9b75fef3f6a1282edb04ac725bfb61de4c4b21d5ab3599. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4","The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4","/home/haggy/Vídeos/Listos/The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4","The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: 54fea49376c5d44f1b9b75fef3f6a1282edb04ac725bfb61de4c4b21d5ab3599. Contenido no releído durante esta comparación.,"G:\The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4","The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1695.458333,"[1280, 720]",24.0,hevc,aac,331684828,1565.1,1241.059,54fea49376c5d44f1b9b75fef3f6a1282edb04ac725bfb61de4c4b21d5ab3599,0,"/home/haggy/Vídeos/Listos/The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4","The Barcelona Job_ Rhyheim Shabazz, Sir Peter, Hiuri Cruz, Allen King.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1695.458333,"[1280, 720]",24.0,hevc,aac,331684828,1565.1,1241.059,54fea49376c5d44f1b9b75fef3f6a1282edb04ac725bfb61de4c4b21d5ab3599,0,28,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#29  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  The Air Outside.mp4
+  ↳ G:\The Air Outside.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:34:25
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 440.3 MB
+    Bitrate aprox.  : 1789 kbps
+    Bitrate vídeo   : 1666 kbps
+    Frames huella   : 0
+
+  VIDEO B  The Air Outside.mp4
+  ↳ /home/haggy/Vídeos/Listos/The Air Outside.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:34:25
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 440.3 MB
+    Bitrate aprox.  : 1789 kbps
+    Bitrate vídeo   : 1666 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: d580ebe3912cccde16f836d4c8daf224d28a6eb93fe48d31bfef1c5ff393e26b. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\The Air Outside.mp4,The Air Outside.mp4,/home/haggy/Vídeos/Listos/The Air Outside.mp4,The Air Outside.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: d580ebe3912cccde16f836d4c8daf224d28a6eb93fe48d31bfef1c5ff393e26b. Contenido no releído durante esta comparación.,G:\The Air Outside.mp4,The Air Outside.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2065.146417,"[1280, 720]",23.976,hevc,aac,461722209,1788.6,1666.363,d580ebe3912cccde16f836d4c8daf224d28a6eb93fe48d31bfef1c5ff393e26b,0,/home/haggy/Vídeos/Listos/The Air Outside.mp4,The Air Outside.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2065.146417,"[1280, 720]",23.976023976023978,hevc,aac,461722209,1788.6,1666.363,d580ebe3912cccde16f836d4c8daf224d28a6eb93fe48d31bfef1c5ff393e26b,0,29,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#30  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  The Brazilians Flip Fuck.mp4
+  ↳ G:\The Brazilians Flip Fuck.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:20:01
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 287.5 MB
+    Bitrate aprox.  : 2007 kbps
+    Bitrate vídeo   : 1853 kbps
+    Frames huella   : 0
+
+  VIDEO B  The Brazilians Flip Fuck.mp4
+  ↳ /home/haggy/Vídeos/Listos/The Brazilians Flip Fuck.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:20:01
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 287.5 MB
+    Bitrate aprox.  : 2007 kbps
+    Bitrate vídeo   : 1853 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 0235fe717b04b602523714134b8cc31fa5d094bb5cef326e13f89d1481728126. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\The Brazilians Flip Fuck.mp4,The Brazilians Flip Fuck.mp4,/home/haggy/Vídeos/Listos/The Brazilians Flip Fuck.mp4,The Brazilians Flip Fuck.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 0235fe717b04b602523714134b8cc31fa5d094bb5cef326e13f89d1481728126. Contenido no releído durante esta comparación.,G:\The Brazilians Flip Fuck.mp4,The Brazilians Flip Fuck.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1201.916667,"[1280, 720]",24.0,hevc,aac,301472820,2006.6,1853.069,0235fe717b04b602523714134b8cc31fa5d094bb5cef326e13f89d1481728126,0,/home/haggy/Vídeos/Listos/The Brazilians Flip Fuck.mp4,The Brazilians Flip Fuck.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1201.916667,"[1280, 720]",24.0,hevc,aac,301472820,2006.6,1853.069,0235fe717b04b602523714134b8cc31fa5d094bb5cef326e13f89d1481728126,0,30,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#31  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4
+  ↳ G:\The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:31:51
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 468.8 MB
+    Bitrate aprox.  : 2058 kbps
+    Bitrate vídeo   : 1936 kbps
+    Frames huella   : 0
+
+  VIDEO B  The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:31:51
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 468.8 MB
+    Bitrate aprox.  : 2058 kbps
+    Bitrate vídeo   : 1936 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 57cc01256d3504fef6fe97ff2926f39944969cd606375cba0daab3c83d34ec26. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4","The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4","/home/haggy/Vídeos/Listos/The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4","The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: 57cc01256d3504fef6fe97ff2926f39944969cd606375cba0daab3c83d34ec26. Contenido no releído durante esta comparación.,"G:\The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4","The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1911.242667,"[1280, 720]",23.976,hevc,aac,491612619,2057.8,1936.404,57cc01256d3504fef6fe97ff2926f39944969cd606375cba0daab3c83d34ec26,0,"/home/haggy/Vídeos/Listos/The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4","The Night Invites Caught & DPd Video With Scott Nails, Maddy May, Hollywood Cash - Brazzers Official.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1911.242667,"[1280, 720]",23.976023976023978,hevc,aac,491612619,2057.8,1936.404,57cc01256d3504fef6fe97ff2926f39944969cd606375cba0daab3c83d34ec26,0,31,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#32  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Train Fuck.mp4
+  ↳ G:\Train Fuck.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:24:06
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 311.5 MB
+    Bitrate aprox.  : 1806 kbps
+    Bitrate vídeo   : 1602 kbps
+    Frames huella   : 0
+
+  VIDEO B  Train Fuck.mp4
+  ↳ /home/haggy/Vídeos/Listos/Train Fuck.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:24:06
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 311.5 MB
+    Bitrate aprox.  : 1806 kbps
+    Bitrate vídeo   : 1602 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 1f01facfd0321ed28933bc5b59bc822dc5a03d59386c18acb8248265cb5d91bd. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Train Fuck.mp4,Train Fuck.mp4,/home/haggy/Vídeos/Listos/Train Fuck.mp4,Train Fuck.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 1f01facfd0321ed28933bc5b59bc822dc5a03d59386c18acb8248265cb5d91bd. Contenido no releído durante esta comparación.,G:\Train Fuck.mp4,Train Fuck.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1446.708333,"[1280, 720]",24.0,hevc,aac,326616934,1806.1,1601.756,1f01facfd0321ed28933bc5b59bc822dc5a03d59386c18acb8248265cb5d91bd,0,/home/haggy/Vídeos/Listos/Train Fuck.mp4,Train Fuck.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1446.708333,"[1280, 720]",24.0,hevc,aac,326616934,1806.1,1601.756,1f01facfd0321ed28933bc5b59bc822dc5a03d59386c18acb8248265cb5d91bd,0,32,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#33  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Train Fuck of Fun.mp4
+  ↳ G:\Train Fuck of Fun.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:27:13
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 457.7 MB
+    Bitrate aprox.  : 2350 kbps
+    Bitrate vídeo   : 2026 kbps
+    Frames huella   : 0
+
+  VIDEO B  Train Fuck of Fun.mp4
+  ↳ /home/haggy/Vídeos/Listos/Train Fuck of Fun.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:27:13
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 457.7 MB
+    Bitrate aprox.  : 2350 kbps
+    Bitrate vídeo   : 2026 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 08491fc3e1f16a98e27d83adcc5d10579dbff096618398244a60d152e0595352. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Train Fuck of Fun.mp4,Train Fuck of Fun.mp4,/home/haggy/Vídeos/Listos/Train Fuck of Fun.mp4,Train Fuck of Fun.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 08491fc3e1f16a98e27d83adcc5d10579dbff096618398244a60d152e0595352. Contenido no releído durante esta comparación.,G:\Train Fuck of Fun.mp4,Train Fuck of Fun.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1633.958333,"[1280, 720]",24.0,hevc,aac,479891809,2349.6,2025.568,08491fc3e1f16a98e27d83adcc5d10579dbff096618398244a60d152e0595352,0,/home/haggy/Vídeos/Listos/Train Fuck of Fun.mp4,Train Fuck of Fun.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1633.958333,"[1280, 720]",24.0,hevc,aac,479891809,2349.6,2025.568,08491fc3e1f16a98e27d83adcc5d10579dbff096618398244a60d152e0595352,0,33,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#34  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Two_huge_cocks_for_c...TV.com.mp4
+  ↳ G:\Two_huge_cocks_for_c...TV.com.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:30:23
+    Códec video     : h264
+    Códec audio     : aac
+    Tamaño archivo  : 453.9 MB
+    Bitrate aprox.  : 2088 kbps
+    Bitrate vídeo   : 1884 kbps
+    Frames huella   : 0
+
+  VIDEO B  Two_huge_cocks_for_c...TV.com.mp4
+  ↳ /home/haggy/Vídeos/Listos/Two_huge_cocks_for_c...TV.com.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:30:23
+    Códec video     : h264
+    Códec audio     : aac
+    Tamaño archivo  : 453.9 MB
+    Bitrate aprox.  : 2088 kbps
+    Bitrate vídeo   : 1884 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: bbfcc278f24f463ca7d308691426f73cd839e58933c5dac2a11dd7d7d0dbcb3d. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Two_huge_cocks_for_c...TV.com.mp4,Two_huge_cocks_for_c...TV.com.mp4,/home/haggy/Vídeos/Listos/Two_huge_cocks_for_c...TV.com.mp4,Two_huge_cocks_for_c...TV.com.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: bbfcc278f24f463ca7d308691426f73cd839e58933c5dac2a11dd7d7d0dbcb3d. Contenido no releído durante esta comparación.,G:\Two_huge_cocks_for_c...TV.com.mp4,Two_huge_cocks_for_c...TV.com.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1823.8,"[1280, 720]",30.0,h264,aac,475927911,2087.6,1883.615,bbfcc278f24f463ca7d308691426f73cd839e58933c5dac2a11dd7d7d0dbcb3d,0,/home/haggy/Vídeos/Listos/Two_huge_cocks_for_c...TV.com.mp4,Two_huge_cocks_for_c...TV.com.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1823.8,"[1280, 720]",30.0,h264,aac,475927911,2087.6,1883.615,bbfcc278f24f463ca7d308691426f73cd839e58933c5dac2a11dd7d7d0dbcb3d,0,34,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#35  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4
+  ↳ G:\Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:37:34
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 535.8 MB
+    Bitrate aprox.  : 1993 kbps
+    Bitrate vídeo   : 1850 kbps
+    Frames huella   : 0
+
+  VIDEO B  Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:37:34
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 535.8 MB
+    Bitrate aprox.  : 1993 kbps
+    Bitrate vídeo   : 1850 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 5806f4fed440e6f77406eec1fc3c611abcabded37ffd5fd1dbc112222832260f. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4","Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4","/home/haggy/Vídeos/Listos/Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4","Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: 5806f4fed440e6f77406eec1fc3c611abcabded37ffd5fd1dbc112222832260f. Contenido no releído durante esta comparación.,"G:\Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4","Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2254.794208,"[1280, 720]",23.976,hevc,aac,561792756,1993.2,1849.586,5806f4fed440e6f77406eec1fc3c611abcabded37ffd5fd1dbc112222832260f,0,"/home/haggy/Vídeos/Listos/Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4","Up The Wrong Hole Video With Jillian Janson, Xander Corvus - Brazzers Official.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2254.794208,"[1280, 720]",23.976023976023978,hevc,aac,561792756,1993.2,1849.586,5806f4fed440e6f77406eec1fc3c611abcabded37ffd5fd1dbc112222832260f,0,35,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#36  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4
+  ↳ G:\Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:28:58
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 448.9 MB
+    Bitrate aprox.  : 2166 kbps
+    Bitrate vídeo   : 2039 kbps
+    Frames huella   : 0
+
+  VIDEO B  Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4
+  ↳ /home/haggy/Vídeos/Listos/Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:28:58
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 448.9 MB
+    Bitrate aprox.  : 2166 kbps
+    Bitrate vídeo   : 2039 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: fc57ba3e6798e702c3bd3779e15c3bf1552678a58e0222ee7adaf04578b363e9. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4","Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4","/home/haggy/Vídeos/Listos/Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4","Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: fc57ba3e6798e702c3bd3779e15c3bf1552678a58e0222ee7adaf04578b363e9. Contenido no releído durante esta comparación.,"G:\Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4","Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1738.197333,"[1280, 720]",23.976,hevc,aac,470654236,2166.2,2039.035,fc57ba3e6798e702c3bd3779e15c3bf1552678a58e0222ee7adaf04578b363e9,0,"/home/haggy/Vídeos/Listos/Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4","Wheres Your Ring Part 3 Video With Isiah Maxwell, Ricky Johnson, Emily Willis - Brazzers Official_1.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1738.197333,"[1280, 720]",23.976023976023978,hevc,aac,470654236,2166.2,2039.035,fc57ba3e6798e702c3bd3779e15c3bf1552678a58e0222ee7adaf04578b363e9,0,36,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#37  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4
+  ↳ G:\Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:35:47
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 506.6 MB
+    Bitrate aprox.  : 1979 kbps
+    Bitrate vídeo   : 1865 kbps
+    Frames huella   : 0
+
+  VIDEO B  Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:35:47
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 506.6 MB
+    Bitrate aprox.  : 1979 kbps
+    Bitrate vídeo   : 1865 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: b9842736c9ef6e7de16ff4eb30752e08ee99f101143e0cf49f25ebb42b5d3261. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4","Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4","/home/haggy/Vídeos/Listos/Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4","Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: b9842736c9ef6e7de16ff4eb30752e08ee99f101143e0cf49f25ebb42b5d3261. Contenido no releído durante esta comparación.,"G:\Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4","Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2147.114667,"[1280, 720]",23.976,hevc,aac,531174373,1979.1,1865.022,b9842736c9ef6e7de16ff4eb30752e08ee99f101143e0cf49f25ebb42b5d3261,0,"/home/haggy/Vídeos/Listos/Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4","Yhivi Offers Up Her Pussy Video With JMac, Yhivi, Mazee The Goat - Brazzers Official.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2147.114667,"[1280, 720]",23.976023976023978,hevc,aac,531174373,1979.1,1865.022,b9842736c9ef6e7de16ff4eb30752e08ee99f101143e0cf49f25ebb42b5d3261,0,37,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#38  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  latinleche_0100.mp4
+  ↳ G:\latinleche_0100.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:42:27
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 652.3 MB
+    Bitrate aprox.  : 2148 kbps
+    Bitrate vídeo   : 2045 kbps
+    Frames huella   : 0
+
+  VIDEO B  latinleche_0100.mp4
+  ↳ /home/haggy/Vídeos/Listos/latinleche_0100.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:42:27
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 652.3 MB
+    Bitrate aprox.  : 2148 kbps
+    Bitrate vídeo   : 2045 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 2066e80363397f70c299e9fc9e103418572e832cbe1b05352dfbf60d8aaab183. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\latinleche_0100.mp4,latinleche_0100.mp4,/home/haggy/Vídeos/Listos/latinleche_0100.mp4,latinleche_0100.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 2066e80363397f70c299e9fc9e103418572e832cbe1b05352dfbf60d8aaab183. Contenido no releído durante esta comparación.,G:\latinleche_0100.mp4,latinleche_0100.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2547.1446,"[1280, 720]",29.97002997002997,hevc,aac,683982281,2148.2,2045.333,2066e80363397f70c299e9fc9e103418572e832cbe1b05352dfbf60d8aaab183,0,/home/haggy/Vídeos/Listos/latinleche_0100.mp4,latinleche_0100.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2547.1446,"[1280, 720]",29.97002997002997,hevc,aac,683982281,2148.2,2045.333,2066e80363397f70c299e9fc9e103418572e832cbe1b05352dfbf60d8aaab183,0,38,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#39  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Leah Maus - Alita Angel - EPORNER.mp4
+  ↳ G:\Leah Maus - Alita Angel - EPORNER.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:39:11
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 501.9 MB
+    Bitrate aprox.  : 1791 kbps
+    Bitrate vídeo   : 1655 kbps
+    Frames huella   : 0
+
+  VIDEO B  Leah Maus - Alita Angel - EPORNER.mp4
+  ↳ /home/haggy/Vídeos/Listos/Leah Maus - Alita Angel - EPORNER.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:39:11
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 501.9 MB
+    Bitrate aprox.  : 1791 kbps
+    Bitrate vídeo   : 1655 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 681caf4fb9ea4def3b98e5e7995c30a41bd32d5e9a7465033bf25c7e81998acc. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Leah Maus - Alita Angel - EPORNER.mp4,Leah Maus - Alita Angel - EPORNER.mp4,/home/haggy/Vídeos/Listos/Leah Maus - Alita Angel - EPORNER.mp4,Leah Maus - Alita Angel - EPORNER.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 681caf4fb9ea4def3b98e5e7995c30a41bd32d5e9a7465033bf25c7e81998acc. Contenido no releído durante esta comparación.,G:\Leah Maus - Alita Angel - EPORNER.mp4,Leah Maus - Alita Angel - EPORNER.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2351.146009,"[1280, 720]",58.0,hevc,aac,526286734,1790.7,1655.181,681caf4fb9ea4def3b98e5e7995c30a41bd32d5e9a7465033bf25c7e81998acc,0,/home/haggy/Vídeos/Listos/Leah Maus - Alita Angel - EPORNER.mp4,Leah Maus - Alita Angel - EPORNER.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2351.146009,"[1280, 720]",58.0,hevc,aac,526286734,1790.7,1655.181,681caf4fb9ea4def3b98e5e7995c30a41bd32d5e9a7465033bf25c7e81998acc,0,39,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#40  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4
+  ↳ G:\Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:43:40
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 718.1 MB
+    Bitrate aprox.  : 2298 kbps
+    Bitrate vídeo   : 2172 kbps
+    Frames huella   : 0
+
+  VIDEO B  Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:43:40
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 718.1 MB
+    Bitrate aprox.  : 2298 kbps
+    Bitrate vídeo   : 2172 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: cd8a4260da106380406a8fe3f012a16bdd09ebd4b6656a8b4208180ce9f3308e. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4","Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4","/home/haggy/Vídeos/Listos/Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4","Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: cd8a4260da106380406a8fe3f012a16bdd09ebd4b6656a8b4208180ce9f3308e. Contenido no releído durante esta comparación.,"G:\Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4","Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2620.826542,"[1280, 720]",23.976023976023978,hevc,aac,752968166,2298.4,2172.265,cd8a4260da106380406a8fe3f012a16bdd09ebd4b6656a8b4208180ce9f3308e,0,"/home/haggy/Vídeos/Listos/Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4","Shes Anal About Dipping Sauce Video With Damion Dayski, Summer Col, Josh Rivers - Brazzers Official.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2620.826542,"[1280, 720]",23.976023976023978,hevc,aac,752968166,2298.4,2172.265,cd8a4260da106380406a8fe3f012a16bdd09ebd4b6656a8b4208180ce9f3308e,0,40,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#41  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Staxus International College 2_ Episode 2.mp4
+  ↳ G:\Staxus International College 2_ Episode 2.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 3840x2160
+    Duración        : 00:27:15
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 411.5 MB
+    Bitrate aprox.  : 2110 kbps
+    Bitrate vídeo   : 1976 kbps
+    Frames huella   : 0
+
+  VIDEO B  Staxus International College 2_ Episode 2.mp4
+  ↳ /home/haggy/Vídeos/Listos/Staxus International College 2_ Episode 2.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 3840x2160
+    Duración        : 00:27:15
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 411.5 MB
+    Bitrate aprox.  : 2110 kbps
+    Bitrate vídeo   : 1976 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: a20f061a0481811506fbd1d6d1e5d57bc416f6090fc27976ad903b9b005f6f4a. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Staxus International College 2_ Episode 2.mp4,Staxus International College 2_ Episode 2.mp4,/home/haggy/Vídeos/Listos/Staxus International College 2_ Episode 2.mp4,Staxus International College 2_ Episode 2.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: a20f061a0481811506fbd1d6d1e5d57bc416f6090fc27976ad903b9b005f6f4a. Contenido no releído durante esta comparación.,G:\Staxus International College 2_ Episode 2.mp4,Staxus International College 2_ Episode 2.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1635.646009,"[3840, 2160]",30.0,hevc,aac,431444727,2110.2,1975.576,a20f061a0481811506fbd1d6d1e5d57bc416f6090fc27976ad903b9b005f6f4a,0,/home/haggy/Vídeos/Listos/Staxus International College 2_ Episode 2.mp4,Staxus International College 2_ Episode 2.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1635.646009,"[3840, 2160]",30.0,hevc,aac,431444727,2110.2,1975.576,a20f061a0481811506fbd1d6d1e5d57bc416f6090fc27976ad903b9b005f6f4a,0,41,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#42  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4
+  ↳ G:\The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1280x720
+    Duración        : 00:48:53
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 829.7 MB
+    Bitrate aprox.  : 2373 kbps
+    Bitrate vídeo   : 2246 kbps
+    Frames huella   : 0
+
+  VIDEO B  The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4
+  ↳ /home/haggy/Vídeos/Listos/The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1280x720
+    Duración        : 00:48:53
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 829.7 MB
+    Bitrate aprox.  : 2373 kbps
+    Bitrate vídeo   : 2246 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: ba4173dad41e75a6c07d469e2cbba6a0a65b843fe693c122ff6658ced6c211b9. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,"G:\The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4","The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4","/home/haggy/Vídeos/Listos/The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4","The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4",1.0,-1.0,1.0,,,SHA256 registrado idéntico: ba4173dad41e75a6c07d469e2cbba6a0a65b843fe693c122ff6658ced6c211b9. Contenido no releído durante esta comparación.,"G:\The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4","The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4",Haggyescritorio|Windows|AMD64,b7f7b638fce2d,2933.305375,"[1280, 720]",23.976023976023978,hevc,aac,870052454,2372.9,2245.517,ba4173dad41e75a6c07d469e2cbba6a0a65b843fe693c122ff6658ced6c211b9,0,"/home/haggy/Vídeos/Listos/The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4","The Bidding War Video With Alexis Fawx, Isiah Maxwell, Ricky Johnson - Brazzers Official.mp4",haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,2933.305375,"[1280, 720]",23.976023976023978,hevc,aac,870052454,2372.9,2245.517,ba4173dad41e75a6c07d469e2cbba6a0a65b843fe693c122ff6658ced6c211b9,0,42,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#43  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h588we2rfhesmvtjkkbn_source.mp4
+  ↳ G:\Verticales\0h588we2rfhesmvtjkkbn_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1056x1920
+    Duración        : 00:10:28
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 170.1 MB
+    Bitrate aprox.  : 2271 kbps
+    Bitrate vídeo   : 2107 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h588we2rfhesmvtjkkbn_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h588we2rfhesmvtjkkbn_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1056x1920
+    Duración        : 00:10:28
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 170.1 MB
+    Bitrate aprox.  : 2271 kbps
+    Bitrate vídeo   : 2107 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 458f60b347446b6a27d52c5f6a32a5a6c4da00ac2bbfaca3e5915d58df9b1de7. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0h588we2rfhesmvtjkkbn_source.mp4,0h588we2rfhesmvtjkkbn_source.mp4,/home/haggy/Vídeos/Listos/0h588we2rfhesmvtjkkbn_source.mp4,0h588we2rfhesmvtjkkbn_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 458f60b347446b6a27d52c5f6a32a5a6c4da00ac2bbfaca3e5915d58df9b1de7. Contenido no releído durante esta comparación.,G:\Verticales\0h588we2rfhesmvtjkkbn_source.mp4,0h588we2rfhesmvtjkkbn_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,628.210917,"[1056, 1920]",23.976023976023978,hevc,aac,178324370,2270.9,2106.851,458f60b347446b6a27d52c5f6a32a5a6c4da00ac2bbfaca3e5915d58df9b1de7,0,/home/haggy/Vídeos/Listos/0h588we2rfhesmvtjkkbn_source.mp4,0h588we2rfhesmvtjkkbn_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,628.210917,"[1056, 1920]",23.976,hevc,aac,178324370,2270.9,2106.851,458f60b347446b6a27d52c5f6a32a5a6c4da00ac2bbfaca3e5915d58df9b1de7,0,43,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#44  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h7w40ofysiv6lkkx3lh1_source.mp4
+  ↳ G:\Verticales\0h7w40ofysiv6lkkx3lh1_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 123.3 MB
+    Bitrate aprox.  : 2459 kbps
+    Bitrate vídeo   : 2295 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h7w40ofysiv6lkkx3lh1_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h7w40ofysiv6lkkx3lh1_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 123.3 MB
+    Bitrate aprox.  : 2459 kbps
+    Bitrate vídeo   : 2295 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 6dfd29600e71c7dd8d91242e40416e578dcc37901f4ed07cd6d73bed31dbfb81. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0h7w40ofysiv6lkkx3lh1_source.mp4,0h7w40ofysiv6lkkx3lh1_source.mp4,/home/haggy/Vídeos/Listos/0h7w40ofysiv6lkkx3lh1_source.mp4,0h7w40ofysiv6lkkx3lh1_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 6dfd29600e71c7dd8d91242e40416e578dcc37901f4ed07cd6d73bed31dbfb81. Contenido no releído durante esta comparación.,G:\Verticales\0h7w40ofysiv6lkkx3lh1_source.mp4,0h7w40ofysiv6lkkx3lh1_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,420.461708,"[1088, 1920]",23.976023976023978,hevc,aac,129238321,2459.0,2294.925,6dfd29600e71c7dd8d91242e40416e578dcc37901f4ed07cd6d73bed31dbfb81,0,/home/haggy/Vídeos/Listos/0h7w40ofysiv6lkkx3lh1_source.mp4,0h7w40ofysiv6lkkx3lh1_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,420.461708,"[1088, 1920]",23.976,hevc,aac,129238321,2459.0,2294.925,6dfd29600e71c7dd8d91242e40416e578dcc37901f4ed07cd6d73bed31dbfb81,0,44,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#45  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0h86p5qgzyqlthw9okb03_source.mp4
+  ↳ G:\Verticales\0h86p5qgzyqlthw9okb03_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:07:03
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 147.2 MB
+    Bitrate aprox.  : 2916 kbps
+    Bitrate vídeo   : 2752 kbps
+    Frames huella   : 0
+
+  VIDEO B  0h86p5qgzyqlthw9okb03_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0h86p5qgzyqlthw9okb03_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:07:03
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 147.2 MB
+    Bitrate aprox.  : 2916 kbps
+    Bitrate vídeo   : 2752 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: b5bda19013ba11374bcd223134d86bba5b80d329eadffabb35efe17e61dafcfc. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0h86p5qgzyqlthw9okb03_source.mp4,0h86p5qgzyqlthw9okb03_source.mp4,/home/haggy/Vídeos/Listos/0h86p5qgzyqlthw9okb03_source.mp4,0h86p5qgzyqlthw9okb03_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: b5bda19013ba11374bcd223134d86bba5b80d329eadffabb35efe17e61dafcfc. Contenido no releído durante esta comparación.,G:\Verticales\0h86p5qgzyqlthw9okb03_source.mp4,0h86p5qgzyqlthw9okb03_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,423.256167,"[1088, 1920]",23.976023976023978,hevc,aac,154298290,2916.4,2752.352,b5bda19013ba11374bcd223134d86bba5b80d329eadffabb35efe17e61dafcfc,0,/home/haggy/Vídeos/Listos/0h86p5qgzyqlthw9okb03_source.mp4,0h86p5qgzyqlthw9okb03_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,423.256167,"[1088, 1920]",23.976,hevc,aac,154298290,2916.4,2752.352,b5bda19013ba11374bcd223134d86bba5b80d329eadffabb35efe17e61dafcfc,0,45,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#46  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0ha21br7htof1wam1r0dg_source.mp4
+  ↳ G:\Verticales\0ha21br7htof1wam1r0dg_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 156.4 MB
+    Bitrate aprox.  : 3122 kbps
+    Bitrate vídeo   : 2958 kbps
+    Frames huella   : 0
+
+  VIDEO B  0ha21br7htof1wam1r0dg_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0ha21br7htof1wam1r0dg_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:07:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 156.4 MB
+    Bitrate aprox.  : 3122 kbps
+    Bitrate vídeo   : 2958 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: b31230c65ece95dd4fd258bf11aa1f6fe575ac5cb283a381e479c508627fd0aa. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0ha21br7htof1wam1r0dg_source.mp4,0ha21br7htof1wam1r0dg_source.mp4,/home/haggy/Vídeos/Listos/0ha21br7htof1wam1r0dg_source.mp4,0ha21br7htof1wam1r0dg_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: b31230c65ece95dd4fd258bf11aa1f6fe575ac5cb283a381e479c508627fd0aa. Contenido no releído durante esta comparación.,G:\Verticales\0ha21br7htof1wam1r0dg_source.mp4,0ha21br7htof1wam1r0dg_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,420.336583,"[1088, 1920]",23.976023976023978,hevc,aac,164022199,3121.7,2957.687,b31230c65ece95dd4fd258bf11aa1f6fe575ac5cb283a381e479c508627fd0aa,0,/home/haggy/Vídeos/Listos/0ha21br7htof1wam1r0dg_source.mp4,0ha21br7htof1wam1r0dg_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,420.336583,"[1088, 1920]",23.976,hevc,aac,164022199,3121.7,2957.687,b31230c65ece95dd4fd258bf11aa1f6fe575ac5cb283a381e479c508627fd0aa,0,46,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#47  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0hax7rkgk6cuva6ewbrtd_source.mp4
+  ↳ G:\Verticales\0hax7rkgk6cuva6ewbrtd_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1056x1920
+    Duración        : 00:10:06
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.5 MB
+    Bitrate aprox.  : 2761 kbps
+    Bitrate vídeo   : 2597 kbps
+    Frames huella   : 0
+
+  VIDEO B  0hax7rkgk6cuva6ewbrtd_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0hax7rkgk6cuva6ewbrtd_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1056x1920
+    Duración        : 00:10:06
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.5 MB
+    Bitrate aprox.  : 2761 kbps
+    Bitrate vídeo   : 2597 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: dae72b96f9aa057195ff8f0a2f39876457601bdb4ed04a250929b0c9211e3870. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0hax7rkgk6cuva6ewbrtd_source.mp4,0hax7rkgk6cuva6ewbrtd_source.mp4,/home/haggy/Vídeos/Listos/0hax7rkgk6cuva6ewbrtd_source.mp4,0hax7rkgk6cuva6ewbrtd_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: dae72b96f9aa057195ff8f0a2f39876457601bdb4ed04a250929b0c9211e3870. Contenido no releído durante esta comparación.,G:\Verticales\0hax7rkgk6cuva6ewbrtd_source.mp4,0hax7rkgk6cuva6ewbrtd_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,606.314042,"[1056, 1920]",23.976023976023978,hevc,aac,209230684,2760.7,2596.647,dae72b96f9aa057195ff8f0a2f39876457601bdb4ed04a250929b0c9211e3870,0,/home/haggy/Vídeos/Listos/0hax7rkgk6cuva6ewbrtd_source.mp4,0hax7rkgk6cuva6ewbrtd_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,606.314042,"[1056, 1920]",23.976,hevc,aac,209230684,2760.7,2596.647,dae72b96f9aa057195ff8f0a2f39876457601bdb4ed04a250929b0c9211e3870,0,47,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#48  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0hdpq83on0jreknw5lnko_source.mp4
+  ↳ G:\Verticales\0hdpq83on0jreknw5lnko_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1088x1920
+    Duración        : 00:08:16
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 126.9 MB
+    Bitrate aprox.  : 2144 kbps
+    Bitrate vídeo   : 1980 kbps
+    Frames huella   : 0
+
+  VIDEO B  0hdpq83on0jreknw5lnko_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0hdpq83on0jreknw5lnko_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1088x1920
+    Duración        : 00:08:16
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 126.9 MB
+    Bitrate aprox.  : 2144 kbps
+    Bitrate vídeo   : 1980 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 70513316a5d3e3c1cf1fb8098130972a1a0cef9583799730093db174d1459892. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0hdpq83on0jreknw5lnko_source.mp4,0hdpq83on0jreknw5lnko_source.mp4,/home/haggy/Vídeos/Listos/0hdpq83on0jreknw5lnko_source.mp4,0hdpq83on0jreknw5lnko_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 70513316a5d3e3c1cf1fb8098130972a1a0cef9583799730093db174d1459892. Contenido no releído durante esta comparación.,G:\Verticales\0hdpq83on0jreknw5lnko_source.mp4,0hdpq83on0jreknw5lnko_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,496.579417,"[1088, 1920]",23.976023976023978,hevc,aac,133098852,2144.3,1980.201,70513316a5d3e3c1cf1fb8098130972a1a0cef9583799730093db174d1459892,0,/home/haggy/Vídeos/Listos/0hdpq83on0jreknw5lnko_source.mp4,0hdpq83on0jreknw5lnko_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,496.579417,"[1088, 1920]",23.976,hevc,aac,133098852,2144.3,1980.201,70513316a5d3e3c1cf1fb8098130972a1a0cef9583799730093db174d1459892,0,48,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#49  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0he25pbd7srpxtv08tabw_source.mp4
+  ↳ G:\Verticales\0he25pbd7srpxtv08tabw_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 720x1280
+    Duración        : 00:09:14
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 184.6 MB
+    Bitrate aprox.  : 2791 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  VIDEO B  0he25pbd7srpxtv08tabw_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0he25pbd7srpxtv08tabw_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 720x1280
+    Duración        : 00:09:14
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 184.6 MB
+    Bitrate aprox.  : 2791 kbps
+    Bitrate vídeo   : 2627 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: cff55a1290029e43acf2ef946945d98f0bab5286c7ca1ed648813b347d15ef5c. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0he25pbd7srpxtv08tabw_source.mp4,0he25pbd7srpxtv08tabw_source.mp4,/home/haggy/Vídeos/Listos/0he25pbd7srpxtv08tabw_source.mp4,0he25pbd7srpxtv08tabw_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: cff55a1290029e43acf2ef946945d98f0bab5286c7ca1ed648813b347d15ef5c. Contenido no releído durante esta comparación.,G:\Verticales\0he25pbd7srpxtv08tabw_source.mp4,0he25pbd7srpxtv08tabw_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,554.845958,"[720, 1280]",23.976023976023978,hevc,aac,193552764,2790.7,2626.688,cff55a1290029e43acf2ef946945d98f0bab5286c7ca1ed648813b347d15ef5c,0,/home/haggy/Vídeos/Listos/0he25pbd7srpxtv08tabw_source.mp4,0he25pbd7srpxtv08tabw_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,554.845958,"[720, 1280]",23.976,hevc,aac,193552764,2790.7,2626.688,cff55a1290029e43acf2ef946945d98f0bab5286c7ca1ed648813b347d15ef5c,0,49,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#50  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  0hf9qwuzqcbg6ov4r0cmc_source.mp4
+  ↳ G:\Verticales\0hf9qwuzqcbg6ov4r0cmc_source.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1072x1920
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.9 MB
+    Bitrate aprox.  : 2794 kbps
+    Bitrate vídeo   : 2630 kbps
+    Frames huella   : 0
+
+  VIDEO B  0hf9qwuzqcbg6ov4r0cmc_source.mp4
+  ↳ /home/haggy/Vídeos/Listos/0hf9qwuzqcbg6ov4r0cmc_source.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1072x1920
+    Duración        : 00:10:00
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 199.9 MB
+    Bitrate aprox.  : 2794 kbps
+    Bitrate vídeo   : 2630 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 4415c60b9a8760b300a8de3fdbb3982d932044fea4a8c51650137a7438033e76. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Verticales\0hf9qwuzqcbg6ov4r0cmc_source.mp4,0hf9qwuzqcbg6ov4r0cmc_source.mp4,/home/haggy/Vídeos/Listos/0hf9qwuzqcbg6ov4r0cmc_source.mp4,0hf9qwuzqcbg6ov4r0cmc_source.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 4415c60b9a8760b300a8de3fdbb3982d932044fea4a8c51650137a7438033e76. Contenido no releído durante esta comparación.,G:\Verticales\0hf9qwuzqcbg6ov4r0cmc_source.mp4,0hf9qwuzqcbg6ov4r0cmc_source.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,600.0995,"[1072, 1920]",23.976023976023978,hevc,aac,209622595,2794.5,2630.465,4415c60b9a8760b300a8de3fdbb3982d932044fea4a8c51650137a7438033e76,0,/home/haggy/Vídeos/Listos/0hf9qwuzqcbg6ov4r0cmc_source.mp4,0hf9qwuzqcbg6ov4r0cmc_source.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,600.0995,"[1072, 1920]",23.976,hevc,aac,209622595,2794.5,2630.465,4415c60b9a8760b300a8de3fdbb3982d932044fea4a8c51650137a7438033e76,0,50,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),
+hallazgo,"────────────────────────────────────────────────────────────────────────
+#51  [DUPLICADO EXACTO]  Confianza: 100.0%
+
+  VIDEO A  Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4
+  ↳ G:\Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4
+    Dispositivo     : Haggyescritorio|Windows|AMD64
+    ID dispositivo  : b7f7b638fce2d
+    Resolución      : 1920x1080
+    Duración        : 00:29:37
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 456.3 MB
+    Bitrate aprox.  : 2154 kbps
+    Bitrate vídeo   : 2052 kbps
+    Frames huella   : 0
+
+  VIDEO B  Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4
+  ↳ /home/haggy/Vídeos/Listos/Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4
+    Dispositivo     : haggy-escritorio|Linux|x86_64
+    ID dispositivo  : c55c28b5bf8e8
+    Resolución      : 1920x1080
+    Duración        : 00:29:37
+    Códec video     : hevc
+    Códec audio     : aac
+    Tamaño archivo  : 456.3 MB
+    Bitrate aprox.  : 2154 kbps
+    Bitrate vídeo   : 2052 kbps
+    Frames huella   : 0
+
+  Similitud visual: 100.0%   |   Audio: no evaluado (SHA256 suficiente)
+  Nota: SHA256 registrado idéntico: 889ea7cfb7a8c3ff280721ac55bb9a1aa262898bd6d8d0909a892ab0bf222fb4. Contenido no releído durante esta comparación.",,,,,duplicado_exacto,G:\Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4,Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4,/home/haggy/Vídeos/Listos/Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4,Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4,1.0,-1.0,1.0,,,SHA256 registrado idéntico: 889ea7cfb7a8c3ff280721ac55bb9a1aa262898bd6d8d0909a892ab0bf222fb4. Contenido no releído durante esta comparación.,G:\Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4,Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,1777.4,"[1920, 1080]",25.0,hevc,aac,478475892,2153.6,2051.553,889ea7cfb7a8c3ff280721ac55bb9a1aa262898bd6d8d0909a892ab0bf222fb4,0,/home/haggy/Vídeos/Listos/Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4,Xvideos_anal_duro_y_squirting_con_una_joven_morena_esbelta_HD.mp4,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,1777.4,"[1920, 1080]",25.0,hevc,aac,478475892,2153.6,2051.553,889ea7cfb7a8c3ff280721ac55bb9a1aa262898bd6d8d0909a892ab0bf222fb4,0,51,DUPLICADO EXACTO,100.0%,100.0%,no evaluado (SHA256 suficiente),

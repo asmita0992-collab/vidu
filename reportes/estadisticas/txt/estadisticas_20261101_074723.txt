@@ -1,0 +1,54 @@
+ESTADÍSTICAS VIDUP — 2026-11-01 07:47:23 UTC-6
+Origen: neon_cloud
+Vídeos totales: 1563
+Procesados sin error: 1563
+Con error: 0
+Duración total: 816.34 h
+Tamaño total: 818.591 GB
+Dispositivos/grupos: 4
+Etiquetas de origen registradas (sin volver a contar vídeos):
+  Haggyescritorio|Windows|AMD64
+  haggy-escritorio|Linux|x86_64
+
+DISPOSITIVO: Haggyescritorio|Windows|AMD64 (ID b7f7b638fce2d)
+  Vídeos: 1105; bytes: 620584679641; SHA256: 1105; visual: 766; audio: 766; errores: 0
+  G:\ | 986 vídeos | 542173569871 bytes | SHA256 986 | visual 766
+  G:\Angel de Bogota\ | 59 vídeos | 52282478560 bytes | SHA256 59 | visual 0
+  G:\Verticales\ | 24 vídeos | 7390584895 bytes | SHA256 24 | visual 0
+  G:\Duplicados\ | 21 vídeos | 9049538298 bytes | SHA256 21 | visual 0
+  G:\Kaneda\ | 15 vídeos | 9688508017 bytes | SHA256 15 | visual 0
+
+DISPOSITIVO: Xiaomi 2207117BPG|Android|aarch64 (ID 8db6dabd073cc)
+  Vídeos: 231; bytes: 156748023859; SHA256: 231; visual: 0; audio: 0; errores: 0
+  /storage/emulated/0/Videos/ | 68 vídeos | 31819354086 bytes | SHA256 68 | visual 0
+  /storage/9F36-61B5/Videos/ | 37 vídeos | 39444199230 bytes | SHA256 37 | visual 0
+  /storage/9F36-61B5/Videos/Verticales/ | 25 vídeos | 7632480464 bytes | SHA256 25 | visual 0
+  /storage/9F36-61B5/Videos/7-10-2026/ | 14 vídeos | 10598066352 bytes | SHA256 14 | visual 0
+  /storage/emulated/0/Videos/19-10-2026/ | 12 vídeos | 7503572373 bytes | SHA256 12 | visual 0
+  /storage/emulated/0/Videos/14-10-2026/ | 11 vídeos | 6799811584 bytes | SHA256 11 | visual 0
+  /storage/emulated/0/Videos/22-10-2026/ | 9 vídeos | 9523951144 bytes | SHA256 9 | visual 0
+  /storage/emulated/0/Videos/9-10-2026/ | 9 vídeos | 5496305276 bytes | SHA256 9 | visual 0
+  /storage/emulated/0/Videos/Verticales/ | 8 vídeos | 3911881810 bytes | SHA256 8 | visual 0
+  /storage/emulated/0/Videos/18-10-2026/ | 7 vídeos | 4824525294 bytes | SHA256 7 | visual 0
+  /storage/emulated/0/Videos/Ángel de Bogotá/ | 6 vídeos | 7847648450 bytes | SHA256 6 | visual 0
+  /storage/9F36-61B5/Videos/8-10-2026/ | 4 vídeos | 2640579496 bytes | SHA256 4 | visual 0
+  /storage/emulated/0/Videos/20-10-2026/ | 4 vídeos | 2476326782 bytes | SHA256 4 | visual 0
+  /storage/emulated/0/Videos/25-10-2026/ | 4 vídeos | 7504812800 bytes | SHA256 4 | visual 0
+  /storage/9F36-61B5/Videos/04-09-2025/ | 3 vídeos | 2706811410 bytes | SHA256 3 | visual 0
+  /storage/emulated/0/Videos/12-10-2026/ | 3 vídeos | 2218497221 bytes | SHA256 3 | visual 0
+  /storage/emulated/0/Videos/15-10-2026/ | 3 vídeos | 1425099112 bytes | SHA256 3 | visual 0
+  /storage/emulated/0/Videos/23-10-2026/ | 3 vídeos | 1910136617 bytes | SHA256 3 | visual 0
+  /storage/9F36-61B5/Videos/Bi/ | 1 vídeos | 463964358 bytes | SHA256 1 | visual 0
+
+DISPOSITIVO: haggy-escritorio|Linux|x86_64 (ID c55c28b5bf8e8)
+  Vídeos: 181; bytes: 77827196671; SHA256: 181; visual: 36; audio: 36; errores: 0
+  /home/haggy/Vídeos/Listos/ | 181 vídeos | 77827196671 bytes | SHA256 181 | visual 36
+
+DISPOSITIVO: INFINIX Infinix X6886|Android|aarch64 (ID b3f0da991eeee)
+  Vídeos: 46; bytes: 23795817241; SHA256: 46; visual: 1; audio: 1; errores: 0
+  /storage/emulated/0/Videos/Gay/ | 14 vídeos | 5406312848 bytes | SHA256 14 | visual 0
+  /storage/emulated/0/Videos/16-10-2026/ | 8 vídeos | 5037517493 bytes | SHA256 8 | visual 1
+  /storage/emulated/0/Videos/Gay/Luiz Felipe/ | 7 vídeos | 2386331724 bytes | SHA256 7 | visual 0
+  /storage/emulated/0/Videos/Hetero/ | 6 vídeos | 2551767730 bytes | SHA256 6 | visual 0
+  /storage/emulated/0/Vids/HEVC/ | 6 vídeos | 6642043593 bytes | SHA256 6 | visual 0
+  /storage/emulated/0/Videos/Gay/Jorge/ | 5 vídeos | 1771843853 bytes | SHA256 5 | visual 0

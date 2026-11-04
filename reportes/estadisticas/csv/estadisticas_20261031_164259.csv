@@ -1,0 +1,10 @@
+﻿tipo,dispositivo,dispositivo_id,carpeta,videos,tamanio_bytes,sha256,visual,audio,errores,procesados_sin_error,duracion_horas,gb_totales,grupos_dispositivo,etiquetas_origen
+general,,,/home/haggy/VIDUP/reportes/respaldos/db/respaldo231026.db,1133,,,,,0,1133,587.8,582.198,2,Haggyescritorio|Windows|AMD64
+dispositivo,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,,1105,620584679641,1105,766,766,0,,,,,
+carpeta,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,G:\,986,542173569871,986,766,,,,,,,
+carpeta,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,G:\Angel de Bogota\,59,52282478560,59,0,,,,,,,
+carpeta,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,G:\Verticales\,24,7390584895,24,0,,,,,,,
+carpeta,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,G:\Duplicados\,21,9049538298,21,0,,,,,,,
+carpeta,Haggyescritorio|Windows|AMD64,b7f7b638fce2d,G:\Kaneda\,15,9688508017,15,0,,,,,,,
+dispositivo,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,,28,4545532427,28,28,28,0,,,,,
+carpeta,haggy-escritorio|Linux|x86_64,c55c28b5bf8e8,/home/haggy/Vídeos/Listos/,28,4545532427,28,28,,,,,,,

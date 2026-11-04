@@ -1,0 +1,15 @@
+ESTADÍSTICAS VIDUP — 2026-10-27 16:28:06 UTC-6
+Origen: D:\Haggy\Videos_hevc\VIDUP\vidup.db
+Vídeos totales: 158
+Procesados sin error: 158
+Con error: 0
+Duración total: 86.35 h
+Tamaño total: 97.744 GB
+Dispositivos/grupos: 1
+Etiquetas de origen registradas (sin volver a contar vídeos):
+  LAPTOP-HP-AMD|Windows|AMD64
+
+DISPOSITIVO: LAPTOP-HP-AMD|Windows|AMD64 (ID c73ad4231f0b5)
+  Vídeos: 158; bytes: 104951545067; SHA256: 158; visual: 0; audio: 0; errores: 0
+  D:\Haggy\Videos_hevc\ | 98 vídeos | 48938586106 bytes | SHA256 98 | visual 0
+  D:\Haggy\Videos\HEVC\ | 60 vídeos | 56012958961 bytes | SHA256 60 | visual 0

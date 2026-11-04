@@ -1,0 +1,96 @@
+{
+  "fecha_utc6": "2026-10-31 16:42:59 UTC-6",
+  "base": "/home/haggy/VIDUP/reportes/respaldos/db/respaldo231026.db",
+  "generales": {
+    "total_videos": 1133,
+    "con_huella": 1133,
+    "con_error": 0,
+    "horas_totales": 587.8,
+    "gb_totales": 582.198,
+    "dispositivos": [
+      "Haggyescritorio|Windows|AMD64",
+      "haggy-escritorio|Linux|x86_64"
+    ],
+    "dispositivos_origen": [
+      "Haggyescritorio|Windows|AMD64"
+    ]
+  },
+  "dispositivos": [
+    {
+      "dispositivo": "Haggyescritorio|Windows|AMD64",
+      "dispositivo_id": "b7f7b638fce2d",
+      "id_verificado": true,
+      "nombres_registrados": [
+        "Haggyescritorio|Windows|AMD64"
+      ],
+      "total_videos": 1105,
+      "tamanio_bytes": 620584679641,
+      "con_sha256": 1105,
+      "con_huella_visual": 766,
+      "con_huella_audio": 766,
+      "con_error": 0,
+      "carpetas": [
+        {
+          "ruta": "G:\\",
+          "total_videos": 986,
+          "tamanio_bytes": 542173569871,
+          "con_sha256": 986,
+          "con_huella_visual": 766
+        },
+        {
+          "ruta": "G:\\Angel de Bogota\\",
+          "total_videos": 59,
+          "tamanio_bytes": 52282478560,
+          "con_sha256": 59,
+          "con_huella_visual": 0
+        },
+        {
+          "ruta": "G:\\Verticales\\",
+          "total_videos": 24,
+          "tamanio_bytes": 7390584895,
+          "con_sha256": 24,
+          "con_huella_visual": 0
+        },
+        {
+          "ruta": "G:\\Duplicados\\",
+          "total_videos": 21,
+          "tamanio_bytes": 9049538298,
+          "con_sha256": 21,
+          "con_huella_visual": 0
+        },
+        {
+          "ruta": "G:\\Kaneda\\",
+          "total_videos": 15,
+          "tamanio_bytes": 9688508017,
+          "con_sha256": 15,
+          "con_huella_visual": 0
+        }
+      ],
+      "gb_totales": 577.964521610178
+    },
+    {
+      "dispositivo": "haggy-escritorio|Linux|x86_64",
+      "dispositivo_id": "c55c28b5bf8e8",
+      "id_verificado": true,
+      "nombres_registrados": [
+        "haggy-escritorio|Linux|x86_64"
+      ],
+      "total_videos": 28,
+      "tamanio_bytes": 4545532427,
+      "con_sha256": 28,
+      "con_huella_visual": 28,
+      "con_huella_audio": 28,
+      "con_error": 0,
+      "carpetas": [
+        {
+          "ruta": "/home/haggy/Vídeos/Listos/",
+          "total_videos": 28,
+          "tamanio_bytes": 4545532427,
+          "con_sha256": 28,
+          "con_huella_visual": 28
+        }
+      ],
+      "gb_totales": 4.233356962911785
+    }
+  ]
+}

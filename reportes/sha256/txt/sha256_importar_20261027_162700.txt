@@ -1,0 +1,813 @@
+==============================================================================
+SHA256 DE CARPETA — REPORTE
+==============================================================================
+Fecha           : 2026-10-27 16:27:00
+Dispositivo     : LAPTOP-HP-AMD|Windows|AMD64
+ID dispositivo  : c73ad4231f0b5
+Plataforma      : Windows (AMD64)
+¿Android?       : no
+Modo de conexión: N/D
+Modo            : importar
+Carpeta         : D:\Haggy\Videos\HEVC
+Recursivo       : no
+Base de datos   : D:\Haggy\Videos_hevc\VIDUP\vidup.db
+Total archivos  : 60
+Tiempo total    : 00:00:00
+
+==============================================================================
+RESUMEN
+==============================================================================
+  Importados : 60
+  Omitidos   : 0
+    - SHA256 ya registrado en mismo dispositivo : 0
+    - Ruta ya registrada                        : 0
+  Errores    : 0
+
+==============================================================================
+DETALLE POR ARCHIVO
+==============================================================================
+
+------------------------------------------------------------------------------
+1. 2672800744.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\2672800744.mp4
+  Estado : importado
+  SHA256 : e32589f265494a2b2c129a4a7269c101d9050b8e802402d5811039f7f5c10003
+  Tamaño : 900.0 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+2. Adam Snow & Casey Everett & Marcel Eugene.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Adam Snow & Casey Everett & Marcel Eugene.mp4
+  Estado : importado
+  SHA256 : d9c73132519def4268c2edea399b943285056230dae64e98c36d1ee90b702104
+  Tamaño : 884.0 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+3. Adam Snow & Eddie Patrick & Sammy Sins.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Adam Snow & Eddie Patrick & Sammy Sins.mp4
+  Estado : importado
+  SHA256 : d26eb7019859a483100e74f39ed9c7c291a0275236b78813f56a3d87356b1250
+  Tamaño : 841.9 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+4. Adam Snow & Eddie Patrick, Cole Blue, Alfonso Osnaya.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Adam Snow & Eddie Patrick, Cole Blue, Alfonso Osnaya.mp4
+  Estado : importado
+  SHA256 : 71ab06bd30836518c04604734a1c11b19cbb57800bc6e839cfa2957f9d9ca6b5
+  Tamaño : 1.26 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+5. Adam Snow & Noah White & Kyler Drayke.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Adam Snow & Noah White & Kyler Drayke.mp4
+  Estado : importado
+  SHA256 : 21665f15124cb7f5767fdd912f44d34adbb2604c94c33fbe9bceb4d4d9c07b33
+  Tamaño : 530.4 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+6. Adam Snow & TD Graham & Eddie Patrick.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Adam Snow & TD Graham & Eddie Patrick.mp4
+  Estado : importado
+  SHA256 : 2d0031aa60a130c400cc43ab85aa7acc3cffca9099147e05161395f052fb86e4
+  Tamaño : 516.7 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+7. Angel Rivera & Prince Flackoo & Elijah Zayne.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Angel Rivera & Prince Flackoo & Elijah Zayne.mp4
+  Estado : importado
+  SHA256 : 09db3566670968a4060829cfdf7d75ca16531afdeac63cdc4ea4429e492ea1cf
+  Tamaño : 610.9 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+8. Atlantis Cruise 2023.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Atlantis Cruise 2023.mp4
+  Estado : importado
+  SHA256 : dac72302edef7f3b23b395b3def975b7f6bda9237f76cbf93f9ec3249e0fd1ee
+  Tamaño : 536.5 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+9. Bastian & Jack flip flop.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Bastian & Jack flip flop.mp4
+  Estado : importado
+  SHA256 : 0c99b04c22b307e8a24f806e5c2fb2a4d265b3fe09aad0cebd616d7d80a02395
+  Tamaño : 484.3 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+10. Big & Raw.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Big & Raw.mp4
+  Estado : importado
+  SHA256 : b1511e8f23ac0e6be6e60d96bafe7e3b13777271d3e0c7b4c16bd0a08081ca6f
+  Tamaño : 1.52 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+11. British step sisters find out what it means to be free use & filled.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\British step sisters find out what it means to be free use & filled.mp4
+  Estado : importado
+  SHA256 : 1be367e6265a040c22c024b6a954075f6d39446eaaebdc8f95c1544abf261c0a
+  Tamaño : 589.2 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+12. Brooks&Dane cream Elian.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Brooks&Dane cream Elian.mp4
+  Estado : importado
+  SHA256 : 010ba0df6e4abfc4bbbcb315adf9912aca8e8029182d8ac25814e1d9d4e856ae
+  Tamaño : 490.5 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+13. Cockmaxxxing.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Cockmaxxxing.mp4
+  Estado : importado
+  SHA256 : e80de9d7e8967fce60b5b128f4f2939747ecffa0ad472ec17c971fe3503765b6
+  Tamaño : 1.01 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+14. Colombian stepsister is fucking by a european big cock.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Colombian stepsister is fucking by a european big cock.mp4
+  Estado : importado
+  SHA256 : 403e30da47351990e86335a730f997f8106b2feccb704fa8bb7b8f03ed4704f6
+  Tamaño : 530.9 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+15. Dane, Elian&Max threeway.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Dane, Elian&Max threeway.mp4
+  Estado : importado
+  SHA256 : 62ffa7087f5d595627341909eb77d5fe303898e3c30a4ee9bad6a8e72704b54b
+  Tamaño : 539.6 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+16. Danny gets pumped.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Danny gets pumped.mp4
+  Estado : importado
+  SHA256 : 1304549214bdcf32f3e45bd2098bb349cb0e3535edcaee336a4dc81866082de5
+  Tamaño : 684.4 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+17. Dirty urinal fuck.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Dirty urinal fuck.mp4
+  Estado : importado
+  SHA256 : aad59c84a1f80aa0a61200a3074e432a36c95bce36479183e95f361d3953d08c
+  Tamaño : 867.9 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+18. Double penetration for lulita.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Double penetration for lulita.mp4
+  Estado : importado
+  SHA256 : c225d0c61578c5d41eb67116f60b0216925969c6bd407da3dfc2447f008584a4
+  Tamaño : 1.08 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+19. Drill Deeper.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Drill Deeper.mp4
+  Estado : importado
+  SHA256 : ac28dd4bb2cc6a37eae69eb7e15dbf470c3c8c6c7a76fe73e3724ed5c6395441
+  Tamaño : 2.41 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+20. Elian & Rocky flip fuck.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Elian & Rocky flip fuck.mp4
+  Estado : importado
+  SHA256 : c761210ce52d1b58f2dfba94e4871256753e07aa6f0659fcaf2311054fb59b34
+  Tamaño : 482.5 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+21. File 62 - We never met.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\File 62 - We never met.mp4
+  Estado : importado
+  SHA256 : 7cfe8e741fad037f1f8ab929f3aa490600bf65ffed84ec3ed58ac92a3fef2e26
+  Tamaño : 1.86 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+22. File 63 - Is he straight or not.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\File 63 - Is he straight or not.mp4
+  Estado : importado
+  SHA256 : fed702c014ebcef9e51c5743977c7b352bd0405ff54394a3d92664c5305ba8a8
+  Tamaño : 1006.8 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+23. Follando duro en el vestuario.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Follando duro en el vestuario.mp4
+  Estado : importado
+  SHA256 : 1da110151c7dc84844fa8ec6e333ca68e0fb55a79d2eac529404cd577759ae63
+  Tamaño : 610.8 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+24. Freeuse Twinks 3.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Freeuse Twinks 3.mp4
+  Estado : importado
+  SHA256 : 0ab38e5286dd068c8139225260c416b58c379f5326a63579000a06949a190e24
+  Tamaño : 1.86 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+25. Fuck around.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Fuck around.mp4
+  Estado : importado
+  SHA256 : 3307b1fc3a5c30a68cb413789404fc6876ec5be02286faaafe347ec516479c0a
+  Tamaño : 392.1 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+26. Gagged with cock.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Gagged with cock.mp4
+  Estado : importado
+  SHA256 : ce9536d52393e5f90892247b14eab3fb8a54e19f842a1d6d6b23e6c4600b5e12
+  Tamaño : 1.78 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+27. Gigante Profesor BBC Folla un Coño Apretado De Una Hermosa Petite.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Gigante Profesor BBC Folla un Coño Apretado De Una Hermosa Petite.mp4
+  Estado : importado
+  SHA256 : edeef6449e8213a951eace8938ee019e437ce9ec552c019d28f3a2fba5430e20
+  Tamaño : 394.4 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+28. Hot threesome 15.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Hot threesome 15.mp4
+  Estado : importado
+  SHA256 : 590440cb9604020ea88a810209d2602188df8360fd9f91a14821d049e6928b4f
+  Tamaño : 870.8 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+29. Hot Twink Takes 2 Dicks.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Hot Twink Takes 2 Dicks.mp4
+  Estado : importado
+  SHA256 : 51319a4bbf20ed3350dda0737d25374bbb8c67675bb314da3bc6a5a083334852
+  Tamaño : 281.3 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+30. Hung Fucker - hung bros gape new guy, chapter 1.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Hung Fucker - hung bros gape new guy, chapter 1.mp4
+  Estado : importado
+  SHA256 : a11f58f9c61b660445cdc2c456fd7fde2dfa7fd4a228d3a4fe035973d8f9ba6d
+  Tamaño : 834.3 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+31. I exchange sex with my stepsister for a computer.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\I exchange sex with my stepsister for a computer.mp4
+  Estado : importado
+  SHA256 : bbe945df738aef66b73c77bc4000a5fd90d55d779fc2e52a4bf8d823c669869c
+  Tamaño : 380.3 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+32. I get my ass fucked with a 27cm cock and then i flirt with a house worker.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\I get my ass fucked with a 27cm cock and then i flirt with a house worker.mp4
+  Estado : importado
+  SHA256 : 315925fef2107a7cc885e57aef2e18cc36606e6f7660a4725c030a3e1aed8c57
+  Tamaño : 510.6 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+33. I'm stressed to see that my stepdaughter doesn't know how to ride her boyfriends cock so I teach she.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\I'm stressed to see that my stepdaughter doesn't know how to ride her boyfriends cock so I teach she.mp4
+  Estado : importado
+  SHA256 : 585ef917bddecd062990268fb40ab4b3d91f008ead2324aec9bdedc7867e8cdf
+  Tamaño : 471.9 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+34. Jack&Elian stuff Casey.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Jack&Elian stuff Casey.mp4
+  Estado : importado
+  SHA256 : 1c13a11a63dc3c7ee633534a1bf11bba089aa473893f991a09a6ff57643dc218
+  Tamaño : 397.6 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+35. Jair Alves, Helyo Karvalho and Luciano Rabello.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Jair Alves, Helyo Karvalho and Luciano Rabello.mp4
+  Estado : importado
+  SHA256 : 0a3764a4de285526f3f17da803b4100945d550c794cf0e8926cb0edbe3665939
+  Tamaño : 223.3 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+36. Kayser Magnum & Mario.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Kayser Magnum & Mario.mp4
+  Estado : importado
+  SHA256 : 6514289514ed35582ada96eabdcd1fb68b4fb1d04a1201eb0c1d0d4d336cf1b7
+  Tamaño : 984.8 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+37. Leo Bulgari & Cedric Dreamer & Xisco Freeman.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Leo Bulgari & Cedric Dreamer & Xisco Freeman.mp4
+  Estado : importado
+  SHA256 : fa2be416a4b455cd774ad2ec349487334777469b803c3bd43624f3037dcfe371
+  Tamaño : 639.6 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+38. Like them big.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Like them big.mp4
+  Estado : importado
+  SHA256 : e64170e066fa693c67dfb32c37fa399717613f54a52fe392ade8878184091168
+  Tamaño : 1.48 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+39. Love me until I cum.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Love me until I cum.mp4
+  Estado : importado
+  SHA256 : c5fb1700dc8ecaa5ec5aa8417f5c981cb904389808f4ec99547f2a19894d4f3f
+  Tamaño : 1.92 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+40. Macho Latino Volume 3.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Macho Latino Volume 3.mp4
+  Estado : importado
+  SHA256 : 75038f798ad9f12ad27d16df5231886ccfae08a693fff106af6c1a01c23ba4b3
+  Tamaño : 2.85 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+41. Malik Joseph & Tony Genius & Ty Santana.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Malik Joseph & Tony Genius & Ty Santana.mp4
+  Estado : importado
+  SHA256 : 7e86ca5758d2d24123e6f8334b41903532457e24f8245b48eacc684b91cc05af
+  Tamaño : 594.8 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+42. Marmita de casal.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Marmita de casal.mp4
+  Estado : importado
+  SHA256 : 857478fbd73d83f1a8d51741e7d536f0fc23f830ec0207febefa6359cf8ad67c
+  Tamaño : 598.8 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+43. Men in mask, part 2.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Men in mask, part 2.mp4
+  Estado : importado
+  SHA256 : a519a72d38c53a259866d13a5a766dfb5328e60b027b0576de70220225d988f3
+  Tamaño : 235.0 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+44. Mexicanos follando riquísimo.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Mexicanos follando riquísimo.mp4
+  Estado : importado
+  SHA256 : 6da36e67c60b7a1c7bcf13ab2c2eae021fac2be093a80d9cb664b3435c4ea232
+  Tamaño : 743.4 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+45. Nerdy latina is turned on by stepbrothers fat penis.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Nerdy latina is turned on by stepbrothers fat penis.mp4
+  Estado : importado
+  SHA256 : e364e055bbaa2ad7d91d77621e575b46b548b13c854248aecf32ea8dc733f282
+  Tamaño : 579.9 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+46. Orgy.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Orgy.mp4
+  Estado : importado
+  SHA256 : da31197e1e0a27f4fb88fd8cef2b27432c8396ec8bcb91de941d1c9205a16ba7
+  Tamaño : 1.34 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+47. Pipeline under pressure.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Pipeline under pressure.mp4
+  Estado : importado
+  SHA256 : 1dedf459935a3b201f9d7a172ac336f8c66036833c5aab06fe65aba8ca271350
+  Tamaño : 442.3 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+48. Silas Brooks & Max Carter & Canyon Cole.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Silas Brooks & Max Carter & Canyon Cole.mp4
+  Estado : importado
+  SHA256 : d9ba1288ed04515fcb6f1a7be3a94d9031a3f235339af5bd1a113829d33541ed
+  Tamaño : 597.2 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+49. Suite indulgence.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Suite indulgence.mp4
+  Estado : importado
+  SHA256 : 64e46434a62ff4c4c946b2b23082175641718309468f4041c2c0d7008f836ace
+  Tamaño : 685.6 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+50. Svandylove and Drake Von DP Leo Grand.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Svandylove and Drake Von DP Leo Grand.mp4
+  Estado : importado
+  SHA256 : 9ac80661820a5735a326b685a8eb1a9352db615f12cf92c831dc23ad18734895
+  Tamaño : 915.0 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+51. SWEATY FLIP FLOP.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\SWEATY FLIP FLOP.mp4
+  Estado : importado
+  SHA256 : 55864a12067ce1de3f92511971933be60212489229cc5a617b6ff10c35e49e39
+  Tamaño : 937.2 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+52. Swhirly & Gonzales & Ty Santana.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Swhirly & Gonzales & Ty Santana.mp4
+  Estado : importado
+  SHA256 : 4349050b4ba68aae85882fbd0a04976ac36dee5b9c753604234b65d119dc2bdc
+  Tamaño : 725.3 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+53. The Day Laborer.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\The Day Laborer.mp4
+  Estado : importado
+  SHA256 : 17dacd81e8d9e6207476b8b6286b456e9ec4cb7cf1a58d8ddebf81faae08d97e
+  Tamaño : 727.9 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+54. The getaway.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\The getaway.mp4
+  Estado : importado
+  SHA256 : 5fb1e9237228be7cc2c6fbec2272dcbb56497a92a1d9097b382ac16ba77d975f
+  Tamaño : 1.89 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+55. Therapy Dick 5 (2024).mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Therapy Dick 5 (2024).mp4
+  Estado : importado
+  SHA256 : ec86501ca490a52b9bcbda8d6ae0e8880789ea499fe6525fe52bea744f455197
+  Tamaño : 1.08 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+56. Threesome in Isla Mujeres.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Threesome in Isla Mujeres.mp4
+  Estado : importado
+  SHA256 : 559fef6897782fec45ab62a30773a929b117ba96e9062bb16e1b53b81bd115d5
+  Tamaño : 703.5 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+57. Threeway with Dalton.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Threeway with Dalton.mp4
+  Estado : importado
+  SHA256 : af29e3ad817fcca9e23cf460a1d55fbe09d19e64b889ad7698ab3206170e56df
+  Tamaño : 472.9 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+58. Turning Dylan Out.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Turning Dylan Out.mp4
+  Estado : importado
+  SHA256 : b6adb53bf78175a09a636222f24840bd8f0ec0de1b038477b2f0669ab45e2537
+  Tamaño : 467.8 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+59. Ty Santana & Johnny Viper & Theo Brady.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\Ty Santana & Johnny Viper & Theo Brady.mp4
+  Estado : importado
+  SHA256 : 68cee562f679175fbead18e7188720cea4b8803cc26889daff147d5372a44f25
+  Tamaño : 556.0 MB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+------------------------------------------------------------------------------
+60. XXL monstercocks.mp4
+------------------------------------------------------------------------------
+  Ruta   : D:\Haggy\Videos\HEVC\XXL monstercocks.mp4
+  Estado : importado
+  SHA256 : 9d74237269fe567254342739991a7d3a870820eeb2ddad3bd3346f2f43780b6a
+  Tamaño : 1.98 GB
+  Resolución: N/D
+  Duración: N/D
+  Códec vídeo: N/D
+  Códec audio: N/D
+  Bitrate vídeo: N/D
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+

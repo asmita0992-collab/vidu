@@ -1,0 +1,17 @@
+{
+    "procesados": 1,
+    "omitidos": 35,
+    "errores": [],
+    "tiempo_seg": 212.62962147500002,
+    "dispositivo": {
+        "dispositivo": "haggy-escritorio|Linux|x86_64",
+        "dispositivo_id": "c55c28b5bf8e8",
+        "iud_c": "c55c28b5bf8e87c8cc517f10fec8192851bf8613364e0d6a1d38fd4f1ae0ca92",
+        "plataforma": "Linux",
+        "maquina": "x86_64",
+        "hostname": "haggy-escritorio",
+        "es_android": false,
+        "ruta_identidad": "/home/haggy/Vídeos/VIDUP/.vidup_device_identity.json"
+    },
+    "conexion": "EN LÍNEA (Neon PostgreSQL en la nube)"
+}

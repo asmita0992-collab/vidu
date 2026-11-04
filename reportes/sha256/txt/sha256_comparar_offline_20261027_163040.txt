@@ -1,0 +1,980 @@
+==============================================================================
+SHA256 DE CARPETA — REPORTE
+==============================================================================
+Fecha           : 2026-10-27 16:30:40
+Dispositivo     : LAPTOP-HP-AMD|Windows|AMD64
+ID dispositivo  : c73ad4231f0b5
+Plataforma      : Windows (AMD64)
+¿Android?       : no
+Modo de conexión: FUERA DE LÍNEA (SQLite local)
+Modo            : comparar
+Carpeta         : Desde JSON offline
+Recursivo       : no
+Base de datos   : C:\Users\Haggy\Downloads\poco.db
+Total archivos  : 158
+Tiempo total    : 00:00:00
+
+==============================================================================
+RESUMEN
+==============================================================================
+  Coincidencias (sin registro previo en origen) : 0
+  Ignorados (ya registrados en dispositivo origen): 0
+  Nuevos (nunca vistos)                           : 0
+  Errores                                         : 158
+
+==============================================================================
+ERRORES (158)
+==============================================================================
+
+------------------------------------------------------------------------------
+1. 2672800744.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\2672800744.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+2. Adam Snow & Casey Everett & Marcel Eugene.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Adam Snow & Casey Everett & Marcel Eugene.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+3. Adam Snow & Eddie Patrick & Sammy Sins.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Adam Snow & Eddie Patrick & Sammy Sins.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+4. Adam Snow & Eddie Patrick, Cole Blue, Alfonso Osnaya.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Adam Snow & Eddie Patrick, Cole Blue, Alfonso Osnaya.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+5. Adam Snow & Noah White & Kyler Drayke.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Adam Snow & Noah White & Kyler Drayke.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+6. Adam Snow & TD Graham & Eddie Patrick.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Adam Snow & TD Graham & Eddie Patrick.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+7. Angel Rivera & Prince Flackoo & Elijah Zayne.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Angel Rivera & Prince Flackoo & Elijah Zayne.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+8. Atlantis Cruise 2023.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Atlantis Cruise 2023.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+9. Bastian & Jack flip flop.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Bastian & Jack flip flop.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+10. Big & Raw.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Big & Raw.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+11. British step sisters find out what it means to be free use & filled.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\British step sisters find out what it means to be free use & filled.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+12. Brooks&Dane cream Elian.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Brooks&Dane cream Elian.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+13. Cockmaxxxing.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Cockmaxxxing.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+14. Colombian stepsister is fucking by a european big cock.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Colombian stepsister is fucking by a european big cock.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+15. Dane, Elian&Max threeway.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Dane, Elian&Max threeway.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+16. Danny gets pumped.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Danny gets pumped.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+17. Dirty urinal fuck.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Dirty urinal fuck.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+18. Double penetration for lulita.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Double penetration for lulita.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+19. Drill Deeper.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Drill Deeper.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+20. Elian & Rocky flip fuck.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Elian & Rocky flip fuck.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+21. File 62 - We never met.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\File 62 - We never met.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+22. File 63 - Is he straight or not.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\File 63 - Is he straight or not.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+23. Follando duro en el vestuario.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Follando duro en el vestuario.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+24. Freeuse Twinks 3.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Freeuse Twinks 3.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+25. Fuck around.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Fuck around.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+26. Gagged with cock.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Gagged with cock.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+27. Gigante Profesor BBC Folla un Coño Apretado De Una Hermosa Petite.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Gigante Profesor BBC Folla un Coño Apretado De Una Hermosa Petite.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+28. Hot threesome 15.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Hot threesome 15.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+29. Hot Twink Takes 2 Dicks.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Hot Twink Takes 2 Dicks.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+30. Hung Fucker - hung bros gape new guy, chapter 1.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Hung Fucker - hung bros gape new guy, chapter 1.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+31. I exchange sex with my stepsister for a computer.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\I exchange sex with my stepsister for a computer.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+32. I get my ass fucked with a 27cm cock and then i flirt with a house worker.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\I get my ass fucked with a 27cm cock and then i flirt with a house worker.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+33. I'm stressed to see that my stepdaughter doesn't know how to ride her boyfriends cock so I teach she.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\I'm stressed to see that my stepdaughter doesn't know how to ride her boyfriends cock so I teach she.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+34. Jack&Elian stuff Casey.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Jack&Elian stuff Casey.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+35. Jair Alves, Helyo Karvalho and Luciano Rabello.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Jair Alves, Helyo Karvalho and Luciano Rabello.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+36. Kayser Magnum & Mario.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Kayser Magnum & Mario.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+37. Leo Bulgari & Cedric Dreamer & Xisco Freeman.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Leo Bulgari & Cedric Dreamer & Xisco Freeman.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+38. Like them big.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Like them big.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+39. Love me until I cum.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Love me until I cum.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+40. Macho Latino Volume 3.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Macho Latino Volume 3.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+41. Malik Joseph & Tony Genius & Ty Santana.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Malik Joseph & Tony Genius & Ty Santana.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+42. Marmita de casal.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Marmita de casal.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+43. Men in mask, part 2.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Men in mask, part 2.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+44. Mexicanos follando riquísimo.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Mexicanos follando riquísimo.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+45. Nerdy latina is turned on by stepbrothers fat penis.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Nerdy latina is turned on by stepbrothers fat penis.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+46. Orgy.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Orgy.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+47. Pipeline under pressure.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Pipeline under pressure.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+48. Silas Brooks & Max Carter & Canyon Cole.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Silas Brooks & Max Carter & Canyon Cole.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+49. Suite indulgence.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Suite indulgence.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+50. Svandylove and Drake Von DP Leo Grand.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Svandylove and Drake Von DP Leo Grand.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+51. SWEATY FLIP FLOP.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\SWEATY FLIP FLOP.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+52. Swhirly & Gonzales & Ty Santana.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Swhirly & Gonzales & Ty Santana.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+53. The Day Laborer.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\The Day Laborer.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+54. The getaway.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\The getaway.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+55. Therapy Dick 5 (2024).mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Therapy Dick 5 (2024).mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+56. Threesome in Isla Mujeres.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Threesome in Isla Mujeres.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+57. Threeway with Dalton.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Threeway with Dalton.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+58. Turning Dylan Out.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Turning Dylan Out.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+59. Ty Santana & Johnny Viper & Theo Brady.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\Ty Santana & Johnny Viper & Theo Brady.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+60. XXL monstercocks.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos\HEVC\XXL monstercocks.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+61. 1_4981368632576575483.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4981368632576575483.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+62. 1_4992342922557917854.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4992342922557917854.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+63. 1_4992342922557917855.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4992342922557917855.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+64. 1_4992342922557917856.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4992342922557917856.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+65. 1_4992342922557917857.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4992342922557917857.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+66. 1_4992342922557917858.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4992342922557917858.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+67. 1_4992342922557917859.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4992342922557917859.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+68. 1_4992342922557917860.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4992342922557917860.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+69. 1_4992342922557917862.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4992342922557917862.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+70. 1_4992342922557917863.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4992342922557917863.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+71. 1_4992342922557917864.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4992342922557917864.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+72. 1_4992342922557917865.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4992342922557917865.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+73. 1_4994927616696781487.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781487.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+74. 1_4994927616696781488.MP4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781488.MP4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+75. 1_4994927616696781489.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781489.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+76. 1_4994927616696781490.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781490.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+77. 1_4994927616696781491.MP4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781491.MP4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+78. 1_4994927616696781492.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781492.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+79. 1_4994927616696781493.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781493.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+80. 1_4994927616696781494.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781494.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+81. 1_4994927616696781495.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781495.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+82. 1_4994927616696781496.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781496.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+83. 1_4994927616696781497.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781497.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+84. 1_4994927616696781498.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781498.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+85. 1_4994927616696781499.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781499.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+86. 1_4994927616696781500.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\1_4994927616696781500.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+87. 298261958.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\298261958.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+88. A Pelo Le Follamos El Culo Entre 3 En Las Escaleras Del Edificio.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\A Pelo Le Follamos El Culo Entre 3 En Las Escaleras Del Edificio.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+89. Aguanta Una Doble Follada Como Una Zorra Hambrienta.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Aguanta Una Doble Follada Como Una Zorra Hambrienta.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+90. alec loob, tony conrad & timmy treasure.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\alec loob, tony conrad & timmy treasure.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+91. Alejo Ospina & Kayser Magnum.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Alejo Ospina & Kayser Magnum.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+92. Alo_twink & Benji share a British Christmas Party in a wild threesome with a twist.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Alo_twink & Benji share a British Christmas Party in a wild threesome with a twist.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+93. An Improvised Threesome.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\An Improvised Threesome.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+94. Andre Pijote & Filipe Barros.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Andre Pijote & Filipe Barros.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+95. Andre Pijote & Luiz Felipe.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Andre Pijote & Luiz Felipe.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+96. andre pijote e gringo rabudo.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\andre pijote e gringo rabudo.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+97. Andre Pijote, Igor Lucios e Jordan.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Andre Pijote, Igor Lucios e Jordan.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+98. Brazilian Leche 2.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Brazilian Leche 2.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+99. Brazilian Leche.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Brazilian Leche.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+100. Busty Agente Inmobiliario Obtiene un Cliente Desvergonzado y Le Ofrece Servicios Extra.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Busty Agente Inmobiliario Obtiene un Cliente Desvergonzado y Le Ofrece Servicios Extra.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+101. Carlos Martinez, Evandro, Matty Kinky - They Get Horny on the Beach.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Carlos Martinez, Evandro, Matty Kinky - They Get Horny on the Beach.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+102. Chicos Latinos Disfrutando Después De un Día En La Playa.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Chicos Latinos Disfrutando Después De un Día En La Playa.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+103. CK - Servin it UP.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\CK - Servin it UP.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+104. Coddy Viper and Cristiano Flip suck up in the mountains while flaunting their hot bodies.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Coddy Viper and Cristiano Flip suck up in the mountains while flaunting their hot bodies.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+105. Colton Mckeon Greg Mckeon.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Colton Mckeon Greg Mckeon.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+106. Colton Mckeon Jack Bailey Greg Mckeon.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Colton Mckeon Jack Bailey Greg Mckeon.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+107. Cuerpo Tatuado Twink Gay Follando Duro Hasta Sacar Semen.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Cuerpo Tatuado Twink Gay Follando Duro Hasta Sacar Semen.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+108. Cum Balloon Fight.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Cum Balloon Fight.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+109. Czech Couple Tristan Hale & Addy Leon Flip Fucking With Their Friend.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Czech Couple Tristan Hale & Addy Leon Flip Fucking With Their Friend.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+110. Denis, Fabrizio, Giulio, and friends take turns cooking in a wild anal threesome.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Denis, Fabrizio, Giulio, and friends take turns cooking in a wild anal threesome.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+111. Doctora petite de enorme culo ayuda a su paciente con su problema de erección.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Doctora petite de enorme culo ayuda a su paciente con su problema de erección.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+112. Earn Your Stripes.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Earn Your Stripes.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+113. Episode 1 of Stranger Twinks A wild and steamy episode of hot and heavy anal action.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Episode 1 of Stranger Twinks A wild and steamy episode of hot and heavy anal action.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+114. Ethan Adams & Spikey Dee swap their bisexuality for a hardcore barefuck session.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Ethan Adams & Spikey Dee swap their bisexuality for a hardcore barefuck session.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+115. Family Transformation Scene 1 Asia Belle.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Family Transformation Scene 1 Asia Belle.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+116. Follandome a Mi Hermanastro Para que Haga Los que Haceres Del Hogar.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Follandome a Mi Hermanastro Para que Haga Los que Haceres Del Hogar.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+117. Follo Con Mi Mejor Amigo Despues De Clases.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Follo Con Mi Mejor Amigo Despues De Clases.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+118. Gabriel Coimbra Gives Lorenzo Bluex a Rough Fuck.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Gabriel Coimbra Gives Lorenzo Bluex a Rough Fuck.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+119. gay sex twinks.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\gay sex twinks.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+120. GRAN CULO OBTIENE DOBLE PENETRACIÓN EXTREMA.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\GRAN CULO OBTIENE DOBLE PENETRACIÓN EXTREMA.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+121. Gustavo, Bryan, Kardoso Helyo part 2.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Gustavo, Bryan, Kardoso Helyo part 2.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+122. he loves DP.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\he loves DP.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+123. Hermosa Jefa Se Folla La Enorme Verga De Su Empleado Del Mes.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Hermosa Jefa Se Folla La Enorme Verga De Su Empleado Del Mes.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+124. Hermosa reclusa de la cárcel de Medellín es follada por policía de enorme verga.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Hermosa reclusa de la cárcel de Medellín es follada por policía de enorme verga.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+125. I filled the white boys ass with my milk.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\I filled the white boys ass with my milk.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+126. I sodomize his ass and left milk inside him.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\I sodomize his ass and left milk inside him.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+127. In Richelle Ryans Backyard.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\In Richelle Ryans Backyard.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+128. Interracial Orgy.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Interracial Orgy.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+129. Isma and David in hot bareback anal action with hot twinks.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Isma and David in hot bareback anal action with hot twinks.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+130. Isma, the hot twink, gets her tight ass stretched by a big cock.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Isma, the hot twink, gets her tight ass stretched by a big cock.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+131. Jacktwinkies hot anal adventure with The Sexy Technician.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Jacktwinkies hot anal adventure with The Sexy Technician.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+132. JS ML & VK.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\JS ML & VK.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+133. jugosa follada y mamada con mucho aceite a rubia petite.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\jugosa follada y mamada con mucho aceite a rubia petite.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+134. Le follamos todos los agujeros a una buena puta.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Le follamos todos los agujeros a una buena puta.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+135. luccas1999 fucks nathanazzz.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\luccas1999 fucks nathanazzz.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+136. Madrastra termina en una doble penetración.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Madrastra termina en una doble penetración.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+137. ME FOLLO AL HIJASTRO DE MI NUEVO NOVIO Y NOS PILLA SU AMANTE.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\ME FOLLO AL HIJASTRO DE MI NUEVO NOVIO Y NOS PILLA SU AMANTE.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+138. MelvinMooreVIP Gets Fucked All Over The House By vlett23qx.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\MelvinMooreVIP Gets Fucked All Over The House By vlett23qx.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+139. MI ESPOSA FOLLA AL TÉCNICO DE LA CALEFACCIÓN Y LUEGO a MI HIJASTRO PARA MANTENERSE CALIENTE.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\MI ESPOSA FOLLA AL TÉCNICO DE LA CALEFACCIÓN Y LUEGO a MI HIJASTRO PARA MANTENERSE CALIENTE.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+140. Milo Kleos & friends give a wild threesome to Twunk Couple Fran & Igur.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Milo Kleos & friends give a wild threesome to Twunk Couple Fran & Igur.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+141. My ex loves to widen my ass with his BBC.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\My ex loves to widen my ass with his BBC.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+142. No Quiero IR De Fiesta Mejor Parte Mi Pastel.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\No Quiero IR De Fiesta Mejor Parte Mi Pastel.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+143. Part 1 - Yarddie Style & Alex Kent.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Part 1 - Yarddie Style & Alex Kent.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+144. Part 2 - Yarddie Style & Alex Kent.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Part 2 - Yarddie Style & Alex Kent.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+145. Pledge hunter nash first taste.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Pledge hunter nash first taste.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+146. Roby Devil And David Devil Breed Austin Ponce.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Roby Devil And David Devil Breed Austin Ponce.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+147. Sam Ledger & KieKie18X Fuck Each Others.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Sam Ledger & KieKie18X Fuck Each Others.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+148. Sexy Model Milo Kleos Breeds Nolan Blaaze.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Sexy Model Milo Kleos Breeds Nolan Blaaze.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+149. Spanish Twink Isma Bred By Two Daddies, Aaron Hugese & Alberth Pineda.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Spanish Twink Isma Bred By Two Daddies, Aaron Hugese & Alberth Pineda.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+150. Stuffing The Butt, Part 1.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Stuffing The Butt, Part 1.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+151. Terry Strokes Breeds Cute Twinks SpikeyDeeVIP And HeyitsChance.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Terry Strokes Breeds Cute Twinks SpikeyDeeVIP And HeyitsChance.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+152. Threesome.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Threesome.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+153. Titus, Svandylove & Noah Ryder go wild in a Castle Trio Train.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Titus, Svandylove & Noah Ryder go wild in a Castle Trio Train.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+154. Trevor Brooks OnlyFans.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Trevor Brooks OnlyFans.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+155. Tri way sex.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Tri way sex.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+156. Trío Colombiano.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Trío Colombiano.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+157. Vizinhos.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Vizinhos.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+------------------------------------------------------------------------------
+158. Weekend Orgy.mp4
+------------------------------------------------------------------------------
+  Ruta  : D:\Haggy\Videos_hevc\Weekend Orgy.mp4
+  Causa : Hash SHA256 ausente o inválido en el JSON.
+
+==============================================================================
+FIN DEL REPORTE
+==============================================================================
+
