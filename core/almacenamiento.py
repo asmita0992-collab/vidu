@@ -77,14 +77,51 @@ def base_reciente_por_defecto() -> str:
     return str(DIR_SCRIPT / 'vidup.db')
 
 
-# Aliases de compatibilidad con código que usaba _prefijo
-_directorio_script = directorio_script
-_carpeta_reportes = carpeta_reportes
-_carpeta_salida_videos = carpeta_salida_videos
-_ruta_errores_jsonl = ruta_errores_jsonl
-_ruta_errores_txt = ruta_errores_txt
-_asegurar_estructura_reportes = asegurar_estructura_reportes
-_base_reciente_por_defecto = base_reciente_por_defecto
+def obtener_rutas_historial_escaneo() -> List[Path]:
+    """Retorna las rutas guardadas en el historial de escaneos anteriores."""
+    archivo = DIR_SCRIPT / '.vidup_rutas_historial.json'
+    if not archivo.is_file():
+        return []
+    try:
+        with archivo.open('r', encoding='utf-8') as f:
+            datos = json.load(f)
+            rutas_str = datos.get('rutas', [])
+            rutas_validas = []
+            for r in rutas_str:
+                p = Path(r)
+                if p.is_dir():
+                    rutas_validas.append(p)
+            return rutas_validas
+    except Exception:
+        return []
+
+
+def guardar_ruta_historial_escaneo(ruta: Any) -> None:
+    """Guarda una ruta de directorio en el historial permanente de escaneos."""
+    if not ruta:
+        return
+    p = Path(ruta).resolve()
+    if not p.is_dir():
+        return
+    archivo = DIR_SCRIPT / '.vidup_rutas_historial.json'
+    rutas = []
+    if archivo.is_file():
+        try:
+            with archivo.open('r', encoding='utf-8') as f:
+                datos = json.load(f)
+                rutas = datos.get('rutas', [])
+        except Exception:
+            pass
+    ruta_str = str(p)
+    if ruta_str in rutas:
+        rutas.remove(ruta_str)
+    rutas.insert(0, ruta_str)
+    rutas = rutas[:15]  # Mantener hasta 15 rutas recientes
+    try:
+        with archivo.open('w', encoding='utf-8') as f:
+            json.dump({'rutas': rutas}, f, indent=2, ensure_ascii=False)
+    except Exception:
+        pass
 
 
 def _rutas_con_error_registrado() -> set:
