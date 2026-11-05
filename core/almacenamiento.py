@@ -7,7 +7,7 @@ from core.horario import fmt_ahora_utc6 as _fmt_ahora_utc6
 from core.presentacion import imprimir, pedir_ruta, pedir_texto, RegresarAlMenu
 
 from pathlib import Path
-from typing import List, Tuple
+from typing import Any, List, Tuple
 
 # Directorio del script principal (vidup.py)
 DIR_SCRIPT: Path = Path(__file__).resolve().parent.parent
@@ -65,7 +65,15 @@ def asegurar_estructura_reportes() -> None:
 
 
 def base_reciente_por_defecto() -> str:
-    """Retorna la ruta de la base de datos SQLite más reciente, o la por defecto."""
+    """Retorna la ruta de la base de datos SQLite por defecto del dispositivo o la más reciente en respaldos."""
+    try:
+        from core.sincronizacion import obtener_ruta_db_local_dispositivo
+        db_local = obtener_ruta_db_local_dispositivo()
+        if db_local:
+            return str(db_local)
+    except Exception:
+        pass
+
     carpeta = carpeta_reportes() / 'respaldos' / 'db'
     candidatas: List[Tuple[int, Path]] = []
     if carpeta.is_dir():

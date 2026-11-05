@@ -64,7 +64,7 @@ except ImportError:
     rich_box = None     # type: ignore
     TIENE_RICH = False
 
-CONSOLA = Console(highlight=False, soft_wrap=True) if TIENE_RICH else None
+CONSOLA = Console(highlight=False, soft_wrap=True) if Console is not None else None
 
 # ============================================================================
 # Colores ANSI (fallback)
@@ -98,7 +98,7 @@ def _imprimir(mensaje: str = '', estilo: str = '') -> None:
 
 
 def _regla(titulo: str = '', estilo: str = 'bright_cyan') -> None:
-    if CONSOLA is not None:
+    if CONSOLA is not None and Rule is not None:
         CONSOLA.print(Rule(titulo, style=estilo) if titulo else Rule(style=estilo))
     else:
         print()
@@ -181,8 +181,8 @@ def _windows_basico(ruta, fechas=None):
         if not correcto:
             raise ctypes.WinError(ctypes.get_last_error())
         return {
-            nombre: int(getattr(info, nombre))
-            for nombre, _ in BasicInfo._fields_ if nombre != 'FileAttributes'
+            campo[0]: int(getattr(info, campo[0]))
+            for campo in BasicInfo._fields_ if campo[0] != 'FileAttributes'
         }
     finally:
         kernel.CloseHandle(handle)
@@ -190,7 +190,7 @@ def _windows_basico(ruta, fechas=None):
 
 def capturar_fechas(ruta):
     st = Path(ruta).stat()
-    fechas = dict(
+    fechas: Dict[str, Any] = dict(
         acceso_ns=st.st_atime_ns,
         modificacion_ns=st.st_mtime_ns,
         cambio_metadatos_ns=st.st_ctime_ns,
@@ -1115,7 +1115,7 @@ def mover_desde_sha256(ruta_json, directorio_destino, carpeta_reportes,
     finally:
         signal.signal(signal.SIGINT, manejador_anterior)
 
-    b#ases = datos.get('bases_de_datos') or ([datos['ruta_db']] if datos.get('ruta_db') else [])
+    #bases = datos.get('bases_de_datos') or ([datos['ruta_db']] if datos.get('ruta_db') else [])
     #avisos = _actualizar_bases(bases, registros, dispositivo_id=disp_id_actual)
     bases = datos.get('bases_de_datos') or ([datos['ruta_db']] if datos.get('ruta_db') else [])
     if db_path and db_path not in bases:
@@ -1358,7 +1358,6 @@ def _eliminar_candidatos_verificados(candidatos, carpeta_reportes, reporte, base
     finally:
         if conn_del:
             cerrar(conn_del)
-                      'green' if registro['estado'] == 'eliminado' else 'yellow')
 
     # La baja de la huella es posterior al borrado. Un error no se silencia.
     avisos = []

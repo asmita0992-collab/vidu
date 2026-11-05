@@ -93,19 +93,20 @@ def set_high_priority() -> None:
         if sistema == 'windows':
             try:
                 import psutil
-                # El valor de HIGH_PRIORITY_CLASS es 0x80; algunas versiones
+                # El valor de ABOVE_NORMAL_PRIORITY_CLASS es 0x80; algunas versiones
                 # o stubs de psutil no exponen la constante en el módulo.
-                prioridad_alta = getattr(psutil, 'HIGH_PRIORITY_CLASS', 0x80)
+                prioridad_alta = getattr(psutil, 'ABOVE_NORMAL_PRIORITY_CLASS', 0x80)
                 psutil.Process(os.getpid()).nice(prioridad_alta)
-                imprimir('[spring_green2]✓ Prioridad del proceso elevada a HIGH_PRIORITY_CLASS.[/]')
+                imprimir('[spring_green2]✓ Prioridad del proceso elevada a ABOVE_NORMAL_PRIORITY_CLASS.[/]')
             except (ImportError, OSError, PermissionError, AttributeError):
                 pass
         elif sistema in {'linux', 'android', 'darwin', 'freebsd', 'openbsd', 'netbsd'}:
             # os.nice existe en Unix, pero puede estar ausente o bloqueado.
-            if not hasattr(os, 'nice'):
+            nice = getattr(os, 'nice', None)
+            if nice is None:
                 return
             try:
-                os.nice(-5)
+                nice(-5)
                 imprimir('[spring_green2]✓ nice() ajustado a -5.[/]')
             except (OSError, PermissionError):
                 pass

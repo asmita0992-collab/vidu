@@ -61,8 +61,10 @@ except ImportError:
     rich_box = None     # type: ignore
     TIENE_RICH = False
 
-CONSOLA: Optional["Console"] = (
-    Console(highlight=False, soft_wrap=True) if TIENE_RICH else None
+CONSOLA: Optional[Any] = (
+    Console(highlight=False, soft_wrap=True)
+    if TIENE_RICH and Console is not None
+    else None
 )
 
 # ============================================================================
@@ -377,6 +379,9 @@ def _imprimir_reporte_rich(
 ) -> None:
     from .database import info_dispositivo_actual
     assert CONSOLA is not None
+    assert Rule is not None
+    assert Table is not None
+    assert rich_box is not None
 
     orden_tipos = [
         'duplicado_exacto', 'duplicado_visual',
@@ -697,7 +702,7 @@ def imprimir_reporte(
 ) -> None:
     datos = informe or construir_informe(resultados, total_videos, tiempo_seg)
 
-    if CONSOLA is not None:
+    if CONSOLA is not None and Table is not None and rich_box is not None:
         _imprimir_reporte_rich(
             [ResultadoComparacion(**{k: v for k, v in r.items()
                                      if k in ResultadoComparacion.__dataclass_fields__})
@@ -808,7 +813,7 @@ def imprimir_resumen_escaneo(
         estilo_titulo = "bold plum1"
         estilo_borde = "bright_cyan"
 
-    if CONSOLA is not None:
+    if CONSOLA is not None and Table is not None and rich_box is not None:
         tabla = Table(title=titulo, box=rich_box.ROUNDED,
                       border_style=estilo_borde, title_style=estilo_titulo, show_header=False)
         tabla.add_column('Campo', style='bold deep_sky_blue1')
@@ -1088,7 +1093,7 @@ class Dashboard:
                 l3 = f"\033[2K\033[90m00:00:00.00/00:00:00.00 | 0.00x | ETA: --:--\033[0m"
                 lineas.extend([l1, l2, l3])
 
-        sys.stdout.write(f'\033[{self._lineas_dibujadas}F')
+        sys.stdout.write(f'\033[{self._lineas_dibujadas}A\033[0J')
         sys.stdout.write('\n'.join(lineas) + '\n')
         sys.stdout.flush()
         self._lineas_dibujadas = len(lineas)

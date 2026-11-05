@@ -30,7 +30,7 @@ import time
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
-from typing import Callable, List, Optional, Tuple
+from typing import Any, Callable, List, Optional, Tuple
 
 from PIL import Image
 import imagehash
@@ -69,7 +69,7 @@ def _avisar(mensaje: str) -> None:
 # ============================================================================
 # Tipos
 # ============================================================================
-Progreso = Optional[Callable[[str, float, float], None]]
+Progreso = Optional[Callable[..., None]]
 
 
 @dataclass
@@ -390,10 +390,11 @@ def obtener_exclusiones() -> set:
         return set()
 
 
-def registrar_exclusion(modo_acel: str, motivo: str) -> None:
-    """Registra de manera permanente un modo de aceleración defectuoso para omitirlo en futuros escaneos."""
+def registrar_exclusion(modo_acel: str, motivo: str, con_hwdownload: bool = False) -> None:
+    """Registra de manera permanente un modo de aceleración/variante defectuoso para omitirlo en futuros escaneos."""
     if not modo_acel or modo_acel in ('software', 'auto'):
         return
+    clave_exclusion = f"{modo_acel}-con-hwdownload" if con_hwdownload else f"{modo_acel}-sin-hwdownload"
     DIR_SCRIPT = Path(__file__).resolve().parent.parent
     ruta = DIR_SCRIPT / '.vidup_exclusiones.json'
     datos = {'exclusiones': [], 'detalle': {}}
@@ -404,15 +405,17 @@ def registrar_exclusion(modo_acel: str, motivo: str) -> None:
         except Exception:
             pass
     exclusiones = set(datos.get('exclusiones', []))
+    exclusiones.add(clave_exclusion)
+    # Mantener compatibilidad si existía la clave antigua sin sufijo
     exclusiones.add(modo_acel)
     datos['exclusiones'] = list(exclusiones)
     detalles = datos.get('detalle', {})
-    detalles[modo_acel] = {'motivo': motivo, 'fecha': _ahora_utc6_str()}
+    detalles[clave_exclusion] = {'motivo': motivo, 'fecha': _ahora_utc6_str()}
     datos['detalle'] = detalles
     try:
         with ruta.open('w', encoding='utf-8') as f:
             json.dump(datos, f, indent=2, ensure_ascii=False)
-        _avisar(f'  [yellow]⚠ Se registró la exclusión automática de hardware "{modo_acel}" para omitirlo en futuros escaneos.[/]')
+        _avisar(f'  [yellow]⚠ Se registró la exclusión automática de hardware "{clave_exclusion}" para omitirlo en futuros escaneos.[/]')
     except Exception:
         pass
 
@@ -453,12 +456,16 @@ def _intentos_cascada(aceleracion: str) -> List[Tuple[str, bool]]:
     reintenta con hwdownload explícito antes de pasar al siguiente método.
     """
     intentos: List[Tuple[str, bool]] = []
+    excluidos = obtener_exclusiones()
     for metodo in _metodos_cascada(aceleracion):
         if metodo == 'software':
             intentos.append(('software', False))
             continue
-        intentos.append((metodo, False))
-        if _formato_hwdownload(metodo) is not None:
+        # Probar versión sin hwdownload si no está excluida explícitamente
+        if f"{metodo}-sin-hwdownload" not in excluidos:
+            intentos.append((metodo, False))
+        # Probar versión con hwdownload si el acelerador lo soporta y no está excluida
+        if _formato_hwdownload(metodo) is not None and f"{metodo}-con-hwdownload" not in excluidos:
             intentos.append((metodo, True))
     return intentos
 
@@ -559,9 +566,8 @@ def _extraer_frames_ffmpeg(
             siguiente_tuple = intentos[idx + 1] if idx < len(intentos) - 1 else None
             siguiente_modo = siguiente_tuple[0] if siguiente_tuple else None
 
-            # Solo se excluye el acelerador si no hay más sub-intentos para ese mismo acelerador
-            if siguiente_modo != metodo:
-                registrar_exclusion(metodo, error_msg)
+            # Registrar la exclusión específica distinguiendo con/sin hwdownload
+            registrar_exclusion(metodo, error_msg, con_hwdownload=con_hwdownload)
 
             for f in Path(patron_salida).parent.glob('f_*.png'):
                 try:
@@ -1161,7 +1167,7 @@ from concurrent.futures import wait, FIRST_COMPLETED
 from core.plataforma import es_android
 
 
-def _trabajo_fingerprint(ruta: Path, intervalo: float, dashboard: Dashboard,
+def _trabajo_fingerprint(ruta: Path, intervalo: float, dashboard: Any,
                          evento_cancelacion: threading.Event, hilos_ffmpeg: int,
                          aceleracion: str, medidor_recursos=None,
                          hash_esperado: Optional[str] = None,
@@ -1230,7 +1236,7 @@ def _trabajo_fingerprint(ruta: Path, intervalo: float, dashboard: Dashboard,
         medidor_recursos.finalizar_medicion(medicion, completado=True)
 
     acel_lbl = f'[{fp.metodo_acel}]'
-    dashboard.actualizar_worker(tid, f'{nombre[:35]} OK {acel_lbl}: {len(fp.frame_hashes)} frames; {_fmt_seg(tiempo)}')
+    dashboard.actualizar_worker(tid, f'{nombre[:35]} OK {acel_lbl}: {len(fp.frame_hashes)} cuadros; {_fmt_seg(tiempo)}')
 
     return ruta, {
         'estado': 'ok', 'fingerprint': fp,

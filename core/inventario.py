@@ -313,11 +313,12 @@ def reportar_estadisticas(base: Path, generales: dict, dispositivos: Sequence[di
                   grupos_dispositivo=len(dispositivos),
                   etiquetas_origen=' | '.join(generales.get('dispositivos_origen', [])))]
     for disp in dispositivos:
-        principal = dict(tipo='dispositivo', dispositivo=disp['dispositivo'],
-                         dispositivo_id=disp['dispositivo_id'], carpeta='',
-                         videos=disp['total_videos'], tamanio_bytes=disp['tamanio_bytes'],
-                         sha256=disp['con_sha256'], visual=disp['con_huella_visual'],
-                         audio=disp['con_huella_audio'], errores=disp['con_error'])
+        principal: dict[str, str | int] = dict(
+            tipo='dispositivo', dispositivo=disp['dispositivo'],
+            dispositivo_id=disp['dispositivo_id'], carpeta='',
+            videos=disp['total_videos'], tamanio_bytes=disp['tamanio_bytes'],
+            sha256=disp['con_sha256'], visual=disp['con_huella_visual'],
+            audio=disp['con_huella_audio'], errores=disp['con_error'])
         filas.append(principal)
         for carpeta in disp['carpetas']:
             filas.append(dict(tipo='carpeta', dispositivo=disp['dispositivo'],

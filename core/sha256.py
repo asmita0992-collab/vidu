@@ -31,7 +31,8 @@ import sys
 import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple
+from typing import Dict, Iterable, List, Optional, Sequence, Set, Tuple, Any
+
 
 ZONA_MEXICO = timezone(timedelta(hours=-6))
 
@@ -49,22 +50,13 @@ from core import database
 from core.fingerprint import VideoFingerprint
 from core.metadata import extraer_metadatos
 
-# Importa el detector de carpetas Android y es_android
+# Importa el detector de carpetas Android
 try:
     # Primero intenta desde vidup (para compatibilidad)
-    from core.plataforma import _carpetas_android_candidatas, es_android
+    from core.plataforma import _carpetas_android_candidatas
 except ImportError:
-    try:
-        # Si no, intenta desde core.plataforma
-        from .plataforma import es_android
-        # _carpetas_android_candidatas sigue siendo específica de vidup
-        def _carpetas_android_candidatas():
-            return []
-    except ImportError:
-        def _carpetas_android_candidatas():
-            return []
-        def es_android():
-            return False
+    def _carpetas_android_candidatas():
+        return []
 
 TIENE_VIDUP = True
 
@@ -97,7 +89,7 @@ except ImportError:
     rich_escape = lambda texto: str(texto)
     TIENE_RICH = False
 
-CONSOLA = Console(highlight=False, soft_wrap=True) if TIENE_RICH else None
+CONSOLA = Console(highlight=False, soft_wrap=True) if Console is not None else None
 
 # ============================================================================
 # Colores ANSI (fallback)
@@ -147,7 +139,7 @@ def _imprimir(mensaje: str = '', estilo: str = '') -> None:
 
 
 def _panel(cuerpo: str, titulo: str = '', estilo: str = 'bright_cyan') -> None:
-    if CONSOLA is not None:
+    if CONSOLA is not None and Panel is not None:
         CONSOLA.print(Panel.fit(cuerpo, title=titulo or None, border_style=estilo))
     else:
         print(f'\n{"=" * 72}')
@@ -1767,7 +1759,7 @@ def ultimo_reporte_comparacion(raiz):
 def _cabecera_menu(raiz: Path) -> None:
     from core.database import info_dispositivo_actual, describir_conexion
     info = info_dispositivo_actual()
-    if CONSOLA is not None:
+    if CONSOLA is not None and Rule is not None:
         CONSOLA.print(Rule('[bold bright_magenta]SHA256 DE CARPETAS Y ARCHIVOS MP4 — VIDUP[/]',
                            style='bright_cyan'))
         CONSOLA.print(

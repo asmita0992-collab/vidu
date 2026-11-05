@@ -78,7 +78,17 @@ except ImportError:
     rich_box = None  # type: ignore
     rich_escape = lambda texto: str(texto)
     Progress = None  # type: ignore
-_PALABRAS_SALIR = {'0', '00', 'salir', 'exit', 'quit', 'q'}
+# Respuestas recordadas durante la sesión interactiva para no repetir preguntas
+RESPUESTAS_SESION: Dict[str, bool] = {}
+
+
+def pedir_si_no_recordar(clave_sesion: str, mensaje: str, por_defecto: bool = True) -> bool:
+    """Pide confirmación s/n y recuerda la respuesta en la sesión actual."""
+    if clave_sesion in RESPUESTAS_SESION:
+        return RESPUESTAS_SESION[clave_sesion]
+    val = pedir_si_no(mensaje, por_defecto)
+    RESPUESTAS_SESION[clave_sesion] = val
+    return val
 
 
 def pedir_con_cuenta_regresiva(mensaje: str, timeout: int, por_defecto: str) -> str:
@@ -383,7 +393,7 @@ def cmd_escanear(args: argparse.Namespace) -> int:
 
     so_nombre = detectar_so().upper()
     es_recursivo = recursivo
-    nota_subcarpetas = "Se analizarán los archivos de esta carpeta y sus subcarpetas." if es_recursivo else "Solo se analizarán archivos ubicados strictly en esta carpeta, ignorando todas las subcarpetas."
+    nota_subcarpetas = "Se analizarán los archivos de esta carpeta y sus subcarpetas." if es_recursivo else "Solo se analizarán los archivos ubicados estrictamente en esta carpeta, ignorando todas las subcarpetas."
 
     if CONSOLA is not None:
         CONSOLA.print(f"\n[bold white]Sistema operativo detectado:[/] [bold green]{so_nombre}[/]")
@@ -653,14 +663,14 @@ def escanear_interactivo(db_defecto: str, reporte_sha: Optional[str] = None) -> 
             else:
                 directorio = str(candidatas_totales[int(opcion) - 1])
             guardar_ruta_historial_escaneo(directorio)
-            recursivo = pedir_si_no('¿Incluir subcarpetas?', True)
+            recursivo = pedir_si_no_recordar('recursivo', '¿Incluir subcarpetas?', True)
         else:
             directorio = pedir_ruta(
                 'Directorio de vídeos', str(DIR_SCRIPT),
                 existente=True, directorio=True,
             )
             guardar_ruta_historial_escaneo(directorio)
-            recursivo = pedir_si_no('¿Incluir subcarpetas?', True)
+            recursivo = pedir_si_no_recordar('recursivo', '¿Incluir subcarpetas?', True)
         sugerida = db_defecto  
 
     if _usa_neon():
@@ -680,8 +690,8 @@ def escanear_interactivo(db_defecto: str, reporte_sha: Optional[str] = None) -> 
         if Path(db).suffix.lower() == '.json':
             raise ValueError('El escaneo guarda huellas en SQLite; selecciona una base .db.')
 
-    reintentar_errores = pedir_si_no('¿Reintentar el escaneo de vídeos que previamente generaron error?', True)
-    forzar_registrados = pedir_si_no('¿Volver a analizar vídeos que ya están registrados exitosamente?', False)
+    reintentar_errores = pedir_si_no_recordar('reintentar_errores', '¿Reintentar el escaneo de vídeos que previamente generaron error?', True)
+    forzar_registrados = pedir_si_no_recordar('forzar_registrados', '¿Volver a analizar vídeos que ya están registrados exitosamente?', False)
     limite = pedir_limite_escaneo()
     from core.fingerprint import _cpu_threads_recomendados
     trabajadores = pedir_numero('Vídeos simultáneos (trabajadores)', _cpu_threads_recomendados(), 1, entero=True)

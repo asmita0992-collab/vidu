@@ -729,7 +729,12 @@ def conectar(ruta_db: str) -> Any:
                 en_linea=False, modo='sqlite_fallback',
                 detalle=str(exc)[:150],
             )
-            _imprimir(f'[AVISO NEON] Fallo de conexión: {exc}. Se usará SQLite local.', 'yellow')
+            _imprimir(f'[AVISO NEON] Fallo de conexión: {exc}. Se usará SQLite local como caché.', 'yellow')
+            try:
+                from core.sincronizacion import obtener_ruta_db_local_dispositivo
+                ruta_db = str(obtener_ruta_db_local_dispositivo())
+            except Exception:
+                pass
 
     if ruta_db != ':memory:':
         path_obj = Path(ruta_db).expanduser().resolve()
@@ -969,7 +974,7 @@ def _row_dict_a_fingerprint(fila: dict, frame_hashes: List[str]) -> VideoFingerp
     )
 
 
-def _fila_sqlite_a_fingerprint(fila: sqlite3.Row, frame_hashes: List[str]) -> VideoFingerprint:
+def _fila_sqlite_a_fingerprint(fila: Any, frame_hashes: List[str]) -> VideoFingerprint:
     claves = fila.keys()
     return VideoFingerprint(
         ruta=fila['ruta'],
@@ -1690,7 +1695,7 @@ def volcar_todo_a_sqlite(
         try:
             with conn_neon.cursor() as cur:
                 cur.execute('SELECT COUNT(*) FROM videos')
-                total = int(cur.fetchone()[0] or 0)
+                total = int((cur.fetchone() or (0,))[0] or 0)
             if total == 0:
                 return conteo
             ultimo_id = 0
@@ -1900,7 +1905,10 @@ def reemplazar_neon_desde_sqlite(ruta_fuente: str, directorio_respaldos: str) ->
                 cur.execute('LOCK TABLE videos IN ACCESS EXCLUSIVE MODE')
                 cur.execute('LOCK TABLE frame_hashes IN ACCESS EXCLUSIVE MODE')
                 cur.execute('SELECT COUNT(*) FROM videos')
-                if int(cur.fetchone()[0]) != videos_previos:
+                resultado = cur.fetchone()
+                if resultado is None:
+                    raise RuntimeError('No se pudo verificar el recuento actual de Neon. Cancelado.')
+                if int(resultado[0]) != videos_previos:
                     raise RuntimeError('Neon cambió mientras se generaba el respaldo. Cancelado.')
                 cur.execute('DELETE FROM frame_hashes')
                 cur.execute('DELETE FROM videos')
@@ -1929,10 +1937,12 @@ def reemplazar_neon_desde_sqlite(ruta_fuente: str, directorio_respaldos: str) ->
                         'INSERT INTO frame_hashes (video_id, posicion, hash_valor) VALUES %s',
                         vals, page_size=1000)
                 cur.execute('SELECT COUNT(*) FROM videos')
-                if cur.fetchone()[0] != cantidad_origen:
+                resultado = cur.fetchone()
+                if resultado is None or resultado[0] != cantidad_origen:
                     raise RuntimeError('Conteo de vídeos restaurados no coincide; rollback.')
                 cur.execute('SELECT COUNT(*) FROM frame_hashes')
-                if cur.fetchone()[0] != frames_origen:
+                resultado = cur.fetchone()
+                if resultado is None or resultado[0] != frames_origen:
                     raise RuntimeError('Conteo de frames restaurados no coincide; rollback.')
             conn_neon.commit()
         except BaseException:
