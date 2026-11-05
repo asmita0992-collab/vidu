@@ -145,11 +145,11 @@ def menu_interactivo() -> int:
             CONSOLA.print()
             CONSOLA.print(Panel.fit(
                 f'[bold bright_white]VIDUP — Menú principal[/]\n'
-                f'[deep_sky_blue1]Dispositivo:[/] {info_disp["dispositivo"]}\n'
-                f'[deep_sky_blue1]ID         :[/] {info_disp["dispositivo_id"]}\n'
-                f'[deep_sky_blue1]Plataforma :[/] {info_disp["plataforma"]} ({info_disp["maquina"]})\n'
-                f'[deep_sky_blue1]Conexión   :[/] {describir_conexion()}\n'
-                f'[deep_sky_blue1]Telegram   :[/] {"[green]activo[/]" if telegram_configurado() else "[yellow]desactivado[/]"}',
+                f'[deep_sky_blue1]Dispositivo:[/] [spring_green2]{info_disp["dispositivo"]}[/]\n'
+                f'[deep_sky_blue1]ID         :[/] [turquoise2]{info_disp["dispositivo_id"]}[/]\n'
+                f'[deep_sky_blue1]Plataforma :[/] [gold1]{info_disp["plataforma"]}[/] ({info_disp["maquina"]})\n'
+                f'[deep_sky_blue1]Conexión   :[/] [gold1]{describir_conexion()}[/]\n'
+                f'[deep_sky_blue1]Telegram   :[/] {"[spring_green2]activo[/]" if telegram_configurado() else "[orange3]desactivado[/]"}',
                 title='[bold plum1]VIDUP[/]',
                 border_style='bright_cyan',
             ))

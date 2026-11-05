@@ -86,14 +86,17 @@ from core.utilidades_interactivas import (aplicar_ubicacion_interactivo, buscar_
 def _cabecera_submenu(titulo: str) -> None:
     from core.database import describir_conexion, info_dispositivo_actual
     info = info_dispositivo_actual()
-    if CONSOLA is not None and Rule is not None:
-        CONSOLA.print(Rule(f'[bold plum1]{titulo}[/]', style='bright_cyan'))
-        CONSOLA.print(
-            f'[deep_sky_blue1]Dispositivo:[/] {info["dispositivo"]}  [grey37](ID {info["dispositivo_id"]})[/]\n'
-            f'[deep_sky_blue1]Plataforma :[/] {info["plataforma"]} ({info["maquina"]})\n'
-            f'[deep_sky_blue1]Conexión   :[/] {describir_conexion()}\n'
-            f'[deep_sky_blue1]Telegram   :[/] {"[green]activo[/]" if telegram_configurado() else "[yellow]desactivado[/]"}'
-        )
+    if CONSOLA is not None and Panel is not None:
+        CONSOLA.print()
+        CONSOLA.print(Panel.fit(
+            f'[bold bright_white]{titulo}[/]\n'
+            f'[deep_sky_blue1]Dispositivo:[/] [spring_green2]{info["dispositivo"]}[/]  [grey37](ID {info["dispositivo_id"]})[/]\n'
+            f'[deep_sky_blue1]Plataforma :[/] [turquoise2]{info["plataforma"]}[/] ({info["maquina"]})\n'
+            f'[deep_sky_blue1]Conexión   :[/] [gold1]{describir_conexion()}[/]\n'
+            f'[deep_sky_blue1]Telegram   :[/] {"[spring_green2]activo[/]" if telegram_configurado() else "[orange3]desactivado[/]"}',
+            title='[bold plum1]VIDUP[/]',
+            border_style='bright_cyan',
+        ))
     else:
         print(f'\n{"═" * 72}')
         print(f'{NEGRITA}{titulo}{NC}')
@@ -410,14 +413,18 @@ def submenu_verificacion(db_defecto: str) -> str:
         imprimir('  [gold1]2.[/] Buscar ubicación de archivos faltantes (interna y tarjeta)')
         imprimir('  [bold red]3.[/] Eliminar huellas \"faltantes\" desde reporte de verificación')
         imprimir('  [gold1]4.[/] Cambiar ruta según reporte de ubicación')
+        imprimir('  [bold red]5.[/] Eliminar huellas desde reporte de eliminaciones del submenú 3')
         imprimir('  [gold1]00.[/] Volver al menú principal')
-        opcion = _pedir_opcion('¿Qué quieres hacer? (1-4 / 00)',
-                               ('1', '2', '3', '4', '00', '0'), '1')
+        opcion = _pedir_opcion('¿Qué quieres hacer? (1-5 / 00)',
+                               ('1', '2', '3', '4', '5', '00', '0'), '1')
         if opcion in ('00', '0'):
             return db_defecto
         try:
             if opcion == '3':
                 db_defecto = eliminar_faltantes_interactivo(db_defecto)
+            elif opcion == '5':
+                from core.utilidades_interactivas import eliminar_desde_reporte_eliminaciones_interactivo
+                eliminar_desde_reporte_eliminaciones_interactivo(db_defecto)
             else:
                 db = _seleccionar_base_lectura(db_defecto, 'Base de datos para la verificación')
                 db_defecto = db
