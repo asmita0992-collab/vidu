@@ -555,6 +555,25 @@ def _extraer_frames_ffmpeg(
         #fase_nombre = f'Extrac ({modo_acel})'
         #_notificar(progreso, fase_nombre, 0.0, inicio)
 
+        def _al_fallar(metodo: str, error_msg: str, idx: int) -> bool:
+            siguiente_tuple = intentos[idx + 1] if idx < len(intentos) - 1 else None
+            siguiente_modo = siguiente_tuple[0] if siguiente_tuple else None
+
+            # Solo se excluye el acelerador si no hay más sub-intentos para ese mismo acelerador
+            if siguiente_modo != metodo:
+                registrar_exclusion(metodo, error_msg)
+
+            for f in Path(patron_salida).parent.glob('f_*.png'):
+                try:
+                    f.unlink()
+                except OSError:
+                    pass
+
+            if siguiente_tuple:
+                _avisar_fallback(metodo, con_hwdownload, error_msg, siguiente_tuple)
+                return True
+            return False
+
         try:
             proceso = subprocess.Popen(
                 cmd,
@@ -567,8 +586,7 @@ def _extraer_frames_ffmpeg(
             )
         except OSError as exc:
             ultimo_error = f'No se pudo ejecutar FFmpeg ({modo_acel}): {exc}'
-            if indice_metodo < len(intentos) - 1:
-                _avisar_fallback(modo_acel, con_hwdownload, ultimo_error, intentos[indice_metodo + 1])
+            if _al_fallar(modo_acel, ultimo_error, indice_metodo):
                 continue
             return False, modo_acel, ultimo_error
 
@@ -698,14 +716,7 @@ def _extraer_frames_ffmpeg(
                 if proceso.poll() is None:
                     _terminar_proceso(proceso)
                 ultimo_error = motivo_aborto
-                registrar_exclusion(modo_acel, ultimo_error)
-                for f in Path(patron_salida).parent.glob('f_*.png'):
-                    try:
-                        f.unlink()
-                    except OSError:
-                        pass
-                if indice_metodo < len(intentos) - 1:
-                    _avisar_fallback(modo_acel, con_hwdownload, ultimo_error, intentos[indice_metodo + 1])
+                if _al_fallar(modo_acel, ultimo_error, indice_metodo):
                     continue
                 return False, modo_acel, ultimo_error
 
@@ -718,14 +729,7 @@ def _extraer_frames_ffmpeg(
                         f'FFmpeg terminó con código {proceso.returncode} '
                         f'en modo {modo_acel}'
                     )
-                registrar_exclusion(modo_acel, ultimo_error)
-                for f in Path(patron_salida).parent.glob('f_*.png'):
-                    try:
-                        f.unlink()
-                    except OSError:
-                        pass
-                if indice_metodo < len(intentos) - 1:
-                    _avisar_fallback(modo_acel, con_hwdownload, ultimo_error, intentos[indice_metodo + 1])
+                if _al_fallar(modo_acel, ultimo_error, indice_metodo):
                     continue
                 return False, modo_acel, ultimo_error
 
@@ -733,14 +737,7 @@ def _extraer_frames_ffmpeg(
             archivos_png = list(Path(patron_salida).parent.glob('f_*.png'))
             if not archivos_png or all(f.stat().st_size == 0 for f in archivos_png):
                 ultimo_error = f'[{modo_acel}] El decodificador generó fotogramas vacíos o corruptos.'
-                registrar_exclusion(modo_acel, ultimo_error)
-                for f in archivos_png:
-                    try:
-                        f.unlink()
-                    except OSError:
-                        pass
-                if indice_metodo < len(intentos) - 1:
-                    _avisar_fallback(modo_acel, con_hwdownload, ultimo_error, intentos[indice_metodo + 1])
+                if _al_fallar(modo_acel, ultimo_error, indice_metodo):
                     continue
                 return False, modo_acel, ultimo_error
 

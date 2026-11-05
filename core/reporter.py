@@ -984,7 +984,7 @@ class Dashboard:
             self._workers = {i: None for i in range(self._num_workers)}
             self._thread_slots = {}
             self._lineas_dibujadas = 0
-            lineas_necesarias = 2 + (self._num_workers * 3)
+            lineas_necesarias = 1 + (self._num_workers * 3)
             if self._tty:
                 sys.stdout.write('\n' * lineas_necesarias)
                 sys.stdout.flush()
@@ -1043,7 +1043,7 @@ class Dashboard:
                 sys.stdout.write('\033[J')
             print(mensaje)
             if self._workers:
-                lineas_necesarias = 2 + (self._num_workers * 3)
+                lineas_necesarias = 1 + (self._num_workers * 3)
                 if self._tty:
                     sys.stdout.write('\n' * lineas_necesarias)
                     self._lineas_dibujadas = lineas_necesarias
@@ -1053,36 +1053,11 @@ class Dashboard:
         if not self._tty or self._lineas_dibujadas == 0:
             return
 
-        procesados_total = self._completados + self._errores
-        fraccion_global = max(0.0, min(1.0, procesados_total / max(1, self._total)))
-
-        transcurrido = time.monotonic() - self._inicio_batch if self._inicio_batch > 0 else 0.0
-        if procesados_total > 0 and fraccion_global < 1.0 and transcurrido > 0:
-            eta_global_sec = (transcurrido / procesados_total) * (self._total - procesados_total)
-            eta_global_str = _fmt_eta_corto(eta_global_sec)
-        elif fraccion_global >= 1.0:
-            eta_global_str = "0m00s"
-        else:
-            eta_global_str = "calculando"
-
-        archivo_actual = ""
-        for w in self._workers.values():
-            if isinstance(w, dict) and w.get('nombre'):
-                archivo_actual = w['nombre']
-                break
-
-        ancho_g = 25
-        llenos_g = int(ancho_g * fraccion_global)
-        barra_global = f"[\033[38;5;46m{'█' * llenos_g}\033[90m{'░' * (ancho_g - llenos_g)}\033[0m]"
-        pct_g = f"{fraccion_global * 100:3.0f} %"
-        indice_g = f"[{min(procesados_total + 1, self._total):2d}/{self._total}]"
-
-        linea_global = f"\033[2K{barra_global}  {pct_g} {indice_g} \033[35;1m{archivo_actual}\033[0m | ETA Arch: \033[36m{eta_global_str}\033[0m"
         linea_completados = f"\033[2K\033[36;1m▶ Completados: \033[1;37m{self._completados}\033[0m\033[36m / {self._total}\033[0m"
         if self._errores > 0:
             linea_completados += f" \033[36m| Errores: \033[31;1m{self._errores}\033[0m"
 
-        lineas = [linea_global, linea_completados]
+        lineas = [linea_completados]
 
         for i in range(self._num_workers):
             d = self._workers.get(i)
@@ -1098,17 +1073,17 @@ class Dashboard:
                 llenos_w = int(10 * fraccion)
                 barra_w = f"[\033[92m{'█' * llenos_w}\033[90m{'░' * (10 - llenos_w)}\033[0m]"
 
-                l1 = f"\033[2K\033[36;1mW{i + 1}:\033[0m \033[37;1m{w_nombre}\033[0m"
+                l1 = f"\033[2K\033[36;1mT{i + 1}:\033[0m \033[37;1m{w_nombre}\033[0m"
                 l2 = f"\033[2K{fase} {barra_w} \033[93m{fraccion * 100:4.1f} %\033[0m"
                 l3 = f"\033[2K{_fmt_hms_ms(tiempo_actual)}/{_fmt_hms_ms(dur_total)} | \033[35m{speed:5.2f}x\033[0m | \033[36mETA: {eta_str}\033[0m"
                 lineas.extend([l1, l2, l3])
             elif isinstance(d, dict) and 'texto_simple' in d:
-                l1 = f"\033[2K\033[36;1mW{i + 1}:\033[0m {d['texto_simple']}"
+                l1 = f"\033[2K\033[36;1mT{i + 1}:\033[0m {d['texto_simple']}"
                 l2 = f"\033[2K[\033[90m░░░░░░░░░░\033[0m] \033[90m0.0 %\033[0m"
                 l3 = f"\033[2K\033[90m00:00:00.00/00:00:00.00 | 0.00x | ETA: --:--\033[0m"
                 lineas.extend([l1, l2, l3])
             else:
-                l1 = f"\033[2K\033[36;1mW{i + 1}:\033[0m \033[90mEsperando asignación de vídeo\033[0m"
+                l1 = f"\033[2K\033[36;1mT{i + 1}:\033[0m \033[90mEsperando asignación de vídeo\033[0m"
                 l2 = f"\033[2K[\033[90m░░░░░░░░░░\033[0m] \033[90m0.0 %\033[0m"
                 l3 = f"\033[2K\033[90m00:00:00.00/00:00:00.00 | 0.00x | ETA: --:--\033[0m"
                 lineas.extend([l1, l2, l3])

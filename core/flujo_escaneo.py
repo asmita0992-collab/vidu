@@ -382,8 +382,8 @@ def cmd_escanear(args: argparse.Namespace) -> int:
         print(f' ID dispositivo    : {info_disp["dispositivo_id"]}')
 
     so_nombre = detectar_so().upper()
-    es_recursivo = getattr(args, 'recursivo', True)
-    nota_subcarpetas = "Se analizarán los archivos de esta carpeta y sus subcarpetas." if es_recursivo else "Solo se analizarán archivos ubicados estrictamente en esta carpeta, ignorando todas las subcarpetas."
+    es_recursivo = recursivo
+    nota_subcarpetas = "Se analizarán los archivos de esta carpeta y sus subcarpetas." if es_recursivo else "Solo se analizarán archivos ubicados strictly en esta carpeta, ignorando todas las subcarpetas."
 
     if CONSOLA is not None:
         CONSOLA.print(f"\n[bold white]Sistema operativo detectado:[/] [bold green]{so_nombre}[/]")
@@ -424,6 +424,7 @@ def cmd_escanear(args: argparse.Namespace) -> int:
 
     try:
         hashes_previos = _cargar_hashes_previos(videos, args.db)
+        imprimir(f'[cyan]Cola acotada a {max(1, trabajadores * 2)} tareas; iniciando los primeros vídeos...[/]')
         dashboard.iniciar(len(videos))
 
         with ThreadPoolExecutor(max_workers=trabajadores, thread_name_prefix='vidup') as executor:
@@ -436,7 +437,6 @@ def cmd_escanear(args: argparse.Namespace) -> int:
                         datos_esperados.get('tamanio_bytes'),
                         hashes_previos.get(str(ruta.resolve())))
             
-            imprimir(f'[cyan]Cola acotada a {max(1, trabajadores * 2)} tareas; iniciando los primeros vídeos...[/]')
             for futuro, ruta in _ejecutar_escaneo_acotado(
                     executor, videos, trabajadores, evento_cancelacion, preparar, futuros):
                 if evento_cancelacion.is_set():
