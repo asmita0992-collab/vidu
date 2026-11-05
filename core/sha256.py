@@ -199,12 +199,12 @@ def _fmt_bytes(cantidad: int) -> str:
     return f'{cantidad / (1024 ** 3):.2f} GB'
 
 
-def _carpeta_reportes(raiz: Path) -> Path:
+def _carpeta_reportes_sha256(raiz: Path) -> Path:
     return raiz / 'reportes' / 'sha256'
 
 
 def _asegurar_subcarpetas(raiz: Path) -> Dict[str, Path]:
-    base = _carpeta_reportes(raiz)
+    base = _carpeta_reportes_sha256(raiz)
     sub = {}
     for nombre in ('json', 'csv', 'txt', 'jsonl'):
         p = base / nombre
