@@ -802,21 +802,159 @@ def imprimir_resumen_escaneo(
 # Barra de progreso (comparación de pares)
 # ============================================================================
 class BarraProgreso:
-    """Barra de progreso para comparación de pares."""
+    """Panel de progreso multilínea, coloreado y redibujable en terminal.
 
-    def __init__(self, total: int, ancho: int = 40, total_videos: int = 0):
-        self.total = max(1, total)
-        self.total_videos = total_videos
+    Sigue el patrón de los paneles de hevc.py y normalizar.py: conserva
+    cuántas líneas dibujó, las limpia antes de imprimir mensajes y vuelve
+    a dibujar el estado actual. En terminales no interactivos no emite
+    secuencias ANSI ni barras que ensucien los registros.
+    """
+
+    def __init__(self, total: int, ancho: int = 32, total_videos: int = 0):
+        self.total = max(1, int(total))
+        self.total_videos = max(0, int(total_videos))
         self.videos_completos = 0
-        self.ancho = ancho
-        self._activo = sys.stderr.isatty()
+        self.ancho = max(10, int(ancho))
+        self._stream = sys.stderr
+        self._activo = bool(getattr(self._stream, 'isatty', lambda: False)())
+        self._usar_color = self._activo and os.environ.get('NO_COLOR') is None
         self._inicio = time.monotonic()
         self._ultimo_momento = 0.0
         self._terminada = False
+        self._panel_activo = False
+        self._lineas_dibujadas = 0
+        self._estado = {
+            'actual': 0.0,
+            'total': self.total,
+            'nombre_a': '',
+            'nombre_b': '',
+        }
+        self._lock = threading.RLock()
+        # La misma consola sirve para mensajes estáticos en TTY y en logs;
+        # el panel interactivo solo se activa cuando stderr es una terminal.
+        self._console = (
+            Console(file=self._stream, highlight=False)
+            if TIENE_RICH and Console is not None
+            else None
+        )
+
+    @staticmethod
+    def _acortar(texto: str, limite: int) -> str:
+        texto = str(texto or '').replace('\r', ' ').replace('\n', ' ').strip()
+        if limite <= 0:
+            return ''
+        if len(texto) <= limite:
+            return texto
+        if limite <= 3:
+            return texto[:limite]
+        return texto[:limite - 3] + '...'
+
+    def _colores_ansi(self) -> Dict[str, str]:
+        if not self._usar_color:
+            return {k: '' for k in ('reset', 'bold', 'red', 'yellow', 'green', 'cyan', 'grey', 'magenta')}
+        return {
+            'reset': '\033[0m', 'bold': '\033[1m',
+            'red': '\033[91m', 'yellow': '\033[93m',
+            'green': '\033[92m', 'cyan': '\033[96m',
+            'grey': '\033[90m', 'magenta': '\033[95m',
+        }
+
+    def _construir_lineas(self) -> tuple[List[str], List[str]]:
+        estado = self._estado
+        total = max(1, int(estado['total']))
+        actual = max(0.0, min(float(estado['actual']), float(total)))
+        fraccion = max(0.0, min(1.0, actual / total))
+        llenos = min(self.ancho, int(self.ancho * fraccion))
+        vacios = self.ancho - llenos
+        transcurrido = max(0.0, time.monotonic() - self._inicio)
+        eta = transcurrido * (1.0 - fraccion) / fraccion if fraccion > 0 else 0.0
+        eta_texto = _fmt_seg(eta) if fraccion > 0 else 'calculando'
+        pares_txt = f'{min(int(actual), total):,}/{total:,}'
+        videos_txt = f'{self.videos_completos:,}/{self.total_videos:,}'
+
+        ancho_terminal = shutil.get_terminal_size((100, 24)).columns
+        limite_nombres = max(12, min(76, ancho_terminal - 20))
+        nombre_a = self._acortar(estado['nombre_a'], limite_nombres // 2)
+        nombre_b = self._acortar(estado['nombre_b'], limite_nombres // 2)
+        pareja = f'{nombre_a}  ↔  {nombre_b}' if nombre_a or nombre_b else 'Preparando comparación de pares'
+        pareja = self._acortar(pareja, max(12, ancho_terminal - 12))
+
+        rich = [
+            '[bold dodger_blue2]COMPARACIÓN DE VÍDEOS[/] '
+            f'[bright_cyan]• Vídeos completos: {videos_txt}[/]',
+            f'[spring_green2]{"█" * llenos}[/]'
+            f'[grey50]{"░" * vacios}[/] '
+            f'[bold gold1]{fraccion:5.1%}[/]  '
+            f'[white]Pares: {pares_txt}[/]  '
+            f'[turquoise2]ETA: {eta_texto}[/]',
+            f'[cyan]Par actual:[/] [white]{rich_escape(pareja)}[/]',
+        ]
+
+        c = self._colores_ansi()
+        ansi = [
+            f"{c['bold']}{c['cyan']}COMPARACIÓN DE VÍDEOS{c['reset']} "
+            f"{c['cyan']}• Vídeos completos: {videos_txt}{c['reset']}",
+            f"{c['green']}{'█' * llenos}{c['grey']}{'░' * vacios}{c['reset']} "
+            f"{c['bold']}{c['yellow']}{fraccion:5.1%}{c['reset']}  "
+            f"Pares: {pares_txt}  {c['magenta']}ETA: {eta_texto}{c['reset']}",
+            f"{c['cyan']}Par actual:{c['reset']} {pareja}",
+        ]
+        return rich, ansi
+
+    def _escribir_linea(self, rich: str, ansi: str) -> None:
+        if self._console is not None:
+            self._console.print(rich, end='', no_wrap=True, crop=True)
+        else:
+            self._stream.write(ansi)
+
+    def _dibujar_locked(self) -> None:
+        if not self._activo or self._terminada:
+            return
+
+        rich, ansi = self._construir_lineas()
+        anteriores = self._lineas_dibujadas
+        if self._panel_activo and anteriores:
+            if anteriores > 1:
+                self._stream.write(f'\033[{anteriores - 1}A\r')
+            else:
+                self._stream.write('\r')
+        else:
+            self._stream.write('\r')
+
+        total_lineas = len(rich)
+        for indice, (linea_rich, linea_ansi) in enumerate(zip(rich, ansi)):
+            self._stream.write('\033[2K')
+            self._escribir_linea(linea_rich, linea_ansi)
+            if indice < total_lineas - 1:
+                self._stream.write('\n')
+
+        # Si el nuevo panel tiene menos líneas, borrar las sobrantes y
+        # regresar el cursor a la última línea visible del panel.
+        if anteriores > total_lineas:
+            diferencia = anteriores - total_lineas
+            for _ in range(diferencia):
+                self._stream.write('\n\033[2K')
+            self._stream.write(f'\033[{diferencia}A')
+
+        self._stream.flush()
+        self._panel_activo = True
+        self._lineas_dibujadas = total_lineas
+
+    def _limpiar_locked(self) -> None:
+        if self._activo and self._panel_activo and self._lineas_dibujadas > 0:
+            for _ in range(self._lineas_dibujadas - 1):
+                self._stream.write('\r\033[2K\033[1A')
+            self._stream.write('\r\033[2K')
+            self._stream.flush()
+        self._panel_activo = False
+        self._lineas_dibujadas = 0
 
     def actualizar_videos(self, actual: int, total: int) -> None:
-        self.videos_completos = actual
-        self.total_videos = total
+        with self._lock:
+            self.videos_completos = max(0, int(actual))
+            self.total_videos = max(0, int(total))
+            # El siguiente callback de pares refresca el panel con estos datos;
+            # no redibujar aquí evita una escritura por cada par procesado.
 
     def actualizar(
         self,
@@ -825,92 +963,48 @@ class BarraProgreso:
         nombre_a: str = '',
         nombre_b: str = '',
     ) -> None:
-        if not self._activo or self._terminada:
-            return
+        with self._lock:
+            total_real = max(1, int(total))
+            self._estado.update(
+                actual=max(0.0, float(actual)),
+                total=total_real,
+                nombre_a=nombre_a,
+                nombre_b=nombre_b,
+            )
+            if not self._activo or self._terminada:
+                return
 
-        ahora = time.monotonic()
-        total_real = max(1, total)
-
-        if actual < total_real and ahora - self._ultimo_momento < 0.10:
-            return
-
-        self._ultimo_momento = ahora
-        fraccion = max(0.0, min(1.0, actual / total_real))
-        llenos = int(self.ancho * fraccion)
-        barra = '=' * llenos + '-' * (self.ancho - llenos)
-
-        if fraccion > 0:
-            transcurrido = ahora - self._inicio
-            eta = transcurrido * (1.0 - fraccion) / fraccion
-            eta_texto = _fmt_seg(eta)
-        else:
-            eta_texto = 'calculando'
-
-        nombres = ''
-        if nombre_a:
-            nombres = f'  {nombre_a[:18]} / {nombre_b[:18]}'
-
-        linea = (
-            f'\r\033[2K  [{barra}] {fraccion:5.1%} '
-            f'{self.videos_completos}/{self.total_videos} vídeos completos | '
-            f'{min(int(actual), total)}/{total} pares ETA: {eta_texto}{nombres}'
-        )
-        print(linea, end='', file=sys.stderr, flush=True)
-
-        if fraccion >= 1:
-            print(file=sys.stderr)
-            self._terminada = True
-
-    def limpiar(self) -> None:
-        if self._activo and not self._terminada:
-            print('\r\033[2K', end='', file=sys.stderr, flush=True)
-
-
-# ============================================================================
-# Progreso de fingerprint (usado por fingerprint.py)
-# ============================================================================
-class ProgresoFingerprint:
-    """Progreso por fase de procesamiento de un video."""
-
-    def __init__(self):
-        self._fase: Optional[str] = None
-        self._ultimo_momento = 0.0
-        self._ultimo_hito = -1
-        self._tty = sys.stderr.isatty()
-
-    def __call__(self, fase: str, porcentaje: float, eta: float) -> None:
-        porcentaje = max(0.0, min(1.0, porcentaje))
-        ahora = time.monotonic()
-
-        if fase != self._fase:
-            if self._fase is not None and self._tty:
-                print(file=sys.stderr)
-            self._fase = fase
-            self._ultimo_momento = 0.0
-            self._ultimo_hito = -1
-
-        eta_texto = _fmt_seg(eta) if eta >= 0 else 'calculando'
-
-        if self._tty:
-            if porcentaje < 1 and ahora - self._ultimo_momento < 0.15:
+            ahora = time.monotonic()
+            fraccion = min(1.0, max(0.0, float(actual) / total_real))
+            if fraccion < 1.0 and ahora - self._ultimo_momento < 0.10:
                 return
             self._ultimo_momento = ahora
-            print(
-                f'\r\033[2K    {fase:<12} {porcentaje:6.1%}  ETA: {eta_texto}',
-                end='', file=sys.stderr, flush=True,
-            )
-        else:
-            hito = min(4, int(porcentaje * 4))
-            if hito > self._ultimo_hito:
-                self._ultimo_hito = hito
-                print(
-                    f'    {fase}: {porcentaje:.0%} (ETA: {eta_texto})',
-                    file=sys.stderr, flush=True,
-                )
+            self._dibujar_locked()
 
-    def cerrar(self) -> None:
-        if self._tty and self._fase is not None:
-            print(file=sys.stderr)
+    def mostrar_mensaje(
+        self,
+        lineas_rich: List[str],
+        lineas_ansi: List[str],
+    ) -> None:
+        """Imprime un hallazgo fuera del panel y restaura la barra debajo."""
+        with self._lock:
+            self._limpiar_locked()
+            for indice, linea in enumerate(lineas_rich):
+                fallback = lineas_ansi[indice] if indice < len(lineas_ansi) else linea
+                if self._console is not None:
+                    # Los datos estáticos (especialmente rutas) pueden ocupar
+                    # varias columnas/líneas; no se recortan como la barra.
+                    self._console.print(linea)
+                else:
+                    self._stream.write(fallback + '\n')
+            self._stream.flush()
+            self._dibujar_locked()
+
+    def limpiar(self) -> None:
+        """Elimina todas las líneas del panel; se puede llamar más de una vez."""
+        with self._lock:
+            self._limpiar_locked()
+            self._terminada = True
 
 
 def _fmt_eta_corto(segundos: float) -> str:

@@ -694,11 +694,24 @@ def comparar_par(
 # Comparar todos los pares
 # ==================================================
 
+#def comparar_todos(
+#    videos: List[VideoFingerprint],
+#    callback_progreso=None,
+#    resumen=None,
+#    callback_videos=None,
+#    callback_hallazgo=None,
+#    **kwargs,
+#) -> List[ResultadoComparacion]:
+#    """
+#    Compara todos los pares y comunica también progreso dentro
+#    de búsquedas largas de fragmentos.
+#    """
 def comparar_todos(
     videos: List[VideoFingerprint],
     callback_progreso=None,
     resumen=None,
     callback_videos=None,
+    callback_hallazgo=None,
     **kwargs,
 ) -> List[ResultadoComparacion]:
     """
@@ -720,17 +733,6 @@ def comparar_todos(
             a = videos[i]
             b = videos[j]
 
-            if callback_progreso is not None:
-                try:
-                    callback_progreso(
-                        procesados,
-                        total,
-                        a.nombre,
-                        b.nombre,
-                    )
-                except Exception:
-                    pass
-
             def avance_par(
                 actual: int,
                 total_posiciones: int,
@@ -749,6 +751,8 @@ def comparar_todos(
                 except Exception:
                     pass
 
+            avance_par(0, 1)
+
             exacto = bool(a.hash_archivo and a.hash_archivo == b.hash_archivo)
             if _mismo_archivo_fisico(a.ruta, b.ruta):
                 aliases += 1
@@ -766,7 +770,13 @@ def comparar_todos(
 
             if hallazgo is not None:
                 resultados.append(hallazgo)
+                if callback_hallazgo is not None:
+                    try:
+                        callback_hallazgo(hallazgo)
+                    except Exception:
+                        pass
 
+            avance_par(1, 1)
             procesados += 1
             conteos[i] += 1
             conteos[j] += 1
@@ -774,17 +784,6 @@ def comparar_todos(
                 # En el último par terminan los dos últimos vídeos a la vez.
                 completos = n if procesados == total else i + (j == n - 1)
                 callback_videos(completos, n)
-
-            if callback_progreso is not None:
-                try:
-                    callback_progreso(
-                        procesados,
-                        total,
-                        a.nombre,
-                        b.nombre,
-                    )
-                except Exception:
-                    pass
 
     resultados.sort(
         key=lambda r: r.confianza,

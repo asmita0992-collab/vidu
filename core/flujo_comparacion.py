@@ -346,11 +346,54 @@ def cmd_comparar(args: argparse.Namespace) -> int:
                 f'Asociaciones: {len(resultados):,}[/]')
     else:
         barra = BarraProgreso(total=total_pares, total_videos=len(videos))
+
+        # Imprime cada hallazgo como un bloque persistente de varias líneas.
+        # La barra se limpia antes del bloque y se vuelve a dibujar debajo,
+        # evitando que los mensajes o las rutas largas dejen residuos visuales.
+        def manejar_hallazgo_en_vivo(hallazgo):
+            tipo_str = hallazgo.tipo.upper().replace('_', ' ')
+            info_a = hallazgo.info_a or {}
+            info_b = hallazgo.info_b or {}
+
+            dispositivo_a = info_a.get('dispositivo') or 'No identificado'
+            dispositivo_b = info_b.get('dispositivo') or 'No identificado'
+            dispositivo_id_a = info_a.get('dispositivo_id') or 'N/D'
+            dispositivo_id_b = info_b.get('dispositivo_id') or 'N/D'
+
+            ruta_a = hallazgo.ruta_a or 'N/D'
+            ruta_b = hallazgo.ruta_b or 'N/D'
+
+            lineas_rich = [
+                f'[bold red]⚡ ¡HALLAZGO DETECTADO! [{rich_escape(tipo_str)}][/] '
+                f'Confianza: [bold gold1]{hallazgo.confianza:.1%}[/]',
+                f'   [green]A:[/] [bold]{rich_escape(hallazgo.nombre_a)}[/]',
+                f'      [grey70]Ruta:[/] {rich_escape(ruta_a)}',
+                f'      [bright_cyan]Dispositivo:[/] {rich_escape(dispositivo_a)} '
+                f'[grey70](ID: {rich_escape(dispositivo_id_a)})[/]',
+                f'   [yellow]B:[/] [bold]{rich_escape(hallazgo.nombre_b)}[/]',
+                f'      [grey70]Ruta:[/] {rich_escape(ruta_b)}',
+                f'      [bright_cyan]Dispositivo:[/] {rich_escape(dispositivo_b)} '
+                f'[grey70](ID: {rich_escape(dispositivo_id_b)})[/]',
+            ]
+
+            lineas_ansi = [
+                f'{ROJO}{NEGRITA}⚡ ¡HALLAZGO DETECTADO! [{tipo_str}]{NC} '
+                f'{AMARILLO}{NEGRITA}Confianza: {hallazgo.confianza:.1%}{NC}',
+                f'   {VERDE}A:{NC} {NEGRITA}{hallazgo.nombre_a}{NC}',
+                f'      {GRIS}Ruta:{NC} {ruta_a}',
+                f'      {CIAN}Dispositivo:{NC} {dispositivo_a} (ID: {dispositivo_id_a})',
+                f'   {AMARILLO}B:{NC} {NEGRITA}{hallazgo.nombre_b}{NC}',
+                f'      {GRIS}Ruta:{NC} {ruta_b}',
+                f'      {CIAN}Dispositivo:{NC} {dispositivo_b} (ID: {dispositivo_id_b})',
+            ]
+            barra.mostrar_mensaje(lineas_rich, lineas_ansi)
+
         try:
             resultados = comparar_todos(
                 videos,
                 callback_progreso=barra.actualizar,
                 callback_videos=barra.actualizar_videos,
+                callback_hallazgo=manejar_hallazgo_en_vivo,
                 resumen=resumen_comparativas,
                 umbral_phash=args.umbral_phash,
                 umbral_visual=args.umbral_visual / 100,
