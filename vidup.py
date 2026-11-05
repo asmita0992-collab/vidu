@@ -9,7 +9,7 @@ Los reportes se guardan junto al programa, dentro de reportes/.
 
 from __future__ import annotations
 
-__version__ = "2.0.1"
+__version__ = "2.1.0"
 __desc_herramienta__ = "Detector de vídeos duplicados y fragmentos"
 
 import argparse
@@ -116,7 +116,7 @@ except ImportError:
 
 _PALABRAS_SALIR = {'0', '00', 'salir', 'exit', 'quit', 'q'}
 from core.flujo_comparacion import (comparar_interactivo)
-from core.flujo_escaneo import (_tras_menu_sha256, escanear_interactivo)
+from core.flujo_escaneo import (_tras_menu_sha256, escanear_interactivo, submenu_escaneo)
 from core.menus import (submenu_depurar, submenu_estadisticas, submenu_mover, submenu_respaldos, submenu_verificacion)
 from core.configuracion import submenu_configuracion
 
@@ -198,7 +198,7 @@ def menu_interactivo() -> int:
 
         try:
             if opcion == '1':
-                db_defecto = escanear_interactivo(db_defecto)
+                db_defecto = submenu_escaneo(db_defecto)
             elif opcion == '2':
                 db_defecto = comparar_interactivo(db_defecto)
             elif opcion == '3':
@@ -234,14 +234,17 @@ def menu_interactivo() -> int:
 
 def construir_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog='vidup', description=f"{__desc_herramienta__}: versión {__version__}")
-    parser.add_argument('--version', action='version', version=f'%(prog)s {__version__}')
+    parser.add_argument('-ver', '--version', action='version', version=f'%(prog)s {__version__}', help='Muestra la versión de la herramienta')
+    parser.add_argument('-mod', '--modo', choices=['estandar', 'previo', 'codec'], default=None, help='Modo de escaneo a ejecutar (estandar, previo, codec)')
+    parser.add_argument('-dir', '--directorio', type=str, default=None, help='Directorio de vídeos a procesar')
+    parser.add_argument('-db', '--base-datos', type=str, default=None, help='Ruta de la base de datos SQLite')
     return parser
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     if os.name == 'nt':
         os.system('')
-    construir_parser().parse_args(argv)
+    args = construir_parser().parse_args(argv)
 
     try:
         from core.database import _detectar_modo_conexion_una_vez
@@ -257,6 +260,18 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         return 1
 
     set_high_priority()
+
+    if args.modo:
+        db_defecto = args.base_datos or _base_reciente_por_defecto()
+        if args.modo == 'estandar':
+            escanear_interactivo(db_defecto)
+        elif args.modo == 'previo':
+            from core.flujo_escaneo import escaneo_previo_codecs_interactivo
+            escaneo_previo_codecs_interactivo(db_defecto)
+        elif args.modo == 'codec':
+            from core.flujo_escaneo import escanear_por_codec_interactivo
+            escanear_por_codec_interactivo(db_defecto)
+        return 0
 
     try:
         return menu_interactivo()
