@@ -9,7 +9,7 @@ Los reportes se guardan junto al programa, dentro de reportes/.
 
 from __future__ import annotations
 
-__version__ = "2.1.0"
+__version__ = "2.2.2"
 __desc_herramienta__ = "Detector de vídeos duplicados y fragmentos"
 
 import argparse
@@ -167,7 +167,7 @@ def menu_interactivo() -> int:
             tabla.add_row('6', 'Operaciones SHA256 (varias carpetas en un catálogo)')
             tabla.add_row('7', 'Estadísticas, verificación bidireccional y reportes')
             tabla.add_row('8', 'Verificación y ubicación de archivos')
-            tabla.add_row('9', 'Configuración (BD en línea / Telegram)')
+            tabla.add_row('9', 'Configuración')
             tabla.add_row('0', 'Salir')
             CONSOLA.print(tabla)
         else:
@@ -185,7 +185,7 @@ def menu_interactivo() -> int:
             print('  6. Operaciones SHA256 (varias carpetas en un catálogo)')
             print('  7. Estadísticas, verificación bidireccional y reportes')
             print('  8. Verificación y ubicación de archivos')
-            print('  9. Configuración (BD en línea / Telegram)')
+            print('  9. Configuración')
             print('  0. Salir')
 
         try:
