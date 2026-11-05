@@ -81,38 +81,88 @@ def arquitectura_maquina() -> str:
     return platform.machine()
 
 
-def set_high_priority() -> None:
-    """Intenta mejorar la prioridad sin hacerla un requisito del programa.
+OPCIONES_PRIORIDAD = {
+    '1': {
+        'nombre': 'HIGH_PRIORITY_CLASS',
+        'etiqueta': 'Alta (HIGH_PRIORITY_CLASS / nice -10)',
+        'win': 'HIGH_PRIORITY_CLASS',
+        'win_val': 0x8000,
+        'unix_nice': -10,
+    },
+    '2': {
+        'nombre': 'ABOVE_NORMAL_PRIORITY_CLASS',
+        'etiqueta': 'Por encima de lo normal (ABOVE_NORMAL_PRIORITY_CLASS / nice -5)',
+        'win': 'ABOVE_NORMAL_PRIORITY_CLASS',
+        'win_val': 0x80,
+        'unix_nice': -5,
+    },
+    '3': {
+        'nombre': 'NORMAL_PRIORITY_CLASS',
+        'etiqueta': 'Normal (NORMAL_PRIORITY_CLASS / nice 0)',
+        'win': 'NORMAL_PRIORITY_CLASS',
+        'win_val': 0x20,
+        'unix_nice': 0,
+    },
+    '4': {
+        'nombre': 'PROCESS_MODE_BACKGROUND_BEGIN',
+        'etiqueta': 'Segundo plano (PROCESS_MODE_BACKGROUND_BEGIN / IDLE / nice 10)',
+        'win': 'IDLE_PRIORITY_CLASS',
+        'win_val': 0x40,
+        'unix_nice': 10,
+    },
+}
 
-    La operación puede no estar disponible en Termux, iOS, contenedores o
-    cuentas sin privilegios; en esos casos VIDUP debe continuar normalmente.
+
+def obtener_prioridad_configurada() -> str:
+    """Retorna la clave o nombre de prioridad desde el entorno o .env."""
+    return os.environ.get('VIDUP_PRIORIDAD', 'ABOVE_NORMAL_PRIORITY_CLASS').strip()
+
+
+def aplicar_prioridad(nivel: Optional[str] = None) -> str:
+    """Aplica la prioridad indicada o la configurada en .env según el SO.
+
+    Soporta Windows, Linux, Ubuntu/Xubuntu, Android y macOS.
     """
+    if not nivel:
+        nivel = obtener_prioridad_configurada()
+
+    cfg = None
+    for item in OPCIONES_PRIORIDAD.values():
+        if nivel == item['nombre'] or nivel == item['win'] or nivel == str(item['unix_nice']):
+            cfg = item
+            break
+    if not cfg:
+        cfg = OPCIONES_PRIORIDAD['2']
+
     try:
         sistema = platform.system().lower()
 
         if sistema == 'windows':
             try:
                 import psutil
-                # El valor de ABOVE_NORMAL_PRIORITY_CLASS es 0x80; algunas versiones
-                # o stubs de psutil no exponen la constante en el módulo.
-                prioridad_alta = getattr(psutil, 'ABOVE_NORMAL_PRIORITY_CLASS', 0x80)
-                psutil.Process(os.getpid()).nice(prioridad_alta)
-                imprimir('[spring_green2]✓ Prioridad del proceso elevada a ABOVE_NORMAL_PRIORITY_CLASS.[/]')
+                val = getattr(psutil, cfg['win'], cfg['win_val'])
+                psutil.Process(os.getpid()).nice(val)
+                imprimir(f'[spring_green2]✓ Prioridad del proceso ajustada a {cfg["win"]} en Windows.[/]')
             except (ImportError, OSError, PermissionError, AttributeError):
                 pass
         elif sistema in {'linux', 'android', 'darwin', 'freebsd', 'openbsd', 'netbsd'}:
-            # os.nice existe en Unix, pero puede estar ausente o bloqueado.
             nice = getattr(os, 'nice', None)
-            if nice is None:
-                return
-            try:
-                nice(-5)
-                imprimir('[spring_green2]✓ nice() ajustado a -5.[/]')
-            except (OSError, PermissionError):
-                pass
+            if nice is not None:
+                try:
+                    target_nice = cfg['unix_nice']
+                    nice(target_nice)
+                    imprimir(f'[spring_green2]✓ Prioridad del proceso ajustada a nice({target_nice}) en {so_legible()}.[/]')
+                except (OSError, PermissionError):
+                    pass
     except Exception:
-        # La prioridad es solo una optimización; nunca debe impedir el inicio.
         pass
+
+    return cfg['nombre']
+
+
+def set_high_priority() -> None:
+    """Alias para aplicar la prioridad configurada al iniciar VIDUP."""
+    aplicar_prioridad()
 
 def _carpetas_android_candidatas() -> List[Path]:
     """

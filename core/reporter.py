@@ -741,6 +741,120 @@ def exportar_csv(
         escritor.writerows(filas)
 
 
+def exportar_candidatos_a_eliminar(
+    informe: Dict[str, Any],
+    carpeta_base: Path,
+    identificador: str,
+) -> None:
+    """Genera reportes de candidatos a eliminar en CSV, TXT y JSON agrupados por dispositivo."""
+    resultados = informe.get('resultados', [])
+    candidatos_map: Dict[Tuple[str, str], Dict[str, Any]] = {}
+
+    for r in resultados:
+        rec = r.get('recomendacion') if isinstance(r, dict) else getattr(r, 'recomendacion', {})
+        if not rec or not isinstance(rec, dict):
+            continue
+        eliminar_ruta = rec.get('eliminar_ruta') or ''
+        eliminar_nombre = rec.get('eliminar_nombre') or ''
+        if not eliminar_ruta and not eliminar_nombre:
+            continue
+
+        elim_disp_id = str(rec.get('eliminar_dispositivo_id') or 'N/D')
+        elim_disp = str(rec.get('eliminar_dispositivo') or 'Dispositivo no identificado')
+        clave = (elim_disp_id, eliminar_ruta or eliminar_nombre)
+
+        if clave not in candidatos_map:
+            candidatos_map[clave] = {
+                'dispositivo': elim_disp,
+                'dispositivo_id': elim_disp_id,
+                'nombre': eliminar_nombre,
+                'ruta_completa': eliminar_ruta or eliminar_nombre,
+                'criterio': rec.get('criterio', 'duplicado'),
+                'motivo': rec.get('motivo', ''),
+                'conservar_nombre': rec.get('conservar_nombre', ''),
+                'conservar_ruta': rec.get('conservar_ruta', ''),
+                'conservar_dispositivo': rec.get('conservar_dispositivo', ''),
+                'conservar_dispositivo_id': rec.get('conservar_dispositivo_id', ''),
+            }
+
+    # Agrupar por dispositivo
+    por_dispositivo: Dict[str, List[Dict[str, Any]]] = {}
+    for cand in candidatos_map.values():
+        disp_tag = f"{cand['dispositivo']} (ID {cand['dispositivo_id']})"
+        por_dispositivo.setdefault(disp_tag, []).append(cand)
+
+    # 1. JSON
+    json_agrupado = []
+    for disp_tag, lista in por_dispositivo.items():
+        if not lista:
+            continue
+        disp_nombre = lista[0]['dispositivo']
+        disp_id = lista[0]['dispositivo_id']
+        json_agrupado.append({
+            'dispositivo': disp_nombre,
+            'dispositivo_id': disp_id,
+            'total_candidatos': len(lista),
+            'candidatos': lista,
+        })
+
+    datos_json = {
+        'fecha': informe.get('fecha', datetime.now(ZONA_MEXICO).isoformat()),
+        'total_candidatos_a_eliminar': len(candidatos_map),
+        'dispositivos': json_agrupado,
+    }
+
+    ruta_json = carpeta_base / 'json' / f'candidatos_a_eliminar_{identificador}.json'
+    ruta_json.parent.mkdir(parents=True, exist_ok=True)
+    ruta_json.write_text(json.dumps(datos_json, ensure_ascii=False, indent=4) + '\n', encoding='utf-8')
+
+    # 2. TXT
+    lineas_txt = [
+        '================================================================================',
+        'CANDIDATOS A ELIMINAR — VÍDEOS DUPLICADOS DETECTADOS',
+        '================================================================================',
+        f'Fecha: {datetime.now(ZONA_MEXICO).strftime("%d/%m/%Y %H:%M:%S")}',
+        f'Total vídeos candidatos a eliminar: {len(candidatos_map)}',
+        '================================================================================',
+        '',
+    ]
+
+    if not candidatos_map:
+        lineas_txt.append('No se encontraron vídeos candidatos a eliminar.')
+    else:
+        for disp_tag, lista in por_dispositivo.items():
+            lineas_txt.append('--------------------------------------------------------------------------------')
+            lineas_txt.append(f'DISPOSITIVO: {disp_tag} — ({len(lista)} candidato{"s" if len(lista) != 1 else ""})')
+            lineas_txt.append('--------------------------------------------------------------------------------')
+            for idx, item in enumerate(lista, 1):
+                lineas_txt.append(f'  {idx}. ELIMINAR   →  {item["nombre"]} (ID {item["dispositivo_id"]})')
+                lineas_txt.append(f'     Ruta completa: {item["ruta_completa"]}')
+                if item["motivo"]:
+                    lineas_txt.append(f'     Motivo       : {item["motivo"]}')
+                if item["conservar_nombre"]:
+                    lineas_txt.append(f'     Conservar    : {item["conservar_nombre"]} (ID {item["conservar_dispositivo_id"]})')
+                    if item["conservar_ruta"]:
+                        lineas_txt.append(f'     Ruta conservar: {item["conservar_ruta"]}')
+                lineas_txt.append('')
+
+    ruta_txt = carpeta_base / 'txt' / f'candidatos_a_eliminar_{identificador}.txt'
+    ruta_txt.parent.mkdir(parents=True, exist_ok=True)
+    ruta_txt.write_text('\n'.join(lineas_txt) + '\n', encoding='utf-8')
+
+    # 3. CSV
+    ruta_csv = carpeta_base / 'csv' / f'candidatos_a_eliminar_{identificador}.csv'
+    ruta_csv.parent.mkdir(parents=True, exist_ok=True)
+    cols_csv = [
+        'dispositivo', 'dispositivo_id', 'nombre', 'ruta_completa',
+        'criterio', 'motivo', 'conservar_nombre', 'conservar_ruta',
+        'conservar_dispositivo', 'conservar_dispositivo_id'
+    ]
+    with ruta_csv.open('w', newline='', encoding='utf-8-sig') as f_csv:
+        escritor = csv.DictWriter(f_csv, fieldnames=cols_csv)
+        escritor.writeheader()
+        for cand in candidatos_map.values():
+            escritor.writerow(cand)
+
+
 # ============================================================================
 # Resumen de escaneo
 # ============================================================================

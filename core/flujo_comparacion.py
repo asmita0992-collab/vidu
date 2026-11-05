@@ -181,7 +181,7 @@ def _comparar_rapido_sha256(videos: Sequence[Any]) -> Tuple[List[Any], Dict[str,
     """
     from collections import defaultdict
     import re
-    from core.comparator import ResultadoComparacion, _info_video
+    from core.comparator import ResultadoComparacion, _info_video, _decidir_cual_eliminar
 
     agrupados: Dict[str, List[Any]] = defaultdict(list)
     omitidos = 0
@@ -224,7 +224,7 @@ def _comparar_rapido_sha256(videos: Sequence[Any]) -> Tuple[List[Any], Dict[str,
                 confianza=1.0,
                 notas=f'SHA256 registrado idéntico: {sha}. Contenido no releído durante esta comparación.',
                 info_a=info_a, info_b=info_b,
-                recomendacion={},
+                recomendacion=_decidir_cual_eliminar(origen, fp),
             ))
 
     resumen = {
@@ -244,7 +244,7 @@ def _comparar_rapido_sha256(videos: Sequence[Any]) -> Tuple[List[Any], Dict[str,
 def cmd_comparar(args: argparse.Namespace) -> int:
     from core.comparator import comparar_todos
     from core.database import _usa_neon, cerrar, conectar, importar_json, obtener_todos, info_dispositivo_actual, describir_conexion
-    from core.reporter import BarraProgreso, construir_informe, exportar_csv, exportar_json, exportar_txt, imprimir_reporte
+    from core.reporter import BarraProgreso, construir_informe, exportar_csv, exportar_json, exportar_txt, exportar_candidatos_a_eliminar, imprimir_reporte
 
     if not _validar_umbrales(args):
         return 2
@@ -346,11 +346,14 @@ def cmd_comparar(args: argparse.Namespace) -> int:
                 f'Asociaciones: {len(resultados):,}[/]')
     else:
         barra = BarraProgreso(total=total_pares, total_videos=len(videos))
+        contador_hallazgos = 0
 
         # Imprime cada hallazgo como un bloque persistente de varias líneas.
         # La barra se limpia antes del bloque y se vuelve a dibujar debajo,
         # evitando que los mensajes o las rutas largas dejen residuos visuales.
         def manejar_hallazgo_en_vivo(hallazgo):
+            nonlocal contador_hallazgos
+            contador_hallazgos += 1
             tipo_str = hallazgo.tipo.upper().replace('_', ' ')
             info_a = hallazgo.info_a or {}
             info_b = hallazgo.info_b or {}
@@ -364,7 +367,7 @@ def cmd_comparar(args: argparse.Namespace) -> int:
             ruta_b = hallazgo.ruta_b or 'N/D'
 
             lineas_rich = [
-                f'[bold red]⚡ ¡HALLAZGO DETECTADO! [{rich_escape(tipo_str)}][/] '
+                f'[bold red]⚡ ¡HALLAZGO {contador_hallazgos} DETECTADO! [{rich_escape(tipo_str)}][/] '
                 f'Confianza: [bold gold1]{hallazgo.confianza:.1%}[/]',
                 f'   [green]A:[/] [bold]{rich_escape(hallazgo.nombre_a)}[/]',
                 f'      [grey70]Ruta:[/] {rich_escape(ruta_a)}',
@@ -377,7 +380,7 @@ def cmd_comparar(args: argparse.Namespace) -> int:
             ]
 
             lineas_ansi = [
-                f'{ROJO}{NEGRITA}⚡ ¡HALLAZGO DETECTADO! [{tipo_str}]{NC} '
+                f'{ROJO}{NEGRITA}⚡ ¡HALLAZGO {contador_hallazgos} DETECTADO! [{tipo_str}]{NC} '
                 f'{AMARILLO}{NEGRITA}Confianza: {hallazgo.confianza:.1%}{NC}',
                 f'   {VERDE}A:{NC} {NEGRITA}{hallazgo.nombre_a}{NC}',
                 f'      {GRIS}Ruta:{NC} {ruta_a}',
@@ -434,8 +437,9 @@ def cmd_comparar(args: argparse.Namespace) -> int:
     exportar_txt(informe, str(ruta_txt))
     exportar_json(resultados, str(ruta_json), informe=informe)
     exportar_csv(resultados, str(ruta_csv), informe=informe)
+    exportar_candidatos_a_eliminar(informe, carpeta, identificador)
     args.ultimo_reporte = str(ruta_json)
-    imprimir(f'[spring_green2]Reportes guardados en: {carpeta}[/]')
+    imprimir(f'[spring_green2]Reportes de comparación y candidatos a eliminar guardados en: {carpeta}[/]')
 
     notificar_fin('Comparar bases de datos', True,
                   f'{len(resultados)} hallazgos en {_fmt_seg(duracion)}')

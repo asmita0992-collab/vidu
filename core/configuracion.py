@@ -24,6 +24,9 @@ from core.telegram import (
     configurado as telegram_configurado, recargar_config_telegram, probar as probar_telegram
 )
 from core.sincronizacion import sincronizar_local_y_nube
+from core.plataforma import (
+    obtener_prioridad_configurada, aplicar_prioridad, OPCIONES_PRIORIDAD
+)
 
 DIR_SCRIPT: Path = Path(__file__).resolve().parent.parent
 ENV_PATH: Path = DIR_SCRIPT / ".env"
@@ -76,6 +79,7 @@ def submenu_configuracion(db_defecto: str) -> str:
         hab_tg = os.environ.get('TELEGRAM_HABILITADO', '1').strip().lower() not in ('0', 'false', 'no', 'desactivado')
         estado_tg = "Activado" if hab_tg else "Desactivado"
         pausa_min = int(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', '3') or '3')
+        prio_actual = obtener_prioridad_configurada()
 
         if CONSOLA is not None and Panel is not None and Table is not None and rich_box is not None:
             CONSOLA.print()
@@ -83,7 +87,8 @@ def submenu_configuracion(db_defecto: str) -> str:
                 f'[bold bright_white]Configuración general de VIDUP[/]\n'
                 f'[cyan]Base de datos en línea (Neon) :[/] {modo_neon}\n'
                 f'[cyan]Notificaciones de Telegram     :[/] {estado_tg}\n'
-                f'[cyan]Pausa entre lotes de escaneo   :[/] {pausa_min} min',
+                f'[cyan]Pausa entre lotes de escaneo   :[/] {pausa_min} min\n'
+                f'[cyan]Prioridad del proceso (OS)    :[/] [gold1]{prio_actual}[/]',
                 title='[bold plum1]Ajustes (Submenú 9)[/]',
                 border_style='bright_cyan',
             ))
@@ -97,6 +102,7 @@ def submenu_configuracion(db_defecto: str) -> str:
             tabla.add_row('5', 'Probar envío de mensaje por Telegram')
             tabla.add_row('6', 'Configurar tiempo de pausa entre lotes de escaneo (en minutos)')
             tabla.add_row('7', 'Sincronizar bases de datos ahora (Local <-> Neon)')
+            tabla.add_row('8', 'Establecer nivel de prioridad del proceso (Windows / Linux / macOS / Android)')
             tabla.add_row('0', 'Regresar al menú principal')
             CONSOLA.print(tabla)
         else:
@@ -104,6 +110,7 @@ def submenu_configuracion(db_defecto: str) -> str:
             print(f'  BD en línea (Neon) : {modo_neon}')
             print(f'  Telegram           : {estado_tg}')
             print(f'  Pausa entre lotes  : {pausa_min} min')
+            print(f'  Prioridad proceso  : {prio_actual}')
             print('  1. Activar / Desactivar BD en línea (Neon)')
             print('  2. Configurar URL de conexión de Neon')
             print('  3. Activar / Desactivar notificaciones de Telegram')
@@ -111,6 +118,7 @@ def submenu_configuracion(db_defecto: str) -> str:
             print('  5. Probar envío de mensaje por Telegram')
             print('  6. Configurar tiempo de pausa entre lotes de escaneo (en minutos)')
             print('  7. Sincronizar bases de datos ahora (Local <-> Neon)')
+            print('  8. Establecer nivel de prioridad del proceso (Windows / Linux / macOS / Android)')
             print('  0. Regresar al menú principal')
 
         try:
@@ -193,5 +201,18 @@ def submenu_configuracion(db_defecto: str) -> str:
                 imprimir('[cyan]🔄 Sincronizando base local con Neon PostgreSQL...[/]')
                 subidos, descargados, elim = sincronizar_local_y_nube()
                 imprimir(f'[spring_green2]✓ Sincronización completada: {subidos} subidos/actualizados, {descargados} descargados/actualizados, {elim} eliminados.[/]')
+
+        elif opc == '8':
+            imprimir('\n[bold cyan]Niveles de prioridad del proceso:[/]')
+            for k, item in OPCIONES_PRIORIDAD.items():
+                imprimir(f'  [gold1]{k}.[/] [bright_white]{item["etiqueta"]}[/]')
+            sel = pedir_texto('Elige nivel de prioridad (1-4)', '2').strip()
+            if sel in OPCIONES_PRIORIDAD:
+                nombre_prio = OPCIONES_PRIORIDAD[sel]['nombre']
+                actualizar_env({'VIDUP_PRIORIDAD': nombre_prio})
+                aplicar_prioridad(nombre_prio)
+                imprimir(f'[spring_green2]✓ Prioridad del proceso guardada y aplicada: {nombre_prio}[/]')
+            else:
+                imprimir('[yellow]Opción de prioridad inválida.[/]')
 
     return db_defecto
