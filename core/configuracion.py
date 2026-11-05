@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Módulo para gestionar la configuración de VIDUP (BD en línea y Telegram)."""
+"""Módulo para gestionar la configuración de VIDUP (BD en línea, Telegram, Lotes y Sincronización)."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Dict, Any
 
 from core.presentacion import (
-    imprimir, pedir_si_no, pedir_texto, RegresarAlMenu,
+    imprimir, pedir_si_no, pedir_texto, pedir_numero, RegresarAlMenu,
     CONSOLA, Panel
 )
 try:
@@ -23,6 +23,7 @@ from core.telegram import (
     TELEGRAM_HABILITADO, TELEGRAM_TOKEN, TELEGRAM_CHAT_ID,
     configurado as telegram_configurado, recargar_config_telegram, probar as probar_telegram
 )
+from core.sincronizacion import sincronizar_local_y_nube
 
 DIR_SCRIPT: Path = Path(__file__).resolve().parent.parent
 ENV_PATH: Path = DIR_SCRIPT / ".env"
@@ -69,19 +70,21 @@ def actualizar_env(cambios: Dict[str, str]) -> None:
 
 
 def submenu_configuracion(db_defecto: str) -> str:
-    """Submenú interactivo para configurar la base de datos en línea y Telegram."""
+    """Submenú interactivo para configurar la base de datos en línea, Telegram, lotes y sincronización."""
     while True:
         modo_neon = "Desactivada (Solo SQLite local)" if os.environ.get('VIDUP_FORZAR_OFFLINE', '').strip() in ('1', 'true', 'yes', 'sí') else ("Activada (" + describir_conexion() + ")")
         hab_tg = os.environ.get('TELEGRAM_HABILITADO', '1').strip().lower() not in ('0', 'false', 'no', 'desactivado')
         estado_tg = "Activado" if hab_tg else "Desactivado"
+        pausa_min = int(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', '3') or '3')
 
         if CONSOLA is not None and Panel is not None and Table is not None and rich_box is not None:
             CONSOLA.print()
             CONSOLA.print(Panel.fit(
-                f'[bold bright_white]Configuración de VIDUP[/]\n'
+                f'[bold bright_white]Configuración general de VIDUP[/]\n'
                 f'[cyan]Base de datos en línea (Neon) :[/] {modo_neon}\n'
-                f'[cyan]Notificaciones de Telegram     :[/] {estado_tg}',
-                title='[bold plum1]Ajustes[/]',
+                f'[cyan]Notificaciones de Telegram     :[/] {estado_tg}\n'
+                f'[cyan]Pausa entre lotes de escaneo   :[/] {pausa_min} min',
+                title='[bold plum1]Ajustes (Submenú 9)[/]',
                 border_style='bright_cyan',
             ))
             tabla = Table(box=rich_box.ROUNDED, border_style='cyan', show_header=False)
@@ -92,17 +95,22 @@ def submenu_configuracion(db_defecto: str) -> str:
             tabla.add_row('3', 'Activar / Desactivar notificaciones de Telegram')
             tabla.add_row('4', 'Configurar Token y Chat ID de Telegram')
             tabla.add_row('5', 'Probar envío de mensaje por Telegram')
+            tabla.add_row('6', 'Configurar tiempo de pausa entre lotes de escaneo (en minutos)')
+            tabla.add_row('7', 'Sincronizar bases de datos ahora (Local <-> Neon)')
             tabla.add_row('0', 'Regresar al menú principal')
             CONSOLA.print(tabla)
         else:
-            print('\nVIDUP — Configuración')
+            print('\nVIDUP — Configuración general')
             print(f'  BD en línea (Neon) : {modo_neon}')
             print(f'  Telegram           : {estado_tg}')
+            print(f'  Pausa entre lotes  : {pausa_min} min')
             print('  1. Activar / Desactivar BD en línea (Neon)')
             print('  2. Configurar URL de conexión de Neon')
             print('  3. Activar / Desactivar notificaciones de Telegram')
             print('  4. Configurar Token y Chat ID de Telegram')
             print('  5. Probar envío de mensaje por Telegram')
+            print('  6. Configurar tiempo de pausa entre lotes de escaneo (en minutos)')
+            print('  7. Sincronizar bases de datos ahora (Local <-> Neon)')
             print('  0. Regresar al menú principal')
 
         try:
@@ -110,14 +118,13 @@ def submenu_configuracion(db_defecto: str) -> str:
         except RegresarAlMenu:
             break
 
-        if opc in ('0', 'salir', 'q'):
+        if opc in ('0', '00', 'salir', 'q'):
             break
 
         if opc == '1':
             actual_off = os.environ.get('VIDUP_FORZAR_OFFLINE', '').strip() in ('1', 'true', 'yes', 'sí')
             nuevo_estado = not actual_off
             if nuevo_estado:
-                # Se forzará offline
                 actualizar_env({'VIDUP_FORZAR_OFFLINE': '1'})
                 imprimir('[yellow]BD en línea (Neon) DESACTIVADA. VIDUP funcionará solo en modo local.[/]')
             else:
@@ -171,5 +178,20 @@ def submenu_configuracion(db_defecto: str) -> str:
 
         elif opc == '5':
             probar_telegram()
+
+        elif opc == '6':
+            actual = int(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', '3') or '3')
+            nuevo = pedir_numero('Minutos de pausa entre lotes', actual, 1, 120, entero=True)
+            actualizar_env({'VIDUP_TIEMPO_PAUSA_LOTES': str(int(nuevo))})
+            imprimir(f'[spring_green2]✓ Tiempo de pausa entre lotes actualizado a {int(nuevo)} min.[/]')
+
+        elif opc == '7':
+            reset_modo_conexion()
+            if not _usa_neon():
+                imprimir('[yellow]Neon no está activo o no hay conexión. Actívalo en la opción 1 o revisa tu red.[/]')
+            else:
+                imprimir('[cyan]🔄 Sincronizando base local con Neon PostgreSQL...[/]')
+                subidos, descargados, elim = sincronizar_local_y_nube()
+                imprimir(f'[spring_green2]✓ Sincronización completada: {subidos} subidos/actualizados, {descargados} descargados/actualizados, {elim} eliminados.[/]')
 
     return db_defecto

@@ -75,11 +75,8 @@ def raices_almacenamiento(avisos: Optional[List[str]] = None) -> List[str]:
     """Memoria interna y tarjetas en Android; unidades en Windows.
 
     En Android: /storage/emulated/0 (interna) y /storage/XXXX-XXXX (tarjeta).
-    Si /storage no se puede listar, NO se silencia: se anota en `avisos`
-    (si se pasa) para que el reporte lo muestre. Se añaden además rutas
-    alternativas conocidas (/mnt/media_rw/*) por si el listado falla.
-
-    En Linux no se detecta nada; las raíces se agregan manualmente.
+    En Windows: unidades montadas (C:\\, D:\\, etc).
+    En Linux/MacOS: puntos de montaje en /mnt o /media.
     """
     raices: List[str] = []
     candidatas: List[str] = []
@@ -95,39 +92,61 @@ def raices_almacenamiento(avisos: Optional[List[str]] = None) -> List[str]:
             if os.path.isdir(unidad):
                 candidatas.append(unidad)
     else:
-        # 1) Memoria interna explícita: no depende de listar /storage.
-        interna = '/storage/emulated/0'
-        if os.path.isdir(interna):
-            candidatas.append(interna)
+        # Detectar si estamos en Android
+        if ('ANDROID_ROOT' in os.environ or 'ANDROID_DATA' in os.environ or 
+            'com.termux' in os.environ.get('PREFIX', '') or 
+            'com.termux' in os.environ.get('PATH', '')):
+            
+            # 1) Memoria interna explícita Android
+            interna = '/storage/emulated/0'
+            if os.path.isdir(interna):
+                candidatas.append(interna)
 
-        # 2) Listar /storage propagando el error.
-        try:
-            base = Path('/storage')
-            if base.is_dir():
-                for hijo in sorted(base.iterdir()):
-                    if hijo.name in ('self', 'emulated'):
-                        continue
-                    if os.path.isdir(str(hijo)):
-                        candidatas.append(str(hijo))
-            else:
-                _anotar('/storage no existe o no es accesible')
-        except OSError as exc:
-            _anotar(f'No se pudo listar /storage: {exc}')
+            # 2) Listar /storage propagando el error
+            try:
+                base = Path('/storage')
+                if base.is_dir():
+                    for hijo in sorted(base.iterdir()):
+                        if hijo.name in ('self', 'emulated'):
+                            continue
+                        if os.path.isdir(str(hijo)):
+                            candidatas.append(str(hijo))
+                else:
+                    _anotar('/storage no existe o no es accesible')
+            except OSError as exc:
+                _anotar(f'No se pudo listar /storage: {exc}')
 
-        # 3) Vía alternativa Android: /mnt/media_rw/<UUID>.
-        try:
-            media = Path('/mnt/media_rw')
-            if os.path.isdir(str(media)):
-                for hijo in sorted(media.iterdir()):
-                    if os.path.isdir(str(hijo)):
-                        candidatas.append(str(hijo))
-        except OSError as exc:
-            _anotar(f'No se pudo listar /mnt/media_rw: {exc}')
+            # 3) Vía alternativa Android
+            try:
+                media = Path('/mnt/media_rw')
+                if os.path.isdir(str(media)):
+                    for hijo in sorted(media.iterdir()):
+                        if os.path.isdir(str(hijo)):
+                            candidatas.append(str(hijo))
+            except OSError as exc:
+                _anotar(f'No se pudo listar /mnt/media_rw: {exc}')
+                
+        # En Linux / MacOS: Buscar en /mnt y /media
+        else:
+            for directorio_base in ('/mnt', '/media'):
+                try:
+                    base = Path(directorio_base)
+                    if base.is_dir():
+                        # Primero agregar la raíz principal
+                        candidatas.append(str(base))
+                        # Si hay subcarpetas de montaje, también agregarlas
+                        for hijo in sorted(base.iterdir()):
+                            if os.path.isdir(str(hijo)):
+                                candidatas.append(str(hijo))
+                except OSError as exc:
+                    _anotar(f'No se pudo listar {directorio_base}: {exc}')
 
     # Deduplicar preservando orden.
     vistos: set = set()
     for r in candidatas:
         limpia = r.rstrip('/\\')
+        if os.name == 'nt' and len(limpia) == 2 and limpia[1] == ':':
+            limpia += '\\'
         if limpia and limpia not in vistos:
             vistos.add(limpia)
             raices.append(limpia)
@@ -135,43 +154,52 @@ def raices_almacenamiento(avisos: Optional[List[str]] = None) -> List[str]:
 
 
 def separar_almacenamiento(ruta: str) -> Optional[Tuple[str, str]]:
-    """Devuelve (raíz, ruta relativa) para rutas bajo /storage, o None.
+    """Devuelve (raíz, ruta relativa) adaptándose a Windows, Linux y Android."""
+    ruta_str = str(ruta).replace('\\', '/')
 
-    /storage/emulated/0/Videos/a.mp4   -> ('/storage/emulated/0', 'Videos/a.mp4')
-    /storage/9F36-61B5/Videos/a.mp4    -> ('/storage/9F36-61B5', 'Videos/a.mp4')
-    """
-    m = _PATRON_STORAGE.match(str(ruta).replace('\\', '/'))
-    if not m:
-        return None
-    relativa = m.group(2)
-    if not relativa:
-        return None
-    return f'/storage/{m.group(1)}', relativa
+    # 1. Windows: C:/Videos/a.mp4 -> ('C:\\', 'Videos/a.mp4')
+    m_win = re.match(r'^([a-zA-Z]:/)(.*)$', ruta_str)
+    if m_win:
+        relativa = m_win.group(2)
+        if relativa:
+            return m_win.group(1).replace('/', '\\'), relativa
+
+    # 2. Android: /storage/emulated/0/Videos/a.mp4 -> ('/storage/emulated/0', 'Videos/a.mp4')
+    m_android = re.match(r'^(/storage/(?:emulated/0|[^/]+))/(.*)$', ruta_str)
+    if m_android:
+        relativa = m_android.group(2)
+        if relativa:
+            return m_android.group(1), relativa
+
+    # 3. Linux/MacOS montajes: /mnt/disco/Videos/a.mp4 -> ('/mnt/disco', 'Videos/a.mp4')
+    m_linux = re.match(r'^(/mnt/[^/]+|/media/[^/]+)/(.*)$', ruta_str)
+    if m_linux:
+        relativa = m_linux.group(2)
+        if relativa:
+            return m_linux.group(1), relativa
+
+    # 4. Fallback de Linux/Mac (ej. /home/usuario/Videos)
+    m_home = re.match(r'^(/home/[^/]+)/(.*)$', ruta_str)
+    if m_home:
+        relativa = m_home.group(2)
+        if relativa:
+            return m_home.group(1), relativa
+
+    return None
 
 
 def _normalizar_raiz(raiz: str) -> Tuple[Optional[str], Optional[str]]:
-    """Valida/normaliza una raíz adicional.
-
-    Devuelve (raiz_valida, aviso). Si `raiz_valida` es None, la raíz se
-    rechaza y `aviso` explica por qué. Si la raíz es una subcarpeta de
-    /storage, se corrige automáticamente a la raíz y se devuelve un aviso.
-
-    Ejemplos:
-      /storage/9F36-61B5          -> ('/storage/9F36-61B5', None)
-      /storage/9F36-61B5/         -> ('/storage/9F36-61B5', None)
-      /storage/9F36-61B5/Videos   -> ('/storage/9F36-61B5',
-                                       'raíz ajustada: ... -> ...')
-      C:\\                         -> ('C:', None)  (Windows, tal cual)
-      /home/usuario               -> ('/home/usuario', None)
-      (vacío)                     -> (None, 'raíz vacía')
-    """
+    """Valida/normaliza una raíz adicional."""
     limpia = str(raiz).strip().rstrip('/\\')
+
+    if os.name == 'nt' and len(limpia) == 2 and limpia[1] == ':':
+        limpia += '\\'
+
     if not limpia:
         return None, 'raíz vacía'
 
     separado = separar_almacenamiento(limpia)
     if separado is None:
-        # No es /storage/...; se acepta tal cual (Windows, Linux manual).
         return limpia, None
 
     base, relativa = separado
@@ -318,8 +346,8 @@ def buscar_reubicaciones(
         if separado is None:
             sin_coincidencia.append({
                 **base, 'estado': 'sin_coincidencia',
-                'motivo': ('La ruta no está bajo /storage; no se puede '
-                           'buscar por ruta relativa'),
+                'motivo': ('La ruta no coincide con un patrón estándar de almacenamiento '
+                           '(Windows, /storage, /mnt, /home); no se puede separar la raíz.'),
             })
             continue
 
@@ -330,10 +358,15 @@ def buscar_reubicaciones(
         for raiz in raices:
             _verificar_cancelacion(cancelar)
 
-            if posixpath.normpath(raiz) == posixpath.normpath(raiz_origen):
+            if inventario.normalizar(raiz) == inventario.normalizar(raiz_origen):
                 continue
 
-            candidato = posixpath.join(raiz, relativa)
+            if inventario.es_windows(raiz):
+                rel_win = relativa.replace('/', '\\').lstrip('\\')
+                raiz_limpia = raiz.rstrip('\\') + '\\'
+                candidato = os.path.join(raiz_limpia, rel_win)
+            else:
+                candidato = posixpath.join(raiz, relativa)
 
             if progreso is not None:
                 try:

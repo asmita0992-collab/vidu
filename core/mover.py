@@ -580,8 +580,6 @@ def _subcarpetas_movimientos(carpeta_reportes: Path) -> Dict[str, Path]:
 # ============================================================================
 # Modo: mover_interactivo
 # ============================================================================
-
-#def mover_interactivo(ruta_reporte, directorio_destino, carpeta_reportes):
 def mover_interactivo(ruta_reporte, directorio_destino, carpeta_reportes, db_path=None):
     from .database import info_dispositivo_actual
     from .reporter import _fmt_seg
@@ -701,11 +699,6 @@ def mover_interactivo(ruta_reporte, directorio_destino, carpeta_reportes, db_pat
                 _imprimir(f'Se reasignaron las prioridades de {modificados} pares.', 'green')
 
     plan = crear_plan(datos)
-    
-    #plan = crear_plan(datos)
-    #if not plan:
-    #    _imprimir('El reporte no contiene vídeos para mover.', 'yellow')
-    #    return
 
     plan_local = []
     plan_ajeno = []
@@ -823,14 +816,10 @@ def mover_interactivo(ruta_reporte, directorio_destino, carpeta_reportes, db_pat
     finally:
         signal.signal(signal.SIGINT, manejador_anterior)
 
-    #bases = datos.get('metadatos', {}).get('bases_de_datos', [])
-    #avisos = _actualizar_bases(bases, registros)
-
     bases = datos.get('metadatos', {}).get('bases_de_datos', [])
     if db_path and db_path not in bases:
         bases.append(db_path)
     avisos = _actualizar_bases(bases, registros, dispositivo_id=disp_id_actual)
-
 
     resumen = dict(
         reporte_origen=str(ruta_reporte),
@@ -946,8 +935,6 @@ def _escribir_resumen_txt_visual(destino, ruta_reporte, disp_actual, disp_report
 # ============================================================================
 # Modo: mover_desde_sha256
 # ============================================================================
-#def mover_desde_sha256(ruta_json, directorio_destino, carpeta_reportes,
-#                       grupos=('nuevos',)):
 def mover_desde_sha256(ruta_json, directorio_destino, carpeta_reportes,
                        grupos=('nuevos',), db_path=None):
     """Mueve vídeos listados en un JSON de comparación SHA256."""
@@ -1115,8 +1102,6 @@ def mover_desde_sha256(ruta_json, directorio_destino, carpeta_reportes,
     finally:
         signal.signal(signal.SIGINT, manejador_anterior)
 
-    #bases = datos.get('bases_de_datos') or ([datos['ruta_db']] if datos.get('ruta_db') else [])
-    #avisos = _actualizar_bases(bases, registros, dispositivo_id=disp_id_actual)
     bases = datos.get('bases_de_datos') or ([datos['ruta_db']] if datos.get('ruta_db') else [])
     if db_path and db_path not in bases:
         bases.append(db_path)
@@ -1256,6 +1241,8 @@ def _pedir_confirmacion() -> bool:
         if intentos >= 5:
             return False
         _imprimir('Responde s o n.', 'yellow')
+
+
 # ============================================================================
 # Eliminación comprobada de archivos locales (Windows, Linux, macOS, Android)
 # ============================================================================
@@ -1280,8 +1267,6 @@ def _eliminar_candidatos_verificados(candidatos, carpeta_reportes, reporte, base
         archivo = Path(ruta)
         if archivo.is_symlink() or not archivo.is_file():
             continue
-        if not item.get('respaldo_registrado'):
-            continue
         validos.append(dict(item, ruta=str(archivo), sha256=sha))
     unicos = list({(i['dispositivo_id'], i['ruta']): i for i in validos}.values())
     if not unicos:
@@ -1290,7 +1275,7 @@ def _eliminar_candidatos_verificados(candidatos, carpeta_reportes, reporte, base
     _imprimir('\nARCHIVOS CANDIDATOS A ELIMINACIÓN PERMANENTE:', 'yellow')
     for idx, item in enumerate(unicos, 1):
         _imprimir(f'  {idx}. {item["ruta"]}', 'white')
-        _imprimir(f'     SHA256: {item["sha256"][:16]}... | copia: {item["respaldo_registrado"]}', 'cyan')
+        _imprimir(f'     SHA256: {item["sha256"][:16]}... | copia: {item.get("respaldo_registrado", "N/D")}', 'cyan')
     _imprimir('ADVERTENCIA: no es posible comprobar físicamente una copia en otro dispositivo desconectado.', 'yellow')
     _imprimir('No existe papelera ni recuperación automática. Solo se eliminarán archivos del dispositivo actual.', 'yellow')
     try:
@@ -1303,69 +1288,51 @@ def _eliminar_candidatos_verificados(candidatos, carpeta_reportes, reporte, base
     sello = _id_utc6()
     bitacora = sub['jsonl'] / f'eliminaciones_{sello}.jsonl'
     registros = []
-    
-    from .database import conectar, cerrar, eliminar_por_ruta, _usa_neon
-    from .sincronizacion import obtener_ruta_db_local_dispositivo, registrar_eliminacion
-    
-    conn_del = None
-    try:
-        if _usa_neon():
-            conn_del = conectar('neon_cloud')
-        elif bases:
-            conn_del = conectar(bases[0])
-        else:
-            conn_del = conectar(str(obtener_ruta_db_local_dispositivo()))
-    except Exception:
-        conn_del = None
 
-    try:
-        with bitacora.open('x', encoding='utf-8') as log:
-            for indice, item in enumerate(unicos, 1):
-                archivo = Path(item['ruta'])
-                registro = dict(fecha=datetime.now(ZONA_MEXICO).isoformat(),
-                                origen=str(archivo), dispositivo_id=dispositivo_id,
-                                sha256_esperado=item['sha256'], estado='omitido')
-                try:
-                    if archivo.is_symlink() or not archivo.is_file():
-                        registro['motivo'] = 'El archivo desapareció o es un enlace'
+    with bitacora.open('x', encoding='utf-8') as log:
+        for indice, item in enumerate(unicos, 1):
+            archivo = Path(item['ruta'])
+            registro = dict(fecha=datetime.now(ZONA_MEXICO).isoformat(),
+                            origen=str(archivo), dispositivo_id=dispositivo_id,
+                            sha256_esperado=item['sha256'], estado='omitido')
+            try:
+                if archivo.is_symlink() or not archivo.is_file():
+                    registro['motivo'] = 'El archivo desapareció o es un enlace'
+                else:
+                    antes = archivo.stat()
+                    sha_actual = _sha256(archivo)
+                    if _identidad(archivo.stat()) != _identidad(antes):
+                        registro['motivo'] = 'El archivo cambió durante la validación'
+                    elif sha_actual != item['sha256']:
+                        registro['motivo'] = 'El SHA256 difiere del reporte'
+                    elif (item.get('tamanio_bytes') is not None and
+                          int(item['tamanio_bytes']) != antes.st_size):
+                        registro['motivo'] = 'El tamaño difiere del reporte'
                     else:
-                        antes = archivo.stat()
-                        sha_actual = _sha256(archivo)
-                        if _identidad(archivo.stat()) != _identidad(antes):
-                            registro['motivo'] = 'El archivo cambió durante la validación'
-                        elif sha_actual != item['sha256']:
-                            registro['motivo'] = 'El SHA256 difiere del reporte'
-                        elif (item.get('tamanio_bytes') is not None and
-                              int(item['tamanio_bytes']) != antes.st_size):
-                            registro['motivo'] = 'El tamaño difiere del reporte'
-                        else:
-                            archivo.unlink()
-                            registro['estado'] = 'eliminado'
-                            registro['sha256_comprobado'] = sha_actual
-                            if conn_del:
-                                try:
-                                    eliminar_por_ruta(conn_del, str(archivo), dispositivo_id)
-                                except Exception:
-                                    pass
-                except (OSError, ValueError, KeyboardInterrupt, EOFError) as exc:
-                    registro['motivo'] = str(exc) or 'Cancelado'
-                log.write(json.dumps(registro, ensure_ascii=False) + '\n')
-                log.flush()
-                os.fsync(log.fileno())
-                registros.append(registro)
-                _imprimir(f'[{indice}/{len(unicos)}] {registro["estado"]}: {archivo.name}',
-                          'green' if registro['estado'] == 'eliminado' else 'yellow')
-    finally:
-        if conn_del:
-            cerrar(conn_del)
+                        archivo.unlink()
+                        registro['estado'] = 'eliminado'
+                        registro['sha256_comprobado'] = sha_actual
+            except (OSError, ValueError, KeyboardInterrupt, EOFError) as exc:
+                registro['motivo'] = str(exc) or 'Cancelado'
+            log.write(json.dumps(registro, ensure_ascii=False) + '\n')
+            log.flush()
+            os.fsync(log.fileno())
+            registros.append(registro)
+            _imprimir(f'[{indice}/{len(unicos)}] {registro["estado"]}: {archivo.name}',
+                      'green' if registro['estado'] == 'eliminado' else 'yellow')
 
     # La baja de la huella es posterior al borrado. Un error no se silencia.
     avisos = []
     if any(x['estado'] == 'eliminado' for x in registros):
         from . import database
-        for base in dict.fromkeys(bases or []):
+        from .sincronizacion import obtener_ruta_db_local_dispositivo
+        bases_a_actualizar = list(dict.fromkeys(bases or []))
+        ruta_local_def = str(obtener_ruta_db_local_dispositivo())
+        if ruta_local_def not in bases_a_actualizar and Path(ruta_local_def).is_file():
+            bases_a_actualizar.append(ruta_local_def)
+
+        for base in bases_a_actualizar:
             try:
-                # Solo rutas SQLite reales. Neon requiere conexión ONLINE real.
                 if str(base) == 'neon_cloud':
                     if database.estado_conexion()['modo'] != 'neon':
                         avisos.append('No se actualizó Neon: no hay conexión activa.')
@@ -1384,6 +1351,7 @@ def _eliminar_candidatos_verificados(candidatos, carpeta_reportes, reporte, base
                     database.cerrar(conn)
             except Exception as exc:
                 avisos.append(f'No se actualizó base {base}: {exc}')
+
     resumen = {'reporte_origen': str(reporte), 'dispositivo_ejecutor': disp,
                'registros': registros, 'bitacora': str(bitacora), 'avisos': avisos}
     salida = sub['json'] / f'eliminaciones_{sello}.json'
@@ -1467,6 +1435,7 @@ def eliminar_desde_comparativa(ruta_reporte, carpeta_reportes):
     return _eliminar_candidatos_verificados(candidatos, carpeta_reportes, ruta_reporte,
         (datos.get('metadatos') or {}).get('bases_de_datos', []))
 
+
 def eliminar_desde_sha256(ruta_json, carpeta_reportes):
     from .database import info_dispositivo_actual
     with Path(ruta_json).open(encoding='utf-8-sig') as fh:
@@ -1480,10 +1449,6 @@ def eliminar_desde_sha256(ruta_json, carpeta_reportes):
     origen_id = origen.get('dispositivo_id') if isinstance(origen, dict) else ''
     if not es_comparacion_json and origen_id != disp_id:
         raise ValueError('Solo se pueden eliminar archivos desde el dispositivo que generó el reporte.')
-    # En una comparación de JSON transportado a otro equipo, el dispositivo
-    # que hizo la comparación no es necesariamente el que conserva el vídeo.
-    # Solo autorizar rutas que el propio JSON identifique como originarias
-    # del equipo donde se ejecuta la eliminación.
     candidatos = []
     for item in datos.get('coincidencias') or []:
         if es_comparacion_json and (item.get('dispositivo_id_origen') or origen_id) != disp_id:
@@ -1499,11 +1464,13 @@ def eliminar_desde_sha256(ruta_json, carpeta_reportes):
     return _eliminar_candidatos_verificados(candidatos, carpeta_reportes, ruta_json,
         datos.get('bases_de_datos') or [datos.get('ruta_db', '')])
 
+
 # ============================================================================
 # Modo: vaciar_carpeta_eliminar
 # ============================================================================
 def vaciar_carpeta_eliminar(directorio_eliminar, db_path):
     from .database import conectar, cerrar, eliminar_por_ruta, _usa_neon, info_dispositivo_actual
+    from .almacenamiento import carpeta_reportes as _carpeta_reportes
     
     carpeta = Path(directorio_eliminar).expanduser().resolve()
     if not carpeta.is_dir():
@@ -1547,28 +1514,80 @@ def vaciar_carpeta_eliminar(directorio_eliminar, db_path):
     except (EOFError, KeyboardInterrupt):
         return
 
-    disp_id = info_dispositivo_actual()['dispositivo_id']
+    disp_actual = info_dispositivo_actual()
+    disp_id = disp_actual['dispositivo_id']
     conn = conectar('neon_cloud') if _usa_neon() else conectar(db_path)
     
+    sub = _subcarpetas_movimientos(_carpeta_reportes() / 'movimientos')
+    sello = _id_utc6()
+    bitacora = sub['jsonl'] / f'vaciado_eliminar_{sello}.jsonl'
+
     eliminados_disco = 0
     eliminados_db = 0
     errores = []
+    registros_log = []
     
     try:
-        for video in videos:
-            ruta_str = str(video)
-            try:
-                video.unlink()
-                eliminados_disco += 1
-                if eliminar_por_ruta(conn, ruta_str, disp_id):
-                    eliminados_db += 1
-            except Exception as e:
-                errores.append(f'{video.name}: {e}')
+        with bitacora.open('x', encoding='utf-8') as log:
+            for video in videos:
+                ruta_str = str(video)
+                evento = {
+                    'fecha': datetime.now(ZONA_MEXICO).isoformat(),
+                    'origen': ruta_str,
+                    'nombre': video.name,
+                    'dispositivo_id': disp_id,
+                    'estado': 'omitido',
+                    'eliminado_db': False,
+                }
+                try:
+                    video.unlink()
+                    eliminados_disco += 1
+                    evento['estado'] = 'eliminado'
+                    if eliminar_por_ruta(conn, ruta_str, disp_id):
+                        eliminados_db += 1
+                        evento['eliminado_db'] = True
+                except Exception as e:
+                    errores.append(f'{video.name}: {e}')
+                    evento['error'] = str(e)
+
+                log.write(json.dumps(evento, ensure_ascii=False) + '\n')
+                log.flush()
+                try:
+                    os.fsync(log.fileno())
+                except OSError:
+                    pass
+                registros_log.append(evento)
     finally:
         cerrar(conn)
+
+    resumen = {
+        'fecha': datetime.now(ZONA_MEXICO).isoformat(),
+        'carpeta': str(carpeta),
+        'dispositivo_ejecutor': disp_actual,
+        'total_videos': len(videos),
+        'eliminados_disco': eliminados_disco,
+        'eliminados_db': eliminados_db,
+        'errores': errores,
+        'bitacora': str(bitacora),
+        'registros': registros_log,
+    }
+    salida_json = sub['json'] / f'vaciado_eliminar_{sello}.json'
+    salida_txt = sub['txt'] / f'vaciado_eliminar_{sello}.txt'
+    salida_json.write_text(json.dumps(resumen, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    salida_txt.write_text(
+        f'VACIADO DE CARPETA ELIMINAR — {resumen["fecha"]}\n'
+        f'Carpeta: {carpeta}\n'
+        f'Dispositivo: {disp_actual["dispositivo"]} (ID {disp_id})\n'
+        f'Eliminados del disco: {eliminados_disco}/{len(videos)}\n'
+        f'Eliminados de BD: {eliminados_db}/{len(videos)}\n\n'
+        + '\n'.join(f'{r["estado"].upper()} | BD={r["eliminado_db"]} | {r["origen"]} {r.get("error", "")}' for r in registros_log)
+        + '\n',
+        encoding='utf-8',
+    )
         
     _imprimir(f'\nVídeos eliminados del disco: {eliminados_disco}/{len(videos)}', 'green')
     _imprimir(f'Registros eliminados de la BD: {eliminados_db}/{len(videos)}', 'green')
+    _imprimir(f'Reporte guardado en: {salida_json}', 'cyan')
     
     if errores:
         _imprimir('\nErrores durante el borrado:', 'red')

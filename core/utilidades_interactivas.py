@@ -1,5 +1,6 @@
 from __future__ import annotations
 import argparse
+import csv
 import json
 import math
 import os
@@ -262,8 +263,8 @@ def comprobar_disco_bd_interactivo(db: str) -> None:
 
 
 def eliminar_faltantes_interactivo(db_defecto: str) -> str:
-    """Elimina huellas marcadas como faltantes en un reporte (antes en menú 5, opción 5)."""
-    from core.database import _usa_neon, cerrar, conectar, eliminar_por_ruta
+    """Elimina huellas marcadas como faltantes en un reporte y guarda reporte JSON, TXT y CSV."""
+    from core.database import _usa_neon, cerrar, conectar, eliminar_por_ruta, info_dispositivo_actual, describir_conexion
     if _usa_neon():
         db = 'neon_cloud'
     else:
@@ -304,22 +305,78 @@ def eliminar_faltantes_interactivo(db_defecto: str) -> str:
     conn = conectar(db)
     eliminados = 0
     errores = 0
+    registros_log = []
     try:
         for item in faltantes:
             ruta = item.get('ruta')
             disp_id = item.get('dispositivo_id')
+            nombre = item.get('nombre') or (Path(ruta).name if ruta else '')
+            sha = item.get('sha256', '')
+            tam = item.get('tamanio_bytes', '')
             if ruta:
                 if eliminar_por_ruta(conn, ruta, disp_id):
                     eliminados += 1
+                    registros_log.append({
+                        'ruta': ruta, 'nombre': nombre, 'estado': 'eliminado',
+                        'dispositivo_id': disp_id, 'sha256': sha, 'tamanio_bytes': tam,
+                    })
                 else:
                     errores += 1
+                    registros_log.append({
+                        'ruta': ruta, 'nombre': nombre, 'estado': 'error',
+                        'dispositivo_id': disp_id, 'sha256': sha, 'tamanio_bytes': tam,
+                    })
     finally:
         cerrar(conn)
+
+    if registros_log:
+        carpeta_out = _carpeta_reportes() / 'depuraciones'
+        for ext in ('json', 'txt', 'csv'):
+            (carpeta_out / ext).mkdir(parents=True, exist_ok=True)
+        sello = id_utc6()
+        fecha = fmt_ahora_utc6()
+        disp = info_dispositivo_actual()
+
+        resumen = {
+            'fecha_utc6': fecha,
+            'operacion': 'Eliminación de faltantes desde reporte de verificación',
+            'reporte_origen': str(archivo_json),
+            'base_datos': str(db),
+            'conexion': describir_conexion(),
+            'dispositivo_ejecutor': disp,
+            'eliminados': eliminados,
+            'errores': errores,
+            'registros': registros_log,
+        }
+        ruta_rep_json = carpeta_out / 'json' / f'eliminacion_faltantes_{sello}.json'
+        ruta_rep_txt = carpeta_out / 'txt' / f'eliminacion_faltantes_{sello}.txt'
+        ruta_rep_csv = carpeta_out / 'csv' / f'eliminacion_faltantes_{sello}.csv'
+
+        ruta_rep_json.write_text(json.dumps(resumen, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+        with ruta_rep_txt.open('w', encoding='utf-8') as f:
+            f.write(f'ELIMINACIÓN DE FALTANTES — {fecha}\n')
+            f.write(f'Dispositivo ejecutor: {disp["dispositivo"]} (ID {disp["dispositivo_id"]})\n')
+            f.write(f'Reporte de origen   : {archivo_json}\n')
+            f.write(f'Base de datos       : {db}\n')
+            f.write(f'Eliminados          : {eliminados} | Errores: {errores}\n\n')
+            for r in registros_log:
+                f.write(f"{r['estado'].upper()} | {r['ruta']} (ID {r.get('dispositivo_id', 'N/D')})\n")
+
+        with ruta_rep_csv.open('w', encoding='utf-8-sig', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=['estado', 'ruta', 'nombre', 'dispositivo_id', 'sha256', 'tamanio_bytes'])
+            writer.writeheader()
+            for r in registros_log:
+                writer.writerow(r)
 
     imprimir(f'[spring_green2]Se eliminaron {eliminados} huellas de la base de datos.[/]')
     if errores > 0:
         imprimir(f'[yellow]No se pudieron encontrar/eliminar {errores} huellas '
                  f'(quizá ya estaban borradas).[/]')
+    if registros_log:
+        imprimir(f'[cyan]Reporte JSON: {rich_escape(str(ruta_rep_json))}[/]')
+        imprimir(f'[cyan]Reporte TXT : {rich_escape(str(ruta_rep_txt))}[/]')
+        imprimir(f'[cyan]Reporte CSV : {rich_escape(str(ruta_rep_csv))}[/]')
     return db
 
 
@@ -364,11 +421,11 @@ def buscar_ubicacion_interactivo(db: str) -> None:
     extra: List[str] = []
     while pedir_si_no(
         '¿Añadir otra raíz de almacenamiento para buscar? '
-        '(ej: /storage/emulated/0 para la memoria interna o /storage/9F36-61B5 para la tarjeta; NO una subcarpeta)',
+        '(ej: D:\\ en Windows, /mnt/disco en Linux o /storage/9F36-61B5 en Android; NO una subcarpeta)',
         False,
     ):
         extra.append(pedir_ruta(
-            'Raíz de almacenamiento (ej: /storage/emulated/0 o /storage/9F36-61B5)',
+            'Raíz de almacenamiento (ej: D:\\ o /storage/9F36-61B5)',
             existente=True, directorio=True,
         ))
 
@@ -442,9 +499,6 @@ def aplicar_ubicacion_interactivo(db: str) -> None:
     if not coincidencias:
         imprimir('[yellow]El reporte no contiene coincidencias confirmadas y válidas para aplicar.[/]')
         return
-    #coincidencias = ubicacion.cargar_coincidencias(archivo)
-          #imprimir('[red]El reporte pertenece a otro dispositivo. Operación cancelada.[/]')
-        #return
 
     imprimir(f'\n[cyan]Se cambiará la ruta de {len(coincidencias)} vídeo(s) en la base.[/]')
     for c in coincidencias[:20]:
@@ -471,7 +525,7 @@ def aplicar_ubicacion_interactivo(db: str) -> None:
     finally:
         cerrar(conn)
 
-    imprimir(f'[spring_green2]Rutas actualizadas: {len(resultado["aplicadas"])}[/]')
+    imprimir(f'[spring_green2]Rutas actualizadas: {len(resultado["actualizados"] if "actualizados" in resultado else resultado["aplicadas"])}[/]')
     if resultado['fallidas']:
         imprimir(f'[yellow]No se pudieron aplicar: {len(resultado["fallidas"])}[/]')
         for f in resultado['fallidas'][:10]:
@@ -480,8 +534,8 @@ def aplicar_ubicacion_interactivo(db: str) -> None:
 
 
 def eliminar_desde_reporte_eliminaciones_interactivo(db_defecto: str) -> None:
-    """Elimina huellas de la base de datos a partir de un reporte de eliminaciones del submenú 3 (json/jsonl)."""
-    from core.database import conectar, cerrar, eliminar_por_ruta, _usa_neon, info_dispositivo_actual
+    """Elimina huellas de la base de datos a partir de un reporte de eliminaciones del submenú 3 (json/jsonl) y guarda reporte."""
+    from core.database import conectar, cerrar, eliminar_por_ruta, _usa_neon, info_dispositivo_actual, describir_conexion
 
     archivo = elegir_archivo_reciente(
         'Reporte de eliminaciones del submenú 3 (eliminaciones_*.jsonl o .json)',
@@ -526,15 +580,16 @@ def eliminar_desde_reporte_eliminaciones_interactivo(db_defecto: str) -> None:
             if st in ('eliminado', 'exito', None):
                 ruta = reg.get('origen') or reg.get('ruta')
                 reg_disp = reg.get('dispositivo_id')
+                sha = reg.get('sha256_comprobado') or reg.get('sha256_esperado') or reg.get('sha256') or ''
                 if ruta:
-                    rutas_a_borrar.append((ruta, reg_disp))
+                    rutas_a_borrar.append((ruta, reg_disp, sha))
 
     if not rutas_a_borrar:
         imprimir('[yellow]El reporte no contiene registros de vídeos eliminados válidos.[/]')
         return
 
     imprimir(f'\n[cyan]Se eliminarán {len(rutas_a_borrar)} registros de la base de datos basándose en el reporte.[/]')
-    for r, _ in rutas_a_borrar[:15]:
+    for r, _, _ in rutas_a_borrar[:15]:
         imprimir(f'  • {rich_escape(r)}')
     if len(rutas_a_borrar) > 15:
         imprimir(f'  ... y {len(rutas_a_borrar) - 15} más.')
@@ -555,11 +610,72 @@ def eliminar_desde_reporte_eliminaciones_interactivo(db_defecto: str) -> None:
 
     conn = conectar(db)
     borrados = 0
+    no_encontrados = 0
+    registros_log = []
     try:
-        for r, reg_disp in rutas_a_borrar:
-            if eliminar_por_ruta(conn, r, reg_disp or disp_id):
+        for r, reg_disp, sha in rutas_a_borrar:
+            did_obj = reg_disp or disp_id
+            if eliminar_por_ruta(conn, r, did_obj):
                 borrados += 1
+                registros_log.append({
+                    'estado': 'eliminado',
+                    'ruta': r,
+                    'nombre': Path(r).name,
+                    'dispositivo_id': did_obj,
+                    'sha256': sha,
+                })
+            else:
+                no_encontrados += 1
+                registros_log.append({
+                    'estado': 'no_encontrado',
+                    'ruta': r,
+                    'nombre': Path(r).name,
+                    'dispositivo_id': did_obj,
+                    'sha256': sha,
+                })
     finally:
         cerrar(conn)
 
+    carpeta_out = _carpeta_reportes() / 'depuraciones'
+    for ext in ('json', 'txt', 'csv'):
+        (carpeta_out / ext).mkdir(parents=True, exist_ok=True)
+    sello = id_utc6()
+    fecha = fmt_ahora_utc6()
+
+    resumen = {
+        'fecha_utc6': fecha,
+        'operacion': 'Depuración desde reporte de eliminaciones del submenú 3',
+        'reporte_origen': str(archivo),
+        'base_datos': str(db),
+        'conexion': describir_conexion(),
+        'dispositivo_ejecutor': disp_actual,
+        'eliminados': borrados,
+        'no_encontrados': no_encontrados,
+        'registros': registros_log,
+    }
+    ruta_rep_json = carpeta_out / 'json' / f'depuracion_reporte_elim_{sello}.json'
+    ruta_rep_txt = carpeta_out / 'txt' / f'depuracion_reporte_elim_{sello}.txt'
+    ruta_rep_csv = carpeta_out / 'csv' / f'depuracion_reporte_elim_{sello}.csv'
+
+    ruta_rep_json.write_text(json.dumps(resumen, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    with ruta_rep_txt.open('w', encoding='utf-8') as f:
+        f.write(f'DEPURACIÓN DESDE REPORTE DE ELIMINACIONES — {fecha}\n')
+        f.write(f'Dispositivo ejecutor: {disp_actual["dispositivo"]} (ID {disp_id})\n')
+        f.write(f'Reporte de origen   : {archivo}\n')
+        f.write(f'Base de datos       : {db}\n')
+        f.write(f'Eliminados de BD    : {borrados} | No encontrados: {no_encontrados}\n\n')
+        for item in registros_log:
+            f.write(f"{item['estado'].upper()} | {item['ruta']} (ID {item['dispositivo_id']})\n")
+
+    with ruta_rep_csv.open('w', encoding='utf-8-sig', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=['estado', 'ruta', 'nombre', 'dispositivo_id', 'sha256'])
+        writer.writeheader()
+        for item in registros_log:
+            writer.writerow(item)
+
     imprimir(f'[spring_green2]✓ Depuración completada: {borrados} registros eliminados de la base de datos.[/]')
+    if no_encontrados:
+        imprimir(f'[yellow]No encontrados en la base (ya eliminados previamente): {no_encontrados}[/]')
+    imprimir(f'[cyan]Reporte JSON: {rich_escape(str(ruta_rep_json))}[/]')
+    imprimir(f'[cyan]Reporte TXT : {rich_escape(str(ruta_rep_txt))}[/]')
+    imprimir(f'[cyan]Reporte CSV : {rich_escape(str(ruta_rep_csv))}[/]')

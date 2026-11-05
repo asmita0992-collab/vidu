@@ -1,3 +1,4 @@
+
 """Inventario VIDUP: cotejo bidireccional por ruta, exclusiones y reportes.
 
 La verificación NO lee contenido de los vídeos ni calcula hashes. Solo confirma
@@ -303,7 +304,8 @@ def reportar_estadisticas(base: Path, generales: dict, dispositivos: Sequence[di
             for carpeta in disp['carpetas']:
                 f.write(f'  {carpeta["ruta"]} | {carpeta["total_videos"]} vídeos | '
                         f'{carpeta["tamanio_bytes"]} bytes | SHA256 {carpeta["con_sha256"]} | '
-                        f'visual {carpeta["con_huella_visual"]}\n')
+                        f'visual {carpeta["con_huella_visual"]} | '
+                        f'audio {carpeta.get("con_huella_audio", 0)}\n')
     filas = [dict(tipo='general', dispositivo='', dispositivo_id='', carpeta=origen,
                   videos=generales['total_videos'], tamanio_bytes='', sha256='', visual='',
                   audio='', errores=generales['con_error'],
@@ -325,7 +327,7 @@ def reportar_estadisticas(base: Path, generales: dict, dispositivos: Sequence[di
                               dispositivo_id=disp['dispositivo_id'], carpeta=carpeta['ruta'],
                               videos=carpeta['total_videos'], tamanio_bytes=carpeta['tamanio_bytes'],
                               sha256=carpeta['con_sha256'], visual=carpeta['con_huella_visual'],
-                              audio='', errores=''))
+                              audio=carpeta.get('con_huella_audio', 0), errores=''))
     _csv_escribir(destinos['csv'], ('tipo','dispositivo','dispositivo_id','carpeta','videos',
                                    'tamanio_bytes','sha256','visual','audio','errores',
                                    'procesados_sin_error','duracion_horas','gb_totales',
@@ -463,6 +465,7 @@ def eliminar_registros_exactos(conn: Any, dispositivo_id: str,
     Una modificación concurrente (por otra sesión/proceso) aborta el borrado.
     """
     from . import database
+    from core.sincronizacion import registrar_eliminacion
     pg = database._es_pg(conn)
     ids = [int(r['id']) for r in registros]
     if not ids:
@@ -472,6 +475,10 @@ def eliminar_registros_exactos(conn: Any, dispositivo_id: str,
     originales = {int(r['id']): r for r in registros}
     total = 0
     try:
+        for r in registros:
+            clave_u = r.get('clave_unica') or database._calcular_clave_unica(dispositivo_id, str(r.get('ruta', '')))
+            if clave_u:
+                registrar_eliminacion(conn, clave_u)
         if not pg:
             conn.execute('BEGIN IMMEDIATE')
         for inicio in range(0, len(ids), 400):
@@ -519,6 +526,7 @@ def eliminar_registros_exactos(conn: Any, dispositivo_id: str,
 
 def _es_video(ruta: Path) -> bool:
     return ruta.suffix.lower() in EXTENSIONES_VIDEO
+
 
 def _listar_videos(directorio: str, recursivo: bool = True) -> List[Path]:
     """Lista vídeos sin entrar en carpetas excluidas para este dispositivo."""

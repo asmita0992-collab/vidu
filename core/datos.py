@@ -3,6 +3,7 @@ y consultas de hashes previos. Extraidas de vidup.py sin cambios de logica."""
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import sys
 import time
@@ -10,6 +11,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 from core.presentacion import imprimir, CONSOLA
+from core.horario import fmt_ahora_utc6, id_utc6
 from core.telegram import notificar_inicio, notificar_fin
 from core.almacenamiento import (
     carpeta_reportes as _carpeta_reportes,
@@ -25,6 +27,73 @@ except ImportError:
     Table = None  # type: ignore
     rich_box = None  # type: ignore
     rich_escape = lambda texto: str(texto)
+
+
+def _guardar_reporte_depuracion_operacion(
+    prefijo: str,
+    titulo: str,
+    db: str,
+    registros: List[Dict[str, Any]],
+    metadatos_extra: Dict[str, Any] | None = None,
+) -> Dict[str, Path]:
+    """Genera reportes JSON, TXT y CSV para operaciones de eliminación/depuración."""
+    from core.database import info_dispositivo_actual, describir_conexion
+    carpeta_out = _carpeta_reportes() / 'depuraciones'
+    for ext in ('json', 'txt', 'csv'):
+        (carpeta_out / ext).mkdir(parents=True, exist_ok=True)
+    sello = id_utc6()
+    fecha = fmt_ahora_utc6()
+    disp = info_dispositivo_actual()
+    destinos = {
+        ext: carpeta_out / ext / f'{prefijo}_{sello}.{ext}'
+        for ext in ('json', 'txt', 'csv')
+    }
+    eliminados = sum(1 for r in registros if r.get('estado') == 'eliminado')
+    errores = sum(1 for r in registros if r.get('estado') != 'eliminado')
+
+    paquete = {
+        'fecha_utc6': fecha,
+        'operacion': titulo,
+        'base_datos': str(db),
+        'conexion': describir_conexion(),
+        'dispositivo_ejecutor': disp,
+        'eliminados': eliminados,
+        'errores_u_omitidos': errores,
+        **(metadatos_extra or {}),
+        'registros': registros,
+    }
+    destinos['json'].write_text(
+        json.dumps(paquete, ensure_ascii=False, indent=2) + '\n',
+        encoding='utf-8',
+    )
+
+    lineas_txt = [
+        f'{titulo.upper()} — {fecha}',
+        f'Dispositivo ejecutor: {disp["dispositivo"]} (ID {disp["dispositivo_id"]})',
+        f'Base de datos       : {db}',
+        f'Modo de conexión    : {describir_conexion()}',
+        f'Eliminados          : {eliminados} | Errores/Omitidos: {errores}',
+    ]
+    if metadatos_extra:
+        for k, v in metadatos_extra.items():
+            lineas_txt.append(f'{k}: {v}')
+    lineas_txt.append('')
+    for r in registros:
+        lineas_txt.append(
+            f"{str(r.get('estado', '')).upper()} | {r.get('ruta', '')} "
+            f"(ID: {r.get('dispositivo_id', 'N/D')}) "
+            f"{'| ' + str(r.get('motivo')) if r.get('motivo') else ''}".strip()
+        )
+    destinos['txt'].write_text('\n'.join(lineas_txt) + '\n', encoding='utf-8')
+
+    columnas = ['estado', 'ruta', 'nombre', 'dispositivo', 'dispositivo_id', 'sha256', 'tamanio_bytes', 'motivo']
+    with destinos['csv'].open('w', encoding='utf-8-sig', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=columnas, extrasaction='ignore')
+        writer.writeheader()
+        for r in registros:
+            writer.writerow({k: r.get(k, '') for k in columnas})
+
+    return destinos
 
 
 def _tiene_huella_completa(conn, rr: str) -> bool:
@@ -240,6 +309,10 @@ def cmd_stats(args: argparse.Namespace) -> int:
                  'No se mostrará información potencialmente incompleta.[/]')
         return 2
 
+    total_sha256 = datos.get('con_sha256', sum(d.get('con_sha256', 0) for d in desglose))
+    total_visual = datos.get('con_huella_visual', sum(d.get('con_huella_visual', 0) for d in desglose))
+    total_audio = datos.get('con_huella_audio', sum(d.get('con_huella_audio', 0) for d in desglose))
+
     if CONSOLA is not None and Table is not None and rich_box is not None:
         tabla = Table(title='Estadísticas generales', box=rich_box.ROUNDED, border_style='cyan')
         tabla.add_column('Campo', style='deep_sky_blue1')
@@ -248,6 +321,9 @@ def cmd_stats(args: argparse.Namespace) -> int:
         tabla.add_row('Ruta de la BD', 'Neon PostgreSQL (Nube)' if _usa_neon() else rich_escape(str(args.db)))
         tabla.add_row('Vídeos totales', f'{datos["total_videos"]:,}')
         tabla.add_row('Procesados sin error', f'{datos["con_huella"]:,}')
+        tabla.add_row('Con SHA256', f'{total_sha256:,}')
+        tabla.add_row('Con huella visual', f'{total_visual:,}')
+        tabla.add_row('Con huella de audio', f'{total_audio:,}')
         tabla.add_row('Con error', f'{datos["con_error"]:,}')
         tabla.add_row('Duración total', f'{datos["horas_totales"]:,.2f} h')
         tabla.add_row('Tamaño total', f'{datos["gb_totales"]:,.3f} GB')
@@ -259,6 +335,9 @@ def cmd_stats(args: argparse.Namespace) -> int:
         print(f' Ruta de la BD    : {"Neon PostgreSQL (Nube)" if _usa_neon() else args.db}')
         print(f' Vídeos totales   : {datos["total_videos"]:,}')
         print(f' Sin error        : {datos["con_huella"]:,}')
+        print(f' Con SHA256       : {total_sha256:,}')
+        print(f' Con huella visual: {total_visual:,}')
+        print(f' Con huella audio : {total_audio:,}')
         print(f' Con error        : {datos["con_error"]:,}')
         print(f' Duración total   : {datos["horas_totales"]:,.2f} h')
         print(f' Tamaño total     : {datos["gb_totales"]:,.3f} GB')
@@ -285,28 +364,81 @@ def cmd_stats(args: argparse.Namespace) -> int:
     return 0
 
 def cmd_limpiar(args: argparse.Namespace) -> int:
-    from core.database import _usa_neon, cerrar, conectar, eliminar_por_ruta
+    from core.database import _usa_neon, cerrar, conectar, eliminar_por_ruta, _es_pg
     if not _usa_neon() and not Path(args.db).is_file():
         imprimir(f'[red][ERROR] La base de datos no existe: {args.db}[/]')
         return 1
     ruta = str(Path(args.ruta).expanduser().resolve())
+    ruta_slash = ruta.replace('\\', '/')
     conn = conectar(args.db)
+    info_previa: Dict[str, Any] = {'ruta': ruta, 'nombre': Path(ruta).name}
     try:
+        if _es_pg(conn):
+            import psycopg2.extras
+            with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
+                cur.execute(
+                    "SELECT ruta, nombre, dispositivo, dispositivo_id, hash_archivo, tamanio_bytes "
+                    "FROM videos WHERE ruta = %s OR LOWER(ruta) = LOWER(%s) OR REPLACE(ruta, '\\\\', '/') = %s LIMIT 1",
+                    (ruta, ruta, ruta_slash),
+                )
+                fila = cur.fetchone()
+                if fila:
+                    info_previa = {
+                        'ruta': fila['ruta'],
+                        'nombre': fila['nombre'],
+                        'dispositivo': fila['dispositivo'],
+                        'dispositivo_id': fila['dispositivo_id'],
+                        'sha256': fila['hash_archivo'],
+                        'tamanio_bytes': fila['tamanio_bytes'],
+                    }
+        else:
+            fila = conn.execute(
+                "SELECT ruta, nombre, dispositivo, dispositivo_id, hash_archivo, tamanio_bytes "
+                "FROM videos WHERE ruta = ? OR LOWER(ruta) = LOWER(?) OR REPLACE(ruta, '\\', '/') = ? LIMIT 1",
+                (ruta, ruta, ruta_slash),
+            ).fetchone()
+            if fila:
+                info_previa = {
+                    'ruta': fila['ruta'],
+                    'nombre': fila['nombre'],
+                    'dispositivo': fila['dispositivo'],
+                    'dispositivo_id': fila['dispositivo_id'],
+                    'sha256': fila['hash_archivo'],
+                    'tamanio_bytes': fila['tamanio_bytes'],
+                }
         eliminado = eliminar_por_ruta(conn, ruta)
     finally:
         cerrar(conn)
+
+    estado_str = 'eliminado' if eliminado else 'no_encontrado'
+    registro_rep = {
+        **info_previa,
+        'estado': estado_str,
+        'motivo': '' if eliminado else 'La ruta no estaba en la base de datos',
+    }
+    destinos = _guardar_reporte_depuracion_operacion(
+        'eliminacion_ruta',
+        'Eliminación de huella por ruta',
+        args.db,
+        [registro_rep],
+    )
     if eliminado:
         imprimir(f'[spring_green2]Huella eliminada: {ruta}[/]')
+        for fmt, dest in destinos.items():
+            imprimir(f'[cyan]Reporte {fmt.upper()}: {rich_escape(str(dest))}[/]')
         return 0
     imprimir(f'[red]La ruta no estaba en la base de datos: {ruta}[/]')
+    for fmt, dest in destinos.items():
+        imprimir(f'[cyan]Reporte {fmt.upper()}: {rich_escape(str(dest))}[/]')
     return 1
 
 def cmd_eliminar_por_dispositivo(args: argparse.Namespace) -> int:
-    from core.database import _usa_neon, cerrar, conectar, eliminar_por_dispositivo_id, estadisticas
+    from core.database import _usa_neon, cerrar, conectar, eliminar_por_dispositivo_id, estadisticas, _es_pg
     if not _usa_neon() and not Path(args.db).is_file():
         imprimir(f'[red][ERROR] La base de datos no existe: {args.db}[/]')
         return 1
     conn = conectar(args.db)
+    registros_previos: List[Dict[str, Any]] = []
     try:
         if args.listar:
             datos = estadisticas(conn)
@@ -317,10 +449,58 @@ def cmd_eliminar_por_dispositivo(args: argparse.Namespace) -> int:
         if not args.dispositivo_id:
             imprimir('[red][ERROR] Falta --dispositivo-id.[/]')
             return 2
-        eliminados = eliminar_por_dispositivo_id(conn, args.dispositivo_id)
+
+        disp_id = args.dispositivo_id.strip()
+        if _es_pg(conn):
+            import psycopg2.extras
+            with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
+                cur.execute(
+                    "SELECT ruta, nombre, dispositivo, dispositivo_id, hash_archivo, tamanio_bytes "
+                    "FROM videos WHERE dispositivo_id = %s ORDER BY id",
+                    (disp_id,),
+                )
+                for f in cur.fetchall():
+                    registros_previos.append({
+                        'estado': 'eliminado',
+                        'ruta': f['ruta'],
+                        'nombre': f['nombre'],
+                        'dispositivo': f['dispositivo'],
+                        'dispositivo_id': f['dispositivo_id'],
+                        'sha256': f['hash_archivo'],
+                        'tamanio_bytes': f['tamanio_bytes'],
+                        'motivo': '',
+                    })
+        else:
+            for f in conn.execute(
+                "SELECT ruta, nombre, dispositivo, dispositivo_id, hash_archivo, tamanio_bytes "
+                "FROM videos WHERE dispositivo_id = ? ORDER BY id",
+                (disp_id,),
+            ).fetchall():
+                registros_previos.append({
+                    'estado': 'eliminado',
+                    'ruta': f['ruta'],
+                    'nombre': f['nombre'],
+                    'dispositivo': f['dispositivo'],
+                    'dispositivo_id': f['dispositivo_id'],
+                    'sha256': f['hash_archivo'],
+                    'tamanio_bytes': f['tamanio_bytes'],
+                    'motivo': '',
+                })
+
+        eliminados = eliminar_por_dispositivo_id(conn, disp_id)
     finally:
         cerrar(conn)
+
+    destinos = _guardar_reporte_depuracion_operacion(
+        'eliminacion_dispositivo',
+        f'Eliminación de huellas por ID de dispositivo ({args.dispositivo_id})',
+        args.db,
+        registros_previos,
+        metadatos_extra={'dispositivo_id_objetivo': args.dispositivo_id, 'total_eliminados': eliminados},
+    )
     imprimir(f'[spring_green2]Eliminados: {eliminados} registro(s) del dispositivo {args.dispositivo_id}[/]')
+    for fmt, dest in destinos.items():
+        imprimir(f'[cyan]Reporte {fmt.upper()}: {rich_escape(str(dest))}[/]')
     return 0
 
 

@@ -193,7 +193,9 @@ def _pausa_entre_lotes(segundos: int) -> bool:
 def _escanear_por_lotes(args: argparse.Namespace, videos: List[Path], trabajadores: int, tamanio_lote: int) -> int:
     """Divide los vídeos en lotes; cada lote se escanea y guarda antes de la pausa."""
     lotes = [videos[i:i + tamanio_lote] for i in range(0, len(videos), tamanio_lote)]
-    imprimir(f'[cyan]Escaneo por lotes: {len(videos)} vídeo(s) en {len(lotes)} lote(s) de {tamanio_lote}; pausa de 3 min entre lotes.[/]')
+    minutos_pausa = int(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', 3))
+    segundos_pausa = minutos_pausa * 60
+    imprimir(f'[cyan]Escaneo por lotes: {len(videos)} vídeo(s) en {len(lotes)} lote(s) de {tamanio_lote}; pausa de {minutos_pausa} min entre lotes.[/]')
     codigo_final = 0
     for n, lote in enumerate(lotes, 1):
         imprimir(f'\n[bold cyan]=== Lote {n}/{len(lotes)} ({len(lote)} vídeo(s)) ===[/]')
@@ -209,7 +211,7 @@ def _escanear_por_lotes(args: argparse.Namespace, videos: List[Path], trabajador
             return 130
         if codigo:
             codigo_final = codigo
-        if n < len(lotes) and not _pausa_entre_lotes(180):
+        if n < len(lotes) and not _pausa_entre_lotes(segundos_pausa):
             imprimir('[yellow]Lotes detenidos por el usuario.[/]')
             return 130
     return codigo_final
@@ -368,11 +370,13 @@ def cmd_escanear(args: argparse.Namespace) -> int:
             return 2
 
     lote_videos = getattr(args, 'lote_videos', None)
+    minutos_pausa = int(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', 3))
     if (not lote_videos and getattr(args, 'preguntar_lotes', False)
             and getattr(args, 'lista_videos', None) is None
             and _conviene_lotes(len(videos), recomendado)
-            and pedir_si_no('¿Trabajar en lotes? (pausa de 3 min entre lotes para guardar y enfriar la PC)', False)):
+            and pedir_si_no(f'¿Trabajar en lotes? (pausa de {minutos_pausa} min entre lotes para guardar y enfriar la PC)', False)):
         lote_videos = pedir_numero('Vídeos por lote', 10, 1, entero=True)
+
     if lote_videos and getattr(args, 'lista_videos', None) is None:
         return _escanear_por_lotes(args, videos, trabajadores, int(lote_videos))
 

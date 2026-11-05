@@ -1117,57 +1117,41 @@ def existe_ruta(conn: Any, ruta: str, dispositivo_id: Optional[str] = None) -> b
 # ============================================================================
 def eliminar_por_ruta(conn: Any, ruta: str, dispositivo_id: Optional[str] = None) -> bool:
     disp_id = dispositivo_id if dispositivo_id is not None else _identificador_dispositivo_id()
-    clave = _calcular_clave_unica(disp_id, ruta)
     is_pg = _es_pg(conn)
     ruta_str = (ruta or '').strip()
     ruta_slash = ruta_str.replace('\\', '/')
-    ruta_backslash = ruta_str.replace('/', '\\')
-    variantes = list(dict.fromkeys([ruta_str, ruta_slash, ruta_backslash]))
-
-    try:
-        from core.sincronizacion import registrar_eliminacion
-        registrar_eliminacion(conn, clave)
-    except Exception:
-        pass
+    
     try:
         if is_pg:
             with conn.cursor() as cur:
-                cur.execute("DELETE FROM videos WHERE clave_unica = %s", (clave,))
-                if cur.rowcount > 0:
-                    conn.commit()
-                    return True
-                for v in variantes:
-                    cur.execute("SELECT clave_unica FROM videos WHERE ruta = %s OR LOWER(ruta) = LOWER(%s)", (v, v))
-                    filas = cur.fetchall()
-                    if filas:
-                        for row in filas:
-                            try:
-                                registrar_eliminacion(conn, row[0])
-                            except Exception:
-                                pass
-                        cur.execute("DELETE FROM videos WHERE ruta = %s OR LOWER(ruta) = LOWER(%s)", (v, v))
-                        conn.commit()
-                        return True
-            return False
+                cur.execute("SELECT clave_unica FROM videos WHERE (ruta = %s OR LOWER(ruta) = LOWER(%s) OR REPLACE(ruta, '\\\\', '/') = %s) AND (dispositivo_id = %s OR dispositivo_id = '')", (ruta_str, ruta_str, ruta_slash, disp_id))
+                filas = cur.fetchall()
+                if not filas:
+                    return False
+                for row in filas:
+                    try:
+                        from core.sincronizacion import registrar_eliminacion
+                        registrar_eliminacion(conn, row[0])
+                    except Exception:
+                        pass
+                cur.execute("DELETE FROM videos WHERE (ruta = %s OR LOWER(ruta) = LOWER(%s) OR REPLACE(ruta, '\\\\', '/') = %s) AND (dispositivo_id = %s OR dispositivo_id = '')", (ruta_str, ruta_str, ruta_slash, disp_id))
+                conn.commit()
+                return cur.rowcount > 0
         else:
-            conn.execute('BEGIN IMMEDIATE')
-            cursor = conn.execute('DELETE FROM videos WHERE clave_unica = ?', (clave,))
+            cursor = conn.execute("SELECT clave_unica FROM videos WHERE (ruta = ? OR LOWER(ruta) = LOWER(?) OR REPLACE(ruta, '\\', '/') = ?) AND (dispositivo_id = ? OR dispositivo_id = '')", (ruta_str, ruta_str, ruta_slash, disp_id))
+            filas = cursor.fetchall()
+            if not filas:
+                return False
+            for row in filas:
+                try:
+                    from core.sincronizacion import registrar_eliminacion
+                    registrar_eliminacion(conn, row['clave_unica'] if hasattr(row, 'keys') else row[0])
+                except Exception:
+                    pass
+            cursor = conn.execute("DELETE FROM videos WHERE (ruta = ? OR LOWER(ruta) = LOWER(?) OR REPLACE(ruta, '\\', '/') = ?) AND (dispositivo_id = ? OR dispositivo_id = '')", (ruta_str, ruta_str, ruta_slash, disp_id))
             if cursor.rowcount > 0:
                 conn.commit()
                 return True
-            for v in variantes:
-                cursor = conn.execute('SELECT clave_unica FROM videos WHERE ruta = ? OR LOWER(ruta) = LOWER(?)', (v, v))
-                filas = cursor.fetchall()
-                if filas:
-                    for row in filas:
-                        try:
-                            registrar_eliminacion(conn, row[0])
-                        except Exception:
-                            pass
-                    conn.execute('DELETE FROM videos WHERE ruta = ? OR LOWER(ruta) = LOWER(?)', (v, v))
-                    conn.commit()
-                    return True
-            conn.commit()
             return False
     except Exception:
         try:
@@ -1194,7 +1178,6 @@ def eliminar_por_dispositivo_id(conn: Any, dispositivo_id: str) -> int:
             conn.commit()
             return count
         else:
-            conn.execute('BEGIN IMMEDIATE')
             for row in conn.execute("SELECT clave_unica FROM videos WHERE dispositivo_id = ?", (disp_id,)):
                 registrar_eliminacion(conn, row['clave_unica'] if hasattr(row, 'keys') else row[0])
             cursor = conn.execute('DELETE FROM videos WHERE dispositivo_id = ?', (disp_id,))
@@ -1320,7 +1303,6 @@ def estadisticas(conn: Any) -> Dict[str, Any]:
     }
 
 
-
 def _carpeta_video_registrado(ruta: str) -> Tuple[str, str]:
     """Obtiene carpeta real *registrada*, sin consultar el disco ejecutor.
 
@@ -1422,13 +1404,14 @@ def estadisticas_por_dispositivo(conn: Any) -> List[Dict[str, Any]]:
                     carpetas[clave_carpeta] = {
                         'ruta': nombre_carpeta, 'total_videos': 0,
                         'tamanio_bytes': 0, 'con_sha256': 0,
-                        'con_huella_visual': 0,
+                        'con_huella_visual': 0, 'con_huella_audio': 0,
                     }
                 subgrupo = carpetas[clave_carpeta]
                 subgrupo['total_videos'] += 1
                 subgrupo['tamanio_bytes'] += tam
                 subgrupo['con_sha256'] += int(es_sha256)
                 subgrupo['con_huella_visual'] += int(es_visual)
+                subgrupo['con_huella_audio'] += int(tiene_audio)
     finally:
         cursor.close()
 
@@ -1825,6 +1808,7 @@ def volcar_todo_a_sqlite(
     finally:
         cerrar(conn_local)
     return conteo
+
 
 # ============================================================================
 # Restauración transaccional de Neon desde SQLite (opción expresa)

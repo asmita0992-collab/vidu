@@ -190,7 +190,7 @@ def _bloque_info_video_rich(info: Dict[str, Any]) -> List[str]:
         f'    [bright_cyan]Dispositivo     :[/] {rich_escape(str(info.get("dispositivo") or "N/D"))}',
         f'    [bright_cyan]ID dispositivo  :[/] {rich_escape(str(info.get("dispositivo_id") or "N/D"))}',
         f'    [grey]Resolución      :[/] {resolucion_txt}',
-        f'    [grey]Duración        :[/] {_fmt_seg(info.get("duracion", 0.0)) if info.get("duracion", 0.0) else 'N/D'}',
+        f'    [grey]Duración        :[/] {_fmt_seg(info.get("duracion", 0.0)) if info.get("duracion", 0.0) else "N/D"}',
         f'    [grey]Códec video     :[/] {info.get("codec_video", "N/D") or "N/D"}',
         f'    [grey]Códec audio     :[/] {info.get("codec_audio", "N/D") or "N/D"}',
         f'    [grey]Tamaño archivo  :[/] {_fmt_bytes(info.get("tamanio_bytes", 0))}',
@@ -216,7 +216,7 @@ def _bloque_info_video_ansi(info: Dict[str, Any]) -> List[str]:
         f'    {C.CIAN}Dispositivo     : {info.get("dispositivo") or "N/D"}{C.RESET}',
         f'    {C.CIAN}ID dispositivo  : {info.get("dispositivo_id") or "N/D"}{C.RESET}',
         f'    {C.GRIS}Resolución      : {resolucion_txt}{C.RESET}',
-        f'    {C.GRIS}Duración        : {_fmt_seg(info.get("duracion", 0.0)) if info.get("duracion", 0.0) else 'N/D'}{C.RESET}',
+        f'    {C.GRIS}Duración        : {_fmt_seg(info.get("duracion", 0.0)) if info.get("duracion", 0.0) else "N/D"}{C.RESET}',
         f'    {C.GRIS}Códec video     : {info.get("codec_video", "N/D") or "N/D"}{C.RESET}',
         f'    {C.GRIS}Códec audio     : {info.get("codec_audio", "N/D") or "N/D"}{C.RESET}',
         f'    {C.GRIS}Tamaño archivo  : {_fmt_bytes(info.get("tamanio_bytes", 0))}{C.RESET}',
@@ -470,22 +470,6 @@ def _imprimir_reporte_rich(
 
     CONSOLA.print(Rule(style='bright_cyan'))
 
-#    indice = 1
-#    for tipo in orden_tipos:
-#        grupo = por_tipo[tipo]
-#        if not grupo:
-#            continue
-#        label, color = _TIPO_META.get(tipo, (tipo.upper(), 'grey'))
-#        CONSOLA.print(Rule(
-#            f'[{color}][bold]{label} ({len(grupo)})[/][/]',
-#            style=color,
-#        ))
-#        for r in grupo:
-#            CONSOLA.print(_bloque_rich(r, indice))
-#            indice += 1
-#
-#    CONSOLA.print(Rule(style='bright_cyan'))
-
 
 # ============================================================================
 # Reporte principal: versión ANSI
@@ -586,24 +570,6 @@ def _imprimir_reporte_ansi(
             indice += 1
 
     print('\n' + sep + '\n')
-    
-#    indice = 1
-#    for tipo in orden_tipos:
-#        grupo = por_tipo[tipo]
-#        if not grupo:
-#            continue
-#        label, color = _TIPO_META.get(tipo, (tipo.upper(), 'grey'))
-#        mapa = {
-#            'red': C.ROJO, 'yellow': C.AMARILLO, 'cyan': C.CIAN,
-#            'magenta': C.MAGENTA, 'grey': C.GRIS,
-#        }
-#        c = mapa.get(color, C.GRIS)
-#        print(f'\n{c}{C.NEGRITA}  {"─" * 10} {label} ({len(grupo)}) {"─" * 10}{C.RESET}')
-#        for r in grupo:
-#            print(_bloque_ansi(r, indice))
-#            indice += 1
-#
-#    print('\n' + sep + '\n')
 
 
 # ============================================================================
@@ -624,7 +590,6 @@ def construir_informe(
         key=lambda r: orden.index(r.tipo) if r.tipo in orden else len(orden),
     )
 
-    # Capturamos la salida ANSI para el texto plano (sin colores)
     salida = io.StringIO()
     with redirect_stdout(salida):
         _imprimir_reporte_ansi(ordenados, total_videos, tiempo_seg)
@@ -633,7 +598,6 @@ def construir_informe(
     meta = dict(metadatos or {})
     meta.setdefault('dispositivo', info_dispositivo_actual())
 
-    # Añadimos el resumen de comparativas y metadatos al texto plano
     cobertura = meta.get('comparativas', {})
     if cobertura:
         resumen = [
@@ -758,7 +722,6 @@ def exportar_csv(
 ) -> None:
     datos = informe or construir_informe(resultados)
 
-    # Fila resumen con el texto completo de terminal (incluso sin hallazgos)
     filas = [dict(
         registro='resumen',
         texto_terminal=datos['texto_terminal'],
@@ -839,10 +802,7 @@ def imprimir_resumen_escaneo(
 # Barra de progreso (comparación de pares)
 # ============================================================================
 class BarraProgreso:
-    """Barra de progreso para comparación de pares.
-
-    Con rich usa una Progress de rich; sin rich usa la barra ANSI clásica.
-    """
+    """Barra de progreso para comparación de pares."""
 
     def __init__(self, total: int, ancho: int = 40, total_videos: int = 0):
         self.total = max(1, total)
@@ -1148,6 +1108,7 @@ class ProgresoFingerprintWorker:
     def cerrar(self) -> None:
         pass
 
+
 def _fmt_tamanio_estadisticas(numero: int) -> str:
     """Tamaño en unidades binarias, utilizado solamente por el menú 7."""
     numero = max(0, int(numero or 0))
@@ -1161,8 +1122,9 @@ def _fmt_tamanio_estadisticas(numero: int) -> str:
         return f'{numero / 1024:,.1f} KB'
     return f'{numero} B'
 
+
 def _mostrar_desglose_estadisticas(dispositivos: List[Dict[str, Any]]) -> None:
-    """Muestra dispositivos y carpetas, tanto con Rich como sin él."""
+    """Muestra dispositivos y carpetas (incluyendo SHA256, Visual y Audio), tanto con Rich como sin él."""
     if not dispositivos:
         imprimir('[yellow]No hay vídeos registrados para desglosar.[/]')
         return
@@ -1176,6 +1138,7 @@ def _mostrar_desglose_estadisticas(dispositivos: List[Dict[str, Any]]) -> None:
         resumen.add_column('Tamaño', justify='right', style='cyan')
         resumen.add_column('SHA256', justify='right', style='green')
         resumen.add_column('Visual', justify='right', style='gold1')
+        resumen.add_column('Audio', justify='right', style='magenta')
         resumen.add_column('Errores', justify='right', style='red')
         for disp in dispositivos:
             resumen.add_row(
@@ -1186,6 +1149,7 @@ def _mostrar_desglose_estadisticas(dispositivos: List[Dict[str, Any]]) -> None:
                 _fmt_tamanio_estadisticas(disp['tamanio_bytes']),
                 f'{disp["con_sha256"]:,}',
                 f'{disp["con_huella_visual"]:,}',
+                f'{disp.get("con_huella_audio", 0):,}',
                 f'{disp["con_error"]:,}',
             )
         CONSOLA.print(resumen)
@@ -1201,7 +1165,7 @@ def _mostrar_desglose_estadisticas(dispositivos: List[Dict[str, Any]]) -> None:
                 f'[cyan]{_fmt_tamanio_estadisticas(disp["tamanio_bytes"])}[/]  ·  '
                 f'[green]SHA256: {disp["con_sha256"]:,}[/]  ·  '
                 f'[gold1]Visual: {disp["con_huella_visual"]:,}[/]  ·  '
-                f'[magenta]Audio: {disp["con_huella_audio"]:,}[/]  ·  '
+                f'[magenta]Audio: {disp.get("con_huella_audio", 0):,}[/]  ·  '
                 f'[red]Errores: {disp["con_error"]:,}[/]'
             )
             if len(disp['nombres_registrados']) > 1:
@@ -1215,11 +1179,15 @@ def _mostrar_desglose_estadisticas(dispositivos: List[Dict[str, Any]]) -> None:
             tabla_rutas.add_column('Tamaño', justify='right', style='cyan')
             tabla_rutas.add_column('SHA256', justify='right', style='green')
             tabla_rutas.add_column('Visual', justify='right', style='gold1')
+            tabla_rutas.add_column('Audio', justify='right', style='magenta')
             for carpeta in disp['carpetas']:
                 tabla_rutas.add_row(
-                    rich_escape(carpeta['ruta']), f'{carpeta["total_videos"]:,}',
+                    rich_escape(carpeta['ruta']),
+                    f'{carpeta["total_videos"]:,}',
                     _fmt_tamanio_estadisticas(carpeta['tamanio_bytes']),
-                    f'{carpeta["con_sha256"]:,}', f'{carpeta["con_huella_visual"]:,}',
+                    f'{carpeta["con_sha256"]:,}',
+                    f'{carpeta["con_huella_visual"]:,}',
+                    f'{carpeta.get("con_huella_audio", 0):,}',
                 )
             CONSOLA.print(tabla_rutas)
     else:
@@ -1232,7 +1200,7 @@ def _mostrar_desglose_estadisticas(dispositivos: List[Dict[str, Any]]) -> None:
             print(f' Tamaño      : {_fmt_tamanio_estadisticas(disp["tamanio_bytes"])}')
             print(f' SHA256      : {disp["con_sha256"]:,}')
             print(f' Visual      : {disp["con_huella_visual"]:,}')
-            print(f' Audio       : {disp["con_huella_audio"]:,}')
+            print(f' Audio       : {disp.get("con_huella_audio", 0):,}')
             print(f' Con error   : {disp["con_error"]:,}')
             if len(disp['nombres_registrados']) > 1:
                 print(f' Nombres de este ID: {", ".join(disp["nombres_registrados"])}')
@@ -1240,5 +1208,6 @@ def _mostrar_desglose_estadisticas(dispositivos: List[Dict[str, Any]]) -> None:
             for carpeta in disp['carpetas']:
                 print(f'    {carpeta["ruta"]}  ->  {carpeta["total_videos"]:,} vídeos; '
                       f'{_fmt_tamanio_estadisticas(carpeta["tamanio_bytes"])}; '
-                      f'SHA256 {carpeta["con_sha256"]:,}; visual {carpeta["con_huella_visual"]:,}')
+                      f'SHA256 {carpeta["con_sha256"]:,}; visual {carpeta["con_huella_visual"]:,}; '
+                      f'audio {carpeta.get("con_huella_audio", 0):,}')
         print()
