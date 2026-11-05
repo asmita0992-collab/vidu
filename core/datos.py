@@ -28,20 +28,27 @@ except ImportError:
 
 
 def _tiene_huella_completa(conn, rr: str) -> bool:
-    """True si el vídeo ya tiene huella visual completa (no solo SHA256)."""
+    """True si el vídeo ya tiene huella visual completa (no solo SHA256).
+
+    Compara normalizando separadores de ruta (\\ vs /) para evitar que
+    diferencias entre Windows y Linux/Android provoquen re-procesamientos.
+    """
     from core.database import _usa_neon
+    rr_norm = rr.replace('\\', '/')
     if _usa_neon():
         import psycopg2.extras
         with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
             cur.execute(
-                'SELECT hash_rapido, EXISTS(SELECT 1 FROM frame_hashes WHERE video_id=videos.id) AS huella_visual FROM videos WHERE ruta=%s',
-                (rr,),
+                "SELECT hash_rapido, EXISTS(SELECT 1 FROM frame_hashes WHERE video_id=videos.id) AS huella_visual "
+                "FROM videos WHERE REPLACE(ruta, '\\\\', '/') = %s OR ruta = %s",
+                (rr_norm, rr),
             )
             fila = cur.fetchone()
     else:
         fila = conn.execute(
-            'SELECT hash_rapido, EXISTS(SELECT 1 FROM frame_hashes WHERE video_id=videos.id) AS huella_visual FROM videos WHERE ruta=?',
-            (rr,),
+            "SELECT hash_rapido, EXISTS(SELECT 1 FROM frame_hashes WHERE video_id=videos.id) AS huella_visual "
+            "FROM videos WHERE REPLACE(ruta, '\\', '/') = ? OR ruta = ?",
+            (rr_norm, rr),
         ).fetchone()
     return bool(fila and fila['hash_rapido'] != 'sha256_solo' and fila['huella_visual'])
 
@@ -102,9 +109,10 @@ def _consultar_hashes_previos(videos: List[Path], db: str) -> Dict[str, dict]:
             with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
                 for ruta in videos:
                     rr = str(ruta.resolve())
+                    rr_norm = rr.replace('\\', '/')
                     cur.execute(
-                        'SELECT hash_archivo, hash_rapido, tamanio_bytes FROM videos WHERE ruta=%s',
-                        (rr,),
+                        "SELECT hash_archivo, hash_rapido, tamanio_bytes FROM videos WHERE REPLACE(ruta, '\\\\', '/') = %s OR ruta = %s",
+                        (rr_norm, rr),
                     )
                     fila = cur.fetchone()
                     if fila and fila['hash_archivo']:
@@ -112,9 +120,10 @@ def _consultar_hashes_previos(videos: List[Path], db: str) -> Dict[str, dict]:
         else:
             for ruta in videos:
                 rr = str(ruta.resolve())
+                rr_norm = rr.replace('\\', '/')
                 fila = conn.execute(
-                    'SELECT hash_archivo, hash_rapido, tamanio_bytes FROM videos WHERE ruta=?',
-                    (rr,),
+                    "SELECT hash_archivo, hash_rapido, tamanio_bytes FROM videos WHERE REPLACE(ruta, '\\', '/') = ? OR ruta = ?",
+                    (rr_norm, rr),
                 ).fetchone()
                 if fila and fila['hash_archivo']:
                     previos[rr] = dict(fila)

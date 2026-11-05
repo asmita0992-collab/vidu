@@ -295,6 +295,8 @@ def cmd_escanear(args: argparse.Namespace) -> int:
         return 0
 
     imprimir(f'[cyan]Inventario inicial: {len(videos_encontrados)} vídeo(s) elegibles. Revisando registros anteriores...[/]')
+    from core.sincronizacion import sincronizar_al_iniciar
+    sincronizar_al_iniciar()
     rutas_con_error = _rutas_con_error_registrado()
     videos_pendientes, omitidos_previos = _filtrar_videos_pendientes(videos_encontrados, args.db, args.reintentar_errores, args.forzar_registrados)
 
