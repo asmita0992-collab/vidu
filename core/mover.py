@@ -1303,29 +1303,14 @@ def _eliminar_candidatos_verificados(candidatos, carpeta_reportes, reporte, base
     sello = _id_utc6()
     bitacora = sub['jsonl'] / f'eliminaciones_{sello}.jsonl'
     registros = []
-    
-    from .database import conectar, cerrar, eliminar_por_ruta, _usa_neon
-    from .sincronizacion import obtener_ruta_db_local_dispositivo, registrar_eliminacion
-    
-    conn_del = None
-    try:
-        if _usa_neon():
-            conn_del = conectar('neon_cloud')
-        elif bases:
-            conn_del = conectar(bases[0])
-        else:
-            conn_del = conectar(str(obtener_ruta_db_local_dispositivo()))
-    except Exception:
-        conn_del = None
-
-    try:
-        with bitacora.open('x', encoding='utf-8') as log:
-            for indice, item in enumerate(unicos, 1):
-                archivo = Path(item['ruta'])
-                registro = dict(fecha=datetime.now(ZONA_MEXICO).isoformat(),
-                                origen=str(archivo), dispositivo_id=dispositivo_id,
-                                sha256_esperado=item['sha256'], estado='omitido')
-                try:
+    with bitacora.open('x', encoding='utf-8') as log:
+        for indice, item in enumerate(unicos, 1):
+            archivo = Path(item['ruta'])
+            registro = dict(fecha=datetime.now(ZONA_MEXICO).isoformat(),
+                            origen=str(archivo), dispositivo_id=dispositivo_id,
+                            sha256_esperado=item['sha256'], estado='omitido')
+            try:
+                    # Se eliminó la confirmación individual (input). Ya se autorizó el lote completo.
                     if archivo.is_symlink() or not archivo.is_file():
                         registro['motivo'] = 'El archivo desapareció o es un enlace'
                     else:
@@ -1339,25 +1324,40 @@ def _eliminar_candidatos_verificados(candidatos, carpeta_reportes, reporte, base
                               int(item['tamanio_bytes']) != antes.st_size):
                             registro['motivo'] = 'El tamaño difiere del reporte'
                         else:
+                            # Usar ruta sin enlaces y validar identidad una vez más.
                             archivo.unlink()
                             registro['estado'] = 'eliminado'
                             registro['sha256_comprobado'] = sha_actual
-                            if conn_del:
-                                try:
-                                    eliminar_por_ruta(conn_del, str(archivo), dispositivo_id)
-                                except Exception:
-                                    pass
-                except (OSError, ValueError, KeyboardInterrupt, EOFError) as exc:
+            except (OSError, ValueError, KeyboardInterrupt, EOFError) as exc:
                     registro['motivo'] = str(exc) or 'Cancelado'
-                log.write(json.dumps(registro, ensure_ascii=False) + '\n')
-                log.flush()
-                os.fsync(log.fileno())
-                registros.append(registro)
-                _imprimir(f'[{indice}/{len(unicos)}] {registro["estado"]}: {archivo.name}',
-                          'green' if registro['estado'] == 'eliminado' else 'yellow')
-    finally:
-        if conn_del:
-            cerrar(conn_del)
+            #try:
+            #    respuesta = input(f'[{indice}/{len(unicos)}] ¿ELIMINAR {archivo.name}? (escribe SI): ').strip()
+            #    if respuesta != 'SI':
+            #        registro['motivo'] = 'Sin confirmación individual'
+            #    elif archivo.is_symlink() or not archivo.is_file():
+            #        registro['motivo'] = 'El archivo desapareció o es un enlace'
+            #    else:
+            #        antes = archivo.stat()
+            #        sha_actual = _sha256(archivo)
+            #        if _identidad(archivo.stat()) != _identidad(antes):
+            #            registro['motivo'] = 'El archivo cambió durante la validación'
+            #        elif sha_actual != item['sha256']:
+            #            registro['motivo'] = 'El SHA256 difiere del reporte'
+            #        elif (item.get('tamanio_bytes') is not None and
+            #              int(item['tamanio_bytes']) != antes.st_size):
+            #            registro['motivo'] = 'El tamaño difiere del reporte'
+            #        else:
+            #            # Usar ruta sin enlaces y validar identidad una vez más.
+            #            archivo.unlink()
+            #            registro['estado'] = 'eliminado'
+            #            registro['sha256_comprobado'] = sha_actual
+            #except (OSError, ValueError, KeyboardInterrupt, EOFError) as exc:
+            #    registro['motivo'] = str(exc) or 'Cancelado'
+            log.write(json.dumps(registro, ensure_ascii=False) + '\n')
+            log.flush()
+            os.fsync(log.fileno())
+            registros.append(registro)
+            _imprimir(f'[{indice}/{len(unicos)}] {registro["estado"]}: {archivo.name}',
                       'green' if registro['estado'] == 'eliminado' else 'yellow')
 
     # La baja de la huella es posterior al borrado. Un error no se silencia.

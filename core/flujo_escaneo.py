@@ -606,40 +606,28 @@ def escanear_interactivo(db_defecto: str, reporte_sha: Optional[str] = None) -> 
         imprimir(f'[cyan]Vídeos nuevos disponibles en el JSON: {len(candidatos)}[/]')
     else:
         candidatas = _carpetas_android_candidatas() if es_android() else []
-        from core.almacenamiento import obtener_rutas_historial_escaneo, guardar_ruta_historial_escaneo
-        historial = obtener_rutas_historial_escaneo()
-        
-        # Combinar candidatas sin duplicados
-        candidatas_totales: List[Path] = []
-        for c in candidatas + historial:
-            p = Path(c).resolve()
-            if p.is_dir() and p not in candidatas_totales:
-                candidatas_totales.append(p)
-
-        if candidatas_totales:
-            imprimir('\n[cyan]Carpetas de vídeo candidatas o utilizadas anteriormente:[/]')
-            for i, c in enumerate(candidatas_totales, 1):
+        if candidatas:
+            imprimir('\n[cyan]Carpetas de vídeo detectadas en este dispositivo:[/]')
+            for i, c in enumerate(candidatas, 1):
                 imprimir(f'  [gold1]{i}.[/] {rich_escape(str(c))}')
-            imprimir(f'  [gold1]{len(candidatas_totales) + 1}.[/] Otra carpeta (ruta manual)')
+            imprimir(f'  [gold1]{len(candidatas) + 1}.[/] Otra carpeta (ruta manual)')
             opcion = pedir_numero(
                 'Elige una carpeta',
-                1, 1, len(candidatas_totales) + 1, entero=True,
+                1, 1, len(candidatas) + 1, entero=True,
             )
-            if opcion == len(candidatas_totales) + 1:
+            if opcion == len(candidatas) + 1:
                 directorio = pedir_ruta(
                     'Directorio de vídeos', str(DIR_SCRIPT),
                     existente=True, directorio=True,
                 )
             else:
-                directorio = str(candidatas_totales[int(opcion) - 1])
-            guardar_ruta_historial_escaneo(directorio)
+                directorio = str(candidatas[int(opcion) - 1])
             recursivo = pedir_si_no('¿Incluir subcarpetas?', True)
         else:
             directorio = pedir_ruta(
                 'Directorio de vídeos', str(DIR_SCRIPT),
                 existente=True, directorio=True,
             )
-            guardar_ruta_historial_escaneo(directorio)
             recursivo = pedir_si_no('¿Incluir subcarpetas?', True)
         sugerida = db_defecto  
 

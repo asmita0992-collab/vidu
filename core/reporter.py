@@ -394,16 +394,16 @@ def _imprimir_reporte_rich(
     CONSOLA.print(Rule('[bold bright_white]VIDUP — Reporte de análisis[/]',
                        style='bright_cyan'))
     CONSOLA.print(
-        f'[deep_sky_blue1]Fecha:[/] [spring_green2]{datetime.now(ZONA_MEXICO).strftime("%d/%m/%Y %H:%M:%S")}[/]\n'
-        f'[deep_sky_blue1]Dispositivo:[/] [turquoise2]{info_disp["dispositivo"]}[/] '
+        f'[cyan]Fecha:[/] {datetime.now(ZONA_MEXICO).strftime("%d/%m/%Y %H:%M:%S")}\n'
+        f'[cyan]Dispositivo:[/] {info_disp["dispositivo"]} '
         f'[bright_black](ID {info_disp["dispositivo_id"]})[/]\n'
-        f'[deep_sky_blue1]Plataforma:[/] [gold1]{info_disp["plataforma"]}[/] [grey58]({info_disp["maquina"]})[/]'
+        f'[cyan]Plataforma:[/] {info_disp["plataforma"]} ({info_disp["maquina"]})'
     )
     if total_videos:
-        CONSOLA.print(f'[deep_sky_blue1]Vídeos analizados:[/] [bold spring_green2]{total_videos}[/]')
+        CONSOLA.print(f'[cyan]Vídeos analizados:[/] {total_videos}')
     if tiempo_seg:
-        CONSOLA.print(f'[deep_sky_blue1]Tiempo de análisis:[/] [bold gold1]{_fmt_seg(tiempo_seg)}[/]')
-    CONSOLA.print(f'[deep_sky_blue1]Hallazgos totales:[/] [bold spring_green2]{len(resultados)}[/]')
+        CONSOLA.print(f'[cyan]Tiempo de análisis:[/] {_fmt_seg(tiempo_seg)}')
+    CONSOLA.print(f'[cyan]Hallazgos totales:[/] [bold]{len(resultados)}[/]')
     CONSOLA.print(Rule(style='bright_cyan'))
 
     if not resultados:
@@ -411,14 +411,14 @@ def _imprimir_reporte_rich(
         return
 
     # Resumen por tipo
-    tabla = Table(title='Resumen', box=rich_box.ROUNDED, border_style='bright_cyan', title_style='bold plum1')
-    tabla.add_column('Tipo', style='bold spring_green2')
-    tabla.add_column('Cantidad', style='bold gold1', justify='right')
+    tabla = Table(title='Resumen', box=rich_box.ROUNDED, border_style='magenta')
+    tabla.add_column('Tipo', style='bold')
+    tabla.add_column('Cantidad', justify='right')
     for tipo in orden_tipos:
         if not por_tipo[tipo]:
             continue
         label, color = _TIPO_META.get(tipo, (tipo.upper(), 'grey'))
-        tabla.add_row(f'[{color}]{label}[/]', f'[bold gold1]{len(por_tipo[tipo])}[/]')
+        tabla.add_row(f'[{color}]{label}[/]', str(len(por_tipo[tipo])))
         if tipo == 'duplicado_exacto':
             subgrupos_count = {}
             for r in por_tipo[tipo]:
@@ -427,7 +427,7 @@ def _imprimir_reporte_rich(
                 sg = " y ".join(sorted([d1, d2]))
                 subgrupos_count[sg] = subgrupos_count.get(sg, 0) + 1
             for sg, cant in subgrupos_count.items():
-                tabla.add_row(f'    [cyan]Duplicados de {rich_escape(sg)}[/]', f'[spring_green2]{cant}[/]')
+                tabla.add_row(f'    [grey70]Duplicados de {rich_escape(sg)}[/]', str(cant))
     CONSOLA.print(tabla)
 
     indice = 1
@@ -457,7 +457,7 @@ def _imprimir_reporte_rich(
                     count_sub = sum(1 for item in grupo if _llave_disp(item) == subgrupo)
                     CONSOLA.print()
                     CONSOLA.print()
-                    CONSOLA.print(f'[bright_blue]----------DUPLICADOS DE [bold turquoise2]{rich_escape(subgrupo)}[/] [gold1]({count_sub})[/]---------------------[/]')
+                    CONSOLA.print(f'[grey58]----------DUPLICADOS DE {rich_escape(subgrupo)} ({count_sub})---------------------[/]')
                     ultimo_subgrupo = subgrupo
                     
             CONSOLA.print(_bloque_rich(r, indice))
@@ -784,13 +784,13 @@ def imprimir_resumen_escaneo(
 ) -> None:
     if CONSOLA is not None:
         tabla = Table(title='Escaneo completado', box=rich_box.ROUNDED,
-                      border_style='bright_cyan', title_style='bold plum1', show_header=False)
-        tabla.add_column('Campo', style='bold deep_sky_blue1')
-        tabla.add_column('Valor', style='bold spring_green2')
-        tabla.add_row('Procesados', f'[bold spring_green2]{procesados}[/]')
+                      border_style='green', show_header=False)
+        tabla.add_column('Campo', style='cyan')
+        tabla.add_column('Valor', style='white')
+        tabla.add_row('Procesados', f'[green]{procesados}[/]')
         if errores:
-            tabla.add_row('Con error', f'[bold orange3]{errores}[/]')
-        tabla.add_row('Tiempo', f'[bold gold1]{_fmt_seg(tiempo_seg)}[/]')
+            tabla.add_row('Con error', f'[red]{errores}[/]')
+        tabla.add_row('Tiempo', _fmt_seg(tiempo_seg))
         CONSOLA.print(tabla)
     else:
         print()
@@ -1012,31 +1012,15 @@ class Dashboard:
         sys.stdout.flush()
         self._lineas_dibujadas = len(lineas)
 
-def _fmt_hms_ms(segundos: float) -> str:
-    """Formatea segundos a hh:mm:ss.ms o mm:ss.ms."""
-    try:
-        s = max(0.0, float(segundos or 0))
-    except Exception:
-        return "00:00.00"
-    m, sec = divmod(s, 60)
-    h, m = divmod(m, 60)
-    sec_int = int(sec)
-    ms = int((sec - sec_int) * 100)
-    if h > 0:
-        return f"{int(h):02d}:{int(m):02d}:{sec_int:02d}.{ms:02d}"
-    return f"{int(m):02d}:{sec_int:02d}.{ms:02d}"
-
-
 class ProgresoFingerprintWorker:
-    def __init__(self, dashboard: Dashboard, worker_id: int, nombre_video: str, duracion: float = 0.0):
+    def __init__(self, dashboard: Dashboard, worker_id: int, nombre_video: str):
         self._dashboard = dashboard
         self._worker_id = worker_id
         self._nombre = nombre_video
-        self.duracion = duracion
         self._ultimo_texto = ''
         self._ultimo_momento = 0.0
 
-    def __call__(self, fase: str, fraccion: float, eta: float, duracion: float = 0.0) -> None:
+    def __call__(self, fase: str, fraccion: float, eta: float) -> None:
         fraccion = max(0.0, min(1.0, fraccion))
         ahora = time.monotonic()
         if ahora - self._ultimo_momento < 0.15 and fraccion < 1.0:
@@ -1044,22 +1028,15 @@ class ProgresoFingerprintWorker:
         self._ultimo_momento = ahora
         eta_texto = _fmt_seg(eta) if eta >= 0 else 'calculando'
         
-        dur_total = duracion or self.duracion
-        if dur_total > 0:
-            tiempo_actual = fraccion * dur_total
-            fmt_tiempo = f" { _fmt_hms_ms(tiempo_actual)} / {_fmt_hms_ms(dur_total)} |"
-        else:
-            fmt_tiempo = ""
-
         ancho_barra = 10
         llenos = int(ancho_barra * fraccion)
         barra = '█' * llenos + '░' * (ancho_barra - llenos)
 
         ancho = shutil.get_terminal_size(fallback=(100, 24)).columns
-        max_nombre = max(15, ancho - 95)
+        max_nombre = max(15, ancho - 90)
         nombre = self._nombre[: max_nombre - 1] + '…' if len(self._nombre) > max_nombre else self._nombre
         
-        texto = f'{nombre} | {fase:<12} | {barra} {fraccion:5.1%} |{fmt_tiempo} ETA: {eta_texto}'
+        texto = f'{nombre} | {fase:<15} | {barra} {fraccion:5.1%} | ETA: {eta_texto}'
         if texto != self._ultimo_texto:
             self._ultimo_texto = texto
             self._dashboard.actualizar_worker(self._worker_id, texto)

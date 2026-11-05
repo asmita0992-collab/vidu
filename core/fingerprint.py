@@ -113,7 +113,7 @@ def _verificar_cancelacion(cancelar: Optional[threading.Event]) -> None:
 # ============================================================================
 # Notificación de progreso
 # ============================================================================
-def _notificar(progreso: Progreso, fase: str, fraccion: float, inicio: float, duracion: float = 0.0) -> None:
+def _notificar(progreso: Progreso, fase: str, fraccion: float, inicio: float) -> None:
     """Calcula un ETA aproximado para la fase actual."""
     if progreso is None:
         return
@@ -123,10 +123,7 @@ def _notificar(progreso: Progreso, fase: str, fraccion: float, inicio: float, du
         eta = transcurrido * (1.0 - fraccion) / fraccion
     else:
         eta = -1.0
-    try:
-        progreso(fase, fraccion, eta, duracion)
-    except TypeError:
-        progreso(fase, fraccion, eta)
+    progreso(fase, fraccion, eta)
 
 
 # ============================================================================
@@ -375,58 +372,16 @@ def _normalizar_aceleracion(aceleracion: str) -> str:
     return alias.get(aceleracion, aceleracion)
 
 
-def obtener_exclusiones() -> set:
-    """Retorna el conjunto de modos de aceleración/encoders excluidos permanentemente por fallar."""
-    DIR_SCRIPT = Path(__file__).resolve().parent.parent
-    ruta = DIR_SCRIPT / '.vidup_exclusiones.json'
-    if not ruta.is_file():
-        return set()
-    try:
-        with ruta.open('r', encoding='utf-8') as f:
-            datos = json.load(f)
-            return set(datos.get('exclusiones', []))
-    except Exception:
-        return set()
-
-
-def registrar_exclusion(modo_acel: str, motivo: str) -> None:
-    """Registra de manera permanente un modo de aceleración defectuoso para omitirlo en futuros escaneos."""
-    if not modo_acel or modo_acel in ('software', 'auto'):
-        return
-    DIR_SCRIPT = Path(__file__).resolve().parent.parent
-    ruta = DIR_SCRIPT / '.vidup_exclusiones.json'
-    datos = {'exclusiones': [], 'detalle': {}}
-    if ruta.is_file():
-        try:
-            with ruta.open('r', encoding='utf-8') as f:
-                datos = json.load(f)
-        except Exception:
-            pass
-    exclusiones = set(datos.get('exclusiones', []))
-    exclusiones.add(modo_acel)
-    datos['exclusiones'] = list(exclusiones)
-    detalles = datos.get('detalle', {})
-    detalles[modo_acel] = {'motivo': motivo, 'fecha': _ahora_utc6_str()}
-    datos['detalle'] = detalles
-    try:
-        with ruta.open('w', encoding='utf-8') as f:
-            json.dump(datos, f, indent=2, ensure_ascii=False)
-        _avisar(f'  [yellow]⚠ Se registró la exclusión automática de hardware "{modo_acel}" para omitirlo en futuros escaneos.[/]')
-    except Exception:
-        pass
-
-
 def _metodos_cascada(aceleracion: str) -> List[str]:
-    """Construye la lista de métodos a intentar según el modo solicitado, excluyendo modos fallidos."""
+    """Construye la lista de métodos a intentar según el modo solicitado."""
     aceleracion = _normalizar_aceleracion(aceleracion)
     if aceleracion == 'software':
         return ['software']
 
     disponibles = _aceleradores_disponibles()
-    excluidos = obtener_exclusiones()
 
     def disponible(nombre: str) -> bool:
-        return nombre in disponibles and nombre not in excluidos
+        return nombre in disponibles
 
     if aceleracion == 'auto':
         candidatos = _orden_plataforma()
@@ -677,7 +632,7 @@ def _extraer_frames_ffmpeg(
                         ultimo_avance = time.monotonic()
                         fraccion = min(0.99, segundos / duracion)
                         ultima_fraccion = fraccion
-                        _notificar(progreso, fase_nombre, fraccion, inicio, duracion)
+                        _notificar(progreso, fase_nombre, fraccion, inicio)
 
                 if proceso.poll() is not None and cola_lineas.empty():
                     break
@@ -697,7 +652,6 @@ def _extraer_frames_ffmpeg(
                 if proceso.poll() is None:
                     _terminar_proceso(proceso)
                 ultimo_error = motivo_aborto
-                registrar_exclusion(modo_acel, ultimo_error)
                 for f in Path(patron_salida).parent.glob('f_*.png'):
                     try:
                         f.unlink()
@@ -717,7 +671,6 @@ def _extraer_frames_ffmpeg(
                         f'FFmpeg terminó con código {proceso.returncode} '
                         f'en modo {modo_acel}'
                     )
-                registrar_exclusion(modo_acel, ultimo_error)
                 for f in Path(patron_salida).parent.glob('f_*.png'):
                     try:
                         f.unlink()
@@ -732,7 +685,6 @@ def _extraer_frames_ffmpeg(
             archivos_png = list(Path(patron_salida).parent.glob('f_*.png'))
             if not archivos_png or all(f.stat().st_size == 0 for f in archivos_png):
                 ultimo_error = f'[{modo_acel}] El decodificador generó fotogramas vacíos o corruptos.'
-                registrar_exclusion(modo_acel, ultimo_error)
                 for f in archivos_png:
                     try:
                         f.unlink()
