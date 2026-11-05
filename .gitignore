@@ -1,6 +1,7 @@
 # Secretos y configuración local
 .env
 .vidup_device_identity.json
+.vidup_exclusiones.json
 
 # Python
 __pycache__/
