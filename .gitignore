@@ -29,6 +29,9 @@ neon_cloud
 .vscode/
 .idea/
 .DS_Store
+
+# Carpetas
+reportes/
 Thumbs.db
 
 # Logs y temporales
