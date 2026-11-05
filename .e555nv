@@ -1,7 +1,0 @@
-TELEGRAM_TOKEN=8394495705:AAGn1lgfWh3kuGK_UhV40mTyC0L6giUdIiA
-
-TELEGRAM_CHAT_ID=8082442887
-
-NEON_DATABASE_URL=postgresql://neondb_owner:npg_bTr0jZqEK4ai@ep-empty-bonus-b4icyvnr-pooler.c-6.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
-
-#estano#NEON_DATABASE_URL=postgresql://neondb_owner:npg_s7hvtLDpV1mG@ep-fragrant-surf-b4wrv0km.c-6.us-east-2.aws.neon.tech/vidup?sslmode=require&channel_binding=require
