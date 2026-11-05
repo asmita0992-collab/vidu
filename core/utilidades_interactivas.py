@@ -525,15 +525,16 @@ def eliminar_desde_reporte_eliminaciones_interactivo(db_defecto: str) -> None:
             st = reg.get('estado')
             if st in ('eliminado', 'exito', None):
                 ruta = reg.get('origen') or reg.get('ruta')
+                reg_disp = reg.get('dispositivo_id')
                 if ruta:
-                    rutas_a_borrar.append(ruta)
+                    rutas_a_borrar.append((ruta, reg_disp))
 
     if not rutas_a_borrar:
         imprimir('[yellow]El reporte no contiene registros de vídeos eliminados válidos.[/]')
         return
 
     imprimir(f'\n[cyan]Se eliminarán {len(rutas_a_borrar)} registros de la base de datos basándose en el reporte.[/]')
-    for r in rutas_a_borrar[:15]:
+    for r, _ in rutas_a_borrar[:15]:
         imprimir(f'  • {rich_escape(r)}')
     if len(rutas_a_borrar) > 15:
         imprimir(f'  ... y {len(rutas_a_borrar) - 15} más.')
@@ -555,8 +556,8 @@ def eliminar_desde_reporte_eliminaciones_interactivo(db_defecto: str) -> None:
     conn = conectar(db)
     borrados = 0
     try:
-        for r in rutas_a_borrar:
-            if eliminar_por_ruta(conn, r, disp_id):
+        for r, reg_disp in rutas_a_borrar:
+            if eliminar_por_ruta(conn, r, reg_disp or disp_id):
                 borrados += 1
     finally:
         cerrar(conn)

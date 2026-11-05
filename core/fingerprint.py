@@ -34,6 +34,7 @@ from typing import Callable, List, Optional, Tuple
 
 from PIL import Image
 import imagehash
+from core.horario import fmt_ahora_utc6 as _ahora_utc6_str
 
 # ============================================================================
 # Rich (opcional) para mensajes internos

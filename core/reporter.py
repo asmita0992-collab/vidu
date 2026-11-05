@@ -781,10 +781,36 @@ def imprimir_resumen_escaneo(
     errores: int,
     omitidos: int,
     tiempo_seg: float,
+    interrumpido: bool = False,
 ) -> None:
+    if interrumpido:
+        titulo = "Escaneo interrumpido"
+        estilo_titulo = "bold yellow"
+        estilo_borde = "yellow"
+    elif procesados == 0 and errores > 0:
+        titulo = "Escaneo fallido (0 procesados)"
+        estilo_titulo = "bold red"
+        estilo_borde = "red"
+    elif errores > 0:
+        titulo = "Escaneo finalizado con errores"
+        estilo_titulo = "bold orange3"
+        estilo_borde = "orange3"
+    elif procesados == 0 and omitidos > 0:
+        titulo = "Escaneo omitido (archivos al día)"
+        estilo_titulo = "bold deep_sky_blue1"
+        estilo_borde = "deep_sky_blue1"
+    elif procesados == 0:
+        titulo = "Escaneo finalizado (sin procesar)"
+        estilo_titulo = "bold yellow"
+        estilo_borde = "yellow"
+    else:
+        titulo = "Escaneo completado"
+        estilo_titulo = "bold plum1"
+        estilo_borde = "bright_cyan"
+
     if CONSOLA is not None:
-        tabla = Table(title='Escaneo completado', box=rich_box.ROUNDED,
-                      border_style='bright_cyan', title_style='bold plum1', show_header=False)
+        tabla = Table(title=titulo, box=rich_box.ROUNDED,
+                      border_style=estilo_borde, title_style=estilo_titulo, show_header=False)
         tabla.add_column('Campo', style='bold deep_sky_blue1')
         tabla.add_column('Valor', style='bold spring_green2')
         tabla.add_row('Procesados', f'[bold spring_green2]{procesados}[/]')
@@ -795,7 +821,7 @@ def imprimir_resumen_escaneo(
     else:
         print()
         print(f'{C.GRIS}{"─" * 72}{C.RESET}')
-        print(f'  {C.NEGRITA}Escaneo completado{C.RESET}')
+        print(f'  {C.NEGRITA}{titulo}{C.RESET}')
         print(f'  Procesados : {C.VERDE}{procesados}{C.RESET}')
         if errores:
             print(f'  Con error  : {C.ROJO}{errores}{C.RESET}')
@@ -922,16 +948,31 @@ class ProgresoFingerprint:
             print(file=sys.stderr)
 
 
+def _fmt_eta_corto(segundos: float) -> str:
+    try:
+        s = int(max(0, segundos))
+    except Exception:
+        return "calculando"
+    if s < 3600:
+        return f"{s//60:d}m{s%60:02d}s"
+    if s < 86400:
+        h, rem = divmod(s, 3600)
+        return f"{h:d}h{rem//60:02d}m"
+    d, rem = divmod(s, 86400)
+    return f"{d:d}d{rem//3600:02d}h"
+
+
 class Dashboard:
     def __init__(self, num_workers: int, tty: bool = True):
         self._lock = threading.Lock()
         self._num_workers = max(1, num_workers)
         self._tty = tty
-        self._workers: Dict[int, str] = {}
+        self._workers: Dict[int, Any] = {}
         self._thread_slots: Dict[int, int] = {}
         self._completados = 0
         self._errores = 0
         self._total = 0
+        self._inicio_batch = 0.0
         self._lineas_dibujadas = 0
 
     def iniciar(self, total: int) -> None:
@@ -939,13 +980,15 @@ class Dashboard:
             self._total = total
             self._completados = 0
             self._errores = 0
-            self._workers = {i: 'Esperando asignación...' for i in range(self._num_workers)}
+            self._inicio_batch = time.monotonic()
+            self._workers = {i: None for i in range(self._num_workers)}
             self._thread_slots = {}
             self._lineas_dibujadas = 0
+            lineas_necesarias = 2 + (self._num_workers * 3)
             if self._tty:
-                sys.stdout.write('\n' * (self._num_workers + 1))
+                sys.stdout.write('\n' * lineas_necesarias)
                 sys.stdout.flush()
-                self._lineas_dibujadas = self._num_workers + 1
+                self._lineas_dibujadas = lineas_necesarias
             self._dibujar()
 
     def detener(self) -> None:
@@ -967,12 +1010,20 @@ class Dashboard:
                 return 0
         return self._thread_slots[tid]
 
+    def actualizar_worker_datos(self, tid: int, datos: dict) -> None:
+        with self._lock:
+            if not self._workers:
+                return
+            slot = self._get_slot(tid)
+            self._workers[slot] = datos
+            self._dibujar()
+
     def actualizar_worker(self, tid: int, texto: str) -> None:
         with self._lock:
             if not self._workers:
                 return
             slot = self._get_slot(tid)
-            self._workers[slot] = texto
+            self._workers[slot] = {'texto_simple': texto}
             self._dibujar()
 
     def marcar_completado(self) -> None:
@@ -992,39 +1043,93 @@ class Dashboard:
                 sys.stdout.write('\033[J')
             print(mensaje)
             if self._workers:
+                lineas_necesarias = 2 + (self._num_workers * 3)
                 if self._tty:
-                    sys.stdout.write('\n' * (self._num_workers + 1))
-                    self._lineas_dibujadas = self._num_workers + 1
+                    sys.stdout.write('\n' * lineas_necesarias)
+                    self._lineas_dibujadas = lineas_necesarias
                 self._dibujar()
 
     def _dibujar(self) -> None:
         if not self._tty or self._lineas_dibujadas == 0:
             return
-        sys.stdout.write(f'\033[{self._lineas_dibujadas}F')
-        lineas = [
-            f'\033[2K{AZUL}▶ Completados: {NEGRITA}{self._completados}{NC}{AZUL} / {self._total}{NC}'
-            f'{AZUL} | Errores: {ROJO}{self._errores}{NC}'
-        ]
+
+        procesados_total = self._completados + self._errores
+        fraccion_global = max(0.0, min(1.0, procesados_total / max(1, self._total)))
+
+        transcurrido = time.monotonic() - self._inicio_batch if self._inicio_batch > 0 else 0.0
+        if procesados_total > 0 and fraccion_global < 1.0 and transcurrido > 0:
+            eta_global_sec = (transcurrido / procesados_total) * (self._total - procesados_total)
+            eta_global_str = _fmt_eta_corto(eta_global_sec)
+        elif fraccion_global >= 1.0:
+            eta_global_str = "0m00s"
+        else:
+            eta_global_str = "calculando"
+
+        archivo_actual = ""
+        for w in self._workers.values():
+            if isinstance(w, dict) and w.get('nombre'):
+                archivo_actual = w['nombre']
+                break
+
+        ancho_g = 25
+        llenos_g = int(ancho_g * fraccion_global)
+        barra_global = f"[\033[38;5;46m{'█' * llenos_g}\033[90m{'░' * (ancho_g - llenos_g)}\033[0m]"
+        pct_g = f"{fraccion_global * 100:3.0f} %"
+        indice_g = f"[{min(procesados_total + 1, self._total):2d}/{self._total}]"
+
+        linea_global = f"\033[2K{barra_global}  {pct_g} {indice_g} \033[35;1m{archivo_actual}\033[0m | ETA Arch: \033[36m{eta_global_str}\033[0m"
+        linea_completados = f"\033[2K\033[36;1m▶ Completados: \033[1;37m{self._completados}\033[0m\033[36m / {self._total}\033[0m"
+        if self._errores > 0:
+            linea_completados += f" \033[36m| Errores: \033[31;1m{self._errores}\033[0m"
+
+        lineas = [linea_global, linea_completados]
+
         for i in range(self._num_workers):
-            estado = self._workers.get(i, 'Esperando asignación...')
-            lineas.append(f'\033[2K{AMARILLO}Worker {i + 1}:{NC} {estado}')
+            d = self._workers.get(i)
+            if isinstance(d, dict) and 'nombre' in d:
+                w_nombre = d['nombre']
+                fase = d.get('fase', 'Procesando')
+                fraccion = max(0.0, min(1.0, d.get('fraccion', 0.0)))
+                tiempo_actual = d.get('tiempo_actual', 0.0)
+                dur_total = d.get('dur_total', 0.0)
+                speed = d.get('speed', 0.0)
+                eta_str = d.get('eta_texto', '--:--')
+
+                llenos_w = int(10 * fraccion)
+                barra_w = f"[\033[92m{'█' * llenos_w}\033[90m{'░' * (10 - llenos_w)}\033[0m]"
+
+                l1 = f"\033[2K\033[36;1mW{i + 1}:\033[0m \033[37;1m{w_nombre}\033[0m"
+                l2 = f"\033[2K{fase} {barra_w} \033[93m{fraccion * 100:4.1f} %\033[0m"
+                l3 = f"\033[2K{_fmt_hms_ms(tiempo_actual)}/{_fmt_hms_ms(dur_total)} | \033[35m{speed:5.2f}x\033[0m | \033[36mETA: {eta_str}\033[0m"
+                lineas.extend([l1, l2, l3])
+            elif isinstance(d, dict) and 'texto_simple' in d:
+                l1 = f"\033[2K\033[36;1mW{i + 1}:\033[0m {d['texto_simple']}"
+                l2 = f"\033[2K[\033[90m░░░░░░░░░░\033[0m] \033[90m0.0 %\033[0m"
+                l3 = f"\033[2K\033[90m00:00:00.00/00:00:00.00 | 0.00x | ETA: --:--\033[0m"
+                lineas.extend([l1, l2, l3])
+            else:
+                l1 = f"\033[2K\033[36;1mW{i + 1}:\033[0m \033[90mEsperando asignación de vídeo\033[0m"
+                l2 = f"\033[2K[\033[90m░░░░░░░░░░\033[0m] \033[90m0.0 %\033[0m"
+                l3 = f"\033[2K\033[90m00:00:00.00/00:00:00.00 | 0.00x | ETA: --:--\033[0m"
+                lineas.extend([l1, l2, l3])
+
+        sys.stdout.write(f'\033[{self._lineas_dibujadas}F')
         sys.stdout.write('\n'.join(lineas) + '\n')
         sys.stdout.flush()
         self._lineas_dibujadas = len(lineas)
 
+
 def _fmt_hms_ms(segundos: float) -> str:
-    """Formatea segundos a hh:mm:ss.ms o mm:ss.ms."""
+    """Formatea segundos a hh:mm:ss.ms siempre con 2 dígitos de horas."""
     try:
         s = max(0.0, float(segundos or 0))
     except Exception:
-        return "00:00.00"
+        return "00:00:00.00"
     m, sec = divmod(s, 60)
     h, m = divmod(m, 60)
     sec_int = int(sec)
     ms = int((sec - sec_int) * 100)
-    if h > 0:
-        return f"{int(h):02d}:{int(m):02d}:{sec_int:02d}.{ms:02d}"
-    return f"{int(m):02d}:{sec_int:02d}.{ms:02d}"
+    return f"{int(h):02d}:{int(m):02d}:{sec_int:02d}.{ms:02d}"
 
 
 class ProgresoFingerprintWorker:
@@ -1033,7 +1138,7 @@ class ProgresoFingerprintWorker:
         self._worker_id = worker_id
         self._nombre = nombre_video
         self.duracion = duracion
-        self._ultimo_texto = ''
+        self._inicio_trabajo = time.monotonic()
         self._ultimo_momento = 0.0
 
     def __call__(self, fase: str, fraccion: float, eta: float, duracion: float = 0.0) -> None:
@@ -1042,27 +1147,23 @@ class ProgresoFingerprintWorker:
         if ahora - self._ultimo_momento < 0.15 and fraccion < 1.0:
             return
         self._ultimo_momento = ahora
-        eta_texto = _fmt_seg(eta) if eta >= 0 else 'calculando'
-        
+        eta_texto = _fmt_eta_corto(eta) if eta >= 0 else 'calculando'
+
         dur_total = duracion or self.duracion
-        if dur_total > 0:
-            tiempo_actual = fraccion * dur_total
-            fmt_tiempo = f" { _fmt_hms_ms(tiempo_actual)} / {_fmt_hms_ms(dur_total)} |"
-        else:
-            fmt_tiempo = ""
+        tiempo_actual = fraccion * dur_total if dur_total > 0 else 0.0
+        transcurrido = max(0.001, ahora - self._inicio_trabajo)
+        speed = (tiempo_actual / transcurrido) if (transcurrido > 0 and tiempo_actual > 0) else 0.0
 
-        ancho_barra = 10
-        llenos = int(ancho_barra * fraccion)
-        barra = '█' * llenos + '░' * (ancho_barra - llenos)
-
-        ancho = shutil.get_terminal_size(fallback=(100, 24)).columns
-        max_nombre = max(15, ancho - 95)
-        nombre = self._nombre[: max_nombre - 1] + '…' if len(self._nombre) > max_nombre else self._nombre
-        
-        texto = f'{nombre} | {fase:<12} | {barra} {fraccion:5.1%} |{fmt_tiempo} ETA: {eta_texto}'
-        if texto != self._ultimo_texto:
-            self._ultimo_texto = texto
-            self._dashboard.actualizar_worker(self._worker_id, texto)
+        datos = {
+            'nombre': self._nombre,
+            'fase': fase,
+            'fraccion': fraccion,
+            'tiempo_actual': tiempo_actual,
+            'dur_total': dur_total,
+            'speed': speed,
+            'eta_texto': eta_texto,
+        }
+        self._dashboard.actualizar_worker_datos(self._worker_id, datos)
 
     def cerrar(self) -> None:
         pass

@@ -17,4 +17,4 @@ Los módulos se importan explícitamente desde vidup.py y no exponen
 una API pública unificada; cada uno gestiona su propio dominio.
 """
 
-__version__ = "2.1.0"
+__version__ = "2.0.0"

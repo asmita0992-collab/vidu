@@ -9,6 +9,9 @@ Los reportes se guardan junto al programa, dentro de reportes/.
 
 from __future__ import annotations
 
+__version__ = "2.0.0"
+__desc_herramienta__ = "Detector de vídeos duplicados y fragmentos"
+
 import argparse
 import json
 import math
@@ -144,13 +147,13 @@ def menu_interactivo() -> int:
         if CONSOLA is not None and Panel is not None and Table is not None and rich_box is not None:
             CONSOLA.print()
             CONSOLA.print(Panel.fit(
-                f'[bold bright_white]VIDUP — Menú principal[/]\n'
+                f'[bold bright_white]VIDUP — Menú principal (v{__version__})[/]\n'
                 f'[deep_sky_blue1]Dispositivo:[/] [spring_green2]{info_disp["dispositivo"]}[/]\n'
                 f'[deep_sky_blue1]ID         :[/] [turquoise2]{info_disp["dispositivo_id"]}[/]\n'
                 f'[deep_sky_blue1]Plataforma :[/] [gold1]{info_disp["plataforma"]}[/] ({info_disp["maquina"]})\n'
                 f'[deep_sky_blue1]Conexión   :[/] [gold1]{describir_conexion()}[/]\n'
                 f'[deep_sky_blue1]Telegram   :[/] {"[spring_green2]activo[/]" if telegram_configurado() else "[orange3]desactivado[/]"}',
-                title='[bold plum1]VIDUP[/]',
+                title=f'[bold plum1]VIDUP: versión {__version__}[/]',
                 border_style='bright_cyan',
             ))
             tabla = Table(box=rich_box.ROUNDED, border_style='cyan', show_header=False)
@@ -168,7 +171,7 @@ def menu_interactivo() -> int:
             tabla.add_row('0', 'Salir')
             CONSOLA.print(tabla)
         else:
-            print(f'\n{MAGENTA}{NEGRITA}VIDUP — Menú principal{NC}')
+            print(f'\n{MAGENTA}{NEGRITA}VIDUP v{__version__} — Menú principal{NC}')
             print(f'{CIAN}Dispositivo: {info_disp["dispositivo"]} (ID {info_disp["dispositivo_id"]}){NC}')
             print(f'{CIAN}Plataforma : {info_disp["plataforma"]} ({info_disp["maquina"]}){NC}')
             print(f'{CIAN}Conexión   : {describir_conexion()}{NC}')
@@ -230,7 +233,9 @@ def menu_interactivo() -> int:
 
 
 def construir_parser() -> argparse.ArgumentParser:
-    return argparse.ArgumentParser(prog='vidup', description=__doc__)
+    parser = argparse.ArgumentParser(prog='vidup', description=f"{__desc_herramienta__}: versión {__version__}")
+    parser.add_argument('--version', action='version', version=f'%(prog)s {__version__}')
+    return parser
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -243,6 +248,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         _detectar_modo_conexion_una_vez()
         from core.sincronizacion import sincronizar_al_iniciar
         sincronizar_al_iniciar()
+        from core.sincronizar_codigo import sincronizar_archivos_python
+        sincronizar_archivos_python()
     except Exception:
         pass
 

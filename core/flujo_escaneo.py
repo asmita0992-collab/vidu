@@ -381,6 +381,19 @@ def cmd_escanear(args: argparse.Namespace) -> int:
         print(f' Dispositivo       : {info_disp["dispositivo"]}')
         print(f' ID dispositivo    : {info_disp["dispositivo_id"]}')
 
+    so_nombre = detectar_so().upper()
+    es_recursivo = getattr(args, 'recursivo', True)
+    nota_subcarpetas = "Se analizarán los archivos de esta carpeta y sus subcarpetas." if es_recursivo else "Solo se analizarán archivos ubicados estrictamente en esta carpeta, ignorando todas las subcarpetas."
+
+    if CONSOLA is not None:
+        CONSOLA.print(f"\n[bold white]Sistema operativo detectado:[/] [bold green]{so_nombre}[/]")
+        CONSOLA.print(f"[bold yellow]Nota: {nota_subcarpetas}[/]\n")
+        CONSOLA.print(f"[bold white]Archivos a procesar:[/] [bold cyan]{len(videos)}[/]\n")
+    else:
+        print(f"\nSistema operativo detectado: {so_nombre}")
+        print(f"Nota: {nota_subcarpetas}\n")
+        print(f"Archivos a procesar: {len(videos)}\n")
+
     try:
         medidor_recursos = MedidorRecursos(intervalo_muestreo=2.0)
     except Exception:
@@ -516,7 +529,7 @@ def cmd_escanear(args: argparse.Namespace) -> int:
         imprimir('[grey37]Los vídeos incompletos no se guardaron. Los ya procesados están en la base.[/]')
 
     tiempo_total = time.monotonic() - inicio_total
-    imprimir_resumen_escaneo(procesados=procesados, errores=errores, omitidos=omitidos, tiempo_seg=tiempo_total)
+    imprimir_resumen_escaneo(procesados=procesados, errores=errores, omitidos=omitidos, tiempo_seg=tiempo_total, interrumpido=interrumpido)
 
     if fallos_detalle:
         if CONSOLA is not None and Rule is not None:
@@ -548,8 +561,15 @@ def cmd_escanear(args: argparse.Namespace) -> int:
             [{'archivo': n, 'ruta': r, 'causa': c} for n, r, c in fallos_detalle],
             tiempo_total)
 
-    notificar_fin('Escanear vídeos', errores == 0 and not interrumpido,
-                  f'{procesados} procesados, {errores} errores')
+    if interrumpido:
+        msg_tg = f'Interrumpido con {procesados} procesados y {errores} errores'
+    elif procesados == 0 and errores > 0:
+        msg_tg = f'0 procesados, {errores} error(es)'
+    else:
+        msg_tg = f'{procesados} procesados, {errores} error(es)'
+
+    notificar_fin('Escanear vídeos', errores == 0 and not interrumpido and procesados > 0,
+                  msg_tg, procesados=procesados, errores=errores)
 
     return 130 if interrumpido else 0
 

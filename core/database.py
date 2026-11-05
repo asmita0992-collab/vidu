@@ -1114,6 +1114,11 @@ def eliminar_por_ruta(conn: Any, ruta: str, dispositivo_id: Optional[str] = None
     disp_id = dispositivo_id if dispositivo_id is not None else _identificador_dispositivo_id()
     clave = _calcular_clave_unica(disp_id, ruta)
     is_pg = _es_pg(conn)
+    ruta_str = (ruta or '').strip()
+    ruta_slash = ruta_str.replace('\\', '/')
+    ruta_backslash = ruta_str.replace('/', '\\')
+    variantes = list(dict.fromkeys([ruta_str, ruta_slash, ruta_backslash]))
+
     try:
         from core.sincronizacion import registrar_eliminacion
         registrar_eliminacion(conn, clave)
@@ -1123,15 +1128,42 @@ def eliminar_por_ruta(conn: Any, ruta: str, dispositivo_id: Optional[str] = None
         if is_pg:
             with conn.cursor() as cur:
                 cur.execute("DELETE FROM videos WHERE clave_unica = %s", (clave,))
-                eliminado = cur.rowcount > 0
-            conn.commit()
-            return eliminado
+                if cur.rowcount > 0:
+                    conn.commit()
+                    return True
+                for v in variantes:
+                    cur.execute("SELECT clave_unica FROM videos WHERE ruta = %s OR LOWER(ruta) = LOWER(%s)", (v, v))
+                    filas = cur.fetchall()
+                    if filas:
+                        for row in filas:
+                            try:
+                                registrar_eliminacion(conn, row[0])
+                            except Exception:
+                                pass
+                        cur.execute("DELETE FROM videos WHERE ruta = %s OR LOWER(ruta) = LOWER(%s)", (v, v))
+                        conn.commit()
+                        return True
+            return False
         else:
             conn.execute('BEGIN IMMEDIATE')
             cursor = conn.execute('DELETE FROM videos WHERE clave_unica = ?', (clave,))
-            eliminado = cursor.rowcount > 0
+            if cursor.rowcount > 0:
+                conn.commit()
+                return True
+            for v in variantes:
+                cursor = conn.execute('SELECT clave_unica FROM videos WHERE ruta = ? OR LOWER(ruta) = LOWER(?)', (v, v))
+                filas = cursor.fetchall()
+                if filas:
+                    for row in filas:
+                        try:
+                            registrar_eliminacion(conn, row[0])
+                        except Exception:
+                            pass
+                    conn.execute('DELETE FROM videos WHERE ruta = ? OR LOWER(ruta) = LOWER(?)', (v, v))
+                    conn.commit()
+                    return True
             conn.commit()
-            return eliminado
+            return False
     except Exception:
         try:
             conn.rollback()

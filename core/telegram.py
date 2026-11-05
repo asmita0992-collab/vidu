@@ -107,13 +107,22 @@ def notificar_inicio(titulo: str, detalle: str = '') -> None:
     enviar(msg)
 
 
-def notificar_fin(titulo: str, ok: bool, detalle: str = '') -> None:
+def notificar_fin(titulo: str, ok: bool, detalle: str = '', procesados: int = -1, errores: int = -1) -> None:
     """Notifica el fin de un proceso."""
     if not configurado():
         return
-    icono = '✅' if ok else '❌'
+    if procesados == 0 and errores > 0:
+        icono = '🛑'
+        estado_texto = 'falló (0 procesados)'
+    elif ok:
+        icono = '✅'
+        estado_texto = 'finalizado'
+    else:
+        icono = '❌'
+        estado_texto = 'terminó con errores'
+
     msg = (
-        f'{icono} <b>{escapar(titulo)}</b> {"finalizado" if ok else "terminó con errores"}\n'
+        f'{icono} <b>{escapar(titulo)}</b> {estado_texto}\n'
         f'🖥 {escapar(so_legible())}\n'
     )
     if detalle:

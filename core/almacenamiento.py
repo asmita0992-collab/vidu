@@ -38,6 +38,11 @@ def ruta_errores_txt() -> Path:
     return carpeta_reportes() / 'errores' / 'txt' / 'errores_videos.txt'
 
 
+_carpeta_reportes = carpeta_reportes
+_ruta_errores_jsonl = ruta_errores_jsonl
+_ruta_errores_txt = ruta_errores_txt
+
+
 def asegurar_estructura_reportes() -> None:
     """Crea la estructura de carpetas de reportes si no existe."""
     base = carpeta_reportes()
