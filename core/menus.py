@@ -131,29 +131,31 @@ def _seleccionar_base_lectura(db_defecto: str, titulo: str = 'Base de datos SQLi
 
 def submenu_estadisticas(db_defecto: str) -> str:
     """Menú 7: estadísticas, exportación, exclusiones y metadatos."""
-    from core.database import cerrar, conectar, estadisticas, estadisticas_por_dispositivo
+    from core.database import cerrar, conectar, estadisticas, estadisticas_por_dispositivo, obtener_informe_huellas_faltantes
     from core.database import info_dispositivo_actual
+    from core.reporter import exportar_reporte_huellas_faltantes
     from core import inventario
     while True:
         _cabecera_submenu('Estadísticas e inventario')
         imprimir('  [gold1]1.[/] Mostrar estadísticas generales, por dispositivo y ruta')
         imprimir('  [gold1]2.[/] Exportar estadísticas a TXT, JSON y CSV')
-        imprimir('  [gold1]3.[/] Gestionar carpetas excluidas del escaneo')
-        imprimir('  [gold1]4.[/] Completar metadatos faltantes (FFprobe)')
-        imprimir('  [gold1]5.[/] Cambiar la ruta de un vídeo o carpeta en la base')
+        imprimir('  [gold1]3.[/] Generar reporte de vídeos faltantes de huellas (TXT, JSON y CSV)')
+        imprimir('  [gold1]4.[/] Gestionar carpetas excluidas del escaneo')
+        imprimir('  [gold1]5.[/] Completar metadatos faltantes (FFprobe)')
+        imprimir('  [gold1]6.[/] Cambiar la ruta de un vídeo o carpeta en la base')
         imprimir('  [gold1]00.[/] Volver al menú principal')
-        opcion = _pedir_opcion('¿Qué quieres hacer? (1-5 / 00)',
-                               ('1', '2', '3', '4', '5', '00', '0'), '1')
+        opcion = _pedir_opcion('¿Qué quieres hacer? (1-6 / 00)',
+                               ('1', '2', '3', '4', '5', '6', '00', '0'), '1')
         if opcion in ('00', '0'):
             return db_defecto
-        if opcion == '3':
+        if opcion == '4':
             gestionar_exclusiones()
             continue
         db = _seleccionar_base_lectura(db_defecto, 'Base de datos para el inventario')
         db_defecto = db
-        if opcion == '4':
+        if opcion == '5':
             completar_metadatos_interactivo(db)
-        elif opcion == '5':
+        elif opcion == '6':
             cambiar_rutas_interactivo(db)
         elif opcion == '1':
             cmd_stats(argparse.Namespace(db=db))
@@ -170,6 +172,18 @@ def submenu_estadisticas(db_defecto: str) -> str:
                 _carpeta_reportes() / 'estadisticas', generales, dispositivos, db)
             for formato, destino in destinos.items():
                 imprimir(f'[green]Estadísticas {formato.upper()}: {rich_escape(str(destino))}[/]')
+        elif opcion == '3':
+            conn = conectar(db)
+            try:
+                informe = obtener_informe_huellas_faltantes(conn)
+            finally:
+                cerrar(conn)
+            identificador = _id_utc6()
+            destinos = exportar_reporte_huellas_faltantes(
+                informe, _carpeta_reportes() / 'estadisticas', identificador, db)
+            imprimir(f'\n[spring_green2]✓ Reporte de vídeos faltantes de huellas generado ({informe["total_videos_faltantes_huellas"]} de {informe["total_videos_analizados"]} vídeos requieren huellas):[/]')
+            for formato, destino in destinos.items():
+                imprimir(f'  [green]• {formato.upper()}: {rich_escape(str(destino))}[/]')
 
 
 def submenu_mover(db_defecto: str) -> str:

@@ -855,6 +855,106 @@ def exportar_candidatos_a_eliminar(
             escritor.writerow(cand)
 
 
+def exportar_reporte_huellas_faltantes(
+    informe: Dict[str, Any],
+    carpeta_base: Path,
+    identificador: str,
+    base_nombre: str = '',
+) -> Dict[str, Path]:
+    """Exporta el reporte de vídeos faltantes de huellas en JSON, TXT y CSV."""
+    for sub in ('json', 'txt', 'csv'):
+        (carpeta_base / sub).mkdir(parents=True, exist_ok=True)
+
+    ruta_json = carpeta_base / 'json' / f'videos_faltantes_huellas_{identificador}.json'
+    ruta_txt = carpeta_base / 'txt' / f'videos_faltantes_huellas_{identificador}.txt'
+    ruta_csv = carpeta_base / 'csv' / f'videos_faltantes_huellas_{identificador}.csv'
+
+    # 1. JSON
+    ruta_json.write_text(json.dumps(informe, ensure_ascii=False, indent=4) + '\n', encoding='utf-8')
+
+    # 2. TXT
+    lineas = [
+        '================================================================================',
+        'REPORTE DE VÍDEOS FALTANTES DE HUELLAS',
+        '================================================================================',
+        f'Fecha: {datetime.now(ZONA_MEXICO).strftime("%d/%m/%Y %H:%M:%S")}',
+        f'Base de datos: {base_nombre or "SQLite / Neon"}',
+        f'Total vídeos analizados        : {informe.get("total_videos_analizados", 0):,}',
+        f'Vídeos con huellas completas  : {informe.get("total_videos_con_huellas_completas", 0):,}',
+        f'Vídeos faltantes de huellas   : {informe.get("total_videos_faltantes_huellas", 0):,}',
+        '================================================================================',
+        'DESGLOSE DE HUELLAS FALTANTES:',
+        f'  • Sin SHA256        : {informe.get("desglose_faltantes", {}).get("sin_sha256", 0):,}',
+        f'  • Sin Huella visual : {informe.get("desglose_faltantes", {}).get("sin_huella_visual", 0):,}',
+        f'  • Sin Huella audio  : {informe.get("desglose_faltantes", {}).get("sin_huella_audio", 0):,}',
+        '================================================================================',
+        '',
+    ]
+
+    dispositivos = informe.get('dispositivos', [])
+    if not dispositivos:
+        lineas.append('✓ Todos los vídeos registrados cuentan con las 3 huellas completas.')
+    else:
+        for disp in dispositivos:
+            d_nom = disp.get('dispositivo', 'N/D')
+            d_id = disp.get('dispositivo_id', 'N/D')
+            vids = disp.get('videos', [])
+            lineas.append('--------------------------------------------------------------------------------')
+            lineas.append(f'DISPOSITIVO: {d_nom} (ID: {d_id}) — ({len(vids)} vídeo{"s" if len(vids) != 1 else ""} con huellas faltantes)')
+            lineas.append('--------------------------------------------------------------------------------')
+            for idx, v in enumerate(vids, 1):
+                estado_partes = []
+                if v['tiene_sha256']:
+                    estado_partes.append('SHA256: sí')
+                else:
+                    estado_partes.append('SHA256: NO')
+
+                if v['tiene_huella_visual']:
+                    estado_partes.append('Visual: sí')
+                else:
+                    estado_partes.append('Visual: NO')
+
+                if v['tiene_huella_audio']:
+                    estado_partes.append('Audio: sí')
+                else:
+                    estado_partes.append('Audio: NO')
+
+                lineas.append(f'  {idx}. {v["nombre"]}')
+                lineas.append(f'     Ruta   : {v["ruta"]}')
+                lineas.append(f'     Estado : {" | ".join(estado_partes)}')
+                lineas.append(f'     FALTA  : {v["detalle_faltantes"]}')
+                lineas.append(f'     Tamaño : {_fmt_bytes(v.get("tamanio_bytes", 0))} | Duración: {_fmt_seg(v.get("duracion", 0.0))}')
+                lineas.append('')
+
+    ruta_txt.write_text('\n'.join(lineas) + '\n', encoding='utf-8')
+
+    # 3. CSV
+    cols_csv = [
+        'dispositivo', 'dispositivo_id', 'nombre', 'ruta',
+        'tamanio_bytes', 'duracion_seg', 'tiene_sha256',
+        'tiene_huella_visual', 'tiene_huella_audio', 'huellas_faltantes'
+    ]
+    with ruta_csv.open('w', newline='', encoding='utf-8-sig') as f_csv:
+        escritor = csv.DictWriter(f_csv, fieldnames=cols_csv)
+        escritor.writeheader()
+        for disp in dispositivos:
+            for v in disp.get('videos', []):
+                escritor.writerow({
+                    'dispositivo': disp.get('dispositivo'),
+                    'dispositivo_id': disp.get('dispositivo_id'),
+                    'nombre': v.get('nombre'),
+                    'ruta': v.get('ruta'),
+                    'tamanio_bytes': v.get('tamanio_bytes'),
+                    'duracion_seg': v.get('duracion'),
+                    'tiene_sha256': v.get('tiene_sha256'),
+                    'tiene_huella_visual': v.get('tiene_huella_visual'),
+                    'tiene_huella_audio': v.get('tiene_huella_audio'),
+                    'huellas_faltantes': v.get('detalle_faltantes'),
+                })
+
+    return {'json': ruta_json, 'txt': ruta_txt, 'csv': ruta_csv}
+
+
 # ============================================================================
 # Resumen de escaneo
 # ============================================================================

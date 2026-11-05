@@ -9,7 +9,7 @@ Los reportes se guardan junto al programa, dentro de reportes/.
 
 from __future__ import annotations
 
-__version__ = "2.3.0"
+__version__ = "2.3.1"
 __desc_herramienta__ = "Detector de vídeos duplicados y fragmentos"
 
 import argparse
@@ -156,19 +156,19 @@ def menu_interactivo() -> int:
                 title=f'[bold plum1]VIDUP: versión {__version__}[/]',
                 border_style='bright_cyan',
             ))
-            tabla = Table(box=rich_box.ROUNDED, border_style='bright_blue', show_header=False)
-            tabla.add_column('Nº', style='bold bright_yellow', width=4)
-            tabla.add_column('Opción')
-            tabla.add_row('[bold bright_yellow]1[/]', '[bold spring_green2]Escanear vídeos[/]')
-            tabla.add_row('[bold bright_yellow]2[/]', '[bold bright_cyan]Comparar una o varias bases de datos[/]')
-            tabla.add_row('[bold bright_yellow]3[/]', '[bold gold1]Mover vídeos[/]')
-            tabla.add_row('[bold bright_yellow]4[/]', '[bold plum1]Respaldos[/]')
-            tabla.add_row('[bold bright_yellow]5[/]', '[bold orange3]Depurar base de datos[/]')
-            tabla.add_row('[bold bright_yellow]6[/]', '[bold turquoise2]Operaciones SHA256 (varias carpetas en un catálogo)[/]')
-            tabla.add_row('[bold bright_yellow]7[/]', '[bold bright_magenta]Estadísticas, verificación bidireccional y reportes[/]')
-            tabla.add_row('[bold bright_yellow]8[/]', '[bold deep_sky_blue1]Verificación y ubicación de archivos[/]')
-            tabla.add_row('[bold bright_yellow]9[/]', '[bold bright_green]Configuración[/]')
-            tabla.add_row('[bold bright_yellow]0[/]', '[bold red]Salir[/]')
+            tabla = Table(box=rich_box.ROUNDED, border_style='cyan', show_header=False)
+            tabla.add_column('Nº', style='bold gold1', width=4)
+            tabla.add_column('Opción', style='white')
+            tabla.add_row('1', 'Escanear vídeos')
+            tabla.add_row('2', 'Comparar una o varias bases de datos')
+            tabla.add_row('3', 'Mover vídeos')
+            tabla.add_row('4', 'Respaldos')
+            tabla.add_row('5', 'Depurar base de datos')
+            tabla.add_row('6', 'Operaciones SHA256 (varias carpetas en un catálogo)')
+            tabla.add_row('7', 'Estadísticas, verificación bidireccional y reportes')
+            tabla.add_row('8', 'Verificación y ubicación de archivos')
+            tabla.add_row('9', 'Configuración')
+            tabla.add_row('0', 'Salir')
             CONSOLA.print(tabla)
         else:
             print(f'\n{MAGENTA}{NEGRITA}VIDUP v{__version__} — Menú principal{NC}')
@@ -177,16 +177,16 @@ def menu_interactivo() -> int:
             print(f'{CIAN}Conexión   : {describir_conexion()}{NC}')
             print(f'{MAGENTA}Telegram   : {"activo" if telegram_configurado() else "desactivado"}{NC}')
             print()
-            print(f'  {VERDE}{NEGRITA}1.{NC} {VERDE}Escanear vídeos{NC}')
-            print(f'  {CIAN}{NEGRITA}2.{NC} {CIAN}Comparar una o varias bases de datos{NC}')
-            print(f'  {AMARILLO}{NEGRITA}3.{NC} {AMARILLO}Mover vídeos{NC}')
-            print(f'  {MAGENTA}{NEGRITA}4.{NC} {MAGENTA}Respaldos{NC}')
-            print(f'  {AMARILLO}{NEGRITA}5.{NC} {AMARILLO}Depurar base de datos{NC}')
-            print(f'  {CIAN}{NEGRITA}6.{NC} {CIAN}Operaciones SHA256 (varias carpetas en un catálogo){NC}')
-            print(f'  {MAGENTA}{NEGRITA}7.{NC} {MAGENTA}Estadísticas, verificación bidireccional y reportes{NC}')
-            print(f'  {AZUL}{NEGRITA}8.{NC} {AZUL}Verificación y ubicación de archivos{NC}')
-            print(f'  {VERDE}{NEGRITA}9.{NC} {VERDE}Configuración{NC}')
-            print(f'  {ROJO}{NEGRITA}0.{NC} {ROJO}Salir{NC}')
+            print('  1. Escanear vídeos')
+            print('  2. Comparar una o varias bases de datos')
+            print('  3. Mover vídeos')
+            print('  4. Respaldos')
+            print('  5. Depurar base de datos')
+            print('  6. Operaciones SHA256 (varias carpetas en un catálogo)')
+            print('  7. Estadísticas, verificación bidireccional y reportes')
+            print('  8. Verificación y ubicación de archivos')
+            print('  9. Configuración')
+            print('  0. Salir')
 
         try:
             opcion = pedir_texto('¿Qué quieres hacer?', '0', permitir_escape=False).strip().lower()

@@ -82,6 +82,7 @@ _PALABRAS_SALIR = {'0', '00', 'salir', 'exit', 'quit', 'q'}
 from core.menus import (_cabecera_submenu, _pedir_opcion)
 
 
+
 def _validar_umbrales(args: argparse.Namespace) -> bool:
     if not 0 <= args.umbral_phash <= 64:
         imprimir('[red][ERROR] La distancia pHash debe estar entre 0 y 64.[/]')

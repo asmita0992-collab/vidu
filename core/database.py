@@ -1428,6 +1428,114 @@ def estadisticas_por_dispositivo(conn: Any) -> List[Dict[str, Any]]:
     return resultados
 
 
+def obtener_informe_huellas_faltantes(conn: Any) -> Dict[str, Any]:
+    """Consulta la base de datos y retorna los vídeos que carecen de alguna huella (SHA256, visual, audio)."""
+    import re
+    is_pg = _es_pg(conn)
+
+    if is_pg:
+        with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
+            cur.execute("""
+                SELECT v.id, v.ruta, v.nombre, v.duracion, v.tamanio_bytes, v.hash_archivo,
+                       v.audio_huella, v.dispositivo, v.dispositivo_id, v.error,
+                       EXISTS(SELECT 1 FROM frame_hashes fh WHERE fh.video_id = v.id) as tiene_visual
+                FROM videos v
+                ORDER BY v.dispositivo_id, v.nombre
+            """)
+            filas = [dict(r) for r in cur.fetchall()]
+    else:
+        cursor = conn.execute("""
+            SELECT v.id, v.ruta, v.nombre, v.duracion, v.tamanio_bytes, v.hash_archivo,
+                   v.audio_huella, v.dispositivo, v.dispositivo_id, v.error,
+                   EXISTS(SELECT 1 FROM frame_hashes fh WHERE fh.video_id = v.id) as tiene_visual
+            FROM videos v
+            ORDER BY v.dispositivo_id, v.nombre
+        """)
+        cols = [col[0] for col in cursor.description]
+        raw_filas = cursor.fetchall()
+        filas = []
+        for r in raw_filas:
+            if isinstance(r, dict):
+                filas.append(r)
+            elif hasattr(r, 'keys'):
+                filas.append(dict(r))
+            else:
+                filas.append(dict(zip(cols, r)))
+
+    total_videos = len(filas)
+    con_completas = 0
+    incompletos = []
+
+    sin_sha256 = 0
+    sin_visual = 0
+    sin_audio = 0
+
+    por_dispositivo: Dict[str, Dict[str, Any]] = {}
+
+    for fila in filas:
+        sha = str(fila.get('hash_archivo') or '').strip()
+        es_sha256 = bool(re.fullmatch(r'[0-9a-fA-F]{64}', sha))
+        es_visual = bool(fila.get('tiene_visual'))
+        audio_val = fila.get('audio_huella')
+        es_audio = bool(audio_val and str(audio_val).strip() and str(audio_val).strip() != '[]')
+
+        faltantes = []
+        if not es_sha256:
+            faltantes.append('SHA256')
+            sin_sha256 += 1
+        if not es_visual:
+            faltantes.append('Huella visual')
+            sin_visual += 1
+        if not es_audio:
+            faltantes.append('Huella audio')
+            sin_audio += 1
+
+        if not faltantes:
+            con_completas += 1
+            continue
+
+        disp_id = str(fila.get('dispositivo_id') or 'N/D')
+        disp_nombre = str(fila.get('dispositivo') or 'Dispositivo no identificado')
+        clave_disp = f"{disp_nombre} (ID: {disp_id})"
+
+        if clave_disp not in por_dispositivo:
+            por_dispositivo[clave_disp] = {
+                'dispositivo': disp_nombre,
+                'dispositivo_id': disp_id,
+                'total_faltantes': 0,
+                'videos': [],
+            }
+
+        item_video = {
+            'id': fila.get('id'),
+            'nombre': fila.get('nombre') or Path(str(fila.get('ruta') or '')).name,
+            'ruta': fila.get('ruta'),
+            'duracion': float(fila.get('duracion') or 0.0),
+            'tamanio_bytes': int(fila.get('tamanio_bytes') or 0),
+            'tiene_sha256': es_sha256,
+            'tiene_huella_visual': es_visual,
+            'tiene_huella_audio': es_audio,
+            'huellas_faltantes': faltantes,
+            'detalle_faltantes': ', '.join(faltantes),
+        }
+        por_dispositivo[clave_disp]['total_faltantes'] += 1
+        por_dispositivo[clave_disp]['videos'].append(item_video)
+        incompletos.append(item_video)
+
+    return {
+        'fecha': _ahora_utc6_str(),
+        'total_videos_analizados': total_videos,
+        'total_videos_con_huellas_completas': con_completas,
+        'total_videos_faltantes_huellas': len(incompletos),
+        'desglose_faltantes': {
+            'sin_sha256': sin_sha256,
+            'sin_huella_visual': sin_visual,
+            'sin_huella_audio': sin_audio,
+        },
+        'dispositivos': list(por_dispositivo.values()),
+    }
+
+
 # ============================================================================
 # Exportación / importación
 # ============================================================================
