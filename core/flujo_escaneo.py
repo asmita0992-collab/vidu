@@ -222,6 +222,22 @@ def _conviene_lotes(cantidad: int, recomendado: int) -> bool:
     return cantidad >= 2 * max(1, recomendado)
 
 
+def resolver_aceleracion_video(ruta: Path, acel_solicitada: str, mapa_codecs: Optional[Dict[str, str]] = None) -> str:
+    """Resuelve el modo de aceleración para un vídeo según su códec si el modo es 'codec'."""
+    if acel_solicitada != 'codec':
+        return acel_solicitada
+    from core.escaneo_codecs import determinar_aceleracion_por_codec
+    codec = None
+    if mapa_codecs:
+        rk = str(ruta.resolve())
+        codec = mapa_codecs.get(rk) or mapa_codecs.get(str(ruta))
+    if not codec:
+        from core.metadata import extraer_metadatos
+        meta = extraer_metadatos(ruta)
+        codec = meta.get('codec_video', '')
+    return determinar_aceleracion_por_codec(codec)
+
+
 def cmd_escanear(args: argparse.Namespace) -> int:
     from core.fingerprint import _trabajo_fingerprint, _ejecutar_escaneo_acotado, _cpu_threads_recomendados
     from core.database import _usa_neon, cerrar, conectar, guardar_fingerprint, describir_conexion, info_dispositivo_actual
@@ -441,10 +457,12 @@ def cmd_escanear(args: argparse.Namespace) -> int:
 
         with ThreadPoolExecutor(max_workers=trabajadores, thread_name_prefix='vidup') as executor:
             futuros: Dict[Future, Path] = {}
+            mapa_codecs_args = getattr(args, 'mapa_codecs', None)
             def preparar(ruta):
                 datos_esperados = esperados_sha.get(str(ruta.resolve()), {})
+                acel_resuelfta = resolver_aceleracion_video(ruta, args.aceleracion, mapa_codecs_args)
                 return (_trabajo_fingerprint, ruta, args.intervalo, dashboard,
-                        evento_cancelacion, args.hilos_ffmpeg, args.aceleracion,
+                        evento_cancelacion, args.hilos_ffmpeg, acel_resuelfta,
                         medidor_recursos, datos_esperados.get('sha256'),
                         datos_esperados.get('tamanio_bytes'),
                         hashes_previos.get(str(ruta.resolve())))
@@ -725,6 +743,231 @@ def escanear_interactivo(db_defecto: str, reporte_sha: Optional[str] = None) -> 
     if estado != 0:
         imprimir(f'[red]El escaneo terminó con código {estado}. Revisa los avisos anteriores y reportes/errores/.[/]')
     return db
+
+
+def _seleccionar_directorio_escaneo(reporte_sha: Optional[str] = None) -> Tuple[Optional[str], bool, List[Path]]:
+    """Helper para seleccionar el directorio y modo de exploración de vídeos."""
+    if reporte_sha:
+        from core.sha256 import cargar_pendientes
+        datos, candidatos, _, avisos = cargar_pendientes(reporte_sha)
+        for aviso in avisos:
+            imprimir(f'[yellow][AVISO] {aviso}[/]')
+        if not candidatos:
+            imprimir('[yellow]Ese reporte no contiene vídeos nuevos disponibles para escanear.[/]')
+            return None, False, []
+        return None, False, candidatos
+
+    candidatas = _carpetas_android_candidatas() if es_android() else []
+    from core.almacenamiento import obtener_rutas_historial_escaneo, guardar_ruta_historial_escaneo
+    historial = obtener_rutas_historial_escaneo()
+    
+    candidatas_totales: List[Path] = []
+    for c in candidatas + historial:
+        p = Path(c).resolve()
+        if p.is_dir() and p not in candidatas_totales:
+            candidatas_totales.append(p)
+
+    if candidatas_totales:
+        imprimir('\n[cyan]Carpetas de vídeo candidatas o utilizadas anteriormente:[/]')
+        for i, c in enumerate(candidatas_totales, 1):
+            imprimir(f'  [gold1]{i}.[/] {rich_escape(str(c))}')
+        imprimir(f'  [gold1]{len(candidatas_totales) + 1}.[/] Otra carpeta (ruta manual)')
+        opcion = pedir_numero(
+            'Elige una carpeta',
+            1, 1, len(candidatas_totales) + 1, entero=True,
+        )
+        if opcion == len(candidatas_totales) + 1:
+            directorio = pedir_ruta(
+                'Directorio de vídeos', str(DIR_SCRIPT),
+                existente=True, directorio=True,
+            )
+        else:
+            directorio = str(candidatas_totales[int(opcion) - 1])
+        guardar_ruta_historial_escaneo(directorio)
+        recursivo = pedir_si_no_recordar('recursivo', '¿Incluir subcarpetas?', True)
+    else:
+        directorio = pedir_ruta(
+            'Directorio de vídeos', str(DIR_SCRIPT),
+            existente=True, directorio=True,
+        )
+        guardar_ruta_historial_escaneo(directorio)
+        recursivo = pedir_si_no_recordar('recursivo', '¿Incluir subcarpetas?', True)
+
+    return directorio, recursivo, []
+
+
+def escaneo_previo_codecs_interactivo(db_defecto: str) -> str:
+    """Opción 2: Realiza un escaneo previo de códecs mostrando y guardando qué códec utiliza cada vídeo."""
+    from core.database import info_dispositivo_actual, _usa_neon
+    from core import inventario
+    from core.escaneo_codecs import (
+        obtener_codecs_videos_pendientes,
+        guardar_reporte_escaneo_previo_codecs,
+        mostrar_resumen_escaneo_previo_codecs
+    )
+
+    if not _verificar_dependencias_escaneo():
+        return db_defecto
+
+    directorio, recursivo, candidatos = _seleccionar_directorio_escaneo()
+    if directorio is None and not candidatos:
+        return db_defecto
+
+    if _usa_neon():
+        db = 'neon_cloud'
+    else:
+        db = elegir_archivo_reciente(
+            'Base de datos SQLite donde consultar vídeos pendientes',
+            ['*.db'], ['respaldos/db'], defecto=db_defecto
+        )
+
+    if candidatos:
+        videos_encontrados = candidatos
+    else:
+        videos_encontrados = _listar_videos(directorio, recursivo=recursivo)
+
+    device_id = info_dispositivo_actual()['dispositivo_id']
+    _exclusiones = inventario.cargar_exclusiones(DIR_SCRIPT, device_id)
+    videos_encontrados = [p for p in videos_encontrados if not inventario.excluido(str(p), _exclusiones)]
+
+    reintentar_errores = pedir_si_no_recordar('reintentar_errores', '¿Incluir vídeos con error registrado anterior?', True)
+    forzar_registrados = pedir_si_no_recordar('forzar_registrados', '¿Incluir vídeos ya registrados previamente?', False)
+
+    videos_pendientes, _ = _filtrar_videos_pendientes(videos_encontrados, db, reintentar_errores, forzar_registrados)
+
+    if not videos_pendientes:
+        imprimir('[yellow]No hay vídeos pendientes de escaneo en la carpeta/base seleccionada.[/]')
+        return db
+
+    resultados = obtener_codecs_videos_pendientes(videos_pendientes)
+    ruta_json, ruta_txt = guardar_reporte_escaneo_previo_codecs(directorio or '(reporte)', resultados, len(videos_pendientes))
+    mostrar_resumen_escaneo_previo_codecs(resultados, ruta_json, ruta_txt)
+    return db
+
+
+def escanear_por_codec_interactivo(db_defecto: str) -> str:
+    """Opción 3: Escanea usando software para h264 y hardware para h265 basado en el escaneo previo."""
+    from core.escaneo_codecs import (
+        cargar_ultimo_escaneo_previo_codecs,
+        obtener_codecs_videos_pendientes,
+        guardar_reporte_escaneo_previo_codecs
+    )
+    from core.database import _usa_neon
+
+    if not _verificar_dependencias_escaneo():
+        return db_defecto
+
+    directorio, recursivo, candidatos = _seleccionar_directorio_escaneo()
+    if directorio is None and not candidatos:
+        return db_defecto
+
+    if _usa_neon():
+        db = 'neon_cloud'
+    else:
+        db = elegir_archivo_reciente(
+            'Base de datos SQLite donde guardar las huellas',
+            ['*.db'], ['respaldos/db'], defecto=db_defecto
+        )
+
+    if candidatos:
+        videos_encontrados = candidatos
+    else:
+        videos_encontrados = _listar_videos(directorio, recursivo=recursivo)
+
+    from core.database import info_dispositivo_actual
+    from core import inventario
+    device_id = info_dispositivo_actual()['dispositivo_id']
+    _exclusiones = inventario.cargar_exclusiones(DIR_SCRIPT, device_id)
+    videos_encontrados = [p for p in videos_encontrados if not inventario.excluido(str(p), _exclusiones)]
+
+    reintentar_errores = pedir_si_no_recordar('reintentar_errores', '¿Reintentar el escaneo de vídeos que previamente generaron error?', True)
+    forzar_registrados = pedir_si_no_recordar('forzar_registrados', '¿Volver a analizar vídeos que ya están registrados exitosamente?', False)
+
+    videos_pendientes, _ = _filtrar_videos_pendientes(videos_encontrados, db, reintentar_errores, forzar_registrados)
+
+    if not videos_pendientes:
+        imprimir('[yellow]No hay vídeos pendientes de escaneo.[/]')
+        return db
+
+    datos_previos = cargar_ultimo_escaneo_previo_codecs()
+    mapa_codecs: Dict[str, str] = {}
+    if datos_previos and 'videos' in datos_previos and pedir_si_no('¿Utilizar la información del escaneo previo guardado recientemente?', True):
+        for v in datos_previos['videos']:
+            mapa_codecs[v['ruta']] = v['codec_video']
+    else:
+        imprimir('[cyan]Obteniendo información previa de códecs para los vídeos pendientes...[/]')
+        resultados = obtener_codecs_videos_pendientes(videos_pendientes)
+        guardar_reporte_escaneo_previo_codecs(directorio or '(reporte)', resultados, len(videos_pendientes))
+        for item in resultados:
+            mapa_codecs[item['ruta']] = item['codec_video']
+
+    limite = pedir_limite_escaneo()
+    from core.fingerprint import _cpu_threads_recomendados
+    trabajadores = pedir_numero('Vídeos simultáneos (trabajadores)', _cpu_threads_recomendados(), 1, entero=True)
+    intervalo = 10.0
+    hilos = 2
+    if pedir_si_no('¿Configurar intervalo e hilos de FFmpeg?', False):
+        intervalo = pedir_numero('Segundos entre cuadros', 10, 0.001)
+        hilos = pedir_numero('Hilos de FFmpeg por trabajador', 2, 1, entero=True)
+
+    resumen_json = _carpeta_reportes() / 'escaneos' / 'json' / f'resumen_escaneo_{_id_utc6()}.json'
+    args = argparse.Namespace(
+        db=db, directorio=directorio, carpetas_sub=recursivo,
+        reintentar_errores=reintentar_errores, forzar_registrados=forzar_registrados,
+        max_videos=limite if limite is not None else 2**63 - 1, trabajadores=trabajadores,
+        intervalo=intervalo, hilos_ffmpeg=int(hilos), aceleracion='codec',
+        mapa_codecs=mapa_codecs, medir_recursos=True, manifiesto_sha=None,
+        resumen_json=str(resumen_json), lote_videos=None, preguntar_lotes=True, lista_videos=None,
+    )
+
+    imprimir('[cyan]Modo de aceleración configurado por códec: h264 -> software, h265 -> hardware.[/]')
+    estado = cmd_escanear(args)
+    if estado != 0:
+        imprimir(f'[red]El escaneo terminó con código {estado}. Revisa los reportes.[/]')
+    return db
+
+
+def submenu_escaneo(db_defecto: str) -> str:
+    """Submenú interactivo de escaneo con tres opciones."""
+    while True:
+        if CONSOLA is not None and Panel is not None and Table is not None and rich_box is not None:
+            CONSOLA.print()
+            CONSOLA.print(Panel.fit(
+                '[bold bright_white]Submenú Escanear Vídeos[/]\n'
+                '[deep_sky_blue1]Selecciona la modalidad de escaneo:[/]',
+                title='[bold plum1]VIDUP: Escanear[/]',
+                border_style='bright_cyan',
+            ))
+            tabla = Table(box=rich_box.ROUNDED, border_style='cyan', show_header=False)
+            tabla.add_column('Nº', style='bold gold1', width=4)
+            tabla.add_column('Opción', style='white')
+            tabla.add_row('1', 'Escanear vídeos (modo estándar / como hasta ahorita)')
+            tabla.add_row('2', 'Escaneo previo (muestra qué códec utiliza cada vídeo pendiente y guarda JSON/TXT)')
+            tabla.add_row('3', 'Escanear por códec (h264 con acelerador software, h265 con acelerador hardware)')
+            tabla.add_row('0', 'Volver al menú principal')
+            CONSOLA.print(tabla)
+        else:
+            print(f'\n{MAGENTA}{NEGRITA}VIDUP — Submenú Escanear Vídeos{NC}')
+            print('  1. Escanear vídeos (modo estándar / como hasta ahorita)')
+            print('  2. Escaneo previo (muestra qué códec utiliza cada vídeo pendiente y guarda JSON/TXT)')
+            print('  3. Escanear por códec (h264 con acelerador software, h265 con acelerador hardware)')
+            print('  0. Volver al menú principal')
+
+        try:
+            opcion = pedir_texto('Selecciona una opción', '0').strip().lower()
+        except RegresarAlMenu:
+            return db_defecto
+
+        if opcion in ('0', '00', 'salir', 'volver'):
+            return db_defecto
+        elif opcion == '1':
+            db_defecto = escanear_interactivo(db_defecto)
+        elif opcion == '2':
+            db_defecto = escaneo_previo_codecs_interactivo(db_defecto)
+        elif opcion == '3':
+            db_defecto = escanear_por_codec_interactivo(db_defecto)
+        else:
+            imprimir('[yellow]Elige una opción válida entre 0 y 3.[/]')
 
 
 def _tras_menu_sha256(salida, db_defecto: str) -> str:

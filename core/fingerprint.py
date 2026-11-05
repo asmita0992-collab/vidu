@@ -406,8 +406,6 @@ def registrar_exclusion(modo_acel: str, motivo: str, con_hwdownload: bool = Fals
             pass
     exclusiones = set(datos.get('exclusiones', []))
     exclusiones.add(clave_exclusion)
-    # Mantener compatibilidad si existía la clave antigua sin sufijo
-    exclusiones.add(modo_acel)
     datos['exclusiones'] = list(exclusiones)
     detalles = datos.get('detalle', {})
     detalles[clave_exclusion] = {'motivo': motivo, 'fecha': _ahora_utc6_str()}
@@ -427,10 +425,9 @@ def _metodos_cascada(aceleracion: str) -> List[str]:
         return ['software']
 
     disponibles = _aceleradores_disponibles()
-    excluidos = obtener_exclusiones()
 
     def disponible(nombre: str) -> bool:
-        return nombre in disponibles and nombre not in excluidos
+        return nombre in disponibles
 
     if aceleracion == 'auto':
         candidatos = _orden_plataforma()
@@ -556,11 +553,6 @@ def _extraer_frames_ffmpeg(
         inicio = time.monotonic()
         fase_nombre = f'{codec_video[:6]}>{modo_acel[:8]}' if codec_video else f'Extrac ({modo_acel})'
         _notificar(progreso, fase_nombre, 0.0, inicio)
-
-        #inicio = time.monotonic()
-        #fase_nombre = f'{codec_video[:6]}>{modo_acel[:8]}' if codec_video else f'Extrac ({modo_acel})'
-        #fase_nombre = f'Extrac ({modo_acel})'
-        #_notificar(progreso, fase_nombre, 0.0, inicio)
 
         def _al_fallar(metodo: str, error_msg: str, idx: int) -> bool:
             siguiente_tuple = intentos[idx + 1] if idx < len(intentos) - 1 else None

@@ -54,7 +54,7 @@ def asegurar_estructura_reportes() -> None:
         'movimientos/json', 'movimientos/txt', 'movimientos/jsonl',
         'sha256/json', 'sha256/csv', 'sha256/txt', 'sha256/jsonl',
         'respaldos/db',
-        'escaneos/json',
+        'escaneos/json', 'escaneos/txt',
         'estadisticas/json', 'estadisticas/txt', 'estadisticas/csv',
         'verificaciones/json', 'verificaciones/txt', 'verificaciones/csv',
         'depuraciones/json', 'depuraciones/txt', 'depuraciones/csv',
