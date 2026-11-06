@@ -1523,6 +1523,7 @@ def obtener_informe_huellas_faltantes(conn: Any) -> Dict[str, Any]:
         incompletos.append(item_video)
 
     return {
+        'tipo_informe': 'videos_faltantes_huellas',
         'fecha': _ahora_utc6_str(),
         'total_videos_analizados': total_videos,
         'total_videos_con_huellas_completas': con_completas,

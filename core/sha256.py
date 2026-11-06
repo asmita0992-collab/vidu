@@ -1757,10 +1757,11 @@ def ultimo_reporte_comparacion(raiz):
 
 
 def _cabecera_menu(raiz: Path) -> None:
+    from core import __version__
     from core.database import info_dispositivo_actual, describir_conexion
     info = info_dispositivo_actual()
     if CONSOLA is not None and Rule is not None:
-        CONSOLA.print(Rule('[bold bright_magenta]SHA256 DE CARPETAS Y ARCHIVOS MP4 — VIDUP[/]',
+        CONSOLA.print(Rule(f'[bold bright_magenta]SHA256 DE CARPETAS Y ARCHIVOS MP4 — VIDUP v{__version__}[/]',
                            style='bright_cyan'))
         CONSOLA.print(
             f'[cyan]Dispositivo:[/] {info["dispositivo"]}\n'
@@ -1770,7 +1771,7 @@ def _cabecera_menu(raiz: Path) -> None:
         )
     else:
         print(f'\n{"=" * 72}')
-        print('          SHA256 DE CARPETAS Y ARCHIVOS MP4 — VIDUP')
+        print(f'          SHA256 DE CARPETAS Y ARCHIVOS MP4 — VIDUP v{__version__}')
         print(f'{"=" * 72}')
         print(f'  Dispositivo actual : {info["dispositivo"]}')
         print(f'  ID dispositivo     : {info["dispositivo_id"]}')

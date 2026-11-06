@@ -28,7 +28,9 @@ from __future__ import annotations
 import ctypes
 import hashlib
 import json
+import ntpath
 import os
+import posixpath
 import re
 import shutil
 import signal
@@ -575,6 +577,221 @@ def _subcarpetas_movimientos(carpeta_reportes: Path) -> Dict[str, Path]:
         p.mkdir(parents=True, exist_ok=True)
         sub[nombre] = p
     return sub
+
+
+def _modulo_ruta(ruta: str):
+    """Elige el módulo de rutas sin depender del sistema que ejecuta VIDUP."""
+    return ntpath if re.match(r'^[A-Za-z]:[\\/]', ruta) or '\\' in ruta else posixpath
+
+
+def _raiz_visible(ruta: str) -> str:
+    """Obtiene una raíz útil para agrupar rutas Android, POSIX o Windows."""
+    modulo = _modulo_ruta(ruta)
+    normalizada = modulo.normpath(ruta)
+    partes = [p for p in re.split(r'[\\/]+', normalizada) if p]
+    if modulo is posixpath and len(partes) >= 4 and partes[:3] == ['storage', 'emulated', '0']:
+        return '/' + '/'.join(partes[:4])
+    if modulo is ntpath and len(partes) >= 2:
+        return modulo.join(partes[0] + modulo.sep, partes[1])
+    padre = modulo.dirname(normalizada)
+    return padre or normalizada
+
+
+def _elegir_indices(total: int, mensaje: str) -> List[int]:
+    """Lee una selección como 1,3-5 o T, con cancelación mediante 0."""
+    for _ in range(5):
+        try:
+            respuesta = input(f'{mensaje} [T=todos, 0=cancelar]: ').strip().lower()
+        except (EOFError, KeyboardInterrupt):
+            return []
+        if respuesta in ('0', '00', 'cancelar'):
+            return []
+        if respuesta in ('t', 'todos', '*'):
+            return list(range(total))
+        elegidos = set()
+        try:
+            for parte in respuesta.split(','):
+                limites = parte.strip().split('-', 1)
+                inicio = int(limites[0])
+                fin = int(limites[-1])
+                if inicio > fin or inicio < 1 or fin > total:
+                    raise ValueError
+                elegidos.update(range(inicio - 1, fin))
+            if elegidos:
+                return sorted(elegidos)
+        except ValueError:
+            pass
+        _imprimir('Selección inválida. Usa números, rangos como 2-4, T o 0.', 'yellow')
+    return []
+
+
+def _seleccionar_videos_huellas(videos: List[dict]) -> Tuple[List[dict], str, str]:
+    """Selecciona vídeos del reporte por ruta base, carpeta exacta o archivo."""
+    _regla('Seleccionar vídeos del dispositivo', 'bright_magenta')
+    _imprimir('[bold deep_sky_blue1]Mover por[/]')
+    _imprimir('  [bold gold1]1.[/] [cyan]Rutas completas[/] (incluye sus subcarpetas)')
+    _imprimir('  [bold gold1]2.[/] [green]Carpetas[/] (carpeta padre exacta)')
+    _imprimir('  [bold gold1]3.[/] [magenta]Archivos[/] (vídeos individuales)')
+    try:
+        modo = input('Opción [1]: ').strip() or '1'
+    except (EOFError, KeyboardInterrupt):
+        return [], '', ''
+    if modo not in ('1', '2', '3'):
+        _imprimir('Opción no válida.', 'yellow')
+        return [], '', ''
+
+    grupos: Dict[str, List[dict]] = {}
+    if modo == '1':
+        tipo = 'ruta'
+        for video in videos:
+            grupos.setdefault(_raiz_visible(str(video['ruta'])), []).append(video)
+    elif modo == '2':
+        tipo = 'carpeta'
+        for video in videos:
+            ruta = str(video['ruta'])
+            grupos.setdefault(_modulo_ruta(ruta).dirname(ruta), []).append(video)
+    else:
+        tipo = 'archivo'
+        grupos = {str(video['ruta']): [video] for video in videos}
+
+    opciones = sorted(grupos.items(), key=lambda item: item[0].casefold())
+    for indice, (ruta, elementos) in enumerate(opciones, 1):
+        color = 'deep_sky_blue1' if tipo == 'ruta' else ('spring_green2' if tipo == 'carpeta' else 'plum1')
+        _imprimir(f'  [bold gold1]{indice:>3}.[/] [{color}]{rich_escape(ruta)}[/] '
+                  f'[grey70]({len(elementos)} vídeo(s))[/]')
+        if tipo == 'archivo':
+            detalle = elementos[0].get('detalle_faltantes') or 'sin detalle'
+            _imprimir(f'       [orange3]Falta:[/] {rich_escape(str(detalle))}')
+
+    indices = _elegir_indices(len(opciones), 'Selecciona una o varias opciones')
+    seleccionados, valores = [], []
+    for indice in indices:
+        valor, elementos = opciones[indice]
+        valores.append(valor)
+        seleccionados.extend(elementos)
+    unicos = {str(item['ruta']): item for item in seleccionados}
+    return list(unicos.values()), tipo, '; '.join(valores)
+
+
+def mover_desde_reporte_huellas(ruta_json, directorio_destino, carpeta_reportes,
+                                 db_path=None):
+    """Mueve vídeos del reporte 7.3 que pertenecen al dispositivo actual."""
+    from .database import info_dispositivo_actual
+
+    with Path(ruta_json).open(encoding='utf-8-sig') as archivo:
+        datos = json.load(archivo)
+    if not isinstance(datos, dict) or not isinstance(datos.get('dispositivos'), list):
+        raise ValueError('Selecciona un JSON de vídeos faltantes de huellas generado por el submenú 7.3.')
+    if not (datos.get('tipo_informe') == 'videos_faltantes_huellas'
+            or 'total_videos_faltantes_huellas' in datos):
+        raise ValueError('El JSON no corresponde a un reporte de vídeos faltantes de huellas.')
+
+    actual = info_dispositivo_actual()
+    actual_id = str(actual['dispositivo_id']).strip()
+    dispositivo = next((item for item in datos['dispositivos']
+                        if isinstance(item, dict)
+                        and str(item.get('dispositivo_id') or '').strip() == actual_id), None)
+    if dispositivo is None:
+        incluidos = ', '.join(f'{d.get("dispositivo", "N/D")} (ID {d.get("dispositivo_id", "N/D")})'
+                              for d in datos['dispositivos'] if isinstance(d, dict))
+        raise ValueError(f'El reporte no contiene vídeos del dispositivo actual, {actual["dispositivo"]} '
+                         f'(ID {actual_id}). Dispositivos incluidos: {incluidos or "ninguno"}.')
+
+    videos = [v for v in dispositivo.get('videos', [])
+              if isinstance(v, dict) and isinstance(v.get('ruta'), str) and v['ruta'].strip()]
+    _imprimir(Panel.fit(
+        f'[bold bright_white]{rich_escape(str(dispositivo.get("dispositivo") or actual["dispositivo"]))}[/]\n'
+        f'[cyan]ID:[/] [spring_green2]{rich_escape(actual_id)}[/]\n'
+        f'[cyan]Vídeos disponibles:[/] [bold gold1]{len(videos)}[/]',
+        title='[bold plum1]Reporte 7.3 · dispositivo actual[/]', border_style='bright_cyan'
+    ) if Panel is not None else f'Dispositivo: {actual["dispositivo"]} (ID {actual_id}); vídeos: {len(videos)}')
+    if not videos:
+        _imprimir('No hay vídeos válidos para mover en este dispositivo.', 'yellow')
+        return
+
+    seleccionados, tipo_seleccion, valor_seleccion = _seleccionar_videos_huellas(videos)
+    if not seleccionados:
+        _imprimir('Movimiento cancelado; no se seleccionaron vídeos.', 'yellow')
+        return
+
+    destino = Path(directorio_destino).expanduser().resolve()
+    _imprimir(f'\n[cyan]Destino:[/] [bold spring_green2]{rich_escape(str(destino))}[/]')
+    _imprimir(f'[cyan]Seleccionados:[/] [bold gold1]{len(seleccionados)} vídeo(s)[/]')
+    _imprimir('  [gold1]1.[/] Estricto: conservar todas las fechas (Windows).')
+    _imprimir('  [gold1]2.[/] Compatible: conservar acceso y modificación.')
+    _imprimir('  [gold1]3.[/] Fecha histórica: aplicar la fecha más antigua.')
+    modo = _pedir_modo('3')
+    if modo == '0' or not _pedir_confirmacion():
+        return
+    estricto = modo == '1'
+    if estricto and os.name != 'nt':
+        _imprimir('Movimiento cancelado: el modo estricto solo está disponible en Windows.', 'red')
+        return
+
+    sub = _subcarpetas_movimientos(Path(carpeta_reportes))
+    identificador = _id_utc6()
+    bitacora = sub['jsonl'] / f'movimientos_huellas_{identificador}.jsonl'
+    registros = []
+    inicio = time.monotonic()
+    with bitacora.open('x', encoding='utf-8') as log:
+        def registrar(evento):
+            evento = dict(evento, dispositivo_id=actual_id,
+                          dispositivo=dispositivo.get('dispositivo') or actual['dispositivo'])
+            log.write(json.dumps(dict(fecha=datetime.now(ZONA_MEXICO).isoformat(), **evento),
+                                     ensure_ascii=False) + '\n')
+            log.flush()
+            try:
+                os.fsync(log.fileno())
+            except OSError:
+                pass
+
+        for indice, video in enumerate(seleccionados, 1):
+            origen = Path(video['ruta'])
+            try:
+                objetivo = _destino_libre(destino, origen.name)
+                resultado = mover_archivo(
+                    origen, objetivo, estricto, '', video.get('tamanio_bytes'),
+                    registrar, fecha_visible=modo == '3')
+            except (OSError, ValueError) as exc:
+                resultado = {'origen': str(origen), 'estado': 'omitido', 'error': str(exc)}
+                registrar(resultado)
+            resultado.update(
+                dispositivo_id=actual_id,
+                dispositivo=dispositivo.get('dispositivo') or actual['dispositivo'],
+                tamanio_bytes=video.get('tamanio_bytes'),
+                categoria='huellas_faltantes', seleccion_tipo=tipo_seleccion,
+                seleccion_valor=valor_seleccion,
+            )
+            registros.append(resultado)
+            color = 'spring_green2' if resultado['estado'] == 'movido' else 'orange3'
+            _imprimir(f'[{color}][{indice}/{len(seleccionados)}] {resultado["estado"]}:[/] '
+                      f'[bright_white]{rich_escape(origen.name)}[/]')
+
+    avisos = _actualizar_bases([db_path] if db_path else [], registros, dispositivo_id=actual_id)
+    resumen = {
+        'tipo_informe': 'movimiento_videos_faltantes_huellas',
+        'operacion': 'movimiento', 'fecha': datetime.now(ZONA_MEXICO).isoformat(),
+        'reporte_origen': str(ruta_json), 'destino': str(destino),
+        'dispositivo_origen': dispositivo, 'dispositivo_ejecutor': actual,
+        'seleccion_tipo': tipo_seleccion, 'seleccion_valor': valor_seleccion,
+        'registros': registros, 'avisos': avisos, 'bitacora': str(bitacora),
+        'tiempo_seg': time.monotonic() - inicio,
+    }
+    ruta_resumen = sub['json'] / f'movimientos_huellas_{identificador}.json'
+    ruta_resumen.write_text(json.dumps(resumen, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    ruta_txt = sub['txt'] / f'movimientos_huellas_{identificador}.txt'
+    lineas = ['MOVIMIENTO DESDE REPORTE DE HUELLAS — VIDUP',
+              f'Dispositivo: {dispositivo.get("dispositivo")} (ID {actual_id})',
+              f'Reporte: {ruta_json}', f'Destino: {destino}',
+              f'Selección: {tipo_seleccion} — {valor_seleccion}', '']
+    lineas.extend(f'{r["estado"].upper()} | {r["origen"]} | {r.get("destino", "-")}' for r in registros)
+    lineas.extend(f'AVISO | {aviso}' for aviso in avisos)
+    ruta_txt.write_text('\n'.join(lineas) + '\n', encoding='utf-8')
+    movidos = sum(r['estado'] == 'movido' for r in registros)
+    _imprimir(f'\n[bold spring_green2]Movimiento terminado: {movidos} movido(s), '
+              f'{len(registros) - movidos} omitido(s).[/]')
+    _imprimir(f'[cyan]Resumen JSON:[/] [bright_white]{rich_escape(str(ruta_resumen))}[/]')
+    _imprimir(f'[cyan]Resumen TXT :[/] [bright_white]{rich_escape(str(ruta_txt))}[/]')
 
 
 # ============================================================================

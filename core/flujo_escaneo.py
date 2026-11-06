@@ -174,9 +174,9 @@ def pedir_con_cuenta_regresiva(mensaje: str, timeout: int, por_defecto: str) -> 
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
 
-def _pausa_entre_lotes(segundos: int) -> bool:
+def _pausa_entre_lotes(segundos: float) -> bool:
     """Pausa entre lotes para enfriar el equipo. Ctrl+C la interrumpe (devuelve False)."""
-    imprimir(f'[cyan]Pausa de {segundos // 60} min para enfriar el equipo. Ctrl+C para detener los lotes.[/]')
+    imprimir(f'[cyan]Pausa de {segundos / 60:g} min para enfriar el equipo. Ctrl+C para detener los lotes.[/]')
     restante = segundos
     try:
         while restante > 0:
@@ -184,7 +184,8 @@ def _pausa_entre_lotes(segundos: int) -> bool:
             time.sleep(espera)
             restante -= espera
             if restante > 0:
-                imprimir(f'[grey37]  faltan {restante // 60} min {restante % 60} s[/]')
+                minutos, segundos_restantes = divmod(round(restante), 60)
+                imprimir(f'[grey37]  faltan {minutos} min {segundos_restantes} s[/]')
     except KeyboardInterrupt:
         return False
     return True
@@ -193,9 +194,9 @@ def _pausa_entre_lotes(segundos: int) -> bool:
 def _escanear_por_lotes(args: argparse.Namespace, videos: List[Path], trabajadores: int, tamanio_lote: int) -> int:
     """Divide los vídeos en lotes; cada lote se escanea y guarda antes de la pausa."""
     lotes = [videos[i:i + tamanio_lote] for i in range(0, len(videos), tamanio_lote)]
-    minutos_pausa = int(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', 3))
+    minutos_pausa = float(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', 3))
     segundos_pausa = minutos_pausa * 60
-    imprimir(f'[cyan]Escaneo por lotes: {len(videos)} vídeo(s) en {len(lotes)} lote(s) de {tamanio_lote}; pausa de {minutos_pausa} min entre lotes.[/]')
+    imprimir(f'[cyan]Escaneo por lotes: {len(videos)} vídeo(s) en {len(lotes)} lote(s) de {tamanio_lote}; pausa de {minutos_pausa:g} min entre lotes.[/]')
     codigo_final = 0
     for n, lote in enumerate(lotes, 1):
         imprimir(f'\n[bold cyan]=== Lote {n}/{len(lotes)} ({len(lote)} vídeo(s)) ===[/]')
@@ -370,11 +371,11 @@ def cmd_escanear(args: argparse.Namespace) -> int:
             return 2
 
     lote_videos = getattr(args, 'lote_videos', None)
-    minutos_pausa = int(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', 3))
+    minutos_pausa = float(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', 3))
     if (not lote_videos and getattr(args, 'preguntar_lotes', False)
             and getattr(args, 'lista_videos', None) is None
             and _conviene_lotes(len(videos), recomendado)
-            and pedir_si_no(f'¿Trabajar en lotes? (pausa de {minutos_pausa} min entre lotes para guardar y enfriar la PC)', False)):
+            and pedir_si_no(f'¿Trabajar en lotes? (pausa de {minutos_pausa:g} min entre lotes para guardar y enfriar la PC)', False)):
         lote_videos = pedir_numero('Vídeos por lote', 10, 1, entero=True)
 
     if lote_videos and getattr(args, 'lista_videos', None) is None:
@@ -933,13 +934,14 @@ def escanear_por_codec_interactivo(db_defecto: str) -> str:
 
 def submenu_escaneo(db_defecto: str) -> str:
     """Submenú interactivo de escaneo con tres opciones."""
+    from core import __version__
     while True:
         if CONSOLA is not None and Panel is not None and Table is not None and rich_box is not None:
             CONSOLA.print()
             CONSOLA.print(Panel.fit(
                 '[bold bright_white]Submenú Escanear Vídeos[/]\n'
                 '[deep_sky_blue1]Selecciona la modalidad de escaneo:[/]',
-                title='[bold plum1]VIDUP: Escanear[/]',
+                title=f'[bold plum1]VIDUP v{__version__}[/] [gold1]· Escanear[/]',
                 border_style='bright_cyan',
             ))
             tabla = Table(box=rich_box.ROUNDED, border_style='cyan', show_header=False)
@@ -951,7 +953,7 @@ def submenu_escaneo(db_defecto: str) -> str:
             tabla.add_row('0', 'Volver al menú principal')
             CONSOLA.print(tabla)
         else:
-            print(f'\n{MAGENTA}{NEGRITA}VIDUP — Submenú Escanear Vídeos{NC}')
+            print(f'\n{MAGENTA}{NEGRITA}VIDUP v{__version__} — Submenú Escanear Vídeos{NC}')
             print('  1. Escanear vídeos (modo estándar / como hasta ahorita)')
             print('  2. Escaneo previo (muestra qué códec utiliza cada vídeo pendiente y guarda JSON/TXT)')
             print('  3. Escanear por códec (h264 con acelerador software, h265 con acelerador hardware)')

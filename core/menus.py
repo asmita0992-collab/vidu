@@ -84,6 +84,7 @@ from core.utilidades_interactivas import (aplicar_ubicacion_interactivo, buscar_
 
 
 def _cabecera_submenu(titulo: str) -> None:
+    from core import __version__
     from core.database import describir_conexion, info_dispositivo_actual
     info = info_dispositivo_actual()
     if CONSOLA is not None and Panel is not None:
@@ -94,12 +95,12 @@ def _cabecera_submenu(titulo: str) -> None:
             f'[deep_sky_blue1]Plataforma :[/] [turquoise2]{info["plataforma"]}[/] ({info["maquina"]})\n'
             f'[deep_sky_blue1]Conexión   :[/] [gold1]{describir_conexion()}[/]\n'
             f'[deep_sky_blue1]Telegram   :[/] {"[spring_green2]activo[/]" if telegram_configurado() else "[orange3]desactivado[/]"}',
-            title='[bold plum1]VIDUP[/]',
+            title=f'[bold plum1]VIDUP[/] [bold gold1]v{__version__}[/]',
             border_style='bright_cyan',
         ))
     else:
         print(f'\n{"═" * 72}')
-        print(f'{NEGRITA}{titulo}{NC}')
+        print(f'{NEGRITA}{titulo} — VIDUP v{__version__}{NC}')
         print(f'{"═" * 72}')
         print(f'Dispositivo: {info["dispositivo"]} (ID {info["dispositivo_id"]})')
         print(f'Plataforma : {info["plataforma"]} ({info["maquina"]})')
@@ -188,18 +189,20 @@ def submenu_estadisticas(db_defecto: str) -> str:
 
 def submenu_mover(db_defecto: str) -> str:
     from core.mover import (mover_interactivo, mover_desde_sha256,
-                            eliminar_desde_comparativa, eliminar_desde_sha256, vaciar_carpeta_eliminar)
+                            mover_desde_reporte_huellas, eliminar_desde_comparativa,
+                            eliminar_desde_sha256, vaciar_carpeta_eliminar)
     from core.sha256 import ultimo_reporte_comparacion as _ult
 
     while True:
         _cabecera_submenu('Mover vídeos')
         imprimir('\n  [gold1]1.[/] Mover vídeos de una comparativa (visual)')
         imprimir('  [gold1]2.[/] Mover nuevos/ya registrados desde JSON SHA256')
-        imprimir('  [bold red]3.[/] Eliminar duplicados EXACTOS locales desde comparativa')
-        imprimir('  [bold red]4.[/] Eliminar coincidencias SHA256 locales')
-        imprimir('  [bold red]5.[/] Vaciar carpeta de revisión/eliminar (borrado físico y de BD)')
+        imprimir('  [bold bright_cyan]3.[/] [spring_green2]Mover desde reporte de huellas faltantes (submenú 7.3)[/]')
+        imprimir('  [bold red]4.[/] Eliminar duplicados EXACTOS locales desde comparativa')
+        imprimir('  [bold red]5.[/] Eliminar coincidencias SHA256 locales')
+        imprimir('  [bold red]6.[/] Vaciar carpeta de revisión/eliminar (borrado físico y de BD)')
         imprimir('  [gold1]00.[/] Volver al menú principal\n')
-        opcion = _pedir_opcion('¿Qué quieres hacer? (1-5 / 00)', ('1', '2', '3', '4', '5', '00', '0'), '1')
+        opcion = _pedir_opcion('¿Qué quieres hacer? (1-6 / 00)', ('1', '2', '3', '4', '5', '6', '00', '0'), '1')
         if opcion in ('00', '0'):
             return db_defecto
 
@@ -252,15 +255,25 @@ def submenu_mover(db_defecto: str) -> str:
                 mover_desde_sha256(ruta_json, destino, _carpeta_reportes() / 'movimientos', grupos=grupos, db_path=db_defecto)
             elif opcion == '3':
                 ruta = elegir_archivo_reciente(
+                    'Reporte de vídeos faltantes de huellas del submenú 7.3',
+                    ['videos_faltantes_huellas_*.json'], ['estadisticas/json'])
+                destino = pedir_ruta(
+                    'Directorio de destino para los vídeos',
+                    str(_carpeta_salida_videos()))
+                Path(destino).mkdir(parents=True, exist_ok=True)
+                mover_desde_reporte_huellas(
+                    ruta, destino, _carpeta_reportes() / 'movimientos', db_defecto)
+            elif opcion == '4':
+                ruta = elegir_archivo_reciente(
                     'Comparativa visual con duplicados exactos',
                     ['comparacion_*.json'], ['comparativas/json'])
                 eliminar_desde_comparativa(ruta, _carpeta_reportes() / 'movimientos')
-            elif opcion == '4':
+            elif opcion == '5':
                 ruta = elegir_archivo_reciente(
                     'Comparativa SHA256 con coincidencias',
                     ['sha256_comparar*.json'], ['sha256/json'])
                 eliminar_desde_sha256(ruta, _carpeta_reportes() / 'movimientos')
-            elif opcion == '5':
+            elif opcion == '6':
                 destino_def = str(_carpeta_salida_videos() / 'eliminar')
                 carpeta = pedir_ruta('Carpeta que contiene los vídeos a borrar', destino_def, existente=True, directorio=True)
                 vaciar_carpeta_eliminar(carpeta, db_defecto)
@@ -427,7 +440,7 @@ def submenu_verificacion(db_defecto: str) -> str:
         imprimir('  [gold1]2.[/] Buscar ubicación de archivos faltantes (interna y tarjeta)')
         imprimir('  [bold red]3.[/] Eliminar huellas \"faltantes\" desde reporte de verificación')
         imprimir('  [gold1]4.[/] Cambiar ruta según reporte de ubicación')
-        imprimir('  [bold red]5.[/] Eliminar huellas desde reporte de eliminaciones del submenú 3')
+        imprimir('  [bold red]5.[/] Depurar rutas desde reporte de eliminaciones o movimientos del submenú 3')
         imprimir('  [gold1]00.[/] Volver al menú principal')
         opcion = _pedir_opcion('¿Qué quieres hacer? (1-5 / 00)',
                                ('1', '2', '3', '4', '5', '00', '0'), '1')

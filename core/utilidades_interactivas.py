@@ -538,8 +538,9 @@ def eliminar_desde_reporte_eliminaciones_interactivo(db_defecto: str) -> None:
     from core.database import conectar, cerrar, eliminar_por_ruta, _usa_neon, info_dispositivo_actual, describir_conexion
 
     archivo = elegir_archivo_reciente(
-        'Reporte de eliminaciones del submenú 3 (eliminaciones_*.jsonl o .json)',
-        ['eliminaciones_*.jsonl', 'eliminaciones_*.json', '*.jsonl', '*.json'],
+        'Reporte de eliminaciones o movimientos del submenú 3',
+        ['eliminaciones_*.jsonl', 'eliminaciones_*.json',
+         'movimientos_huellas_*.jsonl', 'movimientos_huellas_*.json'],
         ['movimientos/jsonl', 'movimientos/json'],
     )
     if not archivo or not Path(archivo).is_file():
@@ -551,6 +552,7 @@ def eliminar_desde_reporte_eliminaciones_interactivo(db_defecto: str) -> None:
 
     path_obj = Path(archivo)
     registros_elim = []
+    permite_movidos = path_obj.name.startswith('movimientos_huellas_')
 
     try:
         if path_obj.suffix.lower() == '.jsonl':
@@ -566,6 +568,8 @@ def eliminar_desde_reporte_eliminaciones_interactivo(db_defecto: str) -> None:
             with path_obj.open('r', encoding='utf-8') as f:
                 datos = json.load(f)
                 if isinstance(datos, dict):
+                    permite_movidos = (
+                        datos.get('tipo_informe') == 'movimiento_videos_faltantes_huellas')
                     registros_elim = datos.get('registros') or datos.get('resultados') or []
                 elif isinstance(datos, list):
                     registros_elim = datos
@@ -577,18 +581,18 @@ def eliminar_desde_reporte_eliminaciones_interactivo(db_defecto: str) -> None:
     for reg in registros_elim:
         if isinstance(reg, dict):
             st = reg.get('estado')
-            if st in ('eliminado', 'exito', None):
+            if st in ('eliminado', 'exito', None) or (permite_movidos and st == 'movido'):
                 ruta = reg.get('origen') or reg.get('ruta')
                 reg_disp = reg.get('dispositivo_id')
                 sha = reg.get('sha256_comprobado') or reg.get('sha256_esperado') or reg.get('sha256') or ''
-                if ruta:
+                if ruta and (st != 'movido' or reg_disp):
                     rutas_a_borrar.append((ruta, reg_disp, sha))
 
     if not rutas_a_borrar:
-        imprimir('[yellow]El reporte no contiene registros de vídeos eliminados válidos.[/]')
+        imprimir('[yellow]El reporte no contiene eliminaciones ni movimientos válidos.[/]')
         return
 
-    imprimir(f'\n[cyan]Se eliminarán {len(rutas_a_borrar)} registros de la base de datos basándose en el reporte.[/]')
+    imprimir(f'\n[cyan]Se depurarán {len(rutas_a_borrar)} rutas anteriores de la base de datos basándose en el reporte.[/]')
     for r, _, _ in rutas_a_borrar[:15]:
         imprimir(f'  • {rich_escape(r)}')
     if len(rutas_a_borrar) > 15:

@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 from typing import Dict, Any
 
+from core import __version__
 from core.presentacion import (
     imprimir, pedir_si_no, pedir_texto, pedir_numero, RegresarAlMenu,
     CONSOLA, Panel
@@ -78,7 +79,8 @@ def submenu_configuracion(db_defecto: str) -> str:
         modo_neon = "Desactivada (Solo SQLite local)" if os.environ.get('VIDUP_FORZAR_OFFLINE', '').strip() in ('1', 'true', 'yes', 'sí') else ("Activada (" + describir_conexion() + ")")
         hab_tg = os.environ.get('TELEGRAM_HABILITADO', '1').strip().lower() not in ('0', 'false', 'no', 'desactivado')
         estado_tg = "Activado" if hab_tg else "Desactivado"
-        pausa_min = int(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', '3') or '3')
+        pausa_min = float(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', '3') or '3')
+        pausa_texto = f'{pausa_min:g}'
         prio_actual = obtener_prioridad_configurada()
 
         if CONSOLA is not None and Panel is not None and Table is not None and rich_box is not None:
@@ -87,9 +89,9 @@ def submenu_configuracion(db_defecto: str) -> str:
                 f'[bold bright_white]Configuración general de VIDUP[/]\n'
                 f'[cyan]Base de datos en línea (Neon) :[/] {modo_neon}\n'
                 f'[cyan]Notificaciones de Telegram     :[/] {estado_tg}\n'
-                f'[cyan]Pausa entre lotes de escaneo   :[/] {pausa_min} min\n'
+                f'[cyan]Pausa entre lotes de escaneo   :[/] {pausa_texto} min\n'
                 f'[cyan]Prioridad del proceso (OS)    :[/] [gold1]{prio_actual}[/]',
-                title='[bold plum1]Ajustes (Submenú 9)[/]',
+                title=f'[bold plum1]VIDUP v{__version__}[/] [gold1]· Ajustes (Submenú 9)[/]',
                 border_style='bright_cyan',
             ))
             tabla = Table(box=rich_box.ROUNDED, border_style='cyan', show_header=False)
@@ -106,10 +108,10 @@ def submenu_configuracion(db_defecto: str) -> str:
             tabla.add_row('0', 'Regresar al menú principal')
             CONSOLA.print(tabla)
         else:
-            print('\nVIDUP — Configuración general')
+            print(f'\nVIDUP v{__version__} — Configuración general')
             print(f'  BD en línea (Neon) : {modo_neon}')
             print(f'  Telegram           : {estado_tg}')
-            print(f'  Pausa entre lotes  : {pausa_min} min')
+            print(f'  Pausa entre lotes  : {pausa_texto} min')
             print(f'  Prioridad proceso  : {prio_actual}')
             print('  1. Activar / Desactivar BD en línea (Neon)')
             print('  2. Configurar URL de conexión de Neon')
@@ -188,10 +190,11 @@ def submenu_configuracion(db_defecto: str) -> str:
             probar_telegram()
 
         elif opc == '6':
-            actual = int(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', '3') or '3')
-            nuevo = pedir_numero('Minutos de pausa entre lotes', actual, 1, 120, entero=True)
-            actualizar_env({'VIDUP_TIEMPO_PAUSA_LOTES': str(int(nuevo))})
-            imprimir(f'[spring_green2]✓ Tiempo de pausa entre lotes actualizado a {int(nuevo)} min.[/]')
+            actual = float(os.environ.get('VIDUP_TIEMPO_PAUSA_LOTES', '3') or '3')
+            nuevo = pedir_numero('Minutos de pausa entre lotes', actual, 0.1, 120)
+            nuevo_texto = f'{nuevo:g}'
+            actualizar_env({'VIDUP_TIEMPO_PAUSA_LOTES': nuevo_texto})
+            imprimir(f'[spring_green2]✓ Tiempo de pausa entre lotes actualizado a {nuevo_texto} min.[/]')
 
         elif opc == '7':
             reset_modo_conexion()
