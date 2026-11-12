@@ -5,12 +5,15 @@
 
 from __future__ import annotations
 
-from typing import List
+from typing import List, Optional, Sequence
 from core.presentacion import imprimir
 
 import os
 import sys
 import platform
+import re
+import shutil
+import subprocess
 from pathlib import Path
 
 
@@ -18,6 +21,8 @@ def es_android() -> bool:
     """Detecta si se ejecuta en Android/Termux."""
     if os.name == 'nt':
         return False
+    if os.environ.get('ANDROID_ROOT') or os.environ.get('ANDROID_DATA'):
+        return True
     if 'com.termux' in os.environ.get('PREFIX', ''):
         return True
     if 'com.termux' in os.environ.get('PATH', ''):
@@ -258,3 +263,112 @@ def _carpetas_android_candidatas() -> List[Path]:
             agregar(raiz / nombre)
 
     return candidatas
+
+
+# ============================================================================
+# Raíces externas y acceso elevado opcional para búsquedas de solo lectura
+# ============================================================================
+def raices_android_almacenamiento(avisos: Optional[List[str]] = None,
+                                 sugeridas: Sequence[str] = ()) -> List[str]:
+    """Localiza raíces de memoria interna/SD sin depender de listar /storage.
+
+    Comprueba las rutas explícitas primero; luego usa variables de Android,
+    enlaces de Termux, puntos de montaje y, por último, /storage. No abre
+    archivos ni necesita root. Una raíz denegada se conserva como candidata
+    para que la interfaz informe del permiso y ofrezca una vía alternativa.
+    """
+    if not es_android():
+        return []
+    candidatas: List[str] = []
+    vistos = set()
+
+    def agregar(cadena: str) -> None:
+        if not cadena:
+            return
+        ruta = str(cadena).strip().rstrip('/')
+        if not ruta or ruta in ('/storage', '/mnt', '/mnt/media_rw'):
+            return
+        if ruta not in vistos:
+            vistos.add(ruta)
+            candidatas.append(ruta)
+
+    for ruta in sugeridas:
+        agregar(str(ruta))
+    agregar('/storage/emulated/0')
+    agregar(os.environ.get('EXTERNAL_STORAGE', ''))
+    for ruta in os.environ.get('SECONDARY_STORAGE', '').split(':'):
+        agregar(ruta)
+
+    # Termux instala enlaces que pueden funcionar aunque /storage no se liste.
+    termux_storage = Path.home() / 'storage'
+    for nombre in ('shared', 'external-0', 'external-1', 'external-2'):
+        enlace = termux_storage / nombre
+        if enlace.exists() or enlace.is_symlink():
+            agregar(str(enlace))
+
+    # Android suele publicar el UUID en mountinfo incluso con /storage inaccesible.
+    try:
+        with open('/proc/self/mountinfo', encoding='utf-8') as montajes:
+            for linea in montajes:
+                partes = linea.split()
+                if len(partes) < 5:
+                    continue
+                punto = (partes[4].replace(r'\040', ' ')
+                                  .replace(r'\011', '\t')
+                                  .replace(r'\134', '\\'))
+                if re.fullmatch(r'/storage/[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}', punto):
+                    agregar(punto)
+                elif re.fullmatch(r'/mnt/media_rw/[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}', punto):
+                    agregar('/storage/' + punto.rsplit('/', 1)[-1])
+                    agregar(punto)
+    except OSError as exc:
+        if avisos is not None:
+            avisos.append(f'No se pudo inspeccionar mountinfo: {exc}')
+
+    try:
+        for carpeta in ('/storage', '/mnt/media_rw'):
+            try:
+                for hijo in Path(carpeta).iterdir():
+                    if re.fullmatch(r'[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}', hijo.name):
+                        agregar(str(hijo))
+            except (OSError, PermissionError) as exc:
+                if avisos is not None:
+                    avisos.append(f'No se pudo listar {carpeta}: {exc}')
+    except Exception:
+        pass
+    return candidatas
+
+
+def comando_lectura_elevada() -> Optional[List[str]]:
+    """Indica la forma de solicitar lectura elevada, SIN pedir autorización.
+
+    No invoca su/sudo: la interfaz debe explicar el alcance y preguntar
+    expresamente al usuario antes de llamar a una comprobación de acceso.
+    """
+    if os.name == 'nt':
+        return None
+    if os.geteuid() == 0:
+        return []
+    if es_android():
+        programa = shutil.which('su')
+        return [programa, '-c'] if programa else None
+    programa = shutil.which('sudo')
+    return [programa, '-n', 'sh', '-c'] if programa else None
+
+
+def validar_lectura_elevada(comando: Sequence[str], timeout: int = 12) -> bool:
+    """Comprueba acceso root tras una autorización explícita del usuario.
+
+    En Android `su` puede mostrar el cuadro de autorización de Magisk; en
+    Linux se usa sudo -n sin pedir ni almacenar contraseñas del usuario.
+    """
+    if comando == []:
+        return True
+    if not comando:
+        return False
+    try:
+        p = subprocess.run([*comando, 'id -u'], capture_output=True,
+                           text=True, timeout=timeout, check=False)
+        return p.returncode == 0 and p.stdout.strip() == '0'
+    except (OSError, subprocess.TimeoutExpired):
+        return False

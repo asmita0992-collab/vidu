@@ -1,3 +1,9 @@
+"""Flujos de mantenimiento interactivo de VIDUP.
+
+Incluye verificación entre disco y SQLite, búsqueda y reparación de rutas,
+metadatos, depuraciones y generación de reportes. Las operaciones de búsqueda
+son de solo lectura; aplicar una reubicación requiere confirmación específica.
+"""
 from __future__ import annotations
 import argparse
 import csv
@@ -366,15 +372,19 @@ def eliminar_faltantes_interactivo(db_defecto: str) -> str:
 
 
 def buscar_ubicacion_interactivo(db: str) -> None:
-    """Busca registros cuyo archivo ya no está en su ruta, en otras raíces de almacenamiento."""
+    """Localiza vídeos movidos, incluso entre carpetas de la MISMA tarjeta SD.
+
+    Consulta el inventario local en solo lectura. La búsqueda recursiva puede
+    usar root únicamente tras autorización expresa y nunca modifica rutas ni
+    registros: para aplicarlas está la opción 8.4.
+    """
     from collections import Counter
-    from core import inventario, ubicacion
+    from core import inventario, ubicacion, plataforma
     from core.database import cerrar, conectar, info_dispositivo_actual
 
     actual = info_dispositivo_actual()
     dispositivo_id = actual['dispositivo_id']
     excluidas = inventario.cargar_exclusiones(DIR_SCRIPT, dispositivo_id)
-
     conn = conectar(db)
     try:
         faltantes = ubicacion.faltantes_desde_base(conn, dispositivo_id, excluidas)
@@ -382,84 +392,145 @@ def buscar_ubicacion_interactivo(db: str) -> None:
         cerrar(conn)
 
     if not faltantes:
-        imprimir('[green]No hay registros cuyo archivo haya dejado de estar en su ruta.[/]')
+        imprimir('[spring_green2]No hay vídeos del dispositivo actual fuera de su ruta registrada.[/]')
         return
-
-    imprimir(f'[yellow]Registros cuyo archivo ya no está en su ruta: {len(faltantes)}[/]')
+    panel(
+        f'[bold cyan]Vídeos por localizar:[/] [bold yellow]{len(faltantes)}[/]\n'
+        '[grey70]Se revisan subcarpetas de la misma unidad y de otras memorias.\n'
+        'Nombre + tamaño sirven de filtro; SHA256 confirma coincidencias.\n'
+        'Esta operación no modifica archivos ni la base de datos.[/]',
+        'Búsqueda de ubicación — submenú 8.2', 'bright_blue',
+    )
     por_carpeta = Counter(os.path.dirname(f['ruta']) for f in faltantes)
-    for carpeta, cantidad in por_carpeta.most_common(15):
-        imprimir(f'  {rich_escape(carpeta)} ({cantidad})')
-    if len(por_carpeta) > 15:
-        imprimir(f'  ... y {len(por_carpeta) - 15} carpeta(s) más')
+    for carpeta, cantidad in por_carpeta.most_common(12):
+        imprimir(f'  [bright_cyan]{cantidad:>4}[/]  {rich_escape(carpeta)}')
+    if len(por_carpeta) > 12:
+        imprimir(f'  [grey70]… {len(por_carpeta) - 12} carpetas adicionales[/]')
 
     avisos_raices: List[str] = []
-    detectadas = ubicacion.raices_almacenamiento(avisos_raices)
+    sugeridas = [separado[0] for f in faltantes
+                 if (separado := ubicacion.separar_almacenamiento(f['ruta']))]
+    detectadas = ubicacion.raices_almacenamiento(avisos_raices, sugeridas=sugeridas)
     if detectadas:
-        imprimir('[cyan]Raíces detectadas (se buscan automáticamente):[/]')
-        for raiz in detectadas:
-            imprimir(f'  {rich_escape(raiz)}')
+        imprimir('\n[bold cyan]Raíces previstas para la búsqueda:[/]')
+        if TIENE_RICH and Table is not None and CONSOLA is not None:
+            tabla = Table(show_header=True, header_style='bold cyan', box=rich_box.ROUNDED)
+            tabla.add_column('Raíz de almacenamiento', style='bright_white')
+            tabla.add_column('Acceso', style='green')
+            for raiz in detectadas:
+                tabla.add_row(rich_escape(raiz),
+                              'Disponible' if os.path.isdir(raiz) else '[yellow]No accesible[/]')
+            CONSOLA.print(tabla)
+        else:
+            for raiz in detectadas:
+                imprimir(f'  [cyan]{rich_escape(raiz)}[/]')
     else:
         imprimir('[yellow]No se detectaron raíces automáticamente.[/]')
-    for aviso in avisos_raices:
-        imprimir(f'[yellow]  ⚠ {rich_escape(aviso)}[/]')
+    for aviso in avisos_raices[:8]:
+        imprimir(f'[yellow]  • {rich_escape(aviso)}[/]')
 
     extra: List[str] = []
-    while pedir_si_no(
-        '¿Añadir otra raíz de almacenamiento para buscar? '
-        '(ej: D:\\ en Windows, /mnt/disco en Linux o /storage/9F36-61B5 en Android; NO una subcarpeta)',
-        False,
-    ):
-        extra.append(pedir_ruta(
-            'Raíz de almacenamiento (ej: D:\\ o /storage/9F36-61B5)',
-            existente=True, directorio=True,
-        ))
-
-    imprimir('[cyan]Buscando la misma ruta relativa en otras raíces...[/]')
-    imprimir('[grey70]Solo se calcula SHA256 de los archivos cuyo tamaño coincide.[/]')
+    while pedir_si_no('¿Añadir una raíz de búsqueda manual (otra tarjeta o unidad)?', False):
+        # No comprobar existente=True: Android puede denegar stat() aunque
+        # el volumen esté montado y sea accesible por otra vía.
+        raiz = pedir_texto('Ruta absoluta de la raíz (ej.: /storage/9F36-61B5)',
+                           obligatorio=True)
+        if not os.path.isabs(raiz) and not inventario.es_windows(raiz):
+            imprimir('[yellow]Debe indicarse una ruta absoluta.[/]')
+            continue
+        extra.append(raiz)
 
     from core.reporter import ProgresoTareas
-    with ProgresoTareas([
-        ('ubicacion', 'Comprobando rutas y raíces de almacenamiento'),
-        ('sha256', 'Calculando SHA256 del archivo actual'),
-    ]) as barra:
-        archivo_anterior = [None]
-        def _progreso_ubicacion(fase: str, hechos: int, total: int) -> None:
-            if total:
-                barra.actualizar('ubicacion', hechos, total, detalle=fase)
-
-        def _progreso_bytes(ruta: str, leidos: int, total: int) -> None:
-            if total:
-                # Reiniciar la barra cada vez que cambia el archivo.
-                if ruta != archivo_anterior[0]:
-                    archivo_anterior[0] = ruta
-                    barra.actualizar('sha256', 0, total, detalle=Path(ruta).name)
-                barra.actualizar('sha256', leidos, total, detalle=Path(ruta).name)
-
-        try:
-            resultado = ubicacion.buscar_reubicaciones(
-                faltantes, extra, excluidas,
-                progreso=_progreso_ubicacion,
-                progreso_bytes=_progreso_bytes,
+    def buscar(lista_faltantes, comando_elevado=None):
+        """Usa el progreso de reporter tanto en lectura normal como elevada."""
+        with ProgresoTareas([
+            ('ubicacion', 'Buscando vídeos por nombre y tamaño'),
+            ('sha256', 'Verificando SHA256 de coincidencias'),
+        ]) as barras:
+            ultimo = [None]
+            def avance(fase: str, hechos: int, total: int) -> None:
+                if total:
+                    barras.actualizar('ubicacion', hechos, total, detalle=fase)
+            def bytes_leidos(ruta: str, leidos: int, total: int) -> None:
+                if total:
+                    if ruta != ultimo[0]:
+                        ultimo[0] = ruta
+                        barras.actualizar('sha256', 0, total, detalle=Path(ruta).name)
+                    barras.actualizar('sha256', leidos, total, detalle=Path(ruta).name)
+            return ubicacion.buscar_reubicaciones(
+                lista_faltantes, extra, excluidas,
+                progreso=avance, progreso_bytes=bytes_leidos,
+                comando_root=comando_elevado,
             )
-        except ubicacion.InterrupcionBusqueda:
-            imprimir('[yellow]Búsqueda cancelada.[/]')
-            return
+
+    imprimir('\n[cyan]Explorando todos los niveles de carpetas en las raíces seleccionadas…[/]')
+    try:
+        resultado = buscar(faltantes)
+    except ubicacion.InterrupcionBusqueda:
+        imprimir('[yellow]Búsqueda cancelada.[/]')
+        return
+
+    # Si Android o Xubuntu bloquean una unidad, el usuario puede dar permiso
+    # temporalmente; no se ejecuta su/sudo sin aprobación explícita.
+    orden = plataforma.comando_lectura_elevada()
+    if resultado['sin_coincidencia'] and orden is not None:
+        imprimir('[yellow]Algunos vídeos siguen sin localizarse. Si el sistema limita '
+                 'el acceso, puede intentarse una lectura elevada.[/]')
+        imprimir('[grey70]La lectura elevada solo ejecuta id, find, stat y sha256sum; '
+                 'no cambia permisos, no elimina ni mueve archivos.[/]')
+        if plataforma.es_linux():
+            imprimir('[grey70]En Xubuntu se usa sudo -n. Si no está autorizado, '
+                     'puedes ejecutar sudo -v en otra terminal y repetir la búsqueda.[/]')
+        if pedir_si_no('¿Autorizar esta búsqueda de solo lectura con root?', False):
+            if plataforma.validar_lectura_elevada(orden):
+                no_hallados = {f['ruta_anterior'] for f in resultado['sin_coincidencia']}
+                pendientes = [f for f in faltantes if f['ruta'] in no_hallados]
+                try:
+                    resultado_root = buscar(pendientes, orden)
+                except ubicacion.InterrupcionBusqueda:
+                    imprimir('[yellow]Búsqueda elevada cancelada; se conservó el resultado anterior.[/]')
+                else:
+                    resultado['coincidencias'].extend(resultado_root['coincidencias'])
+                    resultado['probables'].extend(resultado_root['probables'])
+                    resultado['sin_coincidencia'] = resultado_root['sin_coincidencia']
+                    resultado['avisos'].extend(resultado_root['avisos'])
+                    resultado['no_legibles'].extend(resultado_root['no_legibles'])
+            else:
+                imprimir('[yellow]No se obtuvo autorización root; '
+                         'se conservarán los resultados de lectura ordinaria.[/]')
 
     if resultado.get('avisos'):
-        imprimir(f'[yellow]Avisos ({len(resultado["avisos"])}):[/]')
-        for aviso in resultado['avisos'][:10]:
+        imprimir(f'[yellow]Avisos de acceso y almacenamiento ({len(resultado["avisos"])}):[/]')
+        for aviso in resultado['avisos'][:12]:
             imprimir(f'  [yellow]• {rich_escape(aviso)}[/]')
-        if len(resultado['avisos']) > 10:
-            imprimir(f'  [grey37]... y {len(resultado["avisos"]) - 10} más (ver el TXT)[/]')
+        if len(resultado['avisos']) > 12:
+            imprimir(f'  [grey70]… y {len(resultado["avisos"]) - 12} más en el reporte[/]')
 
     destinos = ubicacion.reportar_ubicaciones(_carpeta_reportes() / 'ubicaciones', resultado)
-    imprimir(f'[green]Coincidencias confirmadas por SHA256: {len(resultado["coincidencias"])}[/]')
-    imprimir(f'[yellow]Probables o ambiguas (no se aplican solas): {len(resultado["probables"])}[/]')
-    imprimir(f'[yellow]Sin coincidencia: {len(resultado["sin_coincidencia"])}[/]')
-    if resultado['no_legibles']:
-        imprimir(f'[yellow]Rutas no legibles: {len(resultado["no_legibles"])} (revisa el TXT)[/]')
+    panel(
+        f'[bold spring_green2]Confirmadas con SHA256: {len(resultado["coincidencias"])}[/]\n'
+        f'[bold yellow]Probables/ambiguas: {len(resultado["probables"])}[/]\n'
+        f'[bold bright_red]Sin coincidencia: {len(resultado["sin_coincidencia"])}[/]\n'
+        f'[grey70]No legibles: {len(resultado["no_legibles"])}[/]',
+        'Resultado de la búsqueda', 'cyan',
+    )
     for formato, destino in destinos.items():
-        imprimir(f'[green]Ubicación {formato.upper()}: {rich_escape(str(destino))}[/]')
+        imprimir(f'[green]Reporte {formato.upper()}: {rich_escape(str(destino))}[/]')
+    if resultado['coincidencias']:
+        imprimir('\n[bold cyan]Primeras coincidencias confirmadas:[/]')
+        if TIENE_RICH and Table is not None and CONSOLA is not None:
+            tabla = Table(box=rich_box.ROUNDED, header_style='bold cyan')
+            tabla.add_column('Vídeo', style='bright_white')
+            tabla.add_column('Nueva ubicación', style='spring_green2')
+            for item in resultado['coincidencias'][:10]:
+                tabla.add_row(rich_escape(item['nombre']),
+                              rich_escape(item['ruta_nueva']))
+            CONSOLA.print(tabla)
+        else:
+            for item in resultado['coincidencias'][:10]:
+                imprimir(f'  [green]{rich_escape(item["nombre"])}[/] → '
+                         f'{rich_escape(item["ruta_nueva"])}')
+        imprimir('[cyan]Para actualizar las rutas verificadas utiliza el submenú 8, opción 4.[/]')
 
 
 def aplicar_ubicacion_interactivo(db: str) -> None:
