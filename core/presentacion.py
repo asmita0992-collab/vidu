@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import math
 import sys
+import re
 from pathlib import Path
 from typing import Any, Optional
 
@@ -61,7 +62,14 @@ def imprimir(mensaje: str = "", *, estilo: str = "", markup: bool = True) -> Non
     if CONSOLA is not None:
         CONSOLA.print(mensaje, style=estilo or None, markup=markup)
     else:
-        print(mensaje)
+        # Sin Rich, no mostrar etiquetas como [grey37] o [/]: solo el texto.
+        # Mantener anotaciones de negocio como [ERROR] y [AVISO].
+        limpio = re.sub(r'\[(?:/|/?(?:[a-z][a-z0-9_]*(?:[ ]+[a-z0-9_#]+)*|#[a-fA-F0-9]{6}))\]',
+                        '', str(mensaje))
+        ansi = {'red': ROJO, 'yellow': AMARILLO, 'green': VERDE,
+                'cyan': CIAN, 'magenta': MAGENTA, 'white': BLANCO}
+        prefijo = ansi.get(estilo, '') if sys.stdout.isatty() else ''
+        print(f'{prefijo}{limpio}{NC if prefijo else ""}')
 
 
 def regla(titulo: str = "", estilo: str = "bright_cyan") -> None:

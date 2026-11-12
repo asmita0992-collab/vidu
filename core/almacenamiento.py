@@ -38,6 +38,16 @@ def ruta_errores_txt() -> Path:
     return carpeta_reportes() / 'errores' / 'txt' / 'errores_videos.txt'
 
 
+def carpeta_errores_detalle() -> Path:
+    """Retorna la carpeta donde se guardan los TXT detallados por vídeo."""
+    return carpeta_reportes() / 'errores' / 'detalle_txt'
+
+
+def ruta_errores_detalle_txt() -> Path:
+    """Retorna la ruta del TXT detallado del vídeo fallido más reciente."""
+    return carpeta_errores_detalle() / 'ultimo_video_fallido.txt'
+
+
 _carpeta_reportes = carpeta_reportes
 _ruta_errores_jsonl = ruta_errores_jsonl
 _ruta_errores_txt = ruta_errores_txt
@@ -230,6 +240,114 @@ def _registrar_error_video(nombre: str, ruta: str, causa: str) -> None:
     except OSError as exc:
         imprimir(f'[yellow][AVISO] No se pudo guardar el log de errores: {exc}[/]')
 
+
+def _interpretar_error_ffmpeg(lineas: List[str]) -> str:
+    """Traduce las líneas literales de FFmpeg a una explicación legible."""
+    texto = '\n'.join(lineas).lower()
+    if 'moov atom not found' in texto:
+        return (
+            'El archivo está dañado o incompleto: FFmpeg no encuentra el índice '
+            '"moov" que guarda las pistas del vídeo. Suele ocurrir cuando la '
+            'descarga o la copia se cortó a la mitad.'
+        )
+    if 'invalid data found when processing input' in texto:
+        return (
+            'El archivo no es un vídeo válido o está corrupto: FFmpeg no reconoce '
+            'el formato. Puede que tenga la extensión ".mp4" pero contenga otro '
+            'tipo de datos.'
+        )
+    if 'permission denied' in texto:
+        return 'FFmpeg no tiene permiso para leer el archivo.'
+    if 'no such file or directory' in texto:
+        return 'El archivo ya no existe o fue movido mientras se analizaba.'
+    if 'unknown encoder' in texto or 'unknown decoder' in texto:
+        return (
+            'La versión instalada de FFmpeg no reconoce un códec usado por el '
+            'vídeo. Se necesita una build más reciente.'
+        )
+    if 'decoder' in texto and 'not found' in texto:
+        return 'Falta un decodificador en la instalación de FFmpeg para este vídeo.'
+    if 'does not contain any stream' in texto:
+        return 'El archivo no contiene pistas de vídeo ni de audio analizables.'
+    if 'invalid argument' in texto:
+        return 'FFmpeg recibió un parámetro o un valor no válido para este vídeo.'
+    if 'timed out' in texto or 'timeout' in texto:
+        return 'FFmpeg tardó demasiado y se canceló. El disco puede estar lento.'
+    if 'resource temporarily unavailable' in texto:
+        return 'El archivo estaba ocupado por otro proceso al momento de leerlo.'
+    return 'FFmpeg no pudo procesar el archivo. El detalle literal está más abajo.'
+
+
+def _registrar_error_video_detallado(
+    nombre: str,
+    ruta: str,
+    causa: str,
+    detalle: str = '',
+) -> None:
+    """Registra el fallo y escribe un TXT en lenguaje humano por vídeo.
+
+    El archivo .jsonl queda como registro técnico para máquinas; este TXT
+    es el que una persona puede leer para saber qué pasó y qué hacer.
+    """
+    _registrar_error_video(nombre, ruta, causa)
+
+    if not detalle or not detalle.strip():
+        return
+
+    try:
+        from core.database import info_dispositivo_actual
+        info_disp = info_dispositivo_actual()
+    except Exception:
+        info_disp = {}
+
+    lineas = [linea for linea in detalle.splitlines() if linea.strip()]
+    explicacion = _interpretar_error_ffmpeg(lineas)
+
+    carpeta = carpeta_errores_detalle()
+    archivo = carpeta / f'{Path(nombre).stem}.txt'
+    try:
+        carpeta.mkdir(parents=True, exist_ok=True)
+        with archivo.open('w', encoding='utf-8') as manejador:
+            manejador.write(
+                'REPORTE DE ERROR DE ANÁLISIS DE VÍDEO\n'
+                '=====================================\n\n'
+                f'Fecha: {_fmt_ahora_utc6()}\n'
+                f'Vídeo: {nombre}\n'
+                f'Ruta completa: {ruta}\n'
+                f'Dispositivo: {info_disp.get("dispositivo", "")} '
+                f'(ID {info_disp.get("dispositivo_id", "")})\n\n'
+                'QUÉ PASÓ\n'
+                '---------\n'
+                f'{causa}\n\n'
+                'QUÉ SIGNIFICA\n'
+                '--------------\n'
+                f'{explicacion}\n\n'
+                'QUÉ DICE EXACTAMENTE FFmpeg\n'
+                '----------------------------\n'
+                'Estas son las líneas literales que devolvió la herramienta:\n\n'
+            )
+            for linea in lineas:
+                manejador.write(f'  {linea}\n')
+            manejador.write(
+                '\n\nCÓMO PROCEDER\n'
+                '--------------\n'
+                '1. Abre el vídeo con VLC o un reproductor para confirmar si se '
+                'reproduce con normalidad.\n'
+                '2. Si no se reproduce, vuelve a copiarlo o descargarlo desde su '
+                'origen: probablemente esté incompleto.\n'
+                '3. Si sí se reproduce, prueba con:\n'
+                '   ffmpeg -i "RUTA" -f null -\n'
+                '   y compara lo que aparece con el detalle de arriba.\n'
+            )
+        # Copia del último fallo, para consulta rápida.
+        try:
+            with ruta_errores_detalle_txt().open('w', encoding='utf-8') as manejador:
+                manejador.write(archivo.read_text(encoding='utf-8'))
+        except OSError:
+            pass
+    except OSError as exc:
+        imprimir(f'[yellow][AVISO] No se pudo escribir el detalle del error: {exc}[/]')
+
 def _archivos_recientes(patrones: List[str], subcarpetas: List[str]) -> List[Path]:
     base = _carpeta_reportes()
     encontrados: List[Tuple[int, Path]] = []
@@ -254,6 +372,12 @@ def elegir_archivo_reciente(
     defecto: str = '',
     obligatorio: bool = True,
 ) -> str:
+    # En operaciones normales se propone primero la SQLite del dispositivo,
+    # nunca un respaldo reciente que pueda acabar siendo modificado por error.
+    if defecto and Path(str(defecto)).suffix.lower() in ('.db', '.sqlite', '.sqlite3'):
+        return pedir_ruta(descripcion or 'Ruta de la base SQLite',
+                         str(defecto), existente=False)
+
     recientes = _archivos_recientes(patrones, subcarpetas)
 
     if recientes:

@@ -198,12 +198,11 @@ def submenu_configuracion(db_defecto: str) -> str:
 
         elif opc == '7':
             reset_modo_conexion()
-            if not _usa_neon():
-                imprimir('[yellow]Neon no está activo o no hay conexión. Actívalo en la opción 1 o revisa tu red.[/]')
-            else:
-                imprimir('[cyan]🔄 Sincronizando base local con Neon PostgreSQL...[/]')
-                subidos, descargados, elim = sincronizar_local_y_nube()
-                imprimir(f'[spring_green2]✓ Sincronización completada: {subidos} subidos/actualizados, {descargados} descargados/actualizados, {elim} eliminados.[/]')
+            try:
+                subidos, descargados, elim = sincronizar_local_y_nube(confirmar=True)
+            except Exception as exc:
+                imprimir(f'[bold red]Sincronización no aplicada/completada: {exc}[/]')
+            # El motor anuncia el resultado; no convertir errores/cancelaciones en éxito.
 
         elif opc == '8':
             imprimir('\n[bold cyan]Niveles de prioridad del proceso:[/]')

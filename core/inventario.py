@@ -1,4 +1,3 @@
-
 """Inventario VIDUP: cotejo bidireccional por ruta, exclusiones y reportes.
 
 La verificación NO lee contenido de los vídeos ni calcula hashes. Solo confirma
@@ -72,6 +71,9 @@ def dentro_de(ruta: str, carpeta: str, recursivo: bool = True) -> bool:
 
 
 def excluido(ruta: str, carpetas_excluidas: Sequence[str]) -> bool:
+    # Exclusión automática de la carpeta de la herramienta
+    if dentro_de(ruta, str(DIR_SCRIPT), recursivo=True):
+        return True
     return any(dentro_de(ruta, c, recursivo=True) for c in carpetas_excluidas)
 
 
@@ -288,6 +290,8 @@ def reportar_estadisticas(base: Path, generales: dict, dispositivos: Sequence[di
     with destinos['txt'].open('w', encoding='utf-8') as f:
         f.write(f'ESTADÍSTICAS VIDUP — {paquete["fecha_utc6"]}\nOrigen: {origen}\n')
         f.write(f'Vídeos totales: {generales["total_videos"]}\n')
+        f.write(f'Frames totales: {generales["total_frames"]}\n')
+        f.write(f'Marcas de eliminación: {generales["total_eliminaciones"]}\n')
         f.write(f'Procesados sin error: {generales["con_huella"]}\n')
         f.write(f'Con error: {generales["con_error"]}\n')
         f.write(f'Duración total: {generales["horas_totales"]} h\n')
@@ -307,7 +311,9 @@ def reportar_estadisticas(base: Path, generales: dict, dispositivos: Sequence[di
                         f'visual {carpeta["con_huella_visual"]} | '
                         f'audio {carpeta.get("con_huella_audio", 0)}\n')
     filas = [dict(tipo='general', dispositivo='', dispositivo_id='', carpeta=origen,
-                  videos=generales['total_videos'], tamanio_bytes='', sha256='', visual='',
+                  videos=generales['total_videos'], frames_totales=generales['total_frames'],
+                  marcas_eliminacion=generales['total_eliminaciones'],
+                  tamanio_bytes='', sha256='', visual='',
                   audio='', errores=generales['con_error'],
                   procesados_sin_error=generales['con_huella'],
                   duracion_horas=generales['horas_totales'],
@@ -331,7 +337,8 @@ def reportar_estadisticas(base: Path, generales: dict, dispositivos: Sequence[di
     _csv_escribir(destinos['csv'], ('tipo','dispositivo','dispositivo_id','carpeta','videos',
                                    'tamanio_bytes','sha256','visual','audio','errores',
                                    'procesados_sin_error','duracion_horas','gb_totales',
-                                   'grupos_dispositivo','etiquetas_origen'), filas)
+                                   'grupos_dispositivo','etiquetas_origen',
+                                   'frames_totales','marcas_eliminacion'), filas)
     return destinos
 
 
@@ -475,10 +482,6 @@ def eliminar_registros_exactos(conn: Any, dispositivo_id: str,
     originales = {int(r['id']): r for r in registros}
     total = 0
     try:
-        for r in registros:
-            clave_u = r.get('clave_unica') or database._calcular_clave_unica(dispositivo_id, str(r.get('ruta', '')))
-            if clave_u:
-                registrar_eliminacion(conn, clave_u)
         if not pg:
             conn.execute('BEGIN IMMEDIATE')
         for inicio in range(0, len(ids), 400):
@@ -506,6 +509,13 @@ def eliminar_registros_exactos(conn: Any, dispositivo_id: str,
                     int(r['tamanio_bytes'] or 0) != int(anterior.get('tamanio_bytes') or 0)):
                     raise RuntimeError('Un registro cambió después del respaldo; '
                                        'la transacción fue cancelada.')
+            # Registrar eliminaciones y borrar en la MISMA transacción.
+            for id_borrar in lote:
+                anterior = originales[id_borrar]
+                clave_u = anterior.get('clave_unica') or database._calcular_clave_unica(
+                    dispositivo_id, str(anterior.get('ruta', '')))
+                if clave_u:
+                    registrar_eliminacion(conn, clave_u, confirmar=False)
             if pg:
                 with conn.cursor() as cur:
                     cur.execute('DELETE FROM videos WHERE dispositivo_id = %s AND id = ANY(%s)',

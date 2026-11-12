@@ -41,6 +41,7 @@ from core.almacenamiento import (
     base_reciente_por_defecto as _base_reciente_por_defecto,
     carpeta_salida_videos as _carpeta_salida_videos,
     _rutas_con_error_registrado, _registrar_error_video, _quitar_error_registrado,
+    _registrar_error_video_detallado,
     _archivos_recientes, elegir_archivo_reciente,
 )
 from core.plataforma import set_high_priority, _carpetas_android_candidatas
@@ -393,7 +394,7 @@ def cmd_escanear(args: argparse.Namespace) -> int:
         tabla.add_column(style='cyan'); tabla.add_column(style='white')
         tabla.add_row('Directorio', str(directorio))
         tabla.add_row('Vídeos', f'{len(videos)} seleccionados')
-        tabla.add_row('Base datos', 'Neon PostgreSQL (Nube)' if _usa_neon() else str(args.db))
+        tabla.add_row('Base datos', str(args.db))
         tabla.add_row('Modo conexión', describir_conexion())
         tabla.add_row('Intervalo', f'{args.intervalo} s entre cuadros')
         tabla.add_row('Trabajadores', str(trabajadores))
@@ -405,7 +406,7 @@ def cmd_escanear(args: argparse.Namespace) -> int:
     else:
         print(f' Directorio        : {directorio}')
         print(f' Vídeos            : {len(videos)} seleccionados')
-        print(f' Base datos        : {"Neon PostgreSQL (Nube)" if _usa_neon() else args.db}')
+        print(f' Base datos        : {args.db}')
         print(f' Modo de conexión  : {describir_conexion()}')
         print(f' Intervalo         : {args.intervalo} s entre cuadros')
         print(f' Trabajadores      : {trabajadores}')
@@ -493,7 +494,7 @@ def cmd_escanear(args: argparse.Namespace) -> int:
                     err_msg = f'Excepción en hilo: {exc}'
                     rr = str(ruta.resolve())
                     fallos_detalle.append((ruta.name, rr, err_msg))
-                    _registrar_error_video(ruta.name, rr, err_msg)
+                    _registrar_error_video_detallado(ruta.name, rr, err_msg)
                     dashboard.imprimir_mensaje(f'❌ {ruta.name[:40]} | ERROR: {exc}')
                     dashboard.marcar_error()
                     continue
@@ -511,9 +512,10 @@ def cmd_escanear(args: argparse.Namespace) -> int:
                 if estado == 'error':
                     errores += 1
                     err_msg = resultado.get('error', 'Error no especificado')
+                    detalle = resultado.get('detalle', '')
                     rr = str(ruta.resolve())
                     fallos_detalle.append((ruta.name, rr, err_msg))
-                    _registrar_error_video(ruta.name, rr, err_msg)
+                    _registrar_error_video_detallado(ruta.name, rr, err_msg, detalle)
                     dashboard.imprimir_mensaje(f'❌ {ruta.name[:40]} | ERROR: {err_msg}')
                     dashboard.marcar_error()
                     continue
@@ -523,7 +525,7 @@ def cmd_escanear(args: argparse.Namespace) -> int:
                     err_msg = 'Estado no reconocido'
                     rr = str(ruta.resolve())
                     fallos_detalle.append((ruta.name, rr, err_msg))
-                    _registrar_error_video(ruta.name, rr, err_msg)
+                    _registrar_error_video_detallado(ruta.name, rr, err_msg)
                     dashboard.imprimir_mensaje(f'❌ {ruta.name[:40]} | ERROR desconocido')
                     dashboard.marcar_error()
                     continue
@@ -544,7 +546,7 @@ def cmd_escanear(args: argparse.Namespace) -> int:
                     err_msg = 'Fallo al insertar registros en la base de datos'
                     rr = str(ruta.resolve())
                     fallos_detalle.append((ruta.name, rr, err_msg))
-                    _registrar_error_video(ruta.name, rr, err_msg)
+                    _registrar_error_video_detallado(ruta.name, rr, err_msg)
                     dashboard.imprimir_mensaje(f'❌ {ruta.name[:40]} | ERROR al guardar en BD')
                     dashboard.marcar_error()
                 else:
@@ -698,22 +700,19 @@ def escanear_interactivo(db_defecto: str, reporte_sha: Optional[str] = None) -> 
             recursivo = pedir_si_no_recordar('recursivo', '¿Incluir subcarpetas?', True)
         sugerida = db_defecto  
 
-    if _usa_neon():
-        db = 'neon_cloud'
-    else:
-        if Path(sugerida).suffix.lower() == '.json':
-            sugerida = _base_reciente_por_defecto()
-        
-        db_sug = sugerida
+    if Path(sugerida).suffix.lower() == '.json':
+        sugerida = _base_reciente_por_defecto()
+    
+    db_sug = sugerida
 
-        db = elegir_archivo_reciente(
-            'Base de datos SQLite donde guardar las huellas',
-            ['*.db'],
-            ['respaldos/db'],
-            defecto=db_sug,
-        )
-        if Path(db).suffix.lower() == '.json':
-            raise ValueError('El escaneo guarda huellas en SQLite; selecciona una base .db.')
+    db = elegir_archivo_reciente(
+        'Base de datos SQLite donde guardar las huellas',
+        ['*.db'],
+        ['respaldos/db'],
+        defecto=db_sug,
+    )
+    if Path(db).suffix.lower() == '.json':
+        raise ValueError('El escaneo guarda huellas en SQLite; selecciona una base .db.')
 
     reintentar_errores = pedir_si_no_recordar('reintentar_errores', '¿Reintentar el escaneo de vídeos que previamente generaron error?', True)
     forzar_registrados = pedir_si_no_recordar('forzar_registrados', '¿Volver a analizar vídeos que ya están registrados exitosamente?', False)
@@ -818,13 +817,10 @@ def escaneo_previo_codecs_interactivo(db_defecto: str) -> str:
     if directorio is None and not candidatos:
         return db_defecto
 
-    if _usa_neon():
-        db = 'neon_cloud'
-    else:
-        db = elegir_archivo_reciente(
-            'Base de datos SQLite donde consultar vídeos pendientes',
-            ['*.db'], ['respaldos/db'], defecto=db_defecto
-        )
+    db = elegir_archivo_reciente(
+        'Base de datos SQLite donde consultar vídeos pendientes',
+        ['*.db'], ['respaldos/db'], defecto=db_defecto
+    )
 
     if candidatos:
         videos_encontrados = candidatos
@@ -866,13 +862,10 @@ def escanear_por_codec_interactivo(db_defecto: str) -> str:
     if directorio is None and not candidatos:
         return db_defecto
 
-    if _usa_neon():
-        db = 'neon_cloud'
-    else:
-        db = elegir_archivo_reciente(
-            'Base de datos SQLite donde guardar las huellas',
-            ['*.db'], ['respaldos/db'], defecto=db_defecto
-        )
+    db = elegir_archivo_reciente(
+        'Base de datos SQLite donde guardar las huellas',
+        ['*.db'], ['respaldos/db'], defecto=db_defecto
+    )
 
     if candidatos:
         videos_encontrados = candidatos

@@ -1,12 +1,8 @@
 """
-Almacenamiento y recuperación de huellas en PostgreSQL (Neon Cloud) o SQLite local.
-
-Detección automática del modo de conexión:
-  - Si NEON_DATABASE_URL está definida Y hay conectividad Y psycopg2 está
-    instalado, opera contra Neon.
-  - Si algo de lo anterior falla, cae a SQLite local y NO reintenta en toda
-    la sesión (evita timeouts repetidos sin Internet).
-  - Si no hay NEON_DATABASE_URL, usa SQLite directamente sin probar Neon.
+Almacenamiento VIDUP: SQLite local es la base operativa PRINCIPAL.
+Neon PostgreSQL se utiliza únicamente al seleccionar explícitamente
+``neon_cloud`` en una operación de respaldo o en la sincronización manual.
+La sincronización ordinaria nunca propaga eliminaciones.
 
 Cada fila se identifica por una clave_unica = dispositivo_id + '|' + ruta, de modo
 que dos dispositivos con la misma ruta de archivo no colisionan ni se sobreescriben.
@@ -143,6 +139,11 @@ CREATE INDEX IF NOT EXISTS idx_videos_nombre ON videos(nombre);
 CREATE INDEX IF NOT EXISTS idx_videos_dispositivo_id ON videos(dispositivo_id);
 CREATE INDEX IF NOT EXISTS idx_videos_clave_unica ON videos(clave_unica);
 CREATE INDEX IF NOT EXISTS idx_frame_hashes_video_posicion ON frame_hashes(video_id, posicion);
+
+CREATE TABLE IF NOT EXISTS videos_eliminados (
+    clave_unica TEXT PRIMARY KEY,
+    fecha_eliminacion TEXT NOT NULL
+);
 """
 
 _SQL_CREAR_TABLAS_SQLITE = """
@@ -187,6 +188,11 @@ CREATE INDEX IF NOT EXISTS idx_videos_nombre ON videos(nombre);
 CREATE INDEX IF NOT EXISTS idx_videos_dispositivo_id ON videos(dispositivo_id);
 CREATE INDEX IF NOT EXISTS idx_videos_clave_unica ON videos(clave_unica);
 CREATE INDEX IF NOT EXISTS idx_frame_hashes_video_posicion ON frame_hashes(video_id, posicion);
+
+CREATE TABLE IF NOT EXISTS videos_eliminados (
+    clave_unica TEXT PRIMARY KEY,
+    fecha_eliminacion TEXT NOT NULL
+);
 """
 
 
@@ -208,13 +214,13 @@ def estado_conexion() -> dict:
 def describir_conexion() -> str:
     st = _ESTADO_CONEXION
     if st['modo'] == 'neon':
-        return 'EN LÍNEA (Neon PostgreSQL en la nube)'
+        return 'SQLite principal · Neon disponible para sincronización'
     if st['modo'] == 'sqlite':
-        return 'FUERA DE LÍNEA (SQLite local)'
+        return 'SQLite principal · sin Neon'
     if st['modo'] == 'sqlite_fallback':
         detalle = f' — {st["detalle"]}' if st.get('detalle') else ''
-        return f'FUERA DE LÍNEA (SQLite local, respaldo por fallo de Neon{detalle})'
-    return 'SIN CONEXIÓN INICIADA'
+        return f'SQLite principal · Neon no disponible{detalle}'
+    return 'SQLite principal · estado de Neon sin comprobar'
 
 
 def _usa_neon() -> bool:
@@ -284,14 +290,6 @@ def _detectar_modo_conexion_una_vez() -> None:
         _ESTADO_CONEXION.update(
             en_linea=False, modo='sqlite',
             detalle='psycopg2 no instalado',
-        )
-        return
-
-    if not _hay_conectividad_red():
-        _NEON_DESCARTADO = True
-        _ESTADO_CONEXION.update(
-            en_linea=False, modo='sqlite_fallback',
-            detalle='sin conectividad de red',
         )
         return
 
@@ -707,15 +705,19 @@ def _abrir_sqlite(ruta_abs: str) -> sqlite3.Connection:
 
 
 def conectar(ruta_db: str) -> Any:
-    _detectar_modo_conexion_una_vez()
+    """Abre SQLite de forma predeterminada, incluso si Neon está disponible.
 
-    if isinstance(ruta_db, str):
-        ruta_db = ruta_db.strip().strip('"').strip("'").strip()
-
-    if _ESTADO_CONEXION['modo'] == 'neon':
+    La conexión directa a Neon sólo se permite con el selector explícito
+    ``neon_cloud``, reservado para respaldos y tareas expresas. Nunca se
+    convierte silenciosamente un fallo de Neon en una conexión SQLite distinta.
+    """
+    ruta_db = str(ruta_db).strip().strip('"').strip("'").strip()
+    if ruta_db.lower() == 'neon_cloud':
+        _detectar_modo_conexion_una_vez()
+        if _ESTADO_CONEXION['modo'] != 'neon' or not TIENE_PSYCOPG2:
+            raise ConnectionError('Neon no está disponible. No se abrirá una base distinta como sustituto.')
         try:
-            url = os.environ['NEON_DATABASE_URL'].strip()
-            conn = psycopg2.connect(url, connect_timeout=5)
+            conn = psycopg2.connect(os.environ['NEON_DATABASE_URL'].strip(), connect_timeout=8)
             conn.autocommit = True
             with conn.cursor() as cur:
                 cur.execute(_SQL_CREAR_TABLAS_POSTGRES)
@@ -723,27 +725,37 @@ def conectar(ruta_db: str) -> Any:
             conn.autocommit = False
             return conn
         except Exception as exc:
-            global _NEON_DESCARTADO
-            _NEON_DESCARTADO = True
-            _ESTADO_CONEXION.update(
-                en_linea=False, modo='sqlite_fallback',
-                detalle=str(exc)[:150],
-            )
-            _imprimir(f'[AVISO NEON] Fallo de conexión: {exc}. Se usará SQLite local como caché.', 'yellow')
+            raise ConnectionError(f'No se pudo abrir Neon: {exc}') from exc
+    return conectar_sqlite(ruta_db)
+
+
+def conectar_neon_solo_lectura() -> Any:
+    """Conexión explícita PostgreSQL para estadísticas, sin escrituras ni migraciones.
+
+    No reutiliza ``conectar('neon_cloud')``, que inicializa el esquema. Nunca
+    deriva una consulta de Neon hacia la SQLite local si falla la red.
+    """
+    if os.environ.get('VIDUP_FORZAR_OFFLINE', '').strip().lower() in ('1', 'true', 'yes', 'sí', 'si'):
+        raise ConnectionError('El modo sin conexión está activado; Neon no se consultó.')
+    if not TIENE_PSYCOPG2:
+        raise ConnectionError('Falta psycopg2; no se pueden consultar estadísticas de Neon.')
+    url = os.environ.get('NEON_DATABASE_URL', '').strip()
+    if not url:
+        raise ConnectionError('NEON_DATABASE_URL no está configurada; Neon no se consultó.')
+    conn = None
+    try:
+        conn = psycopg2.connect(url, connect_timeout=8)
+        # PostgreSQL rechaza cualquier INSERT/UPDATE/DELETE/DDL en esta sesión.
+        # Snapshot coherente entre totales, dispositivos y carpetas.
+        conn.set_session(readonly=True, isolation_level='REPEATABLE READ', autocommit=False)
+        return conn
+    except Exception as exc:
+        if conn is not None:
             try:
-                from core.sincronizacion import obtener_ruta_db_local_dispositivo
-                ruta_db = str(obtener_ruta_db_local_dispositivo())
+                conn.close()
             except Exception:
                 pass
-
-    if ruta_db != ':memory:':
-        path_obj = Path(ruta_db).expanduser().resolve()
-        path_obj.parent.mkdir(parents=True, exist_ok=True)
-        ruta_abs = str(path_obj)
-    else:
-        ruta_abs = ':memory:'
-
-    return _abrir_sqlite(ruta_abs)
+        raise ConnectionError(f'No se pudo consultar Neon en modo lectura: {exc}') from exc
 
 
 def conectar_sqlite(ruta_db: str) -> sqlite3.Connection:
@@ -881,6 +893,7 @@ def guardar_fingerprint(
                         "INSERT INTO frame_hashes (video_id, posicion, hash_valor) VALUES %s",
                         [(video_id, pos, val) for pos, val in enumerate(fp.frame_hashes)]
                     )
+                cur.execute('DELETE FROM videos_eliminados WHERE clave_unica = %s', (clave,))
             conn.commit()
             return video_id
         else:
@@ -938,6 +951,7 @@ def guardar_fingerprint(
                     "INSERT INTO frame_hashes (video_id, posicion, hash_valor) VALUES (?, ?, ?)",
                     ((video_id, pos, val) for pos, val in enumerate(fp.frame_hashes)),
                 )
+            conn.execute('DELETE FROM videos_eliminados WHERE clave_unica = ?', (clave,))
             conn.commit()
             return video_id
     except Exception as exc:
@@ -1129,11 +1143,8 @@ def eliminar_por_ruta(conn: Any, ruta: str, dispositivo_id: Optional[str] = None
                 if not filas:
                     return False
                 for row in filas:
-                    try:
-                        from core.sincronizacion import registrar_eliminacion
-                        registrar_eliminacion(conn, row[0])
-                    except Exception:
-                        pass
+                    from core.sincronizacion import registrar_eliminacion
+                    registrar_eliminacion(conn, row[0], confirmar=False)
                 cur.execute("DELETE FROM videos WHERE (ruta = %s OR LOWER(ruta) = LOWER(%s) OR REPLACE(ruta, '\\\\', '/') = %s) AND (dispositivo_id = %s OR dispositivo_id = '')", (ruta_str, ruta_str, ruta_slash, disp_id))
                 conn.commit()
                 return cur.rowcount > 0
@@ -1143,11 +1154,8 @@ def eliminar_por_ruta(conn: Any, ruta: str, dispositivo_id: Optional[str] = None
             if not filas:
                 return False
             for row in filas:
-                try:
-                    from core.sincronizacion import registrar_eliminacion
-                    registrar_eliminacion(conn, row['clave_unica'] if hasattr(row, 'keys') else row[0])
-                except Exception:
-                    pass
+                from core.sincronizacion import registrar_eliminacion
+                registrar_eliminacion(conn, row['clave_unica'] if hasattr(row, 'keys') else row[0], confirmar=False)
             cursor = conn.execute("DELETE FROM videos WHERE (ruta = ? OR LOWER(ruta) = LOWER(?) OR REPLACE(ruta, '\\', '/') = ?) AND (dispositivo_id = ? OR dispositivo_id = '')", (ruta_str, ruta_str, ruta_slash, disp_id))
             if cursor.rowcount > 0:
                 conn.commit()
@@ -1172,14 +1180,14 @@ def eliminar_por_dispositivo_id(conn: Any, dispositivo_id: str) -> int:
             with conn.cursor() as cur:
                 cur.execute("SELECT clave_unica FROM videos WHERE dispositivo_id = %s", (disp_id,))
                 for row in cur.fetchall():
-                    registrar_eliminacion(conn, row[0])
+                    registrar_eliminacion(conn, row[0], confirmar=False)
                 cur.execute("DELETE FROM videos WHERE dispositivo_id = %s", (disp_id,))
                 count = cur.rowcount
             conn.commit()
             return count
         else:
             for row in conn.execute("SELECT clave_unica FROM videos WHERE dispositivo_id = ?", (disp_id,)):
-                registrar_eliminacion(conn, row['clave_unica'] if hasattr(row, 'keys') else row[0])
+                registrar_eliminacion(conn, row['clave_unica'] if hasattr(row, 'keys') else row[0], confirmar=False)
             cursor = conn.execute('DELETE FROM videos WHERE dispositivo_id = ?', (disp_id,))
             count = cursor.rowcount
             conn.commit()
@@ -1218,6 +1226,9 @@ def reasignar_dispositivo_id(
                         cur.execute(
                             "UPDATE videos SET dispositivo_id = %s, clave_unica = %s WHERE id = %s",
                             (id_nuevo, nueva_clave, fila['id']))
+                        from core.sincronizacion import registrar_eliminacion
+                        registrar_eliminacion(conn,
+                            _calcular_clave_unica(id_antiguo, fila['ruta']), confirmar=False)
                         actualizadas += 1
                     except Exception as exc:
                         _imprimir(f'[AVISO] No se pudo reasignar id={fila["id"]}: {exc}', 'yellow')
@@ -1235,6 +1246,9 @@ def reasignar_dispositivo_id(
                     conn.execute(
                         "UPDATE videos SET dispositivo_id = ?, clave_unica = ? WHERE id = ?",
                         (id_nuevo, nueva_clave, fila['id']))
+                    from core.sincronizacion import registrar_eliminacion
+                    registrar_eliminacion(conn,
+                        _calcular_clave_unica(id_antiguo, fila['ruta']), confirmar=False)
                     actualizadas += 1
                 except sqlite3.IntegrityError:
                     _imprimir(f'[AVISO] Colisión en id={fila["id"]}; se omite.', 'yellow')
@@ -1292,8 +1306,21 @@ def estadisticas(conn: Any) -> Dict[str, Any]:
             "SELECT DISTINCT dispositivo FROM videos WHERE dispositivo <> '' ORDER BY dispositivo")]
         dispositivos_origen = [f['dispositivo_origen'] for f in conn.execute(
             "SELECT DISTINCT dispositivo_origen FROM videos WHERE dispositivo_origen <> '' ORDER BY dispositivo_origen")]
+    # Ambos recuentos son independientes de las métricas por dispositivo y
+    # permiten verificar restauraciones completas de Neon (vídeos/frames/borrados).
+    if is_pg:
+        with conn.cursor() as cur:
+            cur.execute('SELECT COUNT(*) FROM frame_hashes')
+            total_frames = int(cur.fetchone()[0])
+            cur.execute('SELECT COUNT(*) FROM videos_eliminados')
+            total_eliminaciones = int(cur.fetchone()[0])
+    else:
+        total_frames = int(conn.execute('SELECT COUNT(*) FROM frame_hashes').fetchone()[0])
+        total_eliminaciones = int(conn.execute('SELECT COUNT(*) FROM videos_eliminados').fetchone()[0])
     return {
         'total_videos': int(fila['total'] or 0),
+        'total_frames': total_frames,
+        'total_eliminaciones': total_eliminaciones,
         'con_huella': int(fila['con_huella'] or 0),
         'con_error': int(fila['con_error'] or 0),
         'horas_totales': float(fila['horas_totales'] or 0.0),
@@ -1770,7 +1797,7 @@ def volcar_todo_a_sqlite(
         raise RuntimeError('No hay conexión Neon activa.')
     destino = Path(ruta_destino).expanduser().resolve()
     destino.parent.mkdir(parents=True, exist_ok=True)
-    conteo = {'videos': 0, 'frames': 0, 'errores': 0, 'lotes_fallidos': 0}
+    conteo = {'videos': 0, 'frames': 0, 'eliminados': 0, 'errores': 0, 'lotes_fallidos': 0}
     conn_local = conectar_sqlite(str(destino))
     try:
         def abrir_neon():
@@ -1788,8 +1815,6 @@ def volcar_todo_a_sqlite(
             with conn_neon.cursor() as cur:
                 cur.execute('SELECT COUNT(*) FROM videos')
                 total = int((cur.fetchone() or (0,))[0] or 0)
-            if total == 0:
-                return conteo
             ultimo_id = 0
             while True:
                 filas = None
@@ -1908,6 +1933,19 @@ def volcar_todo_a_sqlite(
                         progreso(conteo['videos'], total, conteo['errores'])
                     except Exception:
                         pass
+            # Las marcas de eliminación también forman parte de un respaldo completo.
+            # Una sustitución total debe poder restaurar exactamente ese conjunto.
+            with conn_neon.cursor() as cur:
+                cur.execute('SELECT clave_unica, fecha_eliminacion FROM videos_eliminados')
+                borrados = cur.fetchall()
+            conn_local.execute('BEGIN IMMEDIATE')
+            conn_local.execute('DELETE FROM videos_eliminados')
+            if borrados:
+                conn_local.executemany(
+                    'INSERT INTO videos_eliminados (clave_unica, fecha_eliminacion) VALUES (?, ?)',
+                    borrados)
+            conn_local.commit()
+            conteo['eliminados'] = len(borrados)
         finally:
             try:
                 if conn_neon is not None:
@@ -1922,13 +1960,25 @@ def volcar_todo_a_sqlite(
 # ============================================================================
 # Restauración transaccional de Neon desde SQLite (opción expresa)
 # ============================================================================
-def reemplazar_neon_desde_sqlite(ruta_fuente: str, directorio_respaldos: str) -> Dict[str, Any]:
+def reemplazar_neon_desde_sqlite(
+    ruta_fuente: str,
+    directorio_respaldos: str,
+    progreso=None,
+) -> Dict[str, Any]:
     """Sustituye todos los registros de Neon de forma atómica.
 
     Requisitos: conexión online real, copia previa verificada, SQLite íntegra.
     No afecta los archivos de vídeo. No utiliza la conexión automática fallback.
     La interfaz es responsable de exigir la confirmación textual explícita.
     """
+    def informar(etapa: str, actual: int, total: int) -> None:
+        if progreso is not None:
+            # La visualización es auxiliar: no debe interrumpir una transacción.
+            try:
+                progreso(etapa, int(actual), int(total))
+            except Exception:
+                pass
+
     _detectar_modo_conexion_una_vez()
     if _ESTADO_CONEXION['modo'] != 'neon' or not TIENE_PSYCOPG2:
         raise RuntimeError('Neon no está disponible; no se sustituirá ninguna base.')
@@ -1958,6 +2008,9 @@ def reemplazar_neon_desde_sqlite(ruta_fuente: str, directorio_respaldos: str) ->
             raise ValueError('Hay referencias inválidas entre vídeos y sus fotogramas.')
         cantidad_origen = conexion_sqlite.execute('SELECT COUNT(*) FROM videos').fetchone()[0]
         frames_origen = conexion_sqlite.execute('SELECT COUNT(*) FROM frame_hashes').fetchone()[0]
+        eliminados_origen = (conexion_sqlite.execute(
+            'SELECT COUNT(*) FROM videos_eliminados').fetchone()[0]
+            if 'videos_eliminados' in tablas else 0)
         if not cantidad_origen:
             raise ValueError('La base de origen está vacía. No se permite vaciar Neon desde este menú.')
         if conexion_sqlite.execute('''SELECT COUNT(*) FROM videos
@@ -1975,16 +2028,25 @@ def reemplazar_neon_desde_sqlite(ruta_fuente: str, directorio_respaldos: str) ->
             raise FileExistsError(f'El respaldo ya existe: {respaldo}')
 
         # Exigir un respaldo antes de tocar el contenido remoto.
-        conteo_backup = volcar_todo_a_sqlite(str(respaldo), lote=200)
+        informar('respaldo', 0, 1)
+        conteo_backup = volcar_todo_a_sqlite(
+            str(respaldo), lote=200,
+            progreso=lambda actual, total, errores: informar('respaldo', actual, total),
+        )
         if conteo_backup['errores'] or conteo_backup['lotes_fallidos']:
             raise RuntimeError('El respaldo previo de Neon presentó errores; no se sustituirá.')
         with sqlite3.connect(respaldo) as prueba:
             videos_previos = prueba.execute('SELECT COUNT(*) FROM videos').fetchone()[0]
             frames_previos = prueba.execute('SELECT COUNT(*) FROM frame_hashes').fetchone()[0]
+            eliminados_previos = prueba.execute(
+                'SELECT COUNT(*) FROM videos_eliminados').fetchone()[0]
         if (videos_previos != conteo_backup['videos'] or
-                frames_previos != conteo_backup['frames']):
+                frames_previos != conteo_backup['frames'] or
+                eliminados_previos != conteo_backup.get('eliminados', 0)):
+
             raise RuntimeError('El respaldo descargado no coincide con su recuento; cancelado.')
 
+        informar('respaldo', 1, 1)
         conn_neon = psycopg2.connect(os.environ['NEON_DATABASE_URL'].strip(), connect_timeout=8)
         conn_neon.autocommit = False
         campos = ['clave_unica', 'ruta', 'nombre', 'duracion', 'ancho', 'alto', 'fps',
@@ -1997,17 +2059,25 @@ def reemplazar_neon_desde_sqlite(ruta_fuente: str, directorio_respaldos: str) ->
             with conn_neon.cursor() as cur:
                 cur.execute('LOCK TABLE videos IN ACCESS EXCLUSIVE MODE')
                 cur.execute('LOCK TABLE frame_hashes IN ACCESS EXCLUSIVE MODE')
+                cur.execute('LOCK TABLE videos_eliminados IN ACCESS EXCLUSIVE MODE')
                 cur.execute('SELECT COUNT(*) FROM videos')
                 resultado = cur.fetchone()
                 if resultado is None:
                     raise RuntimeError('No se pudo verificar el recuento actual de Neon. Cancelado.')
                 if int(resultado[0]) != videos_previos:
                     raise RuntimeError('Neon cambió mientras se generaba el respaldo. Cancelado.')
+                cur.execute('SELECT COUNT(*) FROM videos_eliminados')
+                previo_borrados = cur.fetchone()
+                if previo_borrados is None or int(previo_borrados[0]) != eliminados_previos:
+                    raise RuntimeError('Las eliminaciones de Neon cambiaron durante el respaldo. Cancelado.')
                 cur.execute('DELETE FROM frame_hashes')
                 cur.execute('DELETE FROM videos')
+                cur.execute('DELETE FROM videos_eliminados')
                 sql = (f'INSERT INTO videos ({", ".join(campos)}) VALUES %s RETURNING id, clave_unica')
                 viejo_a_nuevo = {}
                 cursor_sqlite = conexion_sqlite.execute('SELECT * FROM videos ORDER BY id')
+                progreso_videos = 0
+                informar('videos', 0, cantidad_origen)
                 while True:
                     lote = cursor_sqlite.fetchmany(200)
                     if not lote:
@@ -2019,8 +2089,12 @@ def reemplazar_neon_desde_sqlite(ruta_fuente: str, directorio_respaldos: str) ->
                         asignacion[clave] = new_id
                     for fila in lote:
                         viejo_a_nuevo[int(fila['id'])] = asignacion[fila['clave_unica']]
+                    progreso_videos += len(lote)
+                    informar('videos', progreso_videos, cantidad_origen)
                 cursor_frames = conexion_sqlite.execute(
                     'SELECT video_id, posicion, hash_valor FROM frame_hashes ORDER BY video_id, posicion')
+                progreso_frames = 0
+                informar('frames', 0, frames_origen)
                 while True:
                     lote = cursor_frames.fetchmany(1000)
                     if not lote:
@@ -2029,6 +2103,30 @@ def reemplazar_neon_desde_sqlite(ruta_fuente: str, directorio_respaldos: str) ->
                     psycopg2.extras.execute_values(cur,
                         'INSERT INTO frame_hashes (video_id, posicion, hash_valor) VALUES %s',
                         vals, page_size=1000)
+                    progreso_frames += len(lote)
+                    informar('frames', progreso_frames, frames_origen)
+                informar('eliminaciones', 0, eliminados_origen)
+                progreso_eliminados = 0
+                if eliminados_origen:
+                    cursor_borrados = conexion_sqlite.execute(
+                        'SELECT clave_unica, fecha_eliminacion FROM videos_eliminados '
+                        'ORDER BY clave_unica')
+                    while True:
+                        bloque_borrados = cursor_borrados.fetchmany(500)
+                        if not bloque_borrados:
+                            break
+                        psycopg2.extras.execute_values(cur,
+                            'INSERT INTO videos_eliminados '
+                            '(clave_unica, fecha_eliminacion) VALUES %s',
+                            [(r['clave_unica'], r['fecha_eliminacion'])
+                             for r in bloque_borrados], page_size=500)
+                        progreso_eliminados += len(bloque_borrados)
+                        informar('eliminaciones', progreso_eliminados, eliminados_origen)
+                informar('verificacion', 0, 1)
+                cur.execute('SELECT COUNT(*) FROM videos_eliminados')
+                comprobacion_borrados = cur.fetchone()
+                if comprobacion_borrados is None or comprobacion_borrados[0] != eliminados_origen:
+                    raise RuntimeError('Conteo de eliminaciones no coincide; rollback.')
                 cur.execute('SELECT COUNT(*) FROM videos')
                 resultado = cur.fetchone()
                 if resultado is None or resultado[0] != cantidad_origen:
@@ -2037,11 +2135,14 @@ def reemplazar_neon_desde_sqlite(ruta_fuente: str, directorio_respaldos: str) ->
                 resultado = cur.fetchone()
                 if resultado is None or resultado[0] != frames_origen:
                     raise RuntimeError('Conteo de frames restaurados no coincide; rollback.')
+            # La etapa de verificación sólo termina después del COMMIT real.
             conn_neon.commit()
+            informar('verificacion', 1, 1)
         except BaseException:
             conn_neon.rollback()
             raise
         return {'videos': cantidad_origen, 'frames': frames_origen,
+                'eliminados': eliminados_origen,
                 'videos_previos': videos_previos, 'respaldo_previo': str(respaldo)}
     finally:
         conexion_sqlite.close()

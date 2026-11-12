@@ -35,7 +35,7 @@ from dataclasses import asdict
 from datetime import datetime, timezone, timedelta
 ZONA_MEXICO = timezone(timedelta(hours=-6))
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from .comparator import ResultadoComparacion
 
@@ -1013,6 +1013,73 @@ def imprimir_resumen_escaneo(
 
 
 # ============================================================================
+# Progreso multipropósito para operaciones que informan (fase, completado, total)
+# ============================================================================
+class ProgresoTareas:
+    """Barras Rich por tarea, o avance de texto sin etiquetas de marcado.
+
+    En modo no interactivo se reducen las emisiones para no inundar logs.
+    No registra ni modifica datos y siempre cierra el renderizador.
+    """
+    def __init__(self, tareas):
+        self._tareas = tuple(tareas)
+        self._progress = None
+        self._ids = {}
+        self._anterior = {}
+        self._descripcion = {clave: desc for clave, desc in self._tareas}
+
+    def __enter__(self):
+        try:
+            from rich.progress import (Progress, SpinnerColumn, TextColumn,
+                                       BarColumn, MofNCompleteColumn, TimeElapsedColumn)
+        except ImportError:
+            self._progress = None
+        else:
+            if CONSOLA is not None:
+                self._progress = Progress(
+                    SpinnerColumn(), TextColumn('[cyan]{task.description}'),
+                    BarColumn(bar_width=22), MofNCompleteColumn(),
+                    TextColumn('[gold1]{task.percentage:>3.0f}%'),
+                    TimeElapsedColumn(), console=CONSOLA, transient=False,
+                    refresh_per_second=5)
+                self._progress.start()
+                for clave, desc in self._tareas:
+                    self._ids[clave] = self._progress.add_task(desc, total=1, completed=0)
+        if self._progress is None:
+            print('Progreso de la operación:', flush=True)
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        if self._progress is not None:
+            self._progress.stop()
+        return False
+
+    def actualizar(self, etapa, actual, total, detalle=''):
+        if etapa not in self._descripcion:
+            return
+        actual, total = max(0, int(actual)), max(0, int(total))
+        completados = min(actual, total)
+        titulo = self._descripcion[etapa]
+        if detalle:
+            detalle = str(detalle).replace('\r',' ').replace('\n',' ')
+            if len(detalle) > 55:
+                detalle = detalle[:52] + '...'
+            titulo = f'{titulo} · {rich_escape(detalle)}'
+        if self._progress is not None:
+            self._progress.update(self._ids[etapa], description=titulo,
+                                  total=max(1,total),
+                                  completed=(1 if total == 0 and actual == 0 else completados))
+            return
+        # En logs simples, imprimir solo en hitos de 10%, con progreso verdadero.
+        pct = int(100 * completados / max(1, total)) if total else 100
+        franja = pct // 10
+        anterior = self._anterior.get(etapa)
+        if anterior != (total, franja):
+            print(f'  {self._descripcion[etapa]}: {completados:,}/{total:,} ({pct}%)', flush=True)
+            self._anterior[etapa] = (total, franja)
+
+
+# ============================================================================
 # Barra de progreso (comparación de pares)
 # ============================================================================
 class BarraProgreso:
@@ -1519,3 +1586,229 @@ def _mostrar_desglose_estadisticas(dispositivos: List[Dict[str, Any]]) -> None:
                       f'SHA256 {carpeta["con_sha256"]:,}; visual {carpeta["con_huella_visual"]:,}; '
                       f'audio {carpeta.get("con_huella_audio", 0):,}')
         print()
+
+
+# ============================================================================
+# Barra de progreso (sincronización con la nube)
+# ============================================================================
+class BarraSincronizacion:
+    """Panel de progreso para la sincronización entre la base local y la nube.
+
+    Subir y bajar son acciones distintas, por eso cada dirección tiene su
+    propia instancia con su propio total, su propio contador y su propia
+    velocidad en MB/s. El diseño (panel multilínea redibujable, bloques
+    █/░, colores y ETA) es el mismo que el de BarraProgreso para que no
+    desentone con el resto de la herramienta.
+
+    En terminales no interactivos no se emiten secuencias ANSI: se escribe
+    una línea de resumen cada 10 % para no ensuciar los registros.
+    """
+
+    ETIQUETAS = {
+        'subida': 'SUBIDA A LA NUBE',
+        'bajada': 'BAJADA DESDE LA NUBE',
+    }
+
+    def __init__(self, direccion: str = 'subida', ancho: int = 32):
+        self.direccion = direccion
+        self.ancho = max(10, int(ancho))
+        self._stream = sys.stderr
+        self._activo = bool(getattr(self._stream, 'isatty', lambda: False)())
+        self._usar_color = self._activo and os.environ.get('NO_COLOR') is None
+        self._inicio = time.monotonic()
+        self._ultimo_momento = 0.0
+        self._terminada = False
+        self._panel_activo = False
+        self._lineas_dibujadas = 0
+        self._lock = threading.RLock()
+        self._estado = {
+            'actual': 0.0,
+            'total': 1,
+            'bytes': 0,
+            'fase': '',
+        }
+        self._ultimo_decimil_log = -1
+        self._console = (
+            Console(file=self._stream, highlight=False)
+            if TIENE_RICH and Console is not None
+            else None
+        )
+
+    @staticmethod
+    def _acortar(texto: str, limite: int) -> str:
+        texto = str(texto or '').replace('\r', ' ').replace('\n', ' ').strip()
+        if limite <= 0:
+            return ''
+        if len(texto) <= limite:
+            return texto
+        if limite <= 3:
+            return texto[:limite]
+        return texto[:limite - 3] + '...'
+
+    def _colores_ansi(self) -> Dict[str, str]:
+        if not self._usar_color:
+            return {k: '' for k in ('reset', 'bold', 'red', 'yellow', 'green', 'cyan', 'grey', 'magenta')}
+        return {
+            'reset': '\033[0m', 'bold': '\033[1m',
+            'red': '\033[91m', 'yellow': '\033[93m',
+            'green': '\033[92m', 'cyan': '\033[96m',
+            'grey': '\033[90m', 'magenta': '\033[95m',
+        }
+
+    def _velocidad_mb_s(self, transcurrido: float) -> float:
+        bytes_movidos = max(0, int(self._estado.get('bytes') or 0))
+        if transcurrido <= 0:
+            return 0.0
+        # Se usa una ventana mínima de medio segundo: si no, el primer
+        # dibujado reportaría velocidades absurdas (miles de MB/s) porque
+        # apenas han pasado unos milisegundos desde el arranque.
+        ventana = max(transcurrido, 0.5)
+        return (bytes_movidos / ventana) / (1024 * 1024)
+
+    def _construir_lineas(self) -> tuple[List[str], List[str]]:
+        estado = self._estado
+        total = max(1, int(estado['total']))
+        actual = max(0.0, min(float(estado['actual']), float(total)))
+        fraccion = max(0.0, min(1.0, actual / total))
+        llenos = min(self.ancho, int(self.ancho * fraccion))
+        vacios = self.ancho - llenos
+        transcurrido = max(1e-6, time.monotonic() - self._inicio)
+        eta = transcurrido * (1.0 - fraccion) / fraccion if fraccion > 0 else 0.0
+        eta_texto = _fmt_seg(eta) if fraccion > 0 else 'calculando'
+        mb_s = self._velocidad_mb_s(transcurrido)
+        bytes_txt = _fmt_bytes(max(0, int(estado.get('bytes') or 0)))
+        par_texto = f'{min(int(actual), total):,}/{total:,}'
+        titulo = self.ETIQUETAS.get(self.direccion, self.direccion.upper())
+        fase = self._acortar(estado.get('fase') or 'Preparando…', 70)
+
+        rich = [
+            f'[bold dodger_blue2]SINCRONIZACIÓN · {titulo}[/] '
+            f'[bright_cyan]• Operaciones: {par_texto}[/]',
+            f'[spring_green2]{"█" * llenos}[/]'
+            f'[grey50]{"░" * vacios}[/] '
+            f'[bold gold1]{fraccion:5.1%}[/]  '
+            f'[white]Datos: {bytes_txt}[/]  '
+            f'[turquoise2]{mb_s:6.2f} MB/s[/]  '
+            f'[magenta]ETA: {eta_texto}[/]',
+            f'[cyan]Fase:[/] [white]{rich_escape(fase)}[/]',
+        ]
+
+        c = self._colores_ansi()
+        ansi = [
+            f"{c['bold']}{c['cyan']}SINCRONIZACIÓN · {titulo}{c['reset']} "
+            f"{c['cyan']}• Operaciones: {par_texto}{c['reset']}",
+            f"{c['green']}{'█' * llenos}{c['grey']}{'░' * vacios}{c['reset']} "
+            f"{c['bold']}{c['yellow']}{fraccion:5.1%}{c['reset']}  "
+            f"Datos: {bytes_txt}  {c['cyan']}{mb_s:6.2f} MB/s{c['reset']}  "
+            f"{c['magenta']}ETA: {eta_texto}{c['reset']}",
+            f"{c['cyan']}Fase:{c['reset']} {fase}",
+        ]
+        return rich, ansi
+
+    def _escribir_linea(self, rich: str, ansi: str) -> None:
+        if self._console is not None:
+            self._console.print(rich, end='', no_wrap=True, crop=True)
+        else:
+            self._stream.write(ansi)
+
+    def _dibujar_locked(self) -> None:
+        if not self._activo or self._terminada:
+            return
+
+        rich, ansi = self._construir_lineas()
+        anteriores = self._lineas_dibujadas
+        if self._panel_activo and anteriores:
+            if anteriores > 1:
+                self._stream.write(f'\033[{anteriores - 1}A\r')
+            else:
+                self._stream.write('\r')
+        else:
+            self._stream.write('\r')
+
+        total_lineas = len(rich)
+        for indice, (linea_rich, linea_ansi) in enumerate(zip(rich, ansi)):
+            self._stream.write('\033[2K')
+            self._escribir_linea(linea_rich, linea_ansi)
+            if indice < total_lineas - 1:
+                self._stream.write('\n')
+
+        if anteriores > total_lineas:
+            diferencia = anteriores - total_lineas
+            for _ in range(diferencia):
+                self._stream.write('\n\033[2K')
+            self._stream.write(f'\033[{diferencia}A')
+
+        self._stream.flush()
+        self._panel_activo = True
+        self._lineas_dibujadas = total_lineas
+
+    def _limpiar_locked(self) -> None:
+        if self._activo and self._panel_activo and self._lineas_dibujadas > 0:
+            for _ in range(self._lineas_dibujadas - 1):
+                self._stream.write('\r\033[2K\033[1A')
+            self._stream.write('\r\033[2K')
+            self._stream.flush()
+        self._panel_activo = False
+        self._lineas_dibujadas = 0
+
+    def actualizar(
+        self,
+        actual: float,
+        total: int,
+        bytes_movidos: int = 0,
+        fase: str = '',
+    ) -> None:
+        """Actualiza el panel. `bytes_movidos` son los bytes acumulados."""
+        with self._lock:
+            total_real = max(1, int(total))
+            self._estado.update(
+                actual=max(0.0, float(actual)),
+                total=total_real,
+                bytes=max(0, int(bytes_movidos or 0)),
+                fase=fase or self._estado.get('fase', ''),
+            )
+            if self._terminada:
+                return
+
+            ahora = time.monotonic()
+            fraccion = min(1.0, max(0.0, float(actual) / total_real))
+
+            if not self._activo:
+                # Registro plano: una línea por cada 10 % completado.
+                decimil = int(fraccion * 10)
+                if decimil > self._ultimo_decimil_log or fraccion >= 1.0:
+                    self._ultimo_decimil_log = decimil
+                    titulo = self.ETIQUETAS.get(self.direccion, self.direccion.upper())
+                    transcurrido = max(1e-6, ahora - self._inicio)
+                    mb_s = self._velocidad_mb_s(transcurrido)
+                    print(
+                        f'  {titulo}: {int(actual):,}/{total_real:,} ({fraccion * 100:.1f} %)'
+                        f' | {mb_s:.2f} MB/s'
+                        f' | {self._estado.get("fase") or ""}',
+                        flush=True,
+                    )
+                return
+
+            if fraccion < 1.0 and ahora - self._ultimo_momento < 0.10:
+                return
+            self._ultimo_momento = ahora
+            self._dibujar_locked()
+
+    def mostrar_mensaje(self, lineas_rich: List[str], lineas_ansi: List[str]) -> None:
+        """Imprime un aviso fuera del panel y restaura la barra debajo."""
+        with self._lock:
+            self._limpiar_locked()
+            for indice, linea in enumerate(lineas_rich):
+                fallback = lineas_ansi[indice] if indice < len(lineas_ansi) else linea
+                if self._console is not None:
+                    self._console.print(linea)
+                else:
+                    self._stream.write(fallback + '\n')
+            self._stream.flush()
+            self._dibujar_locked()
+
+    def cerrar(self) -> None:
+        """Elimina el panel de la pantalla dejando el resumen en el log."""
+        with self._lock:
+            self._terminada = True
+            self._limpiar_locked()

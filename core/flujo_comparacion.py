@@ -252,20 +252,20 @@ def cmd_comparar(args: argparse.Namespace) -> int:
 
     notificar_inicio('Comparar bases de datos', f'Base principal: {args.db}')
 
-    if not _usa_neon() and not Path(args.db).is_file():
+    if args.db != 'neon_cloud' and not Path(args.db).is_file():
         imprimir(f'[red][ERROR] No existe la base de datos: {args.db}[/]')
         return 1
 
     solo_sha256 = bool(getattr(args, 'solo_sha256', False))
     if solo_sha256:
         # Ruta ligera: no consultar frame_hashes ni abrir vídeos físicos.
-        videos = _cargar_registros_para_sha256(args.db, neon=_usa_neon())
+        videos = _cargar_registros_para_sha256(args.db, neon=(args.db == 'neon_cloud'))
         for adicional in (args.db_extra or []):
             registros = _cargar_registros_para_sha256(adicional)
             videos.extend(registros)
             imprimir(f'[cyan]{adicional}: {len(registros)} registros cargados (solo metadatos).[/]')
     else:
-        es_json_principal = not _usa_neon() and Path(args.db).suffix.lower() == '.json'
+        es_json_principal = args.db != 'neon_cloud' and Path(args.db).suffix.lower() == '.json'
         conn = conectar(':memory:' if es_json_principal else args.db)
         try:
             if es_json_principal:
@@ -477,16 +477,13 @@ def comparar_interactivo(db_defecto: str) -> str:
         if opcion in ('00', '0'):
             return db_defecto
             
-        if _usa_neon():
-            db = 'neon_cloud'
-        else:
-            db = elegir_archivo_reciente(
-                'Base principal SQLite o JSON de huellas',
-                ['*.db', '*.json'],
-                ['respaldos/db', 'exportaciones/json'],
-                defecto=db_defecto,
-            )
-            
+        db = elegir_archivo_reciente(
+            'Base principal SQLite o JSON de huellas',
+            ['*.db', '*.json'],
+            ['respaldos/db', 'exportaciones/json'],
+            defecto=db_defecto,
+        )
+        
         extras: List[str] = []
         if opcion == '2':
             while True:

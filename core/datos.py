@@ -102,9 +102,9 @@ def _tiene_huella_completa(conn, rr: str) -> bool:
     Compara normalizando separadores de ruta (\\ vs /) para evitar que
     diferencias entre Windows y Linux/Android provoquen re-procesamientos.
     """
-    from core.database import _usa_neon
+    from core.database import _es_pg
     rr_norm = rr.replace('\\', '/')
-    if _usa_neon():
+    if _es_pg(conn):
         import psycopg2.extras
         with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
             cur.execute(
@@ -168,12 +168,12 @@ def _cargar_hashes_previos(videos: List[Path], db: str) -> Dict[str, dict]:
 
 def _consultar_hashes_previos(videos: List[Path], db: str) -> Dict[str, dict]:
     """Consulta el SHA256 ya guardado por ruta."""
-    from core.database import _usa_neon, cerrar, conectar
+    from core.database import _es_pg, cerrar, conectar
 
     previos: Dict[str, dict] = {}
     conn = conectar(db)
     try:
-        if _usa_neon():
+        if _es_pg(conn):
             import psycopg2.extras
             with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
                 for ruta in videos:
@@ -203,7 +203,7 @@ def _consultar_hashes_previos(videos: List[Path], db: str) -> Dict[str, dict]:
 def cmd_exportar(args: argparse.Namespace) -> int:
     from core.database import _usa_neon, cerrar, conectar, exportar_json, exportar_txt
     notificar_inicio('Exportar base de datos', f'Base: {args.db}')
-    if not _usa_neon() and not Path(args.db).is_file():
+    if args.db != 'neon_cloud' and not Path(args.db).is_file():
         imprimir(f'[red][ERROR] No existe la base de datos: {args.db}[/]')
         return 1
     conn = conectar(args.db)
@@ -260,42 +260,40 @@ def cmd_descargar_neon(args: argparse.Namespace) -> int:
     imprimir(f'[cyan]Registros a descargar: {total}[/]')
 
     inicio = time.monotonic()
-    ultimo_aviso = [0.0]
-
-    def progreso(hechos, total_v, errores):
-        ahora = time.monotonic()
-        if ahora - ultimo_aviso[0] < 1.0 and hechos < total_v:
-            return
-        ultimo_aviso[0] = ahora
-        pct = (hechos / total_v) * 100 if total_v else 0
-        sys.stdout.write(f'\r Progreso: {hechos}/{total_v} ({pct:5.1f}%) | errores: {errores}')
-        sys.stdout.flush()
-
-    conteo = volcar_todo_a_sqlite(ruta_destino, lote=200, progreso=progreso)
-    print()
+    from core.reporter import ProgresoTareas
+    with ProgresoTareas([('descarga', 'Descargando respaldo Neon → SQLite')]) as barra:
+        def progreso(hechos, total_v, errores):
+            barra.actualizar('descarga', hechos, total_v)
+        conteo = volcar_todo_a_sqlite(ruta_destino, lote=200, progreso=progreso)
     tiempo = time.monotonic() - inicio
 
-    imprimir(f'[spring_green2]Respaldo guardado en: {ruta_destino}[/]')
+    ok = (conteo['videos'] == total and conteo['lotes_fallidos'] == 0
+          and conteo['errores'] == 0)
+    if ok:
+        imprimir(f'[spring_green2]Respaldo guardado en: {rich_escape(str(ruta_destino))}[/]')
+    else:
+        imprimir(f'[bold red]RESPALDO INCOMPLETO: {rich_escape(str(ruta_destino))} '
+                 '— no utilizarlo como copia íntegra.[/]')
     imprimir(f'[cyan]Vídeos copiados : {conteo["videos"]} / {total}[/]')
     imprimir(f'[cyan]Frames copiados : {conteo["frames"]}[/]')
     imprimir(f'[cyan]Errores         : {conteo["errores"]}[/]')
     imprimir(f'[cyan]Lotes fallidos  : {conteo["lotes_fallidos"]}[/]')
     imprimir(f'[cyan]Tiempo          : {tiempo:.1f} s[/]')
 
-    ok = conteo['videos'] == total and conteo['lotes_fallidos'] == 0
     notificar_fin('Descargar respaldo Neon', ok, f'{conteo["videos"]}/{total} vídeos')
     return 0 if ok else 2
 
 def cmd_stats(args: argparse.Namespace) -> int:
     from core.database import (
-        _usa_neon, cerrar, conectar, estadisticas,
+        cerrar, conectar, conectar_neon_solo_lectura, estadisticas,
         estadisticas_por_dispositivo, describir_conexion,
     )
-    if not _usa_neon() and not Path(args.db).is_file():
+    if args.db != 'neon_cloud' and not Path(args.db).is_file():
         imprimir(f'[red][ERROR] La base de datos no existe: {rich_escape(str(args.db))}[/]')
         return 1
 
-    conn = conectar(args.db)
+    conn = (conectar_neon_solo_lectura() if args.db == 'neon_cloud'
+            else conectar(args.db))
     try:
         datos = estadisticas(conn)
         desglose = estadisticas_por_dispositivo(conn)
@@ -317,9 +315,12 @@ def cmd_stats(args: argparse.Namespace) -> int:
         tabla = Table(title='Estadísticas generales', box=rich_box.ROUNDED, border_style='cyan')
         tabla.add_column('Campo', style='deep_sky_blue1')
         tabla.add_column('Valor', style='white')
-        tabla.add_row('Modo conexión', describir_conexion())
-        tabla.add_row('Ruta de la BD', 'Neon PostgreSQL (Nube)' if _usa_neon() else rich_escape(str(args.db)))
+        tabla.add_row('Modo conexión', 'Neon · solo lectura' if args.db == 'neon_cloud'
+                      else 'SQLite · base local seleccionada')
+        tabla.add_row('Ruta de la BD', 'Neon PostgreSQL (Nube)' if args.db == 'neon_cloud' else rich_escape(str(args.db)))
         tabla.add_row('Vídeos totales', f'{datos["total_videos"]:,}')
+        tabla.add_row('Huellas visuales (frames)', f'{datos["total_frames"]:,}')
+        tabla.add_row('Marcas de eliminación', f'{datos["total_eliminaciones"]:,}')
         tabla.add_row('Procesados sin error', f'{datos["con_huella"]:,}')
         tabla.add_row('Con SHA256', f'{total_sha256:,}')
         tabla.add_row('Con huella visual', f'{total_visual:,}')
@@ -331,9 +332,11 @@ def cmd_stats(args: argparse.Namespace) -> int:
         CONSOLA.print(tabla)
     else:
         print()
-        print(f' Modo de conexión : {describir_conexion()}')
-        print(f' Ruta de la BD    : {"Neon PostgreSQL (Nube)" if _usa_neon() else args.db}')
+        print(f' Modo de conexión : {"Neon · solo lectura" if args.db == "neon_cloud" else describir_conexion()}')
+        print(f' Ruta de la BD    : {str(args.db)}')
         print(f' Vídeos totales   : {datos["total_videos"]:,}')
+        print(f' Frames totales   : {datos["total_frames"]:,}')
+        print(f' Eliminaciones    : {datos["total_eliminaciones"]:,}')
         print(f' Sin error        : {datos["con_huella"]:,}')
         print(f' Con SHA256       : {total_sha256:,}')
         print(f' Con huella visual: {total_visual:,}')
@@ -365,7 +368,7 @@ def cmd_stats(args: argparse.Namespace) -> int:
 
 def cmd_limpiar(args: argparse.Namespace) -> int:
     from core.database import _usa_neon, cerrar, conectar, eliminar_por_ruta, _es_pg
-    if not _usa_neon() and not Path(args.db).is_file():
+    if args.db != 'neon_cloud' and not Path(args.db).is_file():
         imprimir(f'[red][ERROR] La base de datos no existe: {args.db}[/]')
         return 1
     ruta = str(Path(args.ruta).expanduser().resolve())
@@ -434,7 +437,7 @@ def cmd_limpiar(args: argparse.Namespace) -> int:
 
 def cmd_eliminar_por_dispositivo(args: argparse.Namespace) -> int:
     from core.database import _usa_neon, cerrar, conectar, eliminar_por_dispositivo_id, estadisticas, _es_pg
-    if not _usa_neon() and not Path(args.db).is_file():
+    if args.db != 'neon_cloud' and not Path(args.db).is_file():
         imprimir(f'[red][ERROR] La base de datos no existe: {args.db}[/]')
         return 1
     conn = conectar(args.db)

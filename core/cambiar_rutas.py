@@ -105,6 +105,12 @@ def ejecutar(conn, dispositivo_id: str, dispositivo: str, origen: str, destino: 
             for p in plan:
                 if actuales.get(p['id']) != (p['anterior'],p['clave_anterior']):
                     raise RuntimeError('La base cambió desde el respaldo; operación cancelada.')
+            # Las claves antiguas no deben resucitar al descargar de Neon.
+            # La marca queda en la misma transacción que el cambio de ruta.
+            from core.sincronizacion import registrar_eliminacion
+            for p in plan:
+                if p['clave_anterior'] != p['clave_nueva']:
+                    registrar_eliminacion(conn, p['clave_anterior'], confirmar=False)
             # Utiliza claves temporales en fase 1 para tolerar intercambios de rutas.
             # No se altera ni nombre ni identidad, huellas o referencias a frames.
             for i,p in enumerate(plan,1):

@@ -92,6 +92,8 @@ class VideoFingerprint:
     bitrate_video_kbps: float = 0.0
     dispositivo: str = ''
     dispositivo_id: str = ''
+    # Detalle técnico literal (stderr de ffmpeg/ffprobe) para diagnósticos.
+    detalle_tecnico: str = ''
 
 
 class ProcesamientoCancelado(Exception):
@@ -193,8 +195,16 @@ def _ejecutar_con_cancelacion(
 # ============================================================================
 # FFprobe
 # ============================================================================
-def ffprobe_info(ruta: Path, cancelar: Optional[threading.Event] = None) -> dict:
-    """Obtiene metadatos de video mediante ffprobe."""
+def ffprobe_info(
+    ruta: Path,
+    cancelar: Optional[threading.Event] = None,
+    detalle: Optional[List[str]] = None,
+) -> dict:
+    """Obtiene metadatos de video mediante ffprobe.
+
+    Si se entrega la lista `detalle`, se guardan ahí los errores literales
+    que reporta ffprobe para poder mostrarlos después.
+    """
     _verificar_cancelacion(cancelar)
     cmd = [
         'ffprobe', '-v', 'error', '-print_format', 'json',
@@ -206,13 +216,36 @@ def ffprobe_info(ruta: Path, cancelar: Optional[threading.Event] = None) -> dict
         if resultado is None:
             raise ProcesamientoCancelado('Interrumpido por el usuario')
         if resultado.returncode != 0 or not resultado.stdout.strip():
+            if detalle is not None:
+                stderr = (resultado.stderr or '').strip()
+                detalle.append(
+                    stderr or f'ffprobe terminó con código {resultado.returncode} '
+                             f'sin producir salida.'
+                )
             return {}
-        return json.loads(resultado.stdout)
-    except (OSError, subprocess.TimeoutExpired, json.JSONDecodeError, ProcesamientoCancelado):
+        try:
+            return json.loads(resultado.stdout)
+        except json.JSONDecodeError as exc:
+            if detalle is not None:
+                detalle.append(f'ffprobe devolvió una respuesta ilegible: {exc}')
+            return {}
+    except ProcesamientoCancelado:
+        raise
+    except subprocess.TimeoutExpired:
+        if detalle is not None:
+            detalle.append('ffprobe agotó el tiempo de espera (30 s).')
+        return {}
+    except (OSError, json.JSONDecodeError):
+        if detalle is not None:
+            detalle.append('No se pudo ejecutar ffprobe sobre el archivo.')
         return {}
 
 
-def _es_video_valido(ruta: Path, cancelar=None) -> Tuple[bool, str]:
+def _es_video_valido(
+    ruta: Path,
+    cancelar=None,
+    detalle: Optional[List[str]] = None,
+) -> Tuple[bool, str]:
     """Verificación rápida con ffprobe."""
     try:
         resultado = _ejecutar_con_cancelacion(
@@ -228,11 +261,21 @@ def _es_video_valido(ruta: Path, cancelar=None) -> Tuple[bool, str]:
             capturar_salida=True,
         )
     except subprocess.TimeoutExpired:
+        if detalle is not None:
+            detalle.append(
+                'ffprobe agotó el tiempo de espera (15 s): el archivo podría '
+                'estar dañado o en un disco lento.'
+            )
         return False, 'ffprobe agotó el tiempo (archivo posiblemente dañado)'
     if resultado is None:
         return False, 'ffprobe cancelado'
     if resultado.returncode != 0:
-        return False, f'ffprobe falló: {resultado.stderr.strip()[:150]}'
+        stderr = (resultado.stderr or '').strip()
+        if detalle is not None:
+            detalle.append(
+                stderr or f'ffprobe terminó con código {resultado.returncode}.'
+            )
+        return False, f'ffprobe falló: {stderr[:150]}'
     return True, ''
 
 
@@ -509,6 +552,33 @@ def _avisar_fallback(
     _avisar(f'    Probando: {sig}')
 
 
+def _registrar_detalle_ffmpeg(
+    detalle: List[str],
+    modo_acel: str,
+    con_hwdownload: bool,
+    stderr_texto: str,
+    codigo: Optional[int],
+) -> None:
+    """Guarda la salida de error literal de FFmpeg de un intento.
+
+    Se conserva el texto tal cual lo emitió FFmpeg (con su nivel de error y
+    el nombre de la pista) para que el usuario pueda ver exactamente qué
+    ocurrió, en lugar de un resumen genérico.
+    """
+    metodo = _etiqueta_intento(modo_acel, con_hwdownload)
+    texto = (stderr_texto or '').strip()
+
+    if texto:
+        detalle.append(f'--- FFmpeg ({metodo}) ---')
+        detalle.append(f'Código de salida: {codigo if codigo is not None else "desconocido"}')
+        detalle.append('Salida de error de FFmpeg:')
+        detalle.extend(texto.splitlines())
+    else:
+        detalle.append(f'--- FFmpeg ({metodo}) ---')
+        detalle.append(f'Código de salida: {codigo if codigo is not None else "desconocido"}')
+        detalle.append('FFmpeg no produjo ninguna salida de error.')
+
+
 # ============================================================================
 # Extracción de frames
 # ============================================================================
@@ -522,12 +592,16 @@ def _extraer_frames_ffmpeg(
     hilos_ffmpeg: int,
     aceleracion: str,
     codec_video: str = '',
+    detalle: Optional[List[str]] = None,
 ) -> Tuple[bool, str, str]:
     """Ejecuta FFmpeg para extraer frames muestreados.
 
     La cascada de intentos se construye en _intentos_cascada().
     Si un método no reporta avance real de tiempo en 30 s, se aborta y
     se prueba el siguiente.
+
+    Si se entrega la lista `detalle`, se guarda en ella la salida de error
+    literal de FFmpeg de cada intento, para poder mostrarla tal cual.
     """
     import queue
 
@@ -710,6 +784,15 @@ def _extraer_frames_ffmpeg(
                 except (OSError, ValueError):
                     stderr_texto = ''
 
+            if detalle is not None:
+                _registrar_detalle_ffmpeg(
+                    detalle,
+                    modo_acel=modo_acel,
+                    con_hwdownload=con_hwdownload,
+                    stderr_texto=stderr_texto,
+                    codigo=proceso.returncode,
+                )
+
             if motivo_aborto:
                 if proceso.poll() is None:
                     _terminar_proceso(proceso)
@@ -719,9 +802,9 @@ def _extraer_frames_ffmpeg(
                 return False, modo_acel, ultimo_error
 
             if proceso.returncode != 0 and not primera_linea_vista:
-                detalle = stderr_texto.strip().splitlines()
-                if detalle:
-                    ultimo_error = f'[{modo_acel}] {detalle[-1][:200]}'
+                lineas_error = stderr_texto.strip().splitlines()
+                if lineas_error:
+                    ultimo_error = f'[{modo_acel}] {lineas_error[-1][:200]}'
                 else:
                     ultimo_error = (
                         f'FFmpeg terminó con código {proceso.returncode} '
@@ -761,12 +844,16 @@ def extraer_frame_hashes(
     hilos_ffmpeg: int = 2,
     aceleracion: str = 'auto',
     codec_video: str = '',
+    detalle: Optional[List[str]] = None,
 ) -> Tuple[List[str], str, str]:
     """Extrae frames periódicamente con FFmpeg y calcula su pHash.
 
     Retorna: (hashes, metodo_usado, error_detalle)
     Si un cuadro no se puede calcular, error_detalle guarda la primera
     excepción para que el motivo aparezca en la tabla de errores.
+
+    Si se entrega la lista `detalle`, se guarda en ella la salida literal
+    de FFmpeg para poder mostrarla al usuario.
     """
     if duracion <= 0 or intervalo <= 0 or not math.isfinite(intervalo):
         return [], 'software', 'Duración o intervalo no válidos'
@@ -788,6 +875,7 @@ def extraer_frame_hashes(
             hilos_ffmpeg=hilos_ffmpeg,
             aceleracion=aceleracion,
             codec_video=codec_video,
+            detalle=detalle,
         )
 
         _verificar_cancelacion(cancelar)
@@ -974,6 +1062,7 @@ def generar_fingerprint(
     from .database import info_dispositivo_actual
     info_disp = info_dispositivo_actual()
     ruta = Path(ruta_str)
+    detalle_tecnico: List[str] = []
 
     def error(mensaje: str, acel: str = 'software') -> VideoFingerprint:
         return VideoFingerprint(
@@ -984,6 +1073,7 @@ def generar_fingerprint(
             metodo_acel=acel, error=mensaje,
             dispositivo=info_disp['dispositivo'],
             dispositivo_id=info_disp['dispositivo_id'],
+            detalle_tecnico='\n'.join(detalle_tecnico),
         )
 
     if intervalo <= 0 or not math.isfinite(intervalo):
@@ -1008,11 +1098,11 @@ def generar_fingerprint(
         if not ruta.is_file():
             return error('La ruta no es un archivo')
 
-        valido, razon = _es_video_valido(ruta, cancelar=cancelar)
+        valido, razon = _es_video_valido(ruta, cancelar=cancelar, detalle=detalle_tecnico)
         if not valido:
             return error(f'Archivo no válido: {razon}')
 
-        info = ffprobe_info(ruta, cancelar=cancelar)
+        info = ffprobe_info(ruta, cancelar=cancelar, detalle=detalle_tecnico)
         _verificar_cancelacion(cancelar)
         if not info:
             return error('No se pudieron leer metadatos con ffprobe')
@@ -1090,6 +1180,7 @@ def generar_fingerprint(
             hilos_ffmpeg=hilos_ffmpeg,
             aceleracion=aceleracion,
             codec_video=codec_video,
+            detalle=detalle_tecnico,
         )
 
         _verificar_cancelacion(cancelar)
@@ -1101,9 +1192,9 @@ def generar_fingerprint(
             )
 
         if not any(valor != '!' for valor in frame_hashes):
-            detalle = f': {err_extraccion}' if err_extraccion else ''
+            detalle_msg = f': {err_extraccion}' if err_extraccion else ''
             return error(
-                f'No se pudieron calcular hashes visuales{detalle}',
+                f'No se pudieron calcular hashes visuales{detalle_msg}',
                 acel=metodo_usado,
             )
 
@@ -1220,7 +1311,11 @@ def _trabajo_fingerprint(ruta: Path, intervalo: float, dashboard: Any,
             medicion.error = fp.error
             medidor_recursos.finalizar_medicion(medicion, completado=False)
         dashboard.actualizar_worker(tid, f'{nombre[:35]} ERROR: {fp.error}')
-        return ruta, {'estado': 'error', 'error': fp.error, 'tiempo': time.monotonic() - inicio, 'medicion': medicion}
+        return ruta, {
+            'estado': 'error', 'error': fp.error,
+            'detalle': fp.detalle_tecnico,
+            'tiempo': time.monotonic() - inicio, 'medicion': medicion,
+        }
 
     tiempo = time.monotonic() - inicio
     if medicion is not None and medidor_recursos is not None:

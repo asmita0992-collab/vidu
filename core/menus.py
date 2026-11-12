@@ -91,8 +91,8 @@ def _cabecera_submenu(titulo: str) -> None:
         CONSOLA.print()
         CONSOLA.print(Panel.fit(
             f'[bold bright_white]{titulo}[/]\n'
-            f'[deep_sky_blue1]Dispositivo:[/] [spring_green2]{info["dispositivo"]}[/]  [grey37](ID {info["dispositivo_id"]})[/]\n'
-            f'[deep_sky_blue1]Plataforma :[/] [turquoise2]{info["plataforma"]}[/] ({info["maquina"]})\n'
+            f'[deep_sky_blue1]Dispositivo:[/] [spring_green2]{rich_escape(str(info["dispositivo"]))}[/]  [grey37](ID {info["dispositivo_id"]})[/]\n'
+            f'[deep_sky_blue1]Plataforma :[/] [turquoise2]{rich_escape(str(info["plataforma"]))}[/] ({rich_escape(str(info["maquina"]))})\n'
             f'[deep_sky_blue1]Conexión   :[/] [gold1]{describir_conexion()}[/]\n'
             f'[deep_sky_blue1]Telegram   :[/] {"[spring_green2]activo[/]" if telegram_configurado() else "[orange3]desactivado[/]"}',
             title=f'[bold plum1]VIDUP[/] [bold gold1]v{__version__}[/]',
@@ -106,6 +106,23 @@ def _cabecera_submenu(titulo: str) -> None:
         print(f'Plataforma : {info["plataforma"]} ({info["maquina"]})')
         print(f'Conexión   : {describir_conexion()}')
         print(f'Telegram   : {"activo" if telegram_configurado() else "desactivado"}')
+
+
+def _mostrar_menu_opciones(opciones: Sequence[tuple[str, str]], peligrosas=()) -> None:
+    """Menú con tabla Rich y alternativa ANSI, sin interpretar texto ajeno."""
+    if CONSOLA is not None and Table is not None and rich_box is not None:
+        t = Table(box=rich_box.ROUNDED, border_style='bright_cyan', show_header=False,
+                  padding=(0, 1), expand=False)
+        t.add_column('Nº', width=4, style='bold gold1', justify='right')
+        t.add_column('Acción', style='bright_white')
+        for n, etiqueta in opciones:
+            t.add_row(f'[bold red]{n}[/]' if n in peligrosas else n,
+                      f'[red]{rich_escape(etiqueta)}[/]' if n in peligrosas else rich_escape(etiqueta))
+        CONSOLA.print(t)
+    else:
+        for n, etiqueta in opciones:
+            color = ROJO if n in peligrosas else CIAN
+            print(f'  {color}{n:>2}{NC}  {etiqueta}')
 
 
 def _pedir_opcion(mensaje: str, opciones_validas: Sequence[str], defecto: str = '') -> str:
@@ -124,67 +141,105 @@ def _pedir_opcion(mensaje: str, opciones_validas: Sequence[str], defecto: str = 
 
 
 def _seleccionar_base_lectura(db_defecto: str, titulo: str = 'Base de datos SQLite') -> str:
-    from core.database import _usa_neon
-    if _usa_neon():
-        return 'neon_cloud'
     return elegir_archivo_reciente(titulo, ['*.db'], ['respaldos/db'], defecto=db_defecto)
 
 
+def _leer_estadisticas_verificadas(origen: str) -> tuple[dict, list]:
+    """Carga datos de una fuente sin combinar jamás SQLite con Neon.
+
+    Neon se abre únicamente en modo lectura, sin creación/migración de tablas.
+    Los recuentos se verifican antes de presentarse o exportarse.
+    """
+    from core.database import (cerrar, conectar, conectar_neon_solo_lectura,
+                               estadisticas, estadisticas_por_dispositivo)
+    conn = (conectar_neon_solo_lectura() if origen == 'neon_cloud'
+            else conectar(origen))
+    try:
+        generales = estadisticas(conn)
+        dispositivos = estadisticas_por_dispositivo(conn)
+    finally:
+        cerrar(conn)
+    if generales['total_videos'] != sum(d['total_videos'] for d in dispositivos):
+        raise RuntimeError('Los totales son inconsistentes; se ha cancelado la exportación.')
+    return generales, dispositivos
+
+
 def submenu_estadisticas(db_defecto: str) -> str:
-    """Menú 7: estadísticas, exportación, exclusiones y metadatos."""
-    from core.database import cerrar, conectar, estadisticas, estadisticas_por_dispositivo, obtener_informe_huellas_faltantes
-    from core.database import info_dispositivo_actual
+    """Estadísticas locales/Neon y exportaciones separadas, sin cambiar las BD."""
+    from core.database import cerrar, conectar, obtener_informe_huellas_faltantes
     from core.reporter import exportar_reporte_huellas_faltantes
-    from core import inventario
+    from core.inventario import reportar_estadisticas
     while True:
         _cabecera_submenu('Estadísticas e inventario')
-        imprimir('  [gold1]1.[/] Mostrar estadísticas generales, por dispositivo y ruta')
-        imprimir('  [gold1]2.[/] Exportar estadísticas a TXT, JSON y CSV')
-        imprimir('  [gold1]3.[/] Generar reporte de vídeos faltantes de huellas (TXT, JSON y CSV)')
-        imprimir('  [gold1]4.[/] Gestionar carpetas excluidas del escaneo')
-        imprimir('  [gold1]5.[/] Completar metadatos faltantes (FFprobe)')
-        imprimir('  [gold1]6.[/] Cambiar la ruta de un vídeo o carpeta en la base')
-        imprimir('  [gold1]00.[/] Volver al menú principal')
-        opcion = _pedir_opcion('¿Qué quieres hacer? (1-6 / 00)',
-                               ('1', '2', '3', '4', '5', '6', '00', '0'), '1')
+        _mostrar_menu_opciones([
+            ('1', 'Mostrar estadísticas generales, por dispositivo y ruta (local)'),
+            ('2', 'Mostrar estadísticas generales, por dispositivo y ruta (Neon)'),
+            ('3', 'Exportar estadísticas a TXT, JSON y CSV (local)'),
+            ('4', 'Exportar estadísticas a TXT, JSON y CSV (Neon)'),
+            ('5', 'Generar reporte de vídeos faltantes de huellas (TXT, JSON y CSV)'),
+            ('6', 'Gestionar carpetas excluidas del escaneo'),
+            ('7', 'Completar metadatos faltantes (FFprobe)'),
+            ('8', 'Cambiar la ruta de un vídeo o carpeta en la base'),
+            ('00', 'Volver al menú principal'),
+        ])
+        opcion = _pedir_opcion('¿Qué quieres hacer? (1-8 / 00)',
+                              tuple(str(x) for x in range(1,9)) + ('00','0'), '1')
         if opcion in ('00', '0'):
             return db_defecto
-        if opcion == '4':
-            gestionar_exclusiones()
-            continue
-        db = _seleccionar_base_lectura(db_defecto, 'Base de datos para el inventario')
-        db_defecto = db
-        if opcion == '5':
-            completar_metadatos_interactivo(db)
-        elif opcion == '6':
-            cambiar_rutas_interactivo(db)
-        elif opcion == '1':
-            cmd_stats(argparse.Namespace(db=db))
-        elif opcion == '2':
-            conn = conectar(db)
-            try:
-                generales = estadisticas(conn)
-                dispositivos = estadisticas_por_dispositivo(conn)
-            finally:
-                cerrar(conn)
-            if generales['total_videos'] != sum(d['total_videos'] for d in dispositivos):
-                raise RuntimeError('Totales inconsistentes; no se generó el reporte.')
-            destinos = inventario.reportar_estadisticas(
-                _carpeta_reportes() / 'estadisticas', generales, dispositivos, db)
-            for formato, destino in destinos.items():
-                imprimir(f'[green]Estadísticas {formato.upper()}: {rich_escape(str(destino))}[/]')
-        elif opcion == '3':
-            conn = conectar(db)
-            try:
-                informe = obtener_informe_huellas_faltantes(conn)
-            finally:
-                cerrar(conn)
-            identificador = _id_utc6()
-            destinos = exportar_reporte_huellas_faltantes(
-                informe, _carpeta_reportes() / 'estadisticas', identificador, db)
-            imprimir(f'\n[spring_green2]✓ Reporte de vídeos faltantes de huellas generado ({informe["total_videos_faltantes_huellas"]} de {informe["total_videos_analizados"]} vídeos requieren huellas):[/]')
-            for formato, destino in destinos.items():
-                imprimir(f'  [green]• {formato.upper()}: {rich_escape(str(destino))}[/]')
+        try:
+            if opcion == '6':
+                gestionar_exclusiones()
+                continue
+            if opcion == '2':
+                rc = cmd_stats(argparse.Namespace(db='neon_cloud'))
+                if rc:
+                    imprimir('[bold red]No se pudieron consultar las estadísticas de Neon.[/]')
+                continue
+            if opcion == '4':
+                origen = 'neon_cloud'
+                etiqueta = 'neon'
+            elif opcion == '3':
+                origen = _seleccionar_base_lectura(db_defecto, 'Base de datos SQLite local para exportar')
+                db_defecto = origen
+                etiqueta = 'local'
+            else:
+                origen = _seleccionar_base_lectura(db_defecto, 'Base de datos SQLite local')
+                db_defecto = origen
+                etiqueta = 'local'
+
+            if opcion in ('3','4'):
+                generales, dispositivos = _leer_estadisticas_verificadas(origen)
+                etiqueta_origen = ('Neon PostgreSQL (nube)' if etiqueta == 'neon' else str(origen))
+                destinos = reportar_estadisticas(_carpeta_reportes() / 'estadisticas' / etiqueta,
+                                                 generales, dispositivos, etiqueta_origen)
+                imprimir(f'[bold green]Exportación de {etiqueta.upper()} terminada:[/]')
+                for formato, ruta in destinos.items():
+                    imprimir(f'  [spring_green2]{formato.upper()}:[/] {rich_escape(str(ruta))}')
+            elif opcion == '1':
+                rc = cmd_stats(argparse.Namespace(db=origen))
+                if rc:
+                    imprimir('[bold red]No se pudieron consultar las estadísticas locales.[/]')
+            elif opcion == '5':
+                conn = conectar(origen)
+                try:
+                    informe = obtener_informe_huellas_faltantes(conn)
+                finally:
+                    cerrar(conn)
+                destinos = exportar_reporte_huellas_faltantes(
+                    informe, _carpeta_reportes() / 'estadisticas', _id_utc6(), origen)
+                imprimir(f'[bold green]Reporte generado: '
+                         f'{informe["total_videos_faltantes_huellas"]} de '
+                         f'{informe["total_videos_analizados"]} vídeos necesitan huellas.[/]')
+                for formato, ruta in destinos.items():
+                    imprimir(f'  [spring_green2]{formato.upper()}:[/] {rich_escape(str(ruta))}')
+            elif opcion == '7':
+                completar_metadatos_interactivo(origen)
+            elif opcion == '8':
+                cambiar_rutas_interactivo(origen)
+        except RegresarAlMenu:
+            imprimir('[yellow]Operación cancelada.[/]')
+        except Exception as exc:
+            imprimir(f'[red][ERROR] Estadísticas e inventario: {rich_escape(str(exc))}[/]')
 
 
 def submenu_mover(db_defecto: str) -> str:
@@ -195,13 +250,15 @@ def submenu_mover(db_defecto: str) -> str:
 
     while True:
         _cabecera_submenu('Mover vídeos')
-        imprimir('\n  [gold1]1.[/] Mover vídeos de una comparativa (visual)')
-        imprimir('  [gold1]2.[/] Mover nuevos/ya registrados desde JSON SHA256')
-        imprimir('  [bold bright_cyan]3.[/] [spring_green2]Mover desde reporte de huellas faltantes (submenú 7.3)[/]')
-        imprimir('  [bold red]4.[/] Eliminar duplicados EXACTOS locales desde comparativa')
-        imprimir('  [bold red]5.[/] Eliminar coincidencias SHA256 locales')
-        imprimir('  [bold red]6.[/] Vaciar carpeta de revisión/eliminar (borrado físico y de BD)')
-        imprimir('  [gold1]00.[/] Volver al menú principal\n')
+        _mostrar_menu_opciones([
+            ('1', 'Mover vídeos de una comparativa (visual)'),
+            ('2', 'Mover nuevos/ya registrados desde JSON SHA256'),
+            ('3', 'Mover desde reporte de huellas faltantes (submenú 7.5)'),
+            ('4', 'Eliminar duplicados EXACTOS locales desde comparativa'),
+            ('5', 'Eliminar coincidencias SHA256 locales'),
+            ('6', 'Vaciar carpeta de revisión/eliminar (borrado físico y de BD)'),
+            ('00', 'Volver al menú principal'),
+        ], peligrosas=('4', '5', '6'))
         opcion = _pedir_opcion('¿Qué quieres hacer? (1-6 / 00)', ('1', '2', '3', '4', '5', '6', '00', '0'), '1')
         if opcion in ('00', '0'):
             return db_defecto
@@ -255,7 +312,7 @@ def submenu_mover(db_defecto: str) -> str:
                 mover_desde_sha256(ruta_json, destino, _carpeta_reportes() / 'movimientos', grupos=grupos, db_path=db_defecto)
             elif opcion == '3':
                 ruta = elegir_archivo_reciente(
-                    'Reporte de vídeos faltantes de huellas del submenú 7.3',
+                    'Reporte de vídeos faltantes de huellas del submenú 7.5',
                     ['videos_faltantes_huellas_*.json'], ['estadisticas/json'])
                 destino = pedir_ruta(
                     'Directorio de destino para los vídeos',
@@ -284,32 +341,43 @@ def submenu_mover(db_defecto: str) -> str:
     return db_defecto
 
 
+def _progreso_reemplazo_neon():
+    """Cinco fases con conteos reales usando el componente de core.reporter."""
+    from core.reporter import ProgresoTareas
+    return ProgresoTareas([
+        ('respaldo', 'Respaldo previo desde Neon'),
+        ('videos', 'Sustitución de vídeos'),
+        ('frames', 'Sustitución de frames'),
+        ('eliminaciones', 'Sustitución de eliminaciones'),
+        ('verificacion', 'Verificación y COMMIT'),
+    ])
+
+
 def submenu_respaldos(db_defecto: str) -> str:
     from core.database import _usa_neon
 
     while True:
         _cabecera_submenu('Respaldos')
-        imprimir('\n  [gold1]1.[/] Exportar base de datos (JSON y TXT)')
-        imprimir('  [gold1]2.[/] Importar base de datos JSON')
-        imprimir('  [gold1]3.[/] Descargar respaldo .db desde Neon')
-        imprimir('  [bold red]4.[/] REEMPLAZAR Neon por una SQLite local (respaldo previo)')
-        imprimir('  [bold red]5.[/] Combinar base de datos externa (.db o .json) con la actual')
-        imprimir('  [gold1]00.[/] Volver al menú principal\n')
+        _mostrar_menu_opciones([
+            ('1', 'Exportar base de datos (JSON y TXT)'),
+            ('2', 'Importar base de datos JSON'),
+            ('3', 'Descargar respaldo .db desde Neon'),
+            ('4', 'REEMPLAZAR Neon por una SQLite local (respaldo previo)'),
+            ('5', 'Combinar base de datos externa (.db o .json) con la actual'),
+            ('00', 'Volver al menú principal'),
+        ], peligrosas=('4',))
         opcion = _pedir_opcion('¿Qué quieres hacer? (1-5 / 00)', ('1', '2', '3', '4', '5', '00', '0'), '1')
         if opcion in ('00', '0'):
             return db_defecto
 
         try:
             if opcion == '1':
-                if _usa_neon():
-                    db = 'neon_cloud'
-                else:
-                    db = elegir_archivo_reciente(
-                        'Base de datos SQLite a exportar',
-                        ['*.db'],
-                        ['respaldos/db'],
-                        defecto=db_defecto,
-                    )
+                db = elegir_archivo_reciente(
+                    'Base de datos SQLite a exportar',
+                    ['*.db'],
+                    ['respaldos/db'],
+                    defecto=db_defecto,
+                )
                 nombre = pedir_texto('Nombre de la exportación', f'base_de_datos_{_id_utc6()}')
                 destino = _carpeta_reportes() / 'exportaciones' / 'json' / (Path(nombre).stem + '.json')
                 args = argparse.Namespace(db=db, salida=str(destino))
@@ -321,15 +389,12 @@ def submenu_respaldos(db_defecto: str) -> str:
                     ['base_de_datos_*.json', '*.json'],
                     ['exportaciones/json'],
                 )
-                if _usa_neon():
-                    db = 'neon_cloud'
-                else:
-                    db = elegir_archivo_reciente(
-                        'Base de datos SQLite destino (o nueva ruta si no existe)',
-                        ['*.db'],
-                        ['respaldos/db'],
-                        defecto=db_defecto,
-                    )
+                db = elegir_archivo_reciente(
+                    'Base de datos SQLite destino (o nueva ruta si no existe)',
+                    ['*.db'],
+                    ['respaldos/db'],
+                    defecto=db_defecto,
+                )
                 forzar = pedir_si_no('¿Sustituir registros que ya existen?', False)
                 args = argparse.Namespace(db=db, archivo=archivo, forzar=forzar)
                 cmd_importar(args)
@@ -344,14 +409,15 @@ def submenu_respaldos(db_defecto: str) -> str:
                 args = argparse.Namespace(db='neon_cloud', salida=str(destino))
                 cmd_descargar_neon(args)
             elif opcion == '4':
-                from core.database import reemplazar_neon_desde_sqlite, estado_conexion
+                from core.database import reemplazar_neon_desde_sqlite, estado_conexion, reset_modo_conexion
+                reset_modo_conexion()
                 if estado_conexion()['modo'] != 'neon':
                     imprimir('[red]Neon no está en línea. Sustitución deshabilitada.[/]')
                     continue
                 origen = elegir_archivo_reciente(
                     'SQLite local con la que se desea sustituir Neon',
                     ['*.db'], ['respaldos/db'], defecto=db_defecto)
-                imprimir('[bold red]Esta operación sustituirá TODOS los vídeos y huellas en Neon.[/]')
+                imprimir('[bold red]Esta operación sustituirá TODOS los vídeos, huellas y marcas de eliminación en Neon.[/]')
                 imprimir('[yellow]Primero se respaldará Neon en SQLite. La sustitución es transaccional.[/]')
                 imprimir(f'[cyan]Fuente: {origen}[/]')
                 if not pedir_si_no('¿Es correcta la base seleccionada?', False):
@@ -360,9 +426,11 @@ def submenu_respaldos(db_defecto: str) -> str:
                 if texto != 'REEMPLAZAR NEON':
                     imprimir('[yellow]Operación cancelada.[/]')
                     continue
-                resultado = reemplazar_neon_desde_sqlite(
-                    origen, str(_carpeta_reportes() / 'respaldos' / 'db'))
-                imprimir(f'[bold green]Neon sustituida: {resultado["videos"]} vídeos y {resultado["frames"]} frames.[/]')
+                with _progreso_reemplazo_neon() as indicador:
+                    resultado = reemplazar_neon_desde_sqlite(
+                        origen, str(_carpeta_reportes() / 'respaldos' / 'db'),
+                        progreso=indicador.actualizar)
+                imprimir(f'[bold green]Neon sustituida: {resultado["videos"]} vídeos y {resultado["frames"]} frames y {resultado["eliminados"]} eliminaciones.[/]')
                 imprimir(f'[cyan]Respaldo previo: {resultado["respaldo_previo"]}[/]')
             elif opcion == '5':
                 from core.database import conectar, cerrar, obtener_todos, existe_ruta, guardar_fingerprint, importar_json
@@ -370,15 +438,12 @@ def submenu_respaldos(db_defecto: str) -> str:
                 archivo_ext = pedir_ruta('Ruta de la base de datos externa a combinar (.db o .json)', existente=True)
                 es_json = Path(archivo_ext).suffix.lower() == '.json'
                 
-                if _usa_neon():
-                    db_destino = 'neon_cloud'
-                else:
-                    db_destino = elegir_archivo_reciente(
-                        'Base de datos SQLite destino (actual)',
-                        ['*.db'],
-                        ['respaldos/db'],
-                        defecto=db_defecto,
-                    )
+                db_destino = elegir_archivo_reciente(
+                    'Base de datos SQLite destino (actual)',
+                    ['*.db'],
+                    ['respaldos/db'],
+                    defecto=db_defecto,
+                )
                 
                 imprimir(f'\n[cyan]Origen : {archivo_ext}[/]')
                 imprimir(f'[cyan]Destino: {db_destino}[/]')
@@ -436,12 +501,14 @@ def submenu_verificacion(db_defecto: str) -> str:
     """Menú 8: comprobación de disco, ubicación de archivos y reparación de rutas."""
     while True:
         _cabecera_submenu('Verificación y ubicación de archivos')
-        imprimir('  [gold1]1.[/] Comprobar disco ↔ base de datos (ambas direcciones)')
-        imprimir('  [gold1]2.[/] Buscar ubicación de archivos faltantes (interna y tarjeta)')
-        imprimir('  [bold red]3.[/] Eliminar huellas \"faltantes\" desde reporte de verificación')
-        imprimir('  [gold1]4.[/] Cambiar ruta según reporte de ubicación')
-        imprimir('  [bold red]5.[/] Depurar rutas desde reporte de eliminaciones o movimientos del submenú 3')
-        imprimir('  [gold1]00.[/] Volver al menú principal')
+        _mostrar_menu_opciones([
+            ('1', 'Comprobar disco ↔ base de datos (ambas direcciones)'),
+            ('2', 'Buscar ubicación de archivos faltantes (interna y tarjeta)'),
+            ('3', 'Eliminar huellas "faltantes" desde reporte de verificación'),
+            ('4', 'Cambiar ruta según reporte de ubicación'),
+            ('5', 'Depurar rutas desde reporte de eliminaciones o movimientos del submenú 3'),
+            ('00', 'Volver al menú principal'),
+        ], peligrosas=('3', '5'))
         opcion = _pedir_opcion('¿Qué quieres hacer? (1-5 / 00)',
                                ('1', '2', '3', '4', '5', '00', '0'), '1')
         if opcion in ('00', '0'):
@@ -468,16 +535,17 @@ def submenu_verificacion(db_defecto: str) -> str:
 
 
 def submenu_depurar(db_defecto: str) -> str:
-    from core.database import _usa_neon, cerrar, conectar, estadisticas, info_dispositivo_actual
+    from core.database import _usa_neon, _es_pg, cerrar, conectar, estadisticas, info_dispositivo_actual
 
     while True:
         _cabecera_submenu('Depurar base de datos')
-        imprimir('\n  [gold1]1.[/] Eliminar una huella por ruta')
-        imprimir('  [gold1]2.[/] Eliminar huellas por ID de dispositivo')
-        imprimir('  [gold1]3.[/] Reasignar huellas de un ID antiguo a este dispositivo')
-        imprimir('  [gold1]4.[/] Eliminar registros por dispositivo y carpeta, con respaldo')
-        #imprimir('  [bold red]5.[/] Eliminar huellas "faltantes" desde reporte de verificación')
-        imprimir('  [gold1]00.[/] Volver al menú principal\n')
+        _mostrar_menu_opciones([
+            ('1', 'Eliminar una huella por ruta'),
+            ('2', 'Eliminar huellas por ID de dispositivo'),
+            ('3', 'Reasignar huellas de un ID antiguo a este dispositivo'),
+            ('4', 'Eliminar registros por dispositivo y carpeta (sin respaldo)'),
+            ('00', 'Volver al menú principal'),
+        ], peligrosas=('1', '2', '4'))
         opcion = _pedir_opcion('¿Qué quieres hacer? (1-4 / 00)', ('1', '2', '3', '4', '00', '0'), '1')
         if opcion in ('00', '0'):
             return db_defecto
@@ -489,15 +557,12 @@ def submenu_depurar(db_defecto: str) -> str:
                 db_defecto = db
             elif opcion == '1':
                 from core.database import eliminar_por_ruta
-                if _usa_neon():
-                    db = 'neon_cloud'
-                else:
-                    db = elegir_archivo_reciente(
-                        'Base de datos SQLite',
-                        ['*.db'],
-                        ['respaldos/db'],
-                        defecto=db_defecto,
-                    )
+                db = elegir_archivo_reciente(
+                    'Base de datos SQLite',
+                    ['*.db'],
+                    ['respaldos/db'],
+                    defecto=db_defecto,
+                )
                 ruta = pedir_ruta('Ruta del vídeo cuya huella quieres eliminar')
                 if pedir_si_no('¿Eliminar esa huella de la base de datos? El vídeo se conserva', False):
                     args = argparse.Namespace(db=db, ruta=ruta)
@@ -505,15 +570,12 @@ def submenu_depurar(db_defecto: str) -> str:
                 db_defecto = db
             elif opcion == '2':
                 from core.database import eliminar_por_dispositivo_id
-                if _usa_neon():
-                    db = 'neon_cloud'
-                else:
-                    db = elegir_archivo_reciente(
-                        'Base de datos SQLite',
-                        ['*.db'],
-                        ['respaldos/db'],
-                        defecto=db_defecto,
-                    )
+                db = elegir_archivo_reciente(
+                    'Base de datos SQLite',
+                    ['*.db'],
+                    ['respaldos/db'],
+                    defecto=db_defecto,
+                )
                 conn = conectar(db)
                 try:
                     datos = estadisticas(conn)
@@ -530,15 +592,12 @@ def submenu_depurar(db_defecto: str) -> str:
                 db_defecto = db
             elif opcion == '3':
                 from core.database import reasignar_dispositivo_id
-                if _usa_neon():
-                    db = 'neon_cloud'
-                else:
-                    db = elegir_archivo_reciente(
-                        'Base de datos SQLite',
-                        ['*.db'],
-                        ['respaldos/db'],
-                        defecto=db_defecto,
-                    )
+                db = elegir_archivo_reciente(
+                    'Base de datos SQLite',
+                    ['*.db'],
+                    ['respaldos/db'],
+                    defecto=db_defecto,
+                )
 
                 actual = info_dispositivo_actual()
                 id_actual = actual['dispositivo_id']
@@ -551,7 +610,7 @@ def submenu_depurar(db_defecto: str) -> str:
 
                 conn = conectar(db)
                 try:
-                    if _usa_neon():
+                    if _es_pg(conn):
                         import psycopg2.extras
                         with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
                             cur.execute("""
@@ -614,7 +673,7 @@ def submenu_depurar(db_defecto: str) -> str:
 
                 conn = conectar(db)
                 try:
-                    if _usa_neon():
+                    if _es_pg(conn):
                         with conn.cursor() as cur:
                             cur.execute("SELECT COUNT(*) FROM videos WHERE dispositivo_id = %s",
                                         (id_antiguo,))

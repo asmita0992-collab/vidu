@@ -5,6 +5,7 @@ import json
 import math
 import os
 import platform
+import posixpath
 import shutil
 import signal
 import subprocess
@@ -159,7 +160,7 @@ def completar_metadatos_interactivo(db: str) -> None:
 
 
 def depurar_carpeta_por_dispositivo(db: str) -> None:
-    """Depuración limitada a ID+carpeta, respaldando todos los hashes antes."""
+    """Depuración limitada a ID+carpeta (sin respaldos)."""
     from core import inventario
     from core.database import conectar, cerrar, estadisticas_por_dispositivo
     conn = conectar(db)
@@ -177,7 +178,8 @@ def depurar_carpeta_por_dispositivo(db: str) -> None:
         disp = dispositivos[seleccionado]
         ruta = pedir_texto('Carpeta cuya información eliminarás (incluye subcarpetas)',
                           obligatorio=True)
-        if not (Path(ruta).is_absolute() or inventario.es_windows(ruta)):
+        # Aquí es donde fallaba al evaluar rutas POSIX desde Windows
+        if not (posixpath.isabs(ruta) or inventario.es_windows(ruta)):
             imprimir('[red]La carpeta debe tener una ruta absoluta.[/]')
             return
         registros = inventario.registros_carpeta(conn, disp['dispositivo_id'], ruta)
@@ -190,30 +192,16 @@ def depurar_carpeta_por_dispositivo(db: str) -> None:
         imprimir(f'[yellow]Carpeta: {rich_escape(ruta)} (y subcarpetas)[/]')
         imprimir(f'[yellow]Registros afectados: {len(registros)}[/]')
         imprimir('[grey70]Se eliminarán REGISTROS de la base, no vídeos del disco. '
-                 'Se guardará un respaldo completo de sus huellas.[/]')
+                 'NO se generarán respaldos de las huellas eliminadas.[/]')
         if not pedir_si_no('¿Confirmas que es el dispositivo y la carpeta correctos?', False):
             return
         respuesta = pedir_texto('Escribe ELIMINAR REGISTROS para confirmar', obligatorio=True)
         if respuesta != 'ELIMINAR REGISTROS':
             imprimir('[yellow]No coincide la frase de confirmación. Cancelado.[/]')
             return
-        # Respaldar primero el conjunto exacto de filas y sus huellas de frames.
-        completos = inventario.agregar_huellas_frames(conn, registros)
-        carpeta_salida = _carpeta_reportes() / 'depuraciones'
-        destinos = inventario.reportar_depuracion(
-            carpeta_salida, disp['dispositivo'], disp['dispositivo_id'], ruta,
-            completos, 'RESPALDO PREVIO - ELIMINACION PENDIENTE')
+            
         total = inventario.eliminar_registros_exactos(conn, disp['dispositivo_id'], registros)
-        try:
-            inventario.reportar_depuracion(
-                carpeta_salida, disp['dispositivo'], disp['dispositivo_id'], ruta,
-                completos, 'ELIMINADO DE LA BASE', destinos)
-        except Exception as exc:
-            imprimir(f'[yellow]Datos eliminados, pero no se pudo actualizar '
-                     f'el estado del reporte: {rich_escape(str(exc))}[/]')
-        imprimir(f'[green]Se eliminaron {total} registros del dispositivo seleccionado.[/]')
-        for formato, destino in destinos.items():
-            imprimir(f'[cyan]Respaldo {formato.upper()}: {rich_escape(str(destino))}[/]')
+        imprimir(f'[green]Se eliminaron {total} registros del dispositivo seleccionado (sin generar respaldos).[/]')
     finally:
         cerrar(conn)
 
@@ -265,15 +253,12 @@ def comprobar_disco_bd_interactivo(db: str) -> None:
 def eliminar_faltantes_interactivo(db_defecto: str) -> str:
     """Elimina huellas marcadas como faltantes en un reporte y guarda reporte JSON, TXT y CSV."""
     from core.database import _usa_neon, cerrar, conectar, eliminar_por_ruta, info_dispositivo_actual, describir_conexion
-    if _usa_neon():
-        db = 'neon_cloud'
-    else:
-        db = elegir_archivo_reciente(
-            'Base de datos SQLite',
-            ['*.db'],
-            ['respaldos/db'],
-            defecto=db_defecto,
-        )
+    db = elegir_archivo_reciente(
+        'Base de datos SQLite',
+        ['*.db'],
+        ['respaldos/db'],
+        defecto=db_defecto,
+    )
     archivo_json = elegir_archivo_reciente(
         'Reporte JSON de verificación bidireccional',
         ['verificacion_*.json', '*.json'],
@@ -432,31 +417,33 @@ def buscar_ubicacion_interactivo(db: str) -> None:
     imprimir('[cyan]Buscando la misma ruta relativa en otras raíces...[/]')
     imprimir('[grey70]Solo se calcula SHA256 de los archivos cuyo tamaño coincide.[/]')
 
-    def _progreso_ubicacion(fase: str, hechos: int, total: int) -> None:
-        if total:
-            imprimir(f'[cyan]{rich_escape(fase)}[/] [grey37]({hechos}/{total})[/]')
+    from core.reporter import ProgresoTareas
+    with ProgresoTareas([
+        ('ubicacion', 'Comprobando rutas y raíces de almacenamiento'),
+        ('sha256', 'Calculando SHA256 del archivo actual'),
+    ]) as barra:
+        archivo_anterior = [None]
+        def _progreso_ubicacion(fase: str, hechos: int, total: int) -> None:
+            if total:
+                barra.actualizar('ubicacion', hechos, total, detalle=fase)
 
-    def _progreso_bytes(ruta: str, leidos: int, total: int) -> None:
-        if total:
-            pct = leidos * 100 / total
-            sys.stdout.write(
-                f'\r\033[2K[grey37]  SHA256 {rich_escape(Path(ruta).name[:40])}: '
-                f'{pct:5.1f}%[/]'
+        def _progreso_bytes(ruta: str, leidos: int, total: int) -> None:
+            if total:
+                # Reiniciar la barra cada vez que cambia el archivo.
+                if ruta != archivo_anterior[0]:
+                    archivo_anterior[0] = ruta
+                    barra.actualizar('sha256', 0, total, detalle=Path(ruta).name)
+                barra.actualizar('sha256', leidos, total, detalle=Path(ruta).name)
+
+        try:
+            resultado = ubicacion.buscar_reubicaciones(
+                faltantes, extra, excluidas,
+                progreso=_progreso_ubicacion,
+                progreso_bytes=_progreso_bytes,
             )
-            sys.stdout.flush()
-            if leidos >= total:
-                sys.stdout.write('\n')
-                sys.stdout.flush()
-
-    try:
-        resultado = ubicacion.buscar_reubicaciones(
-            faltantes, extra, excluidas,
-            progreso=_progreso_ubicacion,
-            progreso_bytes=_progreso_bytes,
-        )
-    except ubicacion.InterrupcionBusqueda:
-        imprimir('[yellow]Búsqueda cancelada.[/]')
-        return
+        except ubicacion.InterrupcionBusqueda:
+            imprimir('[yellow]Búsqueda cancelada.[/]')
+            return
 
     if resultado.get('avisos'):
         imprimir(f'[yellow]Avisos ({len(resultado["avisos"])}):[/]')
@@ -602,15 +589,12 @@ def eliminar_desde_reporte_eliminaciones_interactivo(db_defecto: str) -> None:
         imprimir('[yellow]Operación cancelada.[/]')
         return
 
-    if _usa_neon():
-        db = 'neon_cloud'
-    else:
-        db = elegir_archivo_reciente(
-            'Base de datos SQLite donde aplicar la depuración',
-            ['*.db'],
-            ['respaldos/db'],
-            defecto=db_defecto,
-        )
+    db = elegir_archivo_reciente(
+        'Base de datos SQLite donde aplicar la depuración',
+        ['*.db'],
+        ['respaldos/db'],
+        defecto=db_defecto,
+    )
 
     conn = conectar(db)
     borrados = 0

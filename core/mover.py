@@ -516,8 +516,9 @@ def _actualizar_bases(bases, registros, dispositivo_id=None):
 
         conn = None
         try:
-            conn = conectar('neon_cloud') if _usa_neon() else conectar(base)
-            is_pg = _usa_neon()
+            conn = conectar(base)
+            from .database import _es_pg
+            is_pg = _es_pg(conn)
             
             if is_pg:
                 conn.autocommit = False
@@ -545,6 +546,12 @@ def _actualizar_bases(bases, registros, dispositivo_id=None):
                         continue
                         
                     nueva_clave = f"{d_id_str}|{r['destino']}" if d_id_str else r['destino']
+                    # Evitar que la ruta antigua vuelva desde Neon al sincronizar.
+                    if nueva_clave != (f"{d_id_str}|{r['origen']}" if d_id_str else r['origen']):
+                        from core.sincronizacion import registrar_eliminacion
+                        registrar_eliminacion(conn,
+                            f"{d_id_str}|{r['origen']}" if d_id_str else r['origen'],
+                            confirmar=False)
                     
                     query_upd = "UPDATE videos SET ruta=" + ("%s" if is_pg else "?") + ", nombre=" + ("%s" if is_pg else "?") + ", clave_unica=" + ("%s" if is_pg else "?") + ", error=" + ("%s" if is_pg else "?") + " WHERE id=" + ("%s" if is_pg else "?")
                     cursor.execute(query_upd, (r['destino'], nuevo_nombre, nueva_clave, nota, vid_id))
@@ -675,13 +682,13 @@ def _seleccionar_videos_huellas(videos: List[dict]) -> Tuple[List[dict], str, st
 
 def mover_desde_reporte_huellas(ruta_json, directorio_destino, carpeta_reportes,
                                  db_path=None):
-    """Mueve vídeos del reporte 7.3 que pertenecen al dispositivo actual."""
+    """Mueve vídeos del reporte 7.5 que pertenecen al dispositivo actual."""
     from .database import info_dispositivo_actual
 
     with Path(ruta_json).open(encoding='utf-8-sig') as archivo:
         datos = json.load(archivo)
     if not isinstance(datos, dict) or not isinstance(datos.get('dispositivos'), list):
-        raise ValueError('Selecciona un JSON de vídeos faltantes de huellas generado por el submenú 7.3.')
+        raise ValueError('Selecciona un JSON de vídeos faltantes de huellas generado por el submenú 7.5.')
     if not (datos.get('tipo_informe') == 'videos_faltantes_huellas'
             or 'total_videos_faltantes_huellas' in datos):
         raise ValueError('El JSON no corresponde a un reporte de vídeos faltantes de huellas.')
@@ -703,7 +710,7 @@ def mover_desde_reporte_huellas(ruta_json, directorio_destino, carpeta_reportes,
         f'[bold bright_white]{rich_escape(str(dispositivo.get("dispositivo") or actual["dispositivo"]))}[/]\n'
         f'[cyan]ID:[/] [spring_green2]{rich_escape(actual_id)}[/]\n'
         f'[cyan]Vídeos disponibles:[/] [bold gold1]{len(videos)}[/]',
-        title='[bold plum1]Reporte 7.3 · dispositivo actual[/]', border_style='bright_cyan'
+        title='[bold plum1]Reporte 7.5 · dispositivo actual[/]', border_style='bright_cyan'
     ) if Panel is not None else f'Dispositivo: {actual["dispositivo"]} (ID {actual_id}); vídeos: {len(videos)}')
     if not videos:
         _imprimir('No hay vídeos válidos para mover en este dispositivo.', 'yellow')
@@ -924,7 +931,8 @@ def mover_interactivo(ruta_reporte, directorio_destino, carpeta_reportes, db_pat
         if d_id and d_id != disp_id_actual:
             plan_ajeno.append(item)
         else:
-            plan_local.append(item)
+            if item.get('categoria') == 'eliminar':
+                plan_local.append(item)
 
     if plan_ajeno:
         _imprimir(f'\n⚠️ {len(plan_ajeno)} vídeo(s) del reporte pertenecen a otro '
@@ -936,7 +944,7 @@ def mover_interactivo(ruta_reporte, directorio_destino, carpeta_reportes, db_pat
 
     plan = plan_local
     if not plan:
-        _imprimir('\nNo quedan vídeos que mover en este dispositivo.', 'yellow')
+        _imprimir('\nNo quedan vídeos marcados para eliminar en este dispositivo.', 'yellow')
         return
 
     destino = Path(directorio_destino).expanduser().resolve()
@@ -1733,7 +1741,7 @@ def vaciar_carpeta_eliminar(directorio_eliminar, db_path):
 
     disp_actual = info_dispositivo_actual()
     disp_id = disp_actual['dispositivo_id']
-    conn = conectar('neon_cloud') if _usa_neon() else conectar(db_path)
+    conn = conectar(db_path)
     
     sub = _subcarpetas_movimientos(_carpeta_reportes() / 'movimientos')
     sello = _id_utc6()

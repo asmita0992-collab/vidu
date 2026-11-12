@@ -1764,9 +1764,9 @@ def _cabecera_menu(raiz: Path) -> None:
         CONSOLA.print(Rule(f'[bold bright_magenta]SHA256 DE CARPETAS Y ARCHIVOS MP4 — VIDUP v{__version__}[/]',
                            style='bright_cyan'))
         CONSOLA.print(
-            f'[cyan]Dispositivo:[/] {info["dispositivo"]}\n'
+            f'[cyan]Dispositivo:[/] {rich_escape(str(info["dispositivo"]))}\n'
             f'[cyan]ID         :[/] {info["dispositivo_id"]}\n'
-            f'[cyan]Plataforma :[/] {info["plataforma"]} ({info["maquina"]})\n'
+            f'[cyan]Plataforma :[/] {rich_escape(str(info["plataforma"]))} ({rich_escape(str(info["maquina"]))})\n'
             f'[cyan]Conexión   :[/] {describir_conexion()}'
         )
     else:
@@ -1837,14 +1837,25 @@ def menu(raiz=None, db_defecto=None):
     try:
         while True:
             _cabecera_menu(raiz)
-            _imprimir('')
-            _imprimir('  1. Comparar carpeta de vídeos directamente contra base(s) de datos', 'white')
-            _imprimir('  2. Generar SHA256 de UNA O VARIAS carpetas/discos (un JSON/TXT/CSV)', 'white')
-            _imprimir('  3. Comparar archivo JSON de SHA256 fuera de línea contra base(s)', 'white')
-            _imprimir('  4. Cargar / Importar archivo JSON de SHA256 fuera de línea a la BD', 'white')
-            _imprimir('  5. Importar carpeta de vídeos directamente como huellas mínimas', 'white')
-            _imprimir('  00. Volver al menú principal', 'white')
-            _imprimir('')
+            opciones = (
+                ('1', 'Comparar carpeta de vídeos directamente contra base(s) de datos'),
+                ('2', 'Generar SHA256 de UNA O VARIAS carpetas/discos (JSON/TXT/CSV)'),
+                ('3', 'Comparar JSON de SHA256 fuera de línea contra base(s)'),
+                ('4', 'Cargar / Importar JSON de SHA256 fuera de línea a la BD'),
+                ('5', 'Importar carpeta de vídeos como huellas mínimas'),
+                ('00', 'Volver al menú principal'),
+            )
+            if CONSOLA is not None and Table is not None and rich_box is not None:
+                tabla_menu = Table(box=rich_box.ROUNDED, border_style='bright_cyan',
+                                   show_header=False)
+                tabla_menu.add_column('Nº', width=4, justify='right', style='bold gold1')
+                tabla_menu.add_column('Acción', style='bright_white')
+                for numero, titulo in opciones:
+                    tabla_menu.add_row(numero, rich_escape(titulo))
+                CONSOLA.print(tabla_menu)
+            else:
+                for numero, titulo in opciones:
+                    _imprimir(f'  {numero:>2}. {titulo}', 'cyan')
             _imprimir('💡 Las bases de datos pueden ser archivos .db (SQLite) o .json (huellas exportadas).', 'grey37')
 
             opcion = _pedir_texto('\n¿Qué quieres hacer? (1-5 / 00)', '1').zfill(1)
