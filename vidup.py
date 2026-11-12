@@ -9,7 +9,7 @@ Los reportes se guardan junto al programa, dentro de reportes/.
 
 from __future__ import annotations
 
-__version__ = "2.3.0"
+__version__ = "2.4.1"
 __desc_herramienta__ = "Detector de vídeos duplicados y fragmentos"
 
 import argparse
@@ -126,23 +126,12 @@ def menu_interactivo() -> int:
 
     _asegurar_estructura_reportes()
 
-    if _usa_neon():
-        try:
-            conn = conectar('neon_cloud')
-            cerrar(conn)
-        except Exception:
-            pass
-
-    if _usa_neon():
-        db_defecto = 'neon_cloud'
-    else:
-        db_defecto = _base_reciente_por_defecto()
+    # Toda operación ordinaria usa la SQLite del dispositivo.
+    db_defecto = _base_reciente_por_defecto()
 
     info_disp = info_dispositivo_actual()
 
     while True:
-        if _usa_neon():
-            db_defecto = 'neon_cloud'
 
         if CONSOLA is not None and Panel is not None and Table is not None and rich_box is not None:
             CONSOLA.print()
@@ -247,14 +236,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = construir_parser().parse_args(argv)
 
     try:
-        from core.database import _detectar_modo_conexion_una_vez
-        _detectar_modo_conexion_una_vez()
+        # No contactar Neon ni sincronizar al iniciar: la base SQLite es la principal.
         from core.sincronizacion import sincronizar_al_iniciar
         sincronizar_al_iniciar()
-        from core.sincronizar_codigo import sincronizar_archivos_python
-        sincronizar_archivos_python()
-    except Exception:
-        pass
+    except Exception as exc:
+        imprimir(f'[yellow]Aviso de inicialización: {exc}[/]')
 
     if not verificar_obligatorias():
         return 1
