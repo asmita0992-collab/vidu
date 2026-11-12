@@ -1,3 +1,9 @@
+"""Orquesta el escaneo y cálculo de huellas de vídeos en VIDUP.
+
+Administra las opciones de escaneo, permisos, exclusiones y menús Rich,
+reutilizando el progreso multilínea de reporter.py cuando corresponde.
+"""
+
 from __future__ import annotations
 import argparse
 import json
@@ -929,28 +935,13 @@ def submenu_escaneo(db_defecto: str) -> str:
     """Submenú interactivo de escaneo con tres opciones."""
     from core import __version__
     while True:
-        if CONSOLA is not None and Panel is not None and Table is not None and rich_box is not None:
-            CONSOLA.print()
-            CONSOLA.print(Panel.fit(
-                '[bold bright_white]Submenú Escanear Vídeos[/]\n'
-                '[deep_sky_blue1]Selecciona la modalidad de escaneo:[/]',
-                title=f'[bold plum1]VIDUP v{__version__}[/] [gold1]· Escanear[/]',
-                border_style='bright_cyan',
-            ))
-            tabla = Table(box=rich_box.ROUNDED, border_style='cyan', show_header=False)
-            tabla.add_column('Nº', style='bold gold1', width=4)
-            tabla.add_column('Opción', style='white')
-            tabla.add_row('1', 'Escanear vídeos (modo estándar / como hasta ahorita)')
-            tabla.add_row('2', 'Escaneo previo (muestra qué códec utiliza cada vídeo pendiente y guarda JSON/TXT)')
-            tabla.add_row('3', 'Escanear por códec (h264 con acelerador software, h265 con acelerador hardware)')
-            tabla.add_row('0', 'Volver al menú principal')
-            CONSOLA.print(tabla)
-        else:
-            print(f'\n{MAGENTA}{NEGRITA}VIDUP v{__version__} — Submenú Escanear Vídeos{NC}')
-            print('  1. Escanear vídeos (modo estándar / como hasta ahorita)')
-            print('  2. Escaneo previo (muestra qué códec utiliza cada vídeo pendiente y guarda JSON/TXT)')
-            print('  3. Escanear por códec (h264 con acelerador software, h265 con acelerador hardware)')
-            print('  0. Volver al menú principal')
+        from core.interfaz import menu_rich
+        menu_rich('Escaneo de vídeos', [
+            ('1', 'Escaneo estándar · SHA256 y huellas'),
+            ('2', 'Escaneo previo · identificar códecs y guardar reporte'),
+            ('3', 'Escaneo por códec · optimización de procesos'),
+            ('0', 'Volver al menú principal'),
+        ], subtitulo='SQLite local será la base principal de escritura.')
 
         try:
             opcion = pedir_texto('Selecciona una opción', '0').strip().lower()

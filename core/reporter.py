@@ -1552,6 +1552,39 @@ def _mostrar_desglose_estadisticas(dispositivos: List[Dict[str, Any]]) -> None:
         imprimir('[yellow]No hay vídeos registrados para desglosar.[/]')
         return
 
+    # En Termux las tablas de ocho columnas parten nombres, rutas y valores.
+    # Usar fichas verticales Rich con color semántico para pantallas angostas.
+    from core.interfaz import ancho_terminal
+    if CONSOLA is not None and Panel is not None and ancho_terminal() < 100:
+        from rich.text import Text
+        from rich.console import Group
+        for disp in dispositivos:
+            cabecera = Text()
+            cabecera.append(str(disp['dispositivo']), style='bold plum1')
+            cabecera.append('\nID: ' + str(disp['dispositivo_id']), style='deep_sky_blue1')
+            if not disp['id_verificado']:
+                cabecera.append(' · ID no verificado', style='bold orange1')
+            cabecera.append(f"\nVídeos: {disp['total_videos']:,}", style='bold bright_white')
+            cabecera.append(f" · Tamaño: {_fmt_tamanio_estadisticas(disp['tamanio_bytes'])}", style='turquoise2')
+            cabecera.append(f"\nSHA256: {disp['con_sha256']:,}", style='spring_green2')
+            cabecera.append(f" · Visual: {disp['con_huella_visual']:,}", style='gold1')
+            cabecera.append(f" · Audio: {disp.get('con_huella_audio', 0):,}", style='medium_orchid1')
+            cabecera.append(f"\nErrores: {disp['con_error']:,}", style='indian_red1')
+            CONSOLA.print(Panel(cabecera, title='DISPOSITIVO', border_style='medium_purple',
+                                box=rich_box.ROUNDED))
+            for carpeta in disp['carpetas']:
+                texto = Text()
+                texto.append(str(carpeta['ruta']) + '\n', style='bright_white')
+                texto.append(f"{carpeta['total_videos']:,} vídeos", style='bold spring_green2')
+                texto.append(f" · {_fmt_tamanio_estadisticas(carpeta['tamanio_bytes'])}\n", style='turquoise2')
+                texto.append(f"SHA256 {carpeta['con_sha256']:,}", style='spring_green2')
+                texto.append(f" · Visual {carpeta['con_huella_visual']:,}", style='gold1')
+                texto.append(f" · Audio {carpeta.get('con_huella_audio', 0):,}", style='medium_orchid1')
+                CONSOLA.print(Panel(texto, title='CARPETA', border_style='dark_turquoise',
+                                    title_align='left', box=rich_box.SIMPLE,
+                                    padding=(0, 1)))
+        return
+
     if CONSOLA is not None and Table is not None and rich_box is not None:
         resumen = Table(title='Vídeos registrados por dispositivo',
                         box=rich_box.ROUNDED, border_style='bright_magenta')

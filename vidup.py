@@ -9,7 +9,7 @@ Los reportes se guardan junto al programa, dentro de reportes/.
 
 from __future__ import annotations
 
-__version__ = "2.4.3"
+__version__ = "2.4.5"
 __desc_herramienta__ = "Detector de vídeos duplicados y fragmentos"
 
 import argparse
@@ -133,49 +133,25 @@ def menu_interactivo() -> int:
 
     while True:
 
-        if CONSOLA is not None and Panel is not None and Table is not None and rich_box is not None:
-            CONSOLA.print()
-            CONSOLA.print(Panel.fit(
-                f'[bold bright_white]VIDUP — Menú principal (v{__version__})[/]\n'
-                f'[deep_sky_blue1]Dispositivo:[/] [spring_green2]{info_disp["dispositivo"]}[/]\n'
-                f'[deep_sky_blue1]ID         :[/] [turquoise2]{info_disp["dispositivo_id"]}[/]\n'
-                f'[deep_sky_blue1]Plataforma :[/] [gold1]{info_disp["plataforma"]}[/] ({info_disp["maquina"]})\n'
-                f'[deep_sky_blue1]Conexión   :[/] [gold1]{describir_conexion()}[/]\n'
-                f'[deep_sky_blue1]Telegram   :[/] {"[spring_green2]activo[/]" if telegram_configurado() else "[orange3]desactivado[/]"}',
-                title=f'[bold plum1]VIDUP: versión {__version__}[/]',
-                border_style='bright_cyan',
-            ))
-            tabla = Table(box=rich_box.ROUNDED, border_style='cyan', show_header=False)
-            tabla.add_column('Nº', style='bold gold1', width=4)
-            tabla.add_column('Opción', style='white')
-            tabla.add_row('1', 'Escanear vídeos')
-            tabla.add_row('2', 'Comparar una o varias bases de datos')
-            tabla.add_row('3', 'Mover vídeos')
-            tabla.add_row('4', 'Respaldos')
-            tabla.add_row('5', 'Depurar base de datos')
-            tabla.add_row('6', 'Operaciones SHA256 (varias carpetas en un catálogo)')
-            tabla.add_row('7', 'Estadísticas, verificación bidireccional y reportes')
-            tabla.add_row('8', 'Verificación y ubicación de archivos')
-            tabla.add_row('9', 'Configuración')
-            tabla.add_row('0', 'Salir')
-            CONSOLA.print(tabla)
-        else:
-            print(f'\n{MAGENTA}{NEGRITA}VIDUP v{__version__} — Menú principal{NC}')
-            print(f'{CIAN}Dispositivo: {info_disp["dispositivo"]} (ID {info_disp["dispositivo_id"]}){NC}')
-            print(f'{CIAN}Plataforma : {info_disp["plataforma"]} ({info_disp["maquina"]}){NC}')
-            print(f'{CIAN}Conexión   : {describir_conexion()}{NC}')
-            print(f'{MAGENTA}Telegram   : {"activo" if telegram_configurado() else "desactivado"}{NC}')
-            print()
-            print('  1. Escanear vídeos')
-            print('  2. Comparar una o varias bases de datos')
-            print('  3. Mover vídeos')
-            print('  4. Respaldos')
-            print('  5. Depurar base de datos')
-            print('  6. Operaciones SHA256 (varias carpetas en un catálogo)')
-            print('  7. Estadísticas, verificación bidireccional y reportes')
-            print('  8. Verificación y ubicación de archivos')
-            print('  9. Configuración')
-            print('  0. Salir')
+        from core.interfaz import menu_rich
+        menu_rich(
+            f'VIDUP {__version__} · Centro de operaciones',
+            [
+                ('1', 'Escanear vídeos · inventario y huellas'),
+                ('2', 'Comparar bases de datos · coincidencias'),
+                ('3', 'Mover vídeos · operaciones verificables'),
+                ('4', 'Respaldos · exportar y sustituir'),
+                ('5', 'Depuración de base de datos'),
+                ('6', 'SHA256 · carpetas y catálogos'),
+                ('7', 'Estadísticas · SQLite y Neon'),
+                ('8', 'Verificación y reubicación de archivos'),
+                ('9', 'Configuración · sincronización con Neon'),
+                ('0', 'Salir de VIDUP'),
+            ],
+            subtitulo=f'{info_disp["dispositivo"]} · {info_disp["plataforma"]} · {info_disp["maquina"]}',
+            contexto=f'ID: {info_disp["dispositivo_id"]} · {describir_conexion()}',
+            peligrosas=('5',),
+        )
 
         try:
             opcion = pedir_texto('¿Qué quieres hacer?', '0', permitir_escape=False).strip().lower()

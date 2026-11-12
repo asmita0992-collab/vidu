@@ -83,45 +83,23 @@ def submenu_configuracion(db_defecto: str) -> str:
         pausa_texto = f'{pausa_min:g}'
         prio_actual = obtener_prioridad_configurada()
 
-        if CONSOLA is not None and Panel is not None and Table is not None and rich_box is not None:
-            CONSOLA.print()
-            CONSOLA.print(Panel.fit(
-                f'[bold bright_white]Configuración general de VIDUP[/]\n'
-                f'[cyan]Base de datos en línea (Neon) :[/] {modo_neon}\n'
-                f'[cyan]Notificaciones de Telegram     :[/] {estado_tg}\n'
-                f'[cyan]Pausa entre lotes de escaneo   :[/] {pausa_texto} min\n'
-                f'[cyan]Prioridad del proceso (OS)    :[/] [gold1]{prio_actual}[/]',
-                title=f'[bold plum1]VIDUP v{__version__}[/] [gold1]· Ajustes (Submenú 9)[/]',
-                border_style='bright_cyan',
-            ))
-            tabla = Table(box=rich_box.ROUNDED, border_style='cyan', show_header=False)
-            tabla.add_column('Nº', style='bold gold1', width=4)
-            tabla.add_column('Opción', style='white')
-            tabla.add_row('1', 'Activar / Desactivar BD en línea (Neon)')
-            tabla.add_row('2', 'Configurar URL de conexión de Neon')
-            tabla.add_row('3', 'Activar / Desactivar notificaciones de Telegram')
-            tabla.add_row('4', 'Configurar Token y Chat ID de Telegram')
-            tabla.add_row('5', 'Probar envío de mensaje por Telegram')
-            tabla.add_row('6', 'Configurar tiempo de pausa entre lotes de escaneo (en minutos)')
-            tabla.add_row('7', 'Sincronizar bases de datos ahora (Local <-> Neon)')
-            tabla.add_row('8', 'Establecer nivel de prioridad del proceso (Windows / Linux / macOS / Android)')
-            tabla.add_row('0', 'Regresar al menú principal')
-            CONSOLA.print(tabla)
-        else:
-            print(f'\nVIDUP v{__version__} — Configuración general')
-            print(f'  BD en línea (Neon) : {modo_neon}')
-            print(f'  Telegram           : {estado_tg}')
-            print(f'  Pausa entre lotes  : {pausa_texto} min')
-            print(f'  Prioridad proceso  : {prio_actual}')
-            print('  1. Activar / Desactivar BD en línea (Neon)')
-            print('  2. Configurar URL de conexión de Neon')
-            print('  3. Activar / Desactivar notificaciones de Telegram')
-            print('  4. Configurar Token y Chat ID de Telegram')
-            print('  5. Probar envío de mensaje por Telegram')
-            print('  6. Configurar tiempo de pausa entre lotes de escaneo (en minutos)')
-            print('  7. Sincronizar bases de datos ahora (Local <-> Neon)')
-            print('  8. Establecer nivel de prioridad del proceso (Windows / Linux / macOS / Android)')
-            print('  0. Regresar al menú principal')
+        from core.interfaz import menu_rich
+        menu_rich(
+            'Configuración y sincronización',
+            [
+                ('1', 'Activar o desactivar conexión Neon'),
+                ('2', 'Configurar conexión Neon PostgreSQL'),
+                ('3', 'Activar o desactivar Telegram'),
+                ('4', 'Configurar credenciales Telegram'),
+                ('5', 'Probar notificación de Telegram'),
+                ('6', 'Pausa entre lotes de escaneo'),
+                ('7', 'Sincronización protegida · control de generación y autoría'),
+                ('8', 'Prioridad de ejecución del sistema'),
+                ('0', 'Volver al menú principal'),
+            ],
+            subtitulo=f'Neon: {modo_neon} · Telegram: {estado_tg}',
+            contexto=f'Pausa: {pausa_texto} min · Prioridad: {prio_actual}',
+        )
 
         try:
             opc = pedir_texto('Elige una opción', '0').strip()
@@ -199,7 +177,15 @@ def submenu_configuracion(db_defecto: str) -> str:
         elif opc == '7':
             reset_modo_conexion()
             try:
-                subidos, descargados, elim = sincronizar_local_y_nube(confirmar=True)
+                imprimir('[bold turquoise2]VIDUP 2.4.5: catálogo de referencia + cambios locales propios.[/]')
+                imprimir('[sky_blue1]Una SQLite anterior a la última sustitución de Neon '
+                         'solo podrá adoptar el catálogo central con autorización y respaldo.[/]')
+                from core.presentacion import pedir_si_no
+                autorizar = pedir_si_no(
+                    '¿Incluir reconciliación de marcas y eliminaciones locales en Neon? '
+                    '(se mostrará un plan y se pedirá confirmación adicional)', False)
+                subidos, descargados, elim = sincronizar_local_y_nube(
+                    confirmar=True, permitir_eliminaciones=autorizar)
             except Exception as exc:
                 imprimir(f'[bold red]Sincronización no aplicada/completada: {exc}[/]')
             # El motor anuncia el resultado; no convertir errores/cancelaciones en éxito.

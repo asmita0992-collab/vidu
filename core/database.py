@@ -700,6 +700,8 @@ def _abrir_sqlite(ruta_abs: str) -> sqlite3.Connection:
         conn.execute('PRAGMA synchronous = NORMAL')
     conn.executescript(_SQL_CREAR_TABLAS_SQLITE)
     _migrar_esquema(conn, es_pg=False)
+    from .control_sincronizacion import instalar as _instalar_control_sync
+    _instalar_control_sync(conn, _identificador_dispositivo_id())
     conn.commit()
     return conn
 
@@ -2057,6 +2059,9 @@ def reemplazar_neon_desde_sqlite(
         asignacion = {}
         try:
             with conn_neon.cursor() as cur:
+                # Autoridad de reemplazo explícito: impide que la guarda de
+                # versiones anteriores bloquee una sustitución confirmada.
+                cur.execute("SELECT set_config('vidup.admin_replace', 'on', true)")
                 cur.execute('LOCK TABLE videos IN ACCESS EXCLUSIVE MODE')
                 cur.execute('LOCK TABLE frame_hashes IN ACCESS EXCLUSIVE MODE')
                 cur.execute('LOCK TABLE videos_eliminados IN ACCESS EXCLUSIVE MODE')
@@ -2135,6 +2140,48 @@ def reemplazar_neon_desde_sqlite(
                 resultado = cur.fetchone()
                 if resultado is None or resultado[0] != frames_origen:
                     raise RuntimeError('Conteo de frames restaurados no coincide; rollback.')
+                # Cada reemplazo integral inaugura un nuevo catálogo canónico.
+                # Las copias antiguas NO pueden sincronizar hasta adoptarlo.
+                import uuid as _uuid_vidup
+                generacion_vidup = _uuid_vidup.uuid4().hex
+                cur.execute('''CREATE TABLE IF NOT EXISTS vidup_sync_catalogo (
+                    id INTEGER PRIMARY KEY CHECK (id=1),
+                    generacion TEXT NOT NULL,
+                    origen TEXT NOT NULL,
+                    creado_en TIMESTAMPTZ NOT NULL DEFAULT NOW()
+                )''')
+                cur.execute('''INSERT INTO vidup_sync_catalogo(id, generacion, origen)
+                    VALUES(1, %s, %s) ON CONFLICT(id) DO UPDATE SET
+                    generacion=EXCLUDED.generacion, origen=EXCLUDED.origen,
+                    creado_en=NOW()''',
+                    (generacion_vidup, str(fuente.name)))
+                # Protección en Neon: versiones anteriores de VIDUP no envían
+                # la generación al servidor, por lo que PostgreSQL rechaza sus
+                # escrituras en las tres tablas del catálogo.
+                cur.execute('''CREATE OR REPLACE FUNCTION vidup_proteger_catalogo()
+                RETURNS trigger LANGUAGE plpgsql AS $vidup_guard$
+                DECLARE vigente TEXT;
+                BEGIN
+                    IF current_setting('vidup.admin_replace', true) = 'on' THEN
+                        IF TG_OP = 'DELETE' THEN RETURN OLD; END IF;
+                        RETURN NEW;
+                    END IF;
+                    SELECT generacion INTO vigente FROM vidup_sync_catalogo WHERE id=1;
+                    IF vigente IS NULL OR
+                       current_setting('vidup.catalog_generation', true)
+                           IS DISTINCT FROM vigente THEN
+                        RAISE EXCEPTION 'Catálogo VIDUP protegido: actualice el cliente y adopte la generación vigente';
+                    END IF;
+                    IF TG_OP = 'DELETE' THEN RETURN OLD; END IF;
+                    RETURN NEW;
+                END
+                $vidup_guard$''')
+                for tabla in ('videos', 'frame_hashes', 'videos_eliminados'):
+                    nombre_trigger = 'vidup_guard_' + tabla
+                    cur.execute('DROP TRIGGER IF EXISTS ' + nombre_trigger + ' ON ' + tabla)
+                    cur.execute('CREATE TRIGGER ' + nombre_trigger +
+                                ' BEFORE INSERT OR UPDATE OR DELETE ON ' + tabla +
+                                ' FOR EACH ROW EXECUTE FUNCTION vidup_proteger_catalogo()')
             # La etapa de verificación sólo termina después del COMMIT real.
             conn_neon.commit()
             informar('verificacion', 1, 1)
@@ -2143,7 +2190,8 @@ def reemplazar_neon_desde_sqlite(
             raise
         return {'videos': cantidad_origen, 'frames': frames_origen,
                 'eliminados': eliminados_origen,
-                'videos_previos': videos_previos, 'respaldo_previo': str(respaldo)}
+                'videos_previos': videos_previos, 'respaldo_previo': str(respaldo),
+                'generacion': generacion_vidup}
     finally:
         conexion_sqlite.close()
         if conn_neon:

@@ -1,0 +1,112 @@
+VIDUP 2.4.5 — PROTECCIÓN DE CATÁLOGO CANÓNICO Y CAMBIOS POR DISPOSITIVO
+=====================================================================
+
+PROBLEMA QUE RESUELVE
+--------------------
+En VIDUP 2.4.4 cada SQLite contenía réplicas de registros de otros equipos.
+Si Linux conservaba una ruta antigua del Xiaomi, podía volver a subirla a
+Neon durante una sincronización y reactivar un registro ya corregido.
+
+Esta actualización separa la copia canónica de Neon de los cambios recientes
+realizados por cada dispositivo. No vuelve a calcular SHA256 de los vídeos.
+
+CAMBIOS PRINCIPALES
+-------------------
+1. Referencia de catálogo en Neon (vidup_sync_catalogo): cada sustitución
+   integral de Neon desde SQLite genera un identificador de generación único.
+2. Bloqueo de copias antiguas: las SQLite que no hayan adoptado esa generación
+   no pueden publicar nada en Neon. Se muestra un informe previo de diferencias.
+3. Adopción explícita de Neon: si una SQLite antigua no es idéntica a Neon,
+   VIDUP pregunta antes de reemplazar sus tablas de catálogo. Guarda primero
+   un respaldo SQLite coherente, incluidas tablas de vídeos, huellas y marcas.
+   No toca los vídeos físicos del dispositivo.
+4. Bitácora local (vidup_cambios_pendientes): triggers SQLite registran solo
+   modificaciones NUEVAS, propias del dispositivo actual. Los registros que
+   ya existían al instalar 2.4.5 no se presumen novedades publicables.
+5. Autoría: Linux no puede publicar registros que pertenecen al Xiaomi, ni el
+   Xiaomi puede subir cambios ajenos mediante la sincronización ordinaria.
+   Una sustitución integral explícita de Neon sí publica un catálogo global.
+6. Protección en PostgreSQL: las escrituras de versiones anteriores a 2.4.5
+   se rechazan mediante triggers si no aportan la generación vigente. Los
+   clientes viejos pueden seguir consultando, pero no alterar los registros.
+7. Se mantienen las marcas de eliminación, la regla de fecha más reciente,
+   confirmaciones para operaciones destructivas, vista previa de sincronización
+   y barras multilínea de reporter.py para la adopción.
+8. Las mejoras de Rich anteriores se conservan; se añaden mensajes de estado
+   y advertencias de sincronización. La revisión global del resto de menús
+   no forma parte de esta corrección de seguridad de datos.
+
+ARCHIVOS PYTHON MODIFICADOS
+--------------------------
+vidup.py
+core/__init__.py
+core/configuracion.py
+core/database.py
+core/menus.py
+core/sincronizacion.py
+core/control_sincronizacion.py   (nuevo)
+
+INSTRUCCIONES DE RECUPERACIÓN — EL ORDEN ES IMPORTANTE
+----------------------------------------------------
+A. No vuelvas a ejecutar la sincronización de VIDUP 2.4.4 desde Linux, Windows
+   u otros equipos antes de terminar la migración.
+
+B. La base de datos Xiaomi se usará como referencia SOLO porque el propietario
+   confirmó que contiene el estado correcto de todos los dispositivos.
+   Comprueba que es la SQLite íntegra y actual, y genera una copia consistente.
+   Si hay archivos WAL activos, no copies únicamente el .db con la app abierta:
+   usa el respaldo SQLite de la herramienta o la API sqlite3.backup.
+
+C. Instala los .py de VIDUP 2.4.5 primero en el Xiaomi (sin reemplazar el .db,
+   .env, ni el identificador de dispositivo). Mantén cerrados otros clientes.
+
+D. En el Xiaomi, ejecuta Respaldos > opción 4, sustituir Neon desde SQLite,
+   seleccionando EXACTAMENTE la base correcta del Xiaomi. Confirma la operación.
+   Se realiza un respaldo anterior de Neon, y la sustitución completa escribe
+   vídeos, fotogramas, marcas y la NUEVA generación de catálogo. No se tocan
+   vídeos físicos. Si Neon fue reemplazada con 2.4.4, ES NECESARIO repetir la
+   operación ya con 2.4.5 para activar el identificador y la protección.
+
+E. En el Xiaomi, entra en Configuración > 7. Si SQLite y Neon son idénticas,
+   VIDUP vinculará la referencia sin reescribir ninguna fila.
+
+F. Actualiza cada otro dispositivo a 2.4.5. Con su base local cerrada y
+   respaldada, entra en Configuración > 7. Si la SQLite no coincide con la
+   generación de Neon, VIDUP bloqueará la subida y mostrará diferencias.
+   Para adoptar la copia central: confirma la advertencia y escribe
+   literalmente ADOPTAR NEON. Se generará un respaldo local recuperable ANTES
+   de reemplazar las tablas de vídeos, huellas y eliminaciones. Si cancelas,
+   no cambia la SQLite ni Neon.
+
+G. Una vez adoptada Neon en cada equipo, los escaneos, correcciones, bajas y
+   reescaneos NUEVOS de ese propio dispositivo se registran para sincronización
+   manual. Otros dispositivos solo pueden descargar esos registros.
+
+ADVERTENCIAS IMPORTANTES
+------------------------
+- Si una SQLite antigua contenía escaneos válidos que aún no habían llegado a
+  la copia canónica, la adopción los retirará de su catálogo activo. Quedarán
+  guardados en su respaldo local previo. Se pueden analizar manualmente o
+  volver a escanear una vez adoptada la generación.
+- La comparación de rutas no demuestra por sí sola que un archivo exista en
+  otro equipo. Solo un evento local explícito de eliminación puede propagar
+  la baja. La operación no borra ficheros físicos ajenos.
+- La guarda de Neon bloqueará escrituras realizadas con versiones antiguas de
+  VIDUP u otros programas que no proporcionen la generación correcta.
+- No modifiques las tablas vidup_sync_estado ni vidup_cambios_pendientes a mano.
+- No olvides los respaldos de Neon y SQLite antes de la primera adopción.
+- La copia de seguridad exigida para una adopción NO equivale a volver a activar
+  respaldos automáticos en las depuraciones normales.
+
+PRUEBAS Y LIMITACIONES
+---------------------
+- 37 pruebas locales actuales superadas; 9 pruebas antiguas de integración
+  2.4.4 quedaron documentadas como xfail porque exigen el comportamiento
+  inseguro que ahora se prohíbe (publicación sin generación canónica).
+- Se verificó el bloqueo de réplicas antiguas, la bitácora transaccional, la
+  adopción con respaldo y la publicación de un cambio propio posterior.
+- La lógica PostgreSQL y los triggers se revisaron de forma estática, pero no
+  se ejecutaron contra la instancia real de Neon ni en los dispositivos reales.
+  Trata la primera sustitución como una operación controlada con respaldo.
+- No se incluyeron bases .db, archivos .env, identidades, credenciales ni
+  contenidos multimedia.

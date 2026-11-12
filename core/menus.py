@@ -116,20 +116,10 @@ def _cabecera_submenu(titulo: str) -> None:
 
 
 def _mostrar_menu_opciones(opciones: Sequence[tuple[str, str]], peligrosas=()) -> None:
-    """Menú con tabla Rich y alternativa ANSI, sin interpretar texto ajeno."""
-    if CONSOLA is not None and Table is not None and rich_box is not None:
-        t = Table(box=rich_box.ROUNDED, border_style='bright_cyan', show_header=False,
-                  padding=(0, 1), expand=False)
-        t.add_column('Nº', width=4, style='bold gold1', justify='right')
-        t.add_column('Acción', style='bright_white')
-        for n, etiqueta in opciones:
-            t.add_row(f'[bold red]{n}[/]' if n in peligrosas else n,
-                      f'[red]{rich_escape(etiqueta)}[/]' if n in peligrosas else rich_escape(etiqueta))
-        CONSOLA.print(t)
-    else:
-        for n, etiqueta in opciones:
-            color = ROJO if n in peligrosas else CIAN
-            print(f'  {color}{n:>2}{NC}  {etiqueta}')
+    """Menús de VIDUP con paleta Rich y una o dos líneas por opción."""
+    from core.interfaz import menu_rich
+    menu_rich('Opciones del submenú', opciones, peligrosas=peligrosas,
+              subtitulo='Selecciona una operación para continuar.')
 
 
 def _pedir_opcion(mensaje: str, opciones_validas: Sequence[str], defecto: str = '') -> str:
@@ -439,6 +429,10 @@ def submenu_respaldos(db_defecto: str) -> str:
                         progreso=indicador.actualizar)
                 imprimir(f'[bold green]Neon sustituida: {resultado["videos"]} vídeos y {resultado["frames"]} frames y {resultado["eliminados"]} eliminaciones.[/]')
                 imprimir(f'[cyan]Respaldo previo: {resultado["respaldo_previo"]}[/]')
+                imprimir('[bold turquoise2]Nueva referencia de Neon: '
+                         + str(resultado.get('generacion', 'no disponible')) + '[/]')
+                imprimir('[gold1]Los demás dispositivos deberán adoptar esta referencia '
+                         'antes de publicar cambios propios.[/]')
             elif opcion == '5':
                 from core.database import conectar, cerrar, obtener_todos, existe_ruta, guardar_fingerprint, importar_json
                 

@@ -1845,17 +1845,9 @@ def menu(raiz=None, db_defecto=None):
                 ('5', 'Importar carpeta de vídeos como huellas mínimas'),
                 ('00', 'Volver al menú principal'),
             )
-            if CONSOLA is not None and Table is not None and rich_box is not None:
-                tabla_menu = Table(box=rich_box.ROUNDED, border_style='bright_cyan',
-                                   show_header=False)
-                tabla_menu.add_column('Nº', width=4, justify='right', style='bold gold1')
-                tabla_menu.add_column('Acción', style='bright_white')
-                for numero, titulo in opciones:
-                    tabla_menu.add_row(numero, rich_escape(titulo))
-                CONSOLA.print(tabla_menu)
-            else:
-                for numero, titulo in opciones:
-                    _imprimir(f'  {numero:>2}. {titulo}', 'cyan')
+            from core.interfaz import menu_rich
+            menu_rich('Herramientas SHA256', opciones,
+                      subtitulo='Catálogos de archivos y comparación fuera de línea.')
             _imprimir('💡 Las bases de datos pueden ser archivos .db (SQLite) o .json (huellas exportadas).', 'grey37')
 
             opcion = _pedir_texto('\n¿Qué quieres hacer? (1-5 / 00)', '1').zfill(1)

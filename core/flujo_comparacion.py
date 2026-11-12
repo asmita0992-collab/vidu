@@ -1,3 +1,9 @@
+"""Orquesta comparaciones de vídeos y fragmentos entre catálogos VIDUP.
+
+Presenta preguntas y resultados con Rich, usa reporter.py para el avance
+y delega los algoritmos de comparación a core/comparator.py.
+"""
+
 from __future__ import annotations
 import argparse
 import json
@@ -469,9 +475,12 @@ def comparar_interactivo(db_defecto: str) -> str:
     
     while True:
         _cabecera_submenu('Comparar bases de datos')
-        imprimir('\n  [gold1]1.[/] Comparar base de datos única (actual)')
-        imprimir('  [gold1]2.[/] Comparar dos o más bases de datos')
-        imprimir('  [gold1]00.[/] Volver al menú principal\n')
+        from core.interfaz import menu_rich
+        menu_rich('Modo de comparación', [
+            ('1', 'Comparar un catálogo o base SQLite'),
+            ('2', 'Comparar dos o más bases de datos'),
+            ('00', 'Volver al menú principal'),
+        ], subtitulo='Los vídeos originales no se modificarán.')
         
         opcion = _pedir_opcion('¿Qué quieres hacer? (1-2 / 00)', ('1', '2', '00', '0'), '1')
         if opcion in ('00', '0'):
@@ -495,9 +504,10 @@ def comparar_interactivo(db_defecto: str) -> str:
                 if not pedir_si_no('¿Agregar otra base?', False):
                     break
                     
-        imprimir('\n[cyan]Elige el método de comparación:[/]')
-        imprimir('  [gold1]1.[/] Completa (SHA256 + visual + fragmentos)')
-        imprimir('  [gold1]2.[/] Rápida (Solo SHA256 - agrupa idénticos, ignora fragmentos)')
+        menu_rich('Método de comparación', [
+            ('1', 'Completa · SHA256, visual y fragmentos'),
+            ('2', 'Rápida · SHA256 para duplicados exactos'),
+        ])
         metodo = _pedir_opcion('Método (1-2)', ('1', '2'), '2')
         
         solo_sha256 = (metodo == '2')
