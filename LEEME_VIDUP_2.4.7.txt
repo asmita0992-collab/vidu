@@ -1,0 +1,70 @@
+VIDUP 2.4.7 — ACTUALIZACIÓN DE HUELLAS VS. SUSTITUCIÓN REAL
+=========================================================
+
+Objetivo
+--------
+Corregir el mensaje «Sustituciones por huella reciente» y, más importante,
+separar las operaciones de sincronización de análisis multimedia de las
+sustituciones reales de un registro de vídeo.
+
+Qué cambia
+----------
+1) «Actualizaciones de huellas visuales/audio»:
+   Cuando ambas bases tienen el MISMO registro, ruta, dispositivo, tamaño,
+   SHA256 del archivo y demás metadatos básicos, pero un escaneo más reciente
+   incorpora o actualiza la huella de audio o los fotogramas con huellas,
+   VIDUP copia SOLAMENTE esas huellas y alinea la fecha de escaneo.
+   No sustituye ruta, nombre, dispositivo ni SHA256.
+   La barra se identifica como «Actualización de huellas» y usa reporter.py.
+
+2) «Ajustes de fecha de escaneo»:
+   Si los datos y huellas coinciden y únicamente cambia la fecha del escaneo,
+   se actualiza esa fecha sin volver a copiar las huellas.
+
+3) «Sustituciones reales de registros»:
+   Se usa este contador únicamente cuando cambia algo más que las huellas
+   y la fecha. No se ocultan casos con distinto SHA256 o metadatos.
+   Conserva la autorización, las protecciones contra datos antiguos y la
+   precedencia cronológica de VIDUP 2.4.6.
+
+4) Protección de huellas existentes:
+   Si un análisis posterior trae menos huellas de las que ya están almacenadas,
+   no borra silenciosamente los análisis anteriores: genera un conflicto
+   que se debe revisar.
+
+5) Informes:
+   El plan mostrado en terminal y las exportaciones TXT/JSON separan estos tres
+   tipos de operación, con contadores y nombres identificables.
+   Se mantienen los campos anteriores del JSON para sustituciones reales.
+
+No se vuelve a abrir ningún MP4 ni recalcular su SHA256. Los resúmenes de
+fotogramas se calculan únicamente sobre los valores almacenados en la BD.
+No se cambian las tablas, bases locales, credenciales ni la generación de Neon.
+
+Archivos modificados
+--------------------
+- core/sincronizacion.py: clasificación, operación segura, mensajes y progreso.
+- core/auditoria_sincronizacion.py: nombres y grupos en el TXT del plan.
+- core/__init__.py: versión 2.4.7.
+- vidup.py: versión 2.4.7.
+
+Instalación
+-----------
+1. Cierra VIDUP en todos los equipos.
+2. Conserva una copia de la SQLite local, el código 2.4.6 y un respaldo
+   verificado de Neon antes de realizar sincronizaciones que impliquen cambios.
+3. Extrae VIDUP_2.4.7_SOLO_PY.zip sobre tu carpeta VIDUP 2.4.6, respetando
+   la estructura core/. No sustituye archivos .db ni .env.
+4. Ejecuta «python vidup.py --version» y comprueba que muestra 2.4.7.
+5. Primero revisa el plan de sincronización (Configuración -> opción 7)
+   y el reporte TXT. Autoriza los cambios solo después de verificarlos.
+
+Pruebas
+-------
+51 pruebas locales correctas, 9 pruebas históricas marcadas como xfail por
+su contrato de sincronización anterior a 2.4.5. Incluyen simulación de 94
+actualizaciones de huellas, distinción de cambios solo de fecha, protección
+contra pérdida de huellas, sustitución verdadera por SHA256 diferente,
+restricción de registros ajenos y generación de TXT/JSON.
+No se realizaron conexiones a la instancia real de Neon ni pruebas físicas
+en Android, Windows o Linux. Recomendable validar primero con copias de DB.

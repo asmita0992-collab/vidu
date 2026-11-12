@@ -71,6 +71,13 @@ class PlanSincronizacion:
     borrar_local: List[dict] = field(default_factory=list)
     reactivar_nube: List[str] = field(default_factory=list)
     reactivar_local: List[str] = field(default_factory=list)
+    # Mismo vídeo/SHA256: sólo cambian las huellas visuales o de audio.
+    actualizar_huellas_nube: List[Tuple[str, dict]] = field(default_factory=list)
+    actualizar_huellas_local: List[Tuple[str, dict]] = field(default_factory=list)
+    # Misma identidad y huellas, sólo cambia la fecha del último escaneo.
+    actualizar_fecha_nube: List[Tuple[str, dict]] = field(default_factory=list)
+    actualizar_fecha_local: List[Tuple[str, dict]] = field(default_factory=list)
+    # Cambia realmente otra información: puede requerir sustitución completa.
     reemplazar_nube: List[Tuple[str, dict]] = field(default_factory=list)
     reemplazar_local: List[Tuple[str, dict]] = field(default_factory=list)
     conflictos_eliminacion: List[str] = field(default_factory=list)
@@ -81,7 +88,9 @@ class PlanSincronizacion:
                 len(self.meta_local) + len(self.frames_nube) + len(self.frames_local) +
                 len(self.marcas_nube) + len(self.marcas_local) + len(self.borrar_nube) +
                 len(self.borrar_local) + len(self.reactivar_nube) +
-                len(self.reactivar_local) + len(self.reemplazar_nube) +
+                len(self.reactivar_local) + len(self.actualizar_huellas_nube) +
+                len(self.actualizar_huellas_local) + len(self.actualizar_fecha_nube) +
+                len(self.actualizar_fecha_local) + len(self.reemplazar_nube) +
                 len(self.reemplazar_local))
 
 
@@ -353,6 +362,35 @@ def _quitar_operaciones_clave(plan: PlanSincronizacion, clave: str,
         plan.conflictos = [v for v in plan.conflictos if not v.startswith(clave + ':')]
 
 
+def _tipo_revision_mismo_video(ganador: dict, perdedor: dict,
+                              huellas_ganador: Tuple[int, str],
+                              huellas_perdedor: Tuple[int, str]) -> str:
+    """Clasifica cambios del mismo vídeo sin recalcular SHA256 físico.
+
+    No se denomina «actualización de huellas» a una sustitución del vídeo:
+    su SHA256 y todos los campos básicos/metadatos deben permanecer iguales.
+    Una revisión que pierde huellas existentes no se trata como enriquecimiento.
+    """
+    sha_g, sha_p = (str(v.get('hash_archivo') or '').strip().lower()
+                    for v in (ganador, perdedor))
+    if not sha_g or sha_g != sha_p or not _sha256_valido(sha_g):
+        return 'reemplazo'
+    for campo in VIDEO_COLUMNS:
+        if campo in ('fecha_escaneo', 'audio_huella'):
+            continue
+        if ganador.get(campo) != perdedor.get(campo):
+            return 'reemplazo'
+    audio_g, audio_p = ganador.get('audio_huella'), perdedor.get('audio_huella')
+    visual_g, visual_p = huellas_ganador, huellas_perdedor
+    if audio_p and not audio_g:
+        return 'conflicto'  # Nunca borrar una huella de audio existente.
+    if visual_p[0] and not visual_g[0]:
+        return 'conflicto'  # Nunca descartar fotogramas ya analizados.
+    if audio_g != audio_p or visual_g != visual_p:
+        return 'huellas'
+    return 'fecha'
+
+
 def _planear_marcas(plan: PlanSincronizacion,
                     local: Dict[str, dict], nube: Dict[str, dict],
                     marcas_local: Dict[str, str], marcas_nube: Dict[str, str],
@@ -449,13 +487,26 @@ def _planear_marcas(plan: PlanSincronizacion,
                 if not _sha256_valido(ganador.get('hash_archivo')):
                     _quitar_operaciones_clave(plan, clave)
                     plan.conflictos_eliminacion.append(
-                        f'{clave}: última versión sin SHA256; sustitución bloqueada')
+                        f'{clave}: última versión sin SHA256; revisión bloqueada')
                     continue
+                tipo = _tipo_revision_mismo_video(
+                    ganador, perdedor,
+                    (frames_local if ganador_local else frames_nube).get(int(ganador['id']), (0, '')),
+                    (frames_nube if ganador_local else frames_local).get(int(perdedor['id']), (0, '')),
+                )
                 _quitar_operaciones_clave(plan, clave, retirar_conflictos=True)
-                if ganador_local:
-                    plan.reemplazar_nube.append((clave, ganador))
+                if tipo == 'conflicto':
+                    plan.conflictos_eliminacion.append(
+                        f'{clave}: el escaneo reciente tiene menos huellas; '
+                        'no se descartan los análisis existentes')
+                    continue
+                if tipo == 'huellas':
+                    destino = plan.actualizar_huellas_nube if ganador_local else plan.actualizar_huellas_local
+                elif tipo == 'fecha':
+                    destino = plan.actualizar_fecha_nube if ganador_local else plan.actualizar_fecha_local
                 else:
-                    plan.reemplazar_local.append((clave, ganador))
+                    destino = plan.reemplazar_nube if ganador_local else plan.reemplazar_local
+                destino.append((clave, ganador))
 
 def _copia_previa_borrados_nube(conn: Any, videos: List[dict]) -> Optional[Path]:
     """Guarda una recuperación portable de filas y huellas antes de eliminar.
@@ -497,7 +548,12 @@ def _imprimir_plan(plan: PlanSincronizacion, n_local: int, n_nube: int) -> None:
     imprimir(f'  Marcas pendientes de copiar → Neon: {len(plan.marcas_nube)}; → SQLite: {len(plan.marcas_local)}')
     imprimir(f'  Registros propuestos para eliminar: Neon {len(plan.borrar_nube)}; SQLite {len(plan.borrar_local)}')
     imprimir(f'  Reescaneos posteriores al borrado: {len(plan.reactivar_local) + len(plan.reactivar_nube)} marcas obsoletas')
-    imprimir(f'  Sustituciones por huella reciente: Neon {len(plan.reemplazar_nube)}; SQLite {len(plan.reemplazar_local)}')
+    imprimir(f'  [spring_green2]Actualizaciones de huellas visuales/audio: '
+            f'Neon {len(plan.actualizar_huellas_nube)}; SQLite {len(plan.actualizar_huellas_local)}[/]')
+    imprimir(f'  Ajustes de fecha de escaneo: Neon {len(plan.actualizar_fecha_nube)}; '
+            f'SQLite {len(plan.actualizar_fecha_local)}')
+    imprimir(f'  [yellow]Sustituciones reales de registros: Neon '
+            f'{len(plan.reemplazar_nube)}; SQLite {len(plan.reemplazar_local)}[/]')
     imprimir(f'  Conflictos de eliminación/revisión: {len(plan.conflictos_eliminacion)}')
     imprimir('  [gold1]Los borrados solo se aplican tras autorización expresa y respaldo JSON.[/]')
     for item in (plan.conflictos + plan.conflictos_eliminacion)[:10]:
@@ -531,6 +587,10 @@ def _guardar_plan(plan: PlanSincronizacion, ruta_local: Path,
         'videos_borrar_en_sqlite': [v['clave_unica'] for v in plan.borrar_local],
         'reactivar_marcas_neon': plan.reactivar_nube,
         'reactivar_marcas_sqlite': plan.reactivar_local,
+        'actualizar_huellas_neon': [k for k, _ in plan.actualizar_huellas_nube],
+        'actualizar_huellas_sqlite': [k for k, _ in plan.actualizar_huellas_local],
+        'actualizar_fecha_neon': [k for k, _ in plan.actualizar_fecha_nube],
+        'actualizar_fecha_sqlite': [k for k, _ in plan.actualizar_fecha_local],
         'reemplazar_version_antigua_neon': [k for k, _ in plan.reemplazar_nube],
         'reemplazar_version_antigua_sqlite': [k for k, _ in plan.reemplazar_local],
         'conflictos_de_eliminacion': plan.conflictos_eliminacion,
@@ -540,6 +600,12 @@ def _guardar_plan(plan: PlanSincronizacion, ruta_local: Path,
     }
     with archivo.open('x', encoding='utf-8') as fp:
         json.dump(contenido, fp, ensure_ascii=False, indent=2)
+    from core.auditoria_sincronizacion import guardar_plan_txt
+    try:
+        guardar_plan_txt(archivo, contenido)
+    except BaseException:
+        archivo.unlink(missing_ok=True)
+        raise
     return archivo
 
 
@@ -567,6 +633,26 @@ def _frames_por_ids_nube(conn: Any, ids: List[int]) -> dict[int, list]:
     for id_, pos, huella in filas:
         salida.setdefault(int(id_), []).append((int(pos), huella))
     return salida
+
+
+def _huellas_resumen_un_video(conn: Any, video_id: int) -> Tuple[int, str]:
+    """Resumen de huellas almacenadas de un vídeo, sin abrir el MP4."""
+    if _es_pg(conn):
+        with conn.cursor() as cur:
+            cur.execute('SELECT posicion, hash_valor FROM frame_hashes '
+                        'WHERE video_id = %s ORDER BY posicion', (video_id,))
+            filas = cur.fetchall()
+    else:
+        filas = conn.execute('SELECT posicion, hash_valor FROM frame_hashes '
+                            'WHERE video_id = ? ORDER BY posicion', (video_id,)).fetchall()
+    if not filas:
+        return 0, ''
+    digest = hashlib.sha256()
+    for posicion, valor in filas:
+        digest.update(f'{posicion}:'.encode())
+        digest.update(str(valor).encode('utf-8', 'replace'))
+        digest.update(b'\0')
+    return len(filas), digest.hexdigest()
 
 
 def _aplicar_plan(conn_loc: Any, conn_nube: Any, plan: PlanSincronizacion,
@@ -720,6 +806,94 @@ def _aplicar_plan(conn_loc: Any, conn_nube: Any, plan: PlanSincronizacion,
     for i, clave in enumerate(plan.reactivar_local, len(plan.reactivar_nube) + 1):
         conn_loc.execute('DELETE FROM videos_eliminados WHERE clave_unica = ?', (clave,))
         avance('reactivar', i, n_reactivaciones, clave)
+
+    # Enriquecimiento de huellas de un vídeo de IDENTIDAD INALTERADA.
+    # Solo se modifican fecha/audio_huella/frame_hashes; no ruta, SHA256,
+    # nombre, tamaño ni los demás datos básicos. No se abre ningún vídeo.
+    total_huellas = len(plan.actualizar_huellas_nube) + len(plan.actualizar_huellas_local)
+    avance('huellas', 0, total_huellas, 'Actualizando análisis existentes')
+    for i, (clave, origen) in enumerate(plan.actualizar_huellas_nube, 1):
+        destino = remotos[clave]
+        # Fuente y destino se mantienen estables según el plan leído.
+        visual_origen = _huellas_resumen_un_video(conn_loc, int(origen['id']))
+        visual_destino = _huellas_resumen_un_video(conn_nube, int(destino['id']))
+        if _tipo_revision_mismo_video(origen, destino,
+                                     visual_origen, visual_destino) != 'huellas':
+            raise ErrorSincronizacion('Las huellas de Neon cambiaron durante el plan: ' + clave)
+        campos = ['fecha_escaneo']
+        valores = [origen['fecha_escaneo']]
+        if origen.get('audio_huella') is not None and origen.get('audio_huella') != '':
+            campos.append('audio_huella')
+            valores.append(origen['audio_huella'])
+        sql = 'UPDATE videos SET ' + ', '.join(c + ' = %s' for c in campos)
+        with conn_nube.cursor() as cur:
+            cur.execute(sql + ' WHERE id = %s AND clave_unica = %s AND fecha_escaneo = %s AND hash_archivo = %s',
+                        tuple(valores) + (int(destino['id']), clave, destino['fecha_escaneo'],
+                                         destino['hash_archivo']))
+            if cur.rowcount != 1:
+                raise ErrorSincronizacion('Neon cambió durante la actualización de huellas: ' + clave)
+            if visual_origen != visual_destino:
+                frames_origen = _frames_por_ids_local(conn_loc, [int(origen['id'])]).get(int(origen['id']), [])
+                if not frames_origen:
+                    raise ErrorSincronizacion('No se hallaron las huellas visuales esperadas: ' + clave)
+                cur.execute('DELETE FROM frame_hashes WHERE video_id = %s', (int(destino['id']),))
+                psycopg2.extras.execute_values(
+                    cur, 'INSERT INTO frame_hashes (video_id, posicion, hash_valor) VALUES %s',
+                    [(int(destino['id']), pos, h) for pos, h in frames_origen], page_size=1000)
+        avance('huellas', i, total_huellas, clave)
+    for i, (clave, origen) in enumerate(plan.actualizar_huellas_local,
+                                        len(plan.actualizar_huellas_nube) + 1):
+        destino = locales[clave]
+        visual_origen = _huellas_resumen_un_video(conn_nube, int(origen['id']))
+        visual_destino = _huellas_resumen_un_video(conn_loc, int(destino['id']))
+        if _tipo_revision_mismo_video(origen, destino,
+                                     visual_origen, visual_destino) != 'huellas':
+            raise ErrorSincronizacion('Las huellas de SQLite cambiaron durante el plan: ' + clave)
+        campos = ['fecha_escaneo']
+        valores = [origen['fecha_escaneo']]
+        if origen.get('audio_huella') is not None and origen.get('audio_huella') != '':
+            campos.append('audio_huella')
+            valores.append(origen['audio_huella'])
+        sql = 'UPDATE videos SET ' + ', '.join(c + ' = ?' for c in campos)
+        cur = conn_loc.execute(sql + ' WHERE id = ? AND clave_unica = ? AND fecha_escaneo = ? AND hash_archivo = ?',
+                               tuple(valores) + (int(destino['id']), clave, destino['fecha_escaneo'],
+                                                destino['hash_archivo']))
+        if cur.rowcount != 1:
+            raise ErrorSincronizacion('SQLite cambió durante la actualización de huellas: ' + clave)
+        if visual_origen != visual_destino:
+            frames_origen = _frames_por_ids_nube(conn_nube, [int(origen['id'])]).get(int(origen['id']), [])
+            if not frames_origen:
+                raise ErrorSincronizacion('No se hallaron las huellas visuales esperadas: ' + clave)
+            conn_loc.execute('DELETE FROM frame_hashes WHERE video_id = ?', (int(destino['id']),))
+            conn_loc.executemany(
+                'INSERT INTO frame_hashes (video_id, posicion, hash_valor) VALUES (?, ?, ?)',
+                [(int(destino['id']), pos, h) for pos, h in frames_origen])
+        avance('huellas', i, total_huellas, clave)
+
+    # Alinea únicamente las fechas de escaneo cuando los datos y huellas
+    # ya coinciden. No vuelve a copiar las huellas visuales.
+    total_fechas = len(plan.actualizar_fecha_nube) + len(plan.actualizar_fecha_local)
+    avance('fechas', 0, total_fechas, 'Fechas de escaneo coincidentes')
+    for i, (clave, origen) in enumerate(plan.actualizar_fecha_nube, 1):
+        destino = remotos[clave]
+        with conn_nube.cursor() as cur:
+            cur.execute('UPDATE videos SET fecha_escaneo = %s WHERE id = %s AND clave_unica = %s '
+                        'AND fecha_escaneo = %s AND hash_archivo = %s',
+                        (origen['fecha_escaneo'], int(destino['id']), clave,
+                         destino['fecha_escaneo'], destino['hash_archivo']))
+            if cur.rowcount != 1:
+                raise ErrorSincronizacion('Neon cambió al alinear fecha de escaneo: ' + clave)
+        avance('fechas', i, total_fechas, clave)
+    for i, (clave, origen) in enumerate(plan.actualizar_fecha_local,
+                                        len(plan.actualizar_fecha_nube) + 1):
+        destino = locales[clave]
+        cur = conn_loc.execute('UPDATE videos SET fecha_escaneo = ? WHERE id = ? AND clave_unica = ? '
+                               'AND fecha_escaneo = ? AND hash_archivo = ?',
+                               (origen['fecha_escaneo'], int(destino['id']), clave,
+                                destino['fecha_escaneo'], destino['hash_archivo']))
+        if cur.rowcount != 1:
+            raise ErrorSincronizacion('SQLite cambió al alinear fecha de escaneo: ' + clave)
+        avance('fechas', i, total_fechas, clave)
 
     # Restauración de la versión más nueva SIN recalcular huellas. Los frames
     # se copian de la base ganadora y se sustituyen junto con los metadatos,
@@ -966,6 +1140,8 @@ def _restringir_publicacion(plan: PlanSincronizacion, dispositivo_id: str,
     plan.borrar_nube = [v for v in plan.borrar_nube
                        if v['clave_unica'] in autorizado_baja]
     plan.reactivar_nube = limpiar_claves(plan.reactivar_nube, autorizado_video)
+    plan.actualizar_huellas_nube = limpiar_duplas(plan.actualizar_huellas_nube, autorizado_video)
+    plan.actualizar_fecha_nube = limpiar_duplas(plan.actualizar_fecha_nube, autorizado_video)
     plan.reemplazar_nube = limpiar_duplas(plan.reemplazar_nube, autorizado_video)
     plan.protegidos.extend(sorted(bloqueadas - set(plan.protegidos)))
 
@@ -1031,26 +1207,39 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
                 return 0, 0, 0
             imprimir('[bold orange1]Esta SQLite pertenece a una generación anterior '
                      'a la referencia actual de Neon. Se BLOQUEA la subida.[/]')
-            solo_loc = sorted(set(locales) - set(remotos))
-            solo_neon = sorted(set(remotos) - set(locales))
-            diferentes = [k for k in set(locales) & set(remotos) if any(
-                locales[k].get(c) != remotos[k].get(c) for c in VIDEO_COLUMNS)]
+            # Informe exhaustivo: metadatos, huella de audio y fotogramas.
+            # No basta con contrastar claves ni los totales del catálogo.
+            from core.auditoria_sincronizacion import (
+                construir_auditoria, guardar_auditoria)
+            informe = construir_auditoria(
+                local=locales, neon=remotos,
+                frames_local=hashes_local, frames_neon=hashes_nube,
+                marcas_local=marcas_locales, marcas_neon=marcas_remotas,
+                columnas=VIDEO_COLUMNS, generacion=generacion,
+                ruta_sqlite=str(ruta))
+            categorias = informe['categorias']
             imprimir(f'[cyan]SQLite: {len(locales)} vídeos · Neon: {len(remotos)} vídeos.[/]')
-            imprimir(f'[gold1]Diferencias: solo SQLite {len(solo_loc)}, '
-                     f'solo Neon {len(solo_neon)}, versiones distintas {len(diferentes)}.[/]')
-            # Una auditoría inspeccionable antes de autorizar la adopción.
-            carpeta = DIR_SCRIPT / 'reportes' / 'sincronizacion' / 'json'
-            carpeta.mkdir(parents=True, exist_ok=True)
-            from datetime import datetime
-            auditoria_previa = carpeta / f'adopcion_neon_{datetime.now():%Y%m%d_%H%M%S_%f}.json'
-            auditoria_previa.write_text(json.dumps({
-                'generacion_neon': generacion, 'sqlite': str(ruta),
-                'solo_sqlite': solo_loc, 'solo_neon': solo_neon,
-                'versiones_distintas': sorted(diferentes),
-                'marcas_solo_sqlite': sorted(set(marcas_locales)-set(marcas_remotas)),
-                'marcas_solo_neon': sorted(set(marcas_remotas)-set(marcas_locales))
-            }, ensure_ascii=False, indent=2), encoding='utf-8')
-            imprimir(f'[cyan]Auditoría previa: {auditoria_previa}[/]')
+            imprimir(f'[gold1]Diferencias: solo SQLite {categorias["solo_sqlite"]}, '
+                     f'solo Neon {categorias["solo_neon"]}, '
+                     f'versiones distintas {categorias["datos_diferentes"]}.[/]')
+            imprimir(f'[spring_green2]Huellas visuales por vídeo: '
+                     f'SQLite {informe["resumen_sqlite"]["con_visual"]}, '
+                     f'Neon {informe["resumen_neon"]["con_visual"]}.[/]')
+            imprimir(f'[spring_green2]Huellas de audio por vídeo: '
+                     f'SQLite {informe["resumen_sqlite"]["con_audio"]}, '
+                     f'Neon {informe["resumen_neon"]["con_audio"]}.[/]')
+            json_aud, txt_aud = guardar_auditoria(
+                informe, DIR_SCRIPT / 'reportes' / 'sincronizacion', 'adopcion_neon')
+            imprimir(f'[cyan]Informe legible (TXT): {txt_aud}[/]')
+            imprimir(f'[cyan]Detalle técnico (JSON): {json_aud}[/]')
+            if categorias['conflictos_de_valores'] or categorias['datos_faltantes_en_neon']:
+                imprimir('[bold yellow]Atención: algunos registros contienen conflictos '
+                         'o información que Neon no tiene. Revise el TXT antes de adoptar.[/]')
+            elif (categorias['datos_faltantes_en_sqlite'] and
+                  not categorias['solo_sqlite'] and not categorias['solo_neon'] and
+                  not informe['marcas_diferentes']):
+                imprimir('[green]Las diferencias se deben a datos faltantes en SQLite '
+                         'que sí están en Neon. Revise el TXT para ver cada campo.[/]')
             imprimir('[yellow]La adopción reemplaza el CATÁLOGO local desde Neon '
                      '(no borra archivos de vídeo), con respaldo SQLite completo.[/]')
             if solo_plan or not confirmar:
@@ -1067,6 +1256,24 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
             imprimir(f'[bold spring_green2]SQLite alineada con la referencia de Neon.[/] '
                      f'Respaldo local: {respaldo}')
             return 0, len(remotos), 0
+        # Incluso con la misma generación, generar diagnóstico legible cuando
+        # hay diferencias. Un plan de operaciones no explica por sí solo qué
+        # huella, fecha o metadato difiere, y no debe inducir a sustituir datos.
+        if not _catalogos_iguales(locales, remotos, hashes_local, hashes_nube,
+                                  marcas_locales, marcas_remotas):
+            from core.auditoria_sincronizacion import (
+                construir_auditoria, guardar_auditoria)
+            diagnostico = construir_auditoria(
+                local=locales, neon=remotos,
+                frames_local=hashes_local, frames_neon=hashes_nube,
+                marcas_local=marcas_locales, marcas_neon=marcas_remotas,
+                columnas=VIDEO_COLUMNS, generacion=generacion,
+                ruta_sqlite=str(ruta))
+            ruta_json, ruta_txt = guardar_auditoria(
+                diagnostico, DIR_SCRIPT / 'reportes' / 'sincronizacion',
+                'comparacion_neon')
+            imprimir(f'[cyan]Diagnóstico de diferencias TXT: {ruta_txt}[/]')
+            imprimir(f'[cyan]Diagnóstico detallado JSON: {ruta_json}[/]')
         # Solo los cambios capturados por VIDUP 2.4.5 desde esta generación
         # pueden salir; nunca un catálogo histórico ni copias ajenas.
         diario = pendientes(conn_loc)
@@ -1087,7 +1294,8 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
         _restringir_publicacion(plan, identidad, diario)
         _imprimir_plan(plan, len(locales), len(remotos))
         archivo_plan = _guardar_plan(plan, ruta, len(locales), len(remotos))
-        imprimir(f'[cyan]Plan verificable guardado: {archivo_plan}[/]')
+        imprimir(f'[cyan]Plan verificable JSON: {archivo_plan}[/]')
+        imprimir(f'[cyan]Plan legible TXT: {archivo_plan.parent.parent / "txt" / (archivo_plan.stem + ".txt")}[/]')
 
         if solo_plan:
             return 0, 0, 0
@@ -1123,7 +1331,9 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
         with ProgresoTareas([
             ('subir', 'Envío a Neon'), ('bajar', 'Descarga a SQLite'),
             ('marcas', 'Reconciliación de marcas'), ('eliminar', 'Borrado de registros'),
-            ('reactivar', 'Reescaneos posteriores'), ('revision', 'Huellas recientes'),
+            ('reactivar', 'Reescaneos posteriores'),
+            ('huellas', 'Actualización de huellas'),
+            ('fechas', 'Fechas de escaneo'), ('revision', 'Sustitución real'),
         ]) as progreso:
             subida, bajada, eliminados = _aplicar_plan(
                 conn_loc, conn_nube, plan, locales, remotos, progreso=progreso)
