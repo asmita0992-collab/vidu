@@ -9,7 +9,7 @@ Los reportes se guardan junto al programa, dentro de reportes/.
 
 from __future__ import annotations
 
-__version__ = "2.4.2"
+__version__ = "2.4.3"
 __desc_herramienta__ = "Detector de vídeos duplicados y fragmentos"
 
 import argparse

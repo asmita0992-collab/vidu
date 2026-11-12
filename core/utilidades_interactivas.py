@@ -34,7 +34,7 @@ from core.presentacion import (
     NC, NEGRITA, AZUL, AMARILLO, VERDE, ROJO, GRIS, CIAN, BLANCO, MAGENTA,
 )
 from core.reporter import (
-    Dashboard, ProgresoFingerprintWorker, _fmt_seg, _mostrar_desglose_estadisticas,
+    Dashboard, ProgresoFingerprintWorker, ProgresoMultilinea, _fmt_seg, _mostrar_desglose_estadisticas,
 )
 from core.telegram import (
     configurado as telegram_configurado, enviar as telegram_enviar,
@@ -122,12 +122,12 @@ def cambiar_rutas_interactivo(db: str) -> None:
         if pedir_texto('Escribe CAMBIAR RUTAS para confirmar', obligatorio=True) != 'CAMBIAR RUTAS':
             imprimir('[yellow]Confirmación incorrecta. Cancelado.[/]')
             return
-        def progreso(i, total, ruta):
-            if i == 1 or i % 20 == 0 or i == total:
-                imprimir(f'[cyan]Actualizando rutas: {i}/{total} — {rich_escape(ruta)}[/]')
-        resultado = cambiar_rutas.ejecutar(
-            conn,elegido['dispositivo_id'],elegido['dispositivo'],origen,destino,
-            es_carpeta,_carpeta_reportes() / 'cambios_rutas',progreso)
+        with ProgresoMultilinea(len(plan), 'Cambiar rutas en el inventario') as barra:
+            resultado = cambiar_rutas.ejecutar(
+                conn, elegido['dispositivo_id'], elegido['dispositivo'],
+                origen, destino, es_carpeta,
+                _carpeta_reportes() / 'cambios_rutas',
+                lambda i, total, ruta: barra.actualizar(i, total, ruta))
         imprimir(f'[green]Registros actualizados: {resultado["actualizados"]}[/]')
         for formato,ruta in resultado['reportes'].items():
             imprimir(f'[green]Respaldo {formato.upper()}: {rich_escape(ruta)}[/]')
@@ -151,11 +151,11 @@ def completar_metadatos_interactivo(db: str) -> None:
                  'Solo se pueden consultar archivos accesibles desde este equipo.[/]')
         if not candidatos or not pedir_si_no('¿Completar únicamente los campos faltantes?', False):
             return
-        def progreso(i, total, estado):
-            imprimir(f'[cyan]Metadatos {i}/{total}[/] '
-                     f'[yellow]{rich_escape(candidatos[i-1]["nombre"])}[/] '
-                     f'[green]{rich_escape(estado)}[/]')
-        resultado = cm.ejecutar(conn, did, _carpeta_reportes() / 'metadatos', excl, progreso)
+        with ProgresoMultilinea(len(candidatos), 'Completar metadatos · FFprobe') as barra:
+            def progreso(i, total, estado):
+                indice = max(0, min(i - 1, len(candidatos) - 1))
+                barra.actualizar(i, total, f'{candidatos[indice]["nombre"]} · {estado}')
+            resultado = cm.ejecutar(conn, did, _carpeta_reportes() / 'metadatos', excl, progreso)
         for clave, cantidad in resultado['conteo'].items():
             imprimir(f'[cyan]{clave}: {cantidad}[/]')
         imprimir(f'[green]Respaldo previo: {rich_escape(resultado["respaldo"])}[/]')
@@ -518,18 +518,22 @@ def buscar_ubicacion_interactivo(db: str) -> None:
         imprimir(f'[green]Reporte {formato.upper()}: {rich_escape(str(destino))}[/]')
     if resultado['coincidencias']:
         imprimir('\n[bold cyan]Primeras coincidencias confirmadas:[/]')
-        if TIENE_RICH and Table is not None and CONSOLA is not None:
+        # Termux no puede mostrar dos columnas con rutas largas sin reducir
+        # el texto a unos pocos caracteres. En ancho reducido, una ficha por
+        # archivo conserva el nombre y la ruta íntegros en líneas independientes.
+        estrecha = CONSOLA is not None and CONSOLA.width < 90
+        if TIENE_RICH and Table is not None and CONSOLA is not None and not estrecha:
             tabla = Table(box=rich_box.ROUNDED, header_style='bold cyan')
-            tabla.add_column('Vídeo', style='bright_white')
-            tabla.add_column('Nueva ubicación', style='spring_green2')
+            tabla.add_column('Vídeo', style='bright_white', overflow='fold')
+            tabla.add_column('Nueva ubicación', style='spring_green2', overflow='fold')
             for item in resultado['coincidencias'][:10]:
-                tabla.add_row(rich_escape(item['nombre']),
-                              rich_escape(item['ruta_nueva']))
+                tabla.add_row(rich_escape(item['nombre']), rich_escape(item['ruta_nueva']))
             CONSOLA.print(tabla)
         else:
-            for item in resultado['coincidencias'][:10]:
-                imprimir(f'  [green]{rich_escape(item["nombre"])}[/] → '
-                         f'{rich_escape(item["ruta_nueva"])}')
+            for indice, item in enumerate(resultado['coincidencias'][:10], 1):
+                imprimir(f'[bold cyan]{indice:>2}. [/][bright_white]'
+                         f'{rich_escape(item["nombre"])}[/]')
+                imprimir(f'    [spring_green2]→ {rich_escape(item["ruta_nueva"])}[/]')
         imprimir('[cyan]Para actualizar las rutas verificadas utiliza el submenú 8, opción 4.[/]')
 
 
@@ -548,7 +552,10 @@ def aplicar_ubicacion_interactivo(db: str) -> None:
         imprimir('[yellow]No se seleccionó un reporte válido.[/]')
         return
 
-    coincidencias, rechazadas = ubicacion.cargar_coincidencias_con_errores(archivo)
+    # El SHA256 ya fue calculado en 8.2. Volver a leer vídeos aquí puede
+    # tardar horas en tarjetas SD; 8.4 valida solo metadatos del reporte/SQLite.
+    coincidencias, rechazadas = ubicacion.cargar_coincidencias_con_errores(
+        archivo, validar=True)
     if rechazadas:
         imprimir(f'[yellow]Coincidencias descartadas por validación: {len(rechazadas)}[/]')
         for r in rechazadas[:10]:
@@ -558,14 +565,20 @@ def aplicar_ubicacion_interactivo(db: str) -> None:
         imprimir('[yellow]El reporte no contiene coincidencias confirmadas y válidas para aplicar.[/]')
         return
 
-    imprimir(f'\n[cyan]Se cambiará la ruta de {len(coincidencias)} vídeo(s) en la base.[/]')
-    for c in coincidencias[:20]:
-        imprimir(f'  {rich_escape(c["ruta_anterior"])}')
-        imprimir(f'    -> {rich_escape(c["ruta_nueva"])}')
-    if len(coincidencias) > 20:
-        imprimir(f'  ... y {len(coincidencias) - 20} más (ver el reporte)')
-    imprimir('[grey70]Solo cambia la ruta en la base. No mueve ni copia archivos. '
-             'Se respalda cada cambio antes de aplicarlo.[/]')
+    imprimir(f'\n[bold cyan]Rutas confirmadas por 8.2: {len(coincidencias)}[/]')
+    # Vista previa compacta y legible en pantallas pequeñas; los detalles
+    # completos ya están en el JSON seleccionado y en la auditoría posterior.
+    for i, c in enumerate(coincidencias[:8], 1):
+        nombre = Path(str(c["ruta_anterior"])).name
+        imprimir(f'  [gold1]{i:>2}.[/] [white]{rich_escape(nombre)}[/]')
+        imprimir(f'      [spring_green2]→ {rich_escape(str(c["ruta_nueva"]))}[/]')
+    if len(coincidencias) > 8:
+        imprimir(f'  [grey70]... y {len(coincidencias) - 8} más (consulta el reporte JSON)[/]')
+    panel('[green]Únicamente actualizará las rutas de SQLite.[/]\n'
+          '[cyan]Las huellas SHA256 verificadas en 8.2 NO se recalculan.[/]\n'
+          '[grey70]No mueve vídeos. El lote es transaccional y genera '
+          'una auditoría de rutas anteriores (sin copiar huellas de frames).[/]',
+          'Aplicación de ubicaciones confirmadas', 'bright_cyan')
 
     if not pedir_si_no('¿Aplicar estos cambios de ruta?', False):
         imprimir('[yellow]Operación cancelada.[/]')
@@ -575,20 +588,36 @@ def aplicar_ubicacion_interactivo(db: str) -> None:
         imprimir('[yellow]Confirmación incorrecta. Cancelado.[/]')
         return
 
+    if str(db).lower().strip() == 'neon_cloud':
+        imprimir('[red]Esta opción solo modifica SQLite local. No se puede aplicar sobre Neon.[/]')
+        return
+
     conn = conectar(db)
     try:
-        resultado = ubicacion.aplicar_reubicaciones(
-            conn, actual['dispositivo_id'], actual['dispositivo'],
-            coincidencias, _carpeta_reportes() / 'cambios_rutas')
+        try:
+            with ProgresoMultilinea(len(coincidencias),
+                                   'Actualización de rutas SQLite') as barra:
+                resultado = ubicacion.aplicar_reubicaciones(
+                    conn, actual['dispositivo_id'], actual['dispositivo'],
+                    coincidencias, _carpeta_reportes() / 'cambios_rutas',
+                    progreso=lambda ruta, i, total: barra.actualizar(i, total, ruta),
+                    validar=True,
+                )
+        except (KeyboardInterrupt, ubicacion.InterrupcionBusqueda):
+            imprimir('[yellow]Cancelado con Ctrl+C. Se revirtió la transacción; '
+                     'no se guardaron cambios parciales.[/]')
+            return
     finally:
         cerrar(conn)
 
-    imprimir(f'[spring_green2]Rutas actualizadas: {len(resultado["actualizados"] if "actualizados" in resultado else resultado["aplicadas"])}[/]')
+    imprimir(f'[spring_green2]Rutas actualizadas: {len(resultado["aplicadas"])}[/]')
     if resultado['fallidas']:
         imprimir(f'[yellow]No se pudieron aplicar: {len(resultado["fallidas"])}[/]')
         for f in resultado['fallidas'][:10]:
-            imprimir(f'  {rich_escape(f["ruta_anterior"])}: {rich_escape(f["error"])}')
-    imprimir('[grey70]Respaldos de cada cambio en cambios_rutas (json, txt y csv).[/]')
+            imprimir(f'  [yellow]• {rich_escape(f.get("ruta_anterior", ""))}: '
+                     f'{rich_escape(f.get("error", ""))}[/]')
+    for formato, ruta in resultado.get('reportes', {}).items():
+        imprimir(f'[cyan]Auditoría {formato.upper()}: {rich_escape(ruta)}[/]')
 
 
 def eliminar_desde_reporte_eliminaciones_interactivo(db_defecto: str) -> None:

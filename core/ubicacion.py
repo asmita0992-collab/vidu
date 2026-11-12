@@ -9,9 +9,10 @@ La fuente es la base de datos, no el reporte de verificación: el reporte
 no incluye tamaño ni SHA256 para las carpetas inaccesibles, que es
 justo donde suelen estar los archivos movidos.
 
-Este módulo NO mueve ni modifica archivos del disco. Para aplicar los
-cambios reutiliza core.cambiar_rutas, que respalda cada cambio y lo hace
-en una transacción por archivo.
+Este módulo NO mueve ni modifica archivos del disco. La opción de aplicar
+rutas utiliza el reporte SHA256 producido por la búsqueda y cambia únicamente
+las rutas del inventario SQLite, en una sola transacción por lote. No repite
+el cálculo SHA256 ni altera huellas o vídeos físicos.
 
 Notas de diseño importantes:
 
@@ -655,25 +656,20 @@ def reportar_ubicaciones(base: Path, resultado: Dict[str, Any]) -> Dict[str, Pat
 # Aplicación
 # ============================================================================
 def _validar_coincidencia(c: Dict[str, Any]) -> Optional[str]:
-    """Devuelve un motivo de rechazo, o None si la coincidencia es aplicable.
+    """Valida el formato del reporte, sin volver a leer ni hashear el vídeo.
 
-    Evita aplicar reportes editados a mano con rutas inexistentes o con
-    hash que ya no coincide.
+    El SHA256 fue verificado en 8.2. En 8.4 únicamente se preparan las rutas
+    para el cambio de inventario; la coincidencia del registro y su SHA256
+    guardado en SQLite se comprueba durante la prevalidación del lote.
     """
-    anterior = str(c.get('ruta_anterior') or '')
-    nueva = str(c.get('ruta_nueva') or '')
+    anterior = str(c.get('ruta_anterior') or '').strip()
+    nueva = str(c.get('ruta_nueva') or '').strip()
     if not anterior or not nueva:
         return 'falta ruta_anterior o ruta_nueva'
-    if not os.path.isfile(nueva):
-        return f'la ruta nueva no existe o no es archivo: {nueva}'
-    sha = str(c.get('sha256') or '').strip().lower()
-    if sha:
-        try:
-            real = _sha256_archivo(nueva)
-        except OSError as exc:
-            return f'no se pudo leer la ruta nueva: {exc}'
-        if real != sha:
-            return 'el SHA256 de la ruta nueva no coincide con el registrado'
+    if anterior == nueva:
+        return 'la ruta anterior y la nueva son iguales'
+    if not str(c.get('sha256') or '').strip():
+        return 'el reporte no contiene el SHA256 confirmado por la búsqueda'
     return None
 
 
@@ -681,10 +677,9 @@ def cargar_coincidencias(ruta_reporte: str,
                          validar: bool = True) -> List[Dict[str, Any]]:
     """Devuelve solo las coincidencias confirmadas de un reporte de búsqueda.
 
-    Si `validar` es True (por defecto), comprueba que cada ruta nueva exista,
-    sea archivo y (si hay SHA256) coincida antes de devolverla. Las que no
-    pasan la validación se descartan silenciosamente aquí; para ver el
-    motivo usa cargar_coincidencias_con_errores.
+    Si `validar` es True (por defecto), valida solo el formato y la presencia
+    del SHA256 en el reporte; no recalcula la huella de los archivos.
+    Las rechazadas pueden consultarse con cargar_coincidencias_con_errores.
     """
     validas, _ = cargar_coincidencias_con_errores(ruta_reporte,
                                                   validar=validar)
@@ -728,46 +723,32 @@ def aplicar_reubicaciones(
     progreso: Progreso = None,
     cancelar: Optional[threading.Event] = None,
     validar: bool = False,
-) -> Dict[str, List[Dict[str, Any]]]:
-    """Aplica cada coincidencia con cambiar_rutas.ejecutar (archivo exacto).
+) -> Dict[str, Any]:
+    """Cambia rutas del reporte de 8.2 sin volver a calcular SHA256.
 
-    Cada archivo es una transacción independiente con su propio respaldo.
-    Si uno falla, por ejemplo porque su ruta nueva ya está registrada, se
-    anota en 'fallidas' y el proceso sigue con el siguiente.
-
-    Si `validar` es True, se comprueba antes de cada cambio que la ruta
-    nueva exista y (si hay SHA256) coincida. Útil si el reporte pudo
-    editarse a mano. Por defecto False para no rehashear archivos grandes
-    que ya pasaron por la fase de búsqueda.
+    8.2 certificó los archivos físicos. 8.4 únicamente comprueba que las
+    claves/huellas registradas en SQLite siguen siendo las esperadas, prepara
+    un lote y cambia todas las rutas admisibles dentro de una transacción.
+    La interrupción revierte todas las escrituras no confirmadas.
     """
-    aplicadas: List[Dict[str, Any]] = []
-    fallidas: List[Dict[str, Any]] = []
-    total = len(coincidencias)
+    _verificar_cancelacion(cancelar)
+    validas, fallidas = [], []
+    for c in coincidencias:
+        motivo = _validar_coincidencia(c) if validar else None
+        if motivo:
+            fallidas.append({**c, 'error': motivo})
+        else:
+            validas.append(c)
 
-    for indice, c in enumerate(coincidencias, start=1):
-        _verificar_cancelacion(cancelar)
-        if progreso is not None:
-            try:
-                progreso('Aplicando cambios', indice, total)
-            except Exception:
-                pass
+    if not validas:
+        return {'aplicadas': [], 'fallidas': fallidas, 'reportes': {}}
 
-        if validar:
-            motivo = _validar_coincidencia(c)
-            if motivo is not None:
-                fallidas.append({**c, 'error': motivo})
-                continue
-
-        try:
-            cambiar_rutas.ejecutar(
-                conn, dispositivo_id, dispositivo,
-                c['ruta_anterior'], c['ruta_nueva'],
-                carpeta=False, reportes=reportes,
-            )
-            aplicadas.append(c)
-        except InterrupcionBusqueda:
-            raise
-        except Exception as exc:
-            fallidas.append({**c, 'error': str(exc)})
-
-    return {'aplicadas': aplicadas, 'fallidas': fallidas}
+    result = cambiar_rutas.ejecutar_lote(
+        conn, dispositivo_id, dispositivo, validas, reportes,
+        progreso=progreso, cancelar=cancelar,
+    )
+    return {
+        'aplicadas': result['aplicadas'],
+        'fallidas': fallidas + result['fallidas'],
+        'reportes': result.get('reportes', {}),
+    }

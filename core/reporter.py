@@ -1015,68 +1015,116 @@ def imprimir_resumen_escaneo(
 # ============================================================================
 # Progreso multipropósito para operaciones que informan (fase, completado, total)
 # ============================================================================
-class ProgresoTareas:
-    """Barras Rich por tarea, o avance de texto sin etiquetas de marcado.
+class ProgresoMultilinea:
+    """Progreso VIDUP adaptativo: tarea, archivo, barra y tiempos en líneas separadas.
 
-    En modo no interactivo se reducen las emisiones para no inundar logs.
-    No registra ni modifica datos y siempre cierra el renderizador.
+    Es el componente estándar para operaciones por lote. En Termux mantiene
+    visibles el detalle y los contadores sin concatenarlos horizontalmente;
+    fuera de TTY informa hitos de 10 % sin códigos de color ni redibujos.
     """
-    def __init__(self, tareas):
-        self._tareas = tuple(tareas)
-        self._progress = None
-        self._ids = {}
-        self._anterior = {}
-        self._descripcion = {clave: desc for clave, desc in self._tareas}
+
+    def __init__(self, total: int, titulo: str = 'Procesando vídeos'):
+        self.total = max(0, int(total))
+        self.titulo = str(titulo)
+        self._inicio = time.monotonic()
+        self._ultimo_porcentaje = -1
+        self._actual = 0
+        self._detalle = 'Preparando operación…'
+        self._live = None
+        self._interactivo = sys.stdout.isatty() and CONSOLA is not None
 
     def __enter__(self):
-        try:
-            from rich.progress import (Progress, SpinnerColumn, TextColumn,
-                                       BarColumn, MofNCompleteColumn, TimeElapsedColumn)
-        except ImportError:
-            self._progress = None
+        if self._interactivo:
+            from rich.live import Live
+            self._live = Live(self._render(), console=CONSOLA,
+                              refresh_per_second=4, transient=False)
+            self._live.start()
         else:
-            if CONSOLA is not None:
-                self._progress = Progress(
-                    SpinnerColumn(), TextColumn('[cyan]{task.description}'),
-                    BarColumn(bar_width=22), MofNCompleteColumn(),
-                    TextColumn('[gold1]{task.percentage:>3.0f}%'),
-                    TimeElapsedColumn(), console=CONSOLA, transient=False,
-                    refresh_per_second=5)
-                self._progress.start()
-                for clave, desc in self._tareas:
-                    self._ids[clave] = self._progress.add_task(desc, total=1, completed=0)
-        if self._progress is None:
-            print('Progreso de la operación:', flush=True)
+            print(f'{self.titulo}: iniciando ({self.total:,} elementos)', flush=True)
+        return self
+
+    @staticmethod
+    def _cortar(texto: str, ancho: int) -> str:
+        texto = str(texto).replace('\n', ' ').replace('\r', ' ').strip()
+        if len(texto) <= ancho:
+            return texto
+        return '…' + texto[-max(1, ancho - 1):]
+
+    def _render(self):
+        from rich.console import Group
+        from rich.text import Text
+        ancho_terminal = max(24, shutil.get_terminal_size((55, 24)).columns)
+        ancho_barra = max(10, min(32, ancho_terminal - 9))
+        total = max(1, self.total)
+        fraccion = min(1., max(0., self._actual / total))
+        verdes = min(ancho_barra, int(fraccion * ancho_barra))
+        transcurrido = time.monotonic() - self._inicio
+        eta = transcurrido * (1 - fraccion) / fraccion if fraccion else 0
+        return Group(
+            Text(self._cortar(self.titulo, ancho_terminal - 1), style='bold bright_cyan'),
+            Text('Archivo: ' + self._cortar(self._detalle, max(12, ancho_terminal - 10)),
+                 style='white'),
+            Text.assemble(('█' * verdes, 'spring_green2'),
+                          ('░' * (ancho_barra - verdes), 'grey42'),
+                          (f' {fraccion:.0%}', 'bold yellow')),
+            Text(f'Avance: {self._actual:,}/{self.total:,}', style='bright_green'),
+            Text('Tiempo: ' + _fmt_seg(transcurrido) +
+                 ' · ETA: ' + (_fmt_seg(eta) if fraccion else 'calculando'),
+                 style='grey70'),
+        )
+
+    def actualizar(self, actual: int, total: Optional[int] = None, detalle: str = '') -> None:
+        self._actual = max(0, int(actual))
+        if total is not None:
+            self.total = max(0, int(total))
+        if detalle:
+            self._detalle = str(detalle)
+        if self._live:
+            self._live.update(self._render(), refresh=True)
+        else:
+            pct = int(100 * min(self._actual, max(1, self.total)) / max(1, self.total))
+            franja = pct // 10
+            if franja != self._ultimo_porcentaje or self._actual == self.total:
+                self._ultimo_porcentaje = franja
+                print(f'  {self._actual:,}/{self.total:,} ({pct}%) · '
+                      f'{self._cortar(self._detalle, 65)}', flush=True)
+
+    def __exit__(self, exc_type, exc, tb):
+        if self._live:
+            self._live.stop()
+        elif exc_type is None:
+            print(f'{self.titulo}: finalizado', flush=True)
+        else:
+            print(f'{self.titulo}: cancelado o interrumpido', flush=True)
+        return False
+
+
+class ProgresoTareas:
+    """Progreso de varias etapas, usando siempre el panel multilínea de VIDUP."""
+
+    def __init__(self, tareas):
+        self._tareas = tuple(tareas)
+        self._descripcion = {clave: desc for clave, desc in self._tareas}
+        self._barra = None
+
+    def __enter__(self):
+        self._barra = ProgresoMultilinea(1, 'VIDUP · Progreso por etapas')
+        self._barra.__enter__()
         return self
 
     def __exit__(self, exc_type, exc, tb):
-        if self._progress is not None:
-            self._progress.stop()
+        if self._barra is not None:
+            self._barra.__exit__(exc_type, exc, tb)
         return False
 
     def actualizar(self, etapa, actual, total, detalle=''):
-        if etapa not in self._descripcion:
+        if self._barra is None or etapa not in self._descripcion:
             return
-        actual, total = max(0, int(actual)), max(0, int(total))
-        completados = min(actual, total)
-        titulo = self._descripcion[etapa]
-        if detalle:
-            detalle = str(detalle).replace('\r',' ').replace('\n',' ')
-            if len(detalle) > 55:
-                detalle = detalle[:52] + '...'
-            titulo = f'{titulo} · {rich_escape(detalle)}'
-        if self._progress is not None:
-            self._progress.update(self._ids[etapa], description=titulo,
-                                  total=max(1,total),
-                                  completed=(1 if total == 0 and actual == 0 else completados))
-            return
-        # En logs simples, imprimir solo en hitos de 10%, con progreso verdadero.
-        pct = int(100 * completados / max(1, total)) if total else 100
-        franja = pct // 10
-        anterior = self._anterior.get(etapa)
-        if anterior != (total, franja):
-            print(f'  {self._descripcion[etapa]}: {completados:,}/{total:,} ({pct}%)', flush=True)
-            self._anterior[etapa] = (total, franja)
+        index = next((i for i, (k, _) in enumerate(self._tareas, 1)
+                      if k == etapa), 1)
+        self._barra.titulo = (f'VIDUP · Etapa {index}/{len(self._tareas)} · '
+                             f'{self._descripcion[etapa]}')
+        self._barra.actualizar(actual, total, detalle or self._descripcion[etapa])
 
 
 # ============================================================================

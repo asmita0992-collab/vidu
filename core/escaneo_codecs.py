@@ -18,6 +18,7 @@ from core.presentacion import (
     NC, NEGRITA, AZUL, AMARILLO, VERDE, ROJO, GRIS, CIAN, BLANCO, MAGENTA
 )
 from core.plataforma import es_android, _carpetas_android_candidatas
+from core.reporter import ProgresoMultilinea
 
 try:
     from rich.table import Table
@@ -58,31 +59,31 @@ def obtener_codecs_videos_pendientes(videos: List[Path]) -> List[Dict[str, Any]]
     resultados: List[Dict[str, Any]] = []
     total = len(videos)
     imprimir(f'[cyan]Analizando metadatos de {total} vídeo(s)...[/]')
-    
-    for i, video in enumerate(videos, 1):
-        if total > 5 and i % 5 == 0:
-            imprimir(f'[grey37]  Procesando vídeo {i}/{total}...[/]')
-        
-        meta = extraer_metadatos(video)
-        codec_video = meta.get('codec_video', '') or ''
-        codec_norm = normalizar_nombre_codec(codec_video)
-        aceleracion_sugerida = determinar_aceleracion_por_codec(codec_norm)
-        
-        ancho = meta.get('ancho', 0)
-        alto = meta.get('alto', 0)
-        resolucion_str = f'{ancho}x{alto}' if ancho and alto else 'N/D'
-        
-        resultados.append({
-            'ruta': str(video.resolve()),
-            'nombre': video.name,
-            'codec_video': codec_video or 'desconocido',
-            'codec_normalizado': codec_norm,
-            'codec_audio': meta.get('codec_audio', '') or 'desconocido',
-            'duracion': meta.get('duracion', 0.0),
-            'resolucion': resolucion_str,
-            'aceleracion_sugerida': aceleracion_sugerida,
-        })
-    
+    # El reporte de códecs puede tardar en ffprobe: la barra estándar
+    # mantiene un avance de varias líneas legible también en Termux.
+    with ProgresoMultilinea(total, 'Escaneo previo de códecs') as barra:
+        for i, video in enumerate(videos, 1):
+            barra.actualizar(i - 1, total, video.name)
+            meta = extraer_metadatos(video)
+            codec_video = meta.get('codec_video', '') or ''
+            codec_norm = normalizar_nombre_codec(codec_video)
+            aceleracion_sugerida = determinar_aceleracion_por_codec(codec_norm)
+
+            ancho = meta.get('ancho', 0)
+            alto = meta.get('alto', 0)
+            resolucion_str = f'{ancho}x{alto}' if ancho and alto else 'N/D'
+
+            resultados.append({
+                'ruta': str(video.resolve()),
+                'nombre': video.name,
+                'codec_video': codec_video or 'desconocido',
+                'codec_normalizado': codec_norm,
+                'codec_audio': meta.get('codec_audio', '') or 'desconocido',
+                'duracion': meta.get('duracion', 0.0),
+                'resolucion': resolucion_str,
+                'aceleracion_sugerida': aceleracion_sugerida,
+            })
+            barra.actualizar(i, total, video.name)
     return resultados
 
 
@@ -192,7 +193,7 @@ def mostrar_resumen_escaneo_previo_codecs(
     for cdec, cant in desglose.items():
         imprimir(f'  • [bold spring_green2]{cdec.upper()}:[/] {cant} vídeo(s)')
         
-    imprimir('\n[bold deep_sky_blue1]Modo de aceleración asignado:[]')
+    imprimir('\n[bold deep_sky_blue1]Modo de aceleración asignado:[/]')
     imprimir(f'  • [turquoise2]Software (h264 / otros):[/] {desglose_acel["software"]} vídeo(s)')
     imprimir(f'  • [turquoise2]Hardware (h265):[/]         {desglose_acel["hardware"]} vídeo(s)')
 

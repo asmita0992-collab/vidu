@@ -1,3 +1,10 @@
+"""Menús y submenús interactivos de VIDUP.
+
+Coordina las opciones de escaneo, estadísticas, respaldos, sincronización,
+depuraciones y localización de vídeos. Centraliza encabezados y tablas Rich,
+con un modo de texto alternativo para sistemas sin la dependencia instalada.
+Las operaciones delegan la lógica y los progresos a los módulos de core.
+"""
 from __future__ import annotations
 import argparse
 import json
@@ -505,7 +512,7 @@ def submenu_verificacion(db_defecto: str) -> str:
             ('1', 'Comprobar disco ↔ base de datos (ambas direcciones)'),
             ('2', 'Buscar ubicación de archivos faltantes (interna y tarjeta)'),
             ('3', 'Eliminar huellas "faltantes" desde reporte de verificación'),
-            ('4', 'Cambiar ruta según reporte de ubicación'),
+            ('4', 'Aplicar rutas verificadas de 8.2 (sin recalcular SHA256)'),
             ('5', 'Depurar rutas desde reporte de eliminaciones o movimientos del submenú 3'),
             ('00', 'Volver al menú principal'),
         ], peligrosas=('3', '5'))

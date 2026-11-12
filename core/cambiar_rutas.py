@@ -1,7 +1,9 @@
 """Reasignación transaccional de rutas de inventario, sin tocar los vídeos.
 
-Permite un archivo exacto o una carpeta (recursiva) de UN dispositivo.
-Siempre exporta copia completa de los registros y sus huellas antes de editar.
+Permite un archivo exacto, una carpeta o un lote de rutas ya verificadas.
+Los cambios ordinarios conservan su respaldo histórico; el lote del menú 8.4
+crea una auditoría reversible de rutas, sin releer vídeos ni huellas de frames,
+y confirma todo de manera atómica en SQLite.
 """
 from __future__ import annotations
 import csv
@@ -10,7 +12,7 @@ import ntpath
 import posixpath
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, Optional, Sequence
 from . import database, inventario
 
 ZONA = timezone(timedelta(hours=-6))
@@ -134,3 +136,204 @@ def ejecutar(conn, dispositivo_id: str, dispositivo: str, origen: str, destino: 
     except OSError:
         pass  # El respaldo previo permanece disponible.
     return {'actualizados':len(plan),'reportes':{k:str(v) for k,v in archivos.items()}}
+
+
+# ============================================================================
+# Aplicación de rutas confirmadas por 8.2: transacción única y sin SHA256 extra
+# ============================================================================
+def ejecutar_lote(conn: Any, dispositivo_id: str, dispositivo: str,
+                 coincidencias: Sequence[dict], reportes: Path,
+                 progreso: Optional[Callable[[str, int, int], None]] = None,
+                 cancelar: Any = None) -> dict:
+    """Actualiza exclusivamente rutas y claves de vídeos identificados por 8.2.
+
+    No accede a los archivos del disco, no recalcula huellas y no exporta los
+    frames (que no cambian). Se auditan rutas anteriores para poder revertirlas.
+    Todos los cambios admitidos se confirman con un único commit. Ctrl+C o un
+    error durante la transacción hace rollback, incluidas las lápidas locales.
+    """
+    from . import ubicacion
+    from .sincronizacion import registrar_eliminacion
+    import os
+
+    def comprobar_cancelacion():
+        if cancelar is not None and cancelar.is_set():
+            raise ubicacion.InterrupcionBusqueda('Actualización cancelada')
+
+    comprobar_cancelacion()
+    if not coincidencias:
+        return {'aplicadas': [], 'fallidas': [], 'reportes': {}}
+    if database._es_pg(conn):
+        raise ValueError('La opción 8.4 solo admite la base SQLite local.')
+
+    # Una única lectura del catálogo: no consultar toda la base 85 veces.
+    todos = inventario.registros_dispositivo(conn, dispositivo_id)
+    por_ruta = {inventario.normalizar(r['ruta']): r for r in todos}
+    fallidas = []
+    plan = []
+    usadas = set()
+    for c in coincidencias:
+        comprobar_cancelacion()
+        origen = str(c.get('ruta_anterior') or '')
+        destino = str(c.get('ruta_nueva') or '')
+        clave_origen = inventario.normalizar(origen)
+        clave_destino = inventario.normalizar(destino)
+        registrado = por_ruta.get(clave_origen)
+        motivo = None
+        if not origen or not destino or clave_origen == clave_destino:
+            motivo = 'Rutas vacías o equivalentes'
+        elif c.get('dispositivo_id') and c['dispositivo_id'] != dispositivo_id:
+            motivo = 'El reporte corresponde a otro dispositivo'
+        elif registrado is None:
+            motivo = 'Ruta original no registrada en este dispositivo'
+        elif not c.get('sha256'):
+            motivo = 'Falta la confirmación SHA256 en el reporte'
+        elif (str(registrado.get('hash_archivo') or '').strip().lower() !=
+              str(c.get('sha256') or '').strip().lower()):
+            motivo = 'La huella del registro local cambió desde 8.2'
+        elif clave_origen in usadas:
+            motivo = 'Origen duplicado en el reporte'
+        if motivo:
+            fallidas.append({**c, 'error': motivo})
+            continue
+        usadas.add(clave_origen)
+        plan.append({
+            'id': registrado['id'], 'anterior': registrado['ruta'],
+            'nueva': destino, 'dispositivo_id': dispositivo_id,
+            'clave_anterior': registrado['clave_unica'],
+            'clave_nueva': database._calcular_clave_unica(dispositivo_id, destino),
+            'sha256': registrado['hash_archivo'],
+            'reporte': c,
+        })
+
+    # Los destinos ocupados solo son válidos si el ocupante se mueve en el lote.
+    seleccionadas = {p['id'] for p in plan}
+    destinos = set()
+    admisibles = []
+    for p in plan:
+        destino = inventario.normalizar(p['nueva'])
+        ocupante = por_ruta.get(destino)
+        if destino in destinos or (ocupante and ocupante['id'] not in seleccionadas):
+            fallidas.append({**p['reporte'], 'error': 'Colisión con otra ruta en el inventario'})
+        else:
+            destinos.add(destino)
+            admisibles.append(p)
+    # En caso de excluir un cambio, reconsiderar colisiones dependientes.
+    while True:
+        ids = {p['id'] for p in admisibles}
+        nuevas = []
+        cambio = False
+        for p in admisibles:
+            ocupante = por_ruta.get(inventario.normalizar(p['nueva']))
+            if ocupante and ocupante['id'] not in ids:
+                fallidas.append({**p['reporte'], 'error': 'El destino sigue ocupado'})
+                cambio = True
+            else:
+                nuevas.append(p)
+        admisibles = nuevas
+        if not cambio:
+            break
+    plan = admisibles
+    if not plan:
+        return {'aplicadas': [], 'fallidas': fallidas, 'reportes': {}}
+
+    # La auditoría contiene las rutas originales, no dumps voluminosos de
+    # huellas/frame_hashes, porque esos datos no se tocan.
+    reportes = Path(reportes)
+    sello = datetime.now(ZONA).strftime('%Y%m%d_%H%M%S_%f')
+    archivos = {ext: reportes / ext / f'reubicaciones_lote_{sello}.{ext}'
+                for ext in ('json', 'txt', 'csv')}
+    for archivo in archivos.values():
+        archivo.parent.mkdir(parents=True, exist_ok=True)
+    datos = {
+        'fecha_utc6': datetime.now(ZONA).isoformat(),
+        'dispositivo': dispositivo, 'dispositivo_id': dispositivo_id,
+        'estado': 'PREPARADO - SIN APLICAR',
+        'total': len(plan), 'reubicaciones': [
+            {k:p[k] for k in ('id', 'anterior', 'nueva', 'sha256', 'clave_anterior', 'clave_nueva')}
+            for p in plan],
+    }
+    def guardar_auditoria(estado):
+        datos['estado'] = estado
+        archivo_temp = archivos['json'].with_suffix('.json.tmp')
+        with archivo_temp.open('w', encoding='utf-8') as f:
+            json.dump(datos, f, ensure_ascii=False, indent=2)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(archivo_temp, archivos['json'])
+        with archivos['txt'].open('w', encoding='utf-8') as f:
+            f.write(f'VIDUP - REUBICACIÓN DE RUTAS - {estado}\n')
+            f.write(f'Dispositivo: {dispositivo} ({dispositivo_id})\n')
+            f.write(f'Cambios: {len(plan)}\n\n')
+            for p in plan:
+                f.write(f'ID {p["id"]}\n  ANTES: {p["anterior"]}\n  DESPUÉS: {p["nueva"]}\n')
+        with archivos['csv'].open('w', encoding='utf-8-sig', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(['id', 'dispositivo_id', 'ruta_anterior', 'ruta_nueva', 'sha256', 'estado'])
+            for p in plan:
+                writer.writerow([p['id'], dispositivo_id, p['anterior'], p['nueva'], p['sha256'], estado])
+
+    guardar_auditoria('PREPARADO - SIN APLICAR')
+    if progreso:
+        progreso('Preparación completada; iniciando actualización', 0, len(plan))
+
+    # Los lotes no hacen I/O multimedia; cada UPDATE es rápido y reversible.
+    # BEGIN IMMEDIATE adquiere bloqueo escritor para no intercalar cambios.
+    cur = conn.cursor()
+    try:
+        conn.execute('BEGIN IMMEDIATE')
+        try:
+            for p in plan:
+                comprobar_cancelacion()
+                actual = conn.execute(
+                    'SELECT ruta, clave_unica, hash_archivo FROM videos '
+                    'WHERE id = ? AND dispositivo_id = ?',
+                    (p['id'], dispositivo_id),
+                ).fetchone()
+                if (actual is None or actual['ruta'] != p['anterior'] or
+                    actual['clave_unica'] != p['clave_anterior'] or
+                    str(actual['hash_archivo'] or '').lower() != str(p['sha256'] or '').lower()):
+                    raise RuntimeError('La base cambió durante la preparación; no se aplicó el lote')
+            # Las lápidas locales evitan recuperar las claves antiguas desde Neon.
+            for p in plan:
+                comprobar_cancelacion()
+                if p['clave_anterior'] != p['clave_nueva']:
+                    registrar_eliminacion(conn, p['clave_anterior'], confirmar=False)
+            # Dos pasadas permiten intercambios de rutas sin choques de UNIQUE.
+            for p in plan:
+                comprobar_cancelacion()
+                cur.execute('UPDATE videos SET clave_unica = ? WHERE id = ? AND dispositivo_id = ?',
+                            (f'__vidup_reub_{sello}_{p["id"]}', p['id'], dispositivo_id))
+                if cur.rowcount != 1:
+                    raise RuntimeError('No pudo reservarse un registro para actualizar')
+            for i, p in enumerate(plan, 1):
+                comprobar_cancelacion()
+                nuevo_nombre = (ntpath.basename(p['nueva']) if inventario.es_windows(p['nueva'])
+                                else posixpath.basename(p['nueva']))
+                cur.execute('UPDATE videos SET ruta = ?, nombre = ?, clave_unica = ? '
+                            'WHERE id = ? AND dispositivo_id = ?',
+                            (p['nueva'], nuevo_nombre, p['clave_nueva'], p['id'], dispositivo_id))
+                if cur.rowcount != 1:
+                    raise RuntimeError('No pudo actualizarse la ruta de un vídeo')
+                if progreso:
+                    progreso(p['nueva'], i, len(plan))
+            comprobar_cancelacion()
+            conn.commit()
+        except BaseException:
+            conn.rollback()
+            try:
+                guardar_auditoria('CANCELADO O FALLIDO - SIN APLICAR')
+            except OSError:
+                pass
+            raise
+    finally:
+        cur.close()
+    try:
+        guardar_auditoria('APLICADO')
+    except OSError:
+        pass
+    return {
+        'aplicadas': [p['reporte'] for p in plan],
+        'fallidas': fallidas,
+        'reportes': {k:str(v) for k,v in archivos.items()},
+    }
