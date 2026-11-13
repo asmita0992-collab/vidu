@@ -4,7 +4,8 @@
 Distingue un catálogo local heredado de modificaciones locales posteriores a la
 instalación, mediante marcas de cambios transaccionales. La autoridad de los
 registros corresponde a su dispositivo de origen; una réplica no puede publicar
-cambios de otro equipo. Un identificador de generación protege contra copias
+cambios de otro equipo. Los disparadores ignoran las claves técnicas temporales de reubicación.
+Un identificador de generación protege contra copias
 SQLite anteriores a una sustitución integral de Neon.
 
 No busca vídeos, no calcula SHA256, no elimina ficheros multimedia y no accede
@@ -79,7 +80,9 @@ def instalar(conn: sqlite3.Connection, dispositivo_id: str) -> None:
     conn.execute("INSERT OR IGNORE INTO vidup_sync_estado VALUES ('sincronizando','0')")
     # Se crean con IF NOT EXISTS; nunca se reconstruye el diario al reabrir.
     cond_nuevo = """(SELECT valor FROM vidup_sync_estado WHERE clave='sincronizando')='0'
-       AND NEW.dispositivo_id=(SELECT valor FROM vidup_sync_estado WHERE clave='dispositivo_id')"""
+       AND NEW.dispositivo_id=(SELECT valor FROM vidup_sync_estado WHERE clave='dispositivo_id')
+       AND NEW.clave_unica NOT GLOB '__vidup_reub_*'
+       AND NEW.clave_unica NOT GLOB '__vidup_move_*'"""
     cond_viejo = """(SELECT valor FROM vidup_sync_estado WHERE clave='sincronizando')='0'
        AND OLD.dispositivo_id=(SELECT valor FROM vidup_sync_estado WHERE clave='dispositivo_id')"""
     for nombre, tiempo, when, key, evento in (
@@ -87,6 +90,8 @@ def instalar(conn: sqlite3.Connection, dispositivo_id: str) -> None:
         ('vidup_journal_video_update', 'AFTER UPDATE', cond_nuevo, 'NEW.clave_unica', 'video'),
         ('vidup_journal_video_delete', 'AFTER DELETE', cond_viejo, 'OLD.clave_unica', 'eliminado'),
     ):
+        # Recrear para actualizar los filtros de versiones ya instaladas.
+        conn.execute(f'DROP TRIGGER IF EXISTS {nombre}')
         conn.execute(f'''CREATE TRIGGER IF NOT EXISTS {nombre}
           {tiempo} ON videos WHEN {when}
           BEGIN
@@ -96,9 +101,12 @@ def instalar(conn: sqlite3.Connection, dispositivo_id: str) -> None:
                 fecha_cambio=excluded.fecha_cambio;
           END''')
     # Una modificación de clave equivale a dar de baja la ruta antigua.
+    conn.execute('DROP TRIGGER IF EXISTS vidup_journal_renombrado')
     conn.execute('''CREATE TRIGGER IF NOT EXISTS vidup_journal_renombrado
         AFTER UPDATE OF clave_unica ON videos
-        WHEN OLD.clave_unica <> NEW.clave_unica AND
+        WHEN OLD.clave_unica <> NEW.clave_unica
+          AND OLD.clave_unica NOT GLOB '__vidup_reub_*'
+          AND OLD.clave_unica NOT GLOB '__vidup_move_*' AND
           (SELECT valor FROM vidup_sync_estado WHERE clave='sincronizando')='0'
           AND OLD.dispositivo_id=(SELECT valor FROM vidup_sync_estado WHERE clave='dispositivo_id')
         BEGIN
@@ -108,6 +116,8 @@ def instalar(conn: sqlite3.Connection, dispositivo_id: str) -> None:
         END''')
     for nombre, tiempo in (('vidup_journal_marca_insert','AFTER INSERT'),
                             ('vidup_journal_marca_update','AFTER UPDATE')):
+        # Recrear para actualizar los filtros de versiones ya instaladas.
+        conn.execute(f'DROP TRIGGER IF EXISTS {nombre}')
         conn.execute(f'''CREATE TRIGGER IF NOT EXISTS {nombre}
           {tiempo} ON videos_eliminados
           WHEN (SELECT valor FROM vidup_sync_estado WHERE clave='sincronizando')='0'

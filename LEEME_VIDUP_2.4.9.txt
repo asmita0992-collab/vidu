@@ -1,0 +1,75 @@
+VIDUP 2.4.9 — CONCILIACIÓN SEGURA DE REUBICACIONES
+===================================================
+
+MOTIVO
+------
+En 2.4.8, después de aplicar rutas desde la opción 8.4, podían aparecer
+marcas como:
+    __vidup_reub_20261112_194126_597155_3211
+
+Esa clave NO identifica ningún archivo eliminado. Es una clave provisional
+que VIDUP utiliza durante una transacción para cambiar rutas sin colisiones
+UNIQUE. Un disparador de SQLite la registraba erróneamente como eliminación.
+La ruta original, en cambio, sí puede tener una marca real de baja para
+impedir que reaparezca un registro de una ruta obsoleta.
+
+CAMBIOS
+-------
+1. El registro de eventos SQLite ya no crea marcas de eliminación ni eventos
+   pendientes para claves técnicas __vidup_reub_* y __vidup_move_*.
+   Al abrir SQLite se reinstalan los disparadores pertinentes sin perder
+   filas, huellas, marcas reales ni el diario de cambios.
+2. Configuración > Sincronización (opción 7): cuando existan diferencias,
+   el menú interactivo ofrece:
+      5) Conciliar reubicaciones propias.
+3. La opción 5 revisa reportes JSON APLICADOS generados por 8.4 dentro de:
+      reportes/cambios_rutas/json/reubicaciones_lote_*.json
+   Solo concilia cambios del dispositivo que está ejecutando la herramienta.
+   Exige que la ruta NUEVA esté vigente en SQLite y Neon, que se mantenga el
+   SHA256 almacenado y que la ruta anterior no figure como vídeo activo.
+4. Dos acciones independientes, ambas con autorización previa:
+   a) RETIRAR de SQLite las marcas de IDs temporales verificadas (NO subirlas
+      a Neon porque no representan un borrado real).
+   b) PUBLICAR en Neon marcas REALES de rutas anteriores cuando estén
+      verificadas por una auditoría aplicada del propio dispositivo.
+5. Si falta el reporte, no coincide el SHA256, la ruta antigua reapareció,
+   o pertenece a otro dispositivo, VIDUP NO altera esa marca y lo documenta.
+6. Los informes en TXT y JSON registran el plan y las operaciones confirmadas:
+      reportes/sincronizacion/txt/conciliar_reubicaciones_*.txt
+      reportes/sincronizacion/json/conciliar_reubicaciones_*.json
+7. La frase CONCILIAR REUBICACIONES acepta mayúsculas y minúsculas.
+
+NO SE REALIZA
+-------------
+- No se mueven ni borran archivos MP4 de los discos.
+- No se borran vídeos del catálogo ni frame_hashes.
+- No se vuelve a calcular SHA256, ni se leen archivos multimedia.
+- No se sustituye Neon completo ni se adopta forzosamente el catálogo.
+- No se cargan marcas temporales __vidup_reub_* a Neon.
+- No se publica historial de rutas de otro dispositivo.
+
+PASOS RECOMENDADOS
+------------------
+1) Cerrar VIDUP y copiar la base SQLite a un lugar seguro antes de actualizar.
+2) Instalar el paquete SOLO_PY sobre VIDUP 2.4.8, conservando core/.
+3) No borrar ni trasladar los reportes de cambios_rutas/json que generó 8.4.
+4) Abrir VIDUP 2.4.9. Entrar en Configuración > opción 7.
+5) Elegir opción 5 cuando aparezca el menú de discrepancias.
+6) Leer los contadores (marcas técnicas, marcas reales, casos pendientes).
+7) Confirmar escribiendo CONCILIAR REUBICACIONES (cualquier combinación
+   de mayúsculas y minúsculas).
+8) Revisar el TXT y volver a comparar las bases. Si quedan discrepancias,
+   se mantendrán como casos no resueltos sin borrar información.
+
+IMPORTANTE
+----------
+La conciliación exige que existan las auditorías locales de 8.4. Si no
+están, conserva las marcas y ofrece diagnóstico en lugar de adivinar.
+En otro dispositivo no se pueden publicar reubicaciones ajenas.
+
+PRUEBAS
+-------
+70 superadas y 9 esperadamente incompatibles con el antiguo sincronizador
+permisivo, mediante SQLite y simulación local de PostgreSQL.
+No se ha conectado a la instancia real de Neon ni se ha probado físicamente
+el equipo Windows, Xubuntu o los Android.

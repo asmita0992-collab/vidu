@@ -5,6 +5,8 @@ Las eliminaciones confirmadas se propagan bajo autorización con prevalencia
 cronológica del último escaneo válido frente a la última marca de eliminación.
 Las marcas no forman parte del catálogo de vídeos vigentes. Se conservan para
 no resucitar registros borrados en otros equipos. No se borran archivos físicos.
+Las reubicaciones propias verificadas disponen de una conciliación específica
+que no publica los identificadores temporales del cambio de ruta.
 Las diferencias de SHA256 se resuelven sólo si hay una fecha más reciente
 verificable; los empates o fechas no fiables quedan como conflictos.
 """
@@ -1180,7 +1182,7 @@ def _elegir_solucion_discrepancias(plan: PlanSincronizacion, local: dict,
                                     marcas_nube: dict, archivo_txt: Optional[Path]) -> str:
     """Pide UNA decisión explícita y muestra alternativas de menor a mayor riesgo.
 
-    Devuelve plan/marcas/adoptar/informe/salir. No ejecuta operaciones por sí
+    Devuelve plan/marcas/adoptar/informe/reubicaciones/salir. No ejecuta operaciones por sí
     misma; una adopción sigue exigiendo una frase completa y respaldo íntegro.
     """
     from core.presentacion import pedir_texto, RegresarAlMenu
@@ -1197,18 +1199,19 @@ def _elegir_solucion_discrepancias(plan: PlanSincronizacion, local: dict,
     imprimir('  [turquoise2]2[/] Copiar SOLO marcas históricas de Neon que no correspondan a vídeos activos; no borrar vídeos.')
     imprimir('  [orange1]3[/] Adoptar TODO el catálogo de Neon en esta SQLite, con respaldo íntegro.')
     imprimir('  [sky_blue1]4[/] Conservar bases intactas y consultar el informe TXT.')
+    imprimir('  [medium_spring_green]5[/] Conciliar reubicaciones propias: publicar marcas de rutas anteriores y retirar identificadores temporales, sin borrar vídeos.')
     imprimir('  [grey70]0[/] Cancelar sin cambios.')
     for _ in range(5):
         try:
-            valor = pedir_texto('Elige cómo resolver las diferencias (0-4)', '1',
+            valor = pedir_texto('Elige cómo resolver las diferencias (0-5)', '1',
                                 permitir_escape=False).strip()
         except (RegresarAlMenu, KeyboardInterrupt):
             return 'salir'
         respuesta = {'1': 'plan', '2': 'marcas', '3': 'adoptar',
-                     '4': 'informe', '0': 'salir'}.get(valor)
+                     '4': 'informe', '5': 'reubicaciones', '0': 'salir'}.get(valor)
         if respuesta:
             return respuesta
-        imprimir('[yellow]Selecciona 0, 1, 2, 3 o 4. Ninguna opción se ejecuta automáticamente.[/]')
+        imprimir('[yellow]Selecciona 0, 1, 2, 3, 4 o 5. Ninguna opción se ejecuta automáticamente.[/]')
     return 'salir'
 
 def sincronizar_local_y_nube(*, confirmar: bool = True,
@@ -1397,6 +1400,51 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
                 imprimir(f'[bold spring_green2]Catálogo local adoptado desde Neon.[/] '
                          f'Respaldo completo: {respaldo}')
                 return 0, len(remotos), 0
+            if decision == 'reubicaciones':
+                # Ninguna copia general del catálogo: únicamente las rutas
+                # anteriores verificadas por auditorías del propio dispositivo.
+                from core.conciliacion_reubicaciones import (
+                    construir_plan_reubicaciones, aplicar_conciliacion)
+                from core.presentacion import pedir_texto, confirma_frase
+                conn_loc.rollback()
+                plan_rutas = construir_plan_reubicaciones(
+                    dispositivo_id=identidad, local=locales, neon=remotos,
+                    marcas_local=marcas_locales, marcas_neon=marcas_remotas,
+                    reportes=DIR_SCRIPT / 'reportes')
+                imprimir('[bold turquoise2]Conciliación de reubicaciones del dispositivo actual[/]')
+                imprimir(f'  Marcas temporales verificadas para retirar de SQLite: '
+                         f'{len(plan_rutas.tecnicas_a_quitar)}')
+                imprimir(f'  Marcas históricas de rutas anteriores para publicar en Neon: '
+                         f'{len(plan_rutas.historicas_a_neon)}')
+                imprimir(f'  Casos no verificables, que se conservarán: '
+                         f'{len(plan_rutas.no_resueltas)}')
+                imprimir('[yellow]No se eliminan vídeos físicos, registros activos ni '
+                         'huellas. No se recalcula SHA256.[/]')
+                if plan_rutas.cambios:
+                    frase = pedir_texto('Escribe CONCILIAR REUBICACIONES para aplicar '
+                                       'únicamente estos cambios', '', permitir_escape=False)
+                    if not confirma_frase(frase, 'CONCILIAR REUBICACIONES'):
+                        raise SincronizacionCancelada('No se modificaron las marcas de reubicación.')
+                rutas = aplicar_conciliacion(
+                    conn_loc=conn_loc, conn_neon=conn_nube, plan=plan_rutas,
+                    reportes=DIR_SCRIPT / 'reportes',
+                    dispositivo_id=identidad, generacion=generacion)
+                from core.presentacion import rich_escape
+                imprimir(f'[cyan]Informe TXT: {rich_escape(str(rutas[1]))}[/]')
+                imprimir(f'[cyan]Auditoría JSON: {rich_escape(str(rutas[0]))}[/]')
+                if plan_rutas.cambios:
+                    imprimir('[bold spring_green2]Marcas de reubicación conciliadas. '
+                             'Los vídeos vigentes y sus huellas no se modificaron.[/]')
+                else:
+                    imprimir('[yellow]No había cambios de reubicación verificables. '
+                             'Consulta los casos pendientes en el TXT.[/]')
+                revision = _verificar_convergencia(conn_loc, conn_nube)
+                if revision['convergencia']:
+                    imprimir('[bold spring_green2]Los catálogos y las marcas coinciden.[/]')
+                else:
+                    imprimir('[yellow]Persisten diferencias ajenas a estas reubicaciones. '
+                             'Revisa el diagnóstico general.[/]')
+                return 0, 0, 0
             if decision == 'marcas':
                 plan = _plan_solo_marcas_historicas(plan, locales, remotos)
                 imprimir(f'[cyan]Modo marcas históricas: {len(plan.marcas_local)} '

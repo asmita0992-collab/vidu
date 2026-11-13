@@ -4,6 +4,7 @@
 Genera informes JSON (estructurados) y TXT (explicativos) a partir de las
 filas y resúmenes de huellas ya leídos de SQLite y Neon. En particular,
 identifica análisis visuales/audio ausentes y conflictos reales de valores.
+Distingue marcas temporales de reubicación de bajas reales del catálogo.
 """
 from __future__ import annotations
 
@@ -205,10 +206,12 @@ def auditoria_a_txt(datos: dict) -> str:
         lineas.append('')
     if not datos['diferencias']:
         lineas.append('No existen vídeos con diferencias.')
-    lineas += ['', '5. MARCAS DE ELIMINACIÓN']
+    lineas += ['', '5. MARCAS DE ELIMINACIÓN / REUBICACIÓN']
     if datos['marcas_diferentes']:
         for d in datos['marcas_diferentes']:
-            lineas.append(f"- {d['clave']}: SQLite={d['fecha_sqlite'] or 'AUSENTE'}; "
+            tipo = ('[MARCA TÉCNICA DE REUBICACIÓN: NO COPIAR A NEON] ' 
+                    if d['clave'].startswith('__vidup_reub_') else '')
+            lineas.append(f"- {tipo}{d['clave']}: SQLite={d['fecha_sqlite'] or 'AUSENTE'}; "
                           f"Neon={d['fecha_neon'] or 'AUSENTE'}")
     else:
         lineas.append('Las marcas de eliminación coinciden.')
@@ -223,6 +226,10 @@ def auditoria_a_txt(datos: dict) -> str:
                '3) Adoptar todo el catálogo Neon: exige confirmación y respaldo íntegro',
                '   de SQLite. No modifica ni elimina los archivos multimedia físicos.',
                '4) Conservar ambas bases intactas y revisar este TXT y el JSON.',
+               '5) Conciliar reubicaciones propias: publicar marcas reales de las',
+               '   antiguas rutas que estén certificadas por un reporte aplicado;',
+               '   retirar solo marcas técnicas __vidup_reub_* igualmente verificadas.',
+               '   No borra vídeos físicos, registros activos ni huellas.',
                '0) Cancelar sin efectuar modificaciones.',
                '',
                f'Marcas que están solo en Neon: {marc_solo_neon}',
