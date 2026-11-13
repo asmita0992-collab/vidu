@@ -8,6 +8,7 @@ from __future__ import annotations
 import math
 import sys
 import re
+import unicodedata
 from pathlib import Path
 from typing import Any, Optional
 
@@ -130,6 +131,18 @@ _MAX_INTENTOS = 5
 class RegresarAlMenu(Exception):
     """Se lanza cuando el usuario pide volver al menú o agota intentos."""
     pass
+
+
+def confirma_frase(respuesta: str, frase_esperada: str) -> bool:
+    """Valida frases de seguridad sin distinguir mayúsculas/minúsculas.
+
+    Conserva la confirmación completa (no basta responder "sí"); admite
+    espacios repetidos y las variantes Unicode equivalentes, pero NO omite
+    palabras ni suprime acentos. Ej.: "aplicar UBICACION" = "APLICAR UBICACION".
+    """
+    def normalizar(texto: str) -> str:
+        return unicodedata.normalize('NFKC', ' '.join(str(texto or '').split())).casefold()
+    return bool(frase_esperada) and normalizar(respuesta) == normalizar(frase_esperada)
 
 
 def limpiar_ruta(valor: Any) -> str:

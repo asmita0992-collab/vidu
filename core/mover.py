@@ -1504,7 +1504,8 @@ def _eliminar_candidatos_verificados(candidatos, carpeta_reportes, reporte, base
     _imprimir('ADVERTENCIA: no es posible comprobar físicamente una copia en otro dispositivo desconectado.', 'yellow')
     _imprimir('No existe papelera ni recuperación automática. Solo se eliminarán archivos del dispositivo actual.', 'yellow')
     try:
-        if input('Para autorizar el lote, escribe ELIMINAR (otra respuesta cancela): ').strip() != 'ELIMINAR':
+        from core.presentacion import confirma_frase
+        if not confirma_frase(input('Para autorizar el lote, escribe ELIMINAR (otra respuesta cancela): '), 'ELIMINAR'):
             return {'eliminados': 0, 'omitidos': len(unicos)}
     except (EOFError, KeyboardInterrupt):
         return {'eliminados': 0, 'omitidos': len(unicos)}
@@ -1733,7 +1734,8 @@ def vaciar_carpeta_eliminar(directorio_eliminar, db_path):
         return
         
     try:
-        if input('Escribe BORRAR TODO para confirmar: ').strip() != 'BORRAR TODO':
+        from core.presentacion import confirma_frase
+        if not confirma_frase(input('Escribe BORRAR TODO para confirmar: '), 'BORRAR TODO'):
             _imprimir('Confirmación incorrecta. Cancelado.', 'yellow')
             return
     except (EOFError, KeyboardInterrupt):

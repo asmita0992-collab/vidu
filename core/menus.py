@@ -420,7 +420,8 @@ def submenu_respaldos(db_defecto: str) -> str:
                 if not pedir_si_no('¿Es correcta la base seleccionada?', False):
                     continue
                 texto = pedir_texto('Escribe REEMPLAZAR NEON para confirmar')
-                if texto != 'REEMPLAZAR NEON':
+                from core.presentacion import confirma_frase
+                if not confirma_frase(texto, 'REEMPLAZAR NEON'):
                     imprimir('[yellow]Operación cancelada.[/]')
                     continue
                 with _progreso_reemplazo_neon() as indicador:

@@ -12,6 +12,7 @@ import math
 import os
 import platform
 import posixpath
+import re
 import shutil
 import signal
 import subprocess
@@ -28,7 +29,7 @@ from core.plataforma import (
 )
 from core.presentacion import (
     imprimir, regla, panel, pedir_si_no, pedir_numero, pedir_texto,
-    pedir_ruta, pedir_limite_escaneo, RegresarAlMenu, _PALABRAS_ESCAPE, _MAX_INTENTOS,
+    pedir_ruta, pedir_limite_escaneo, confirma_frase, RegresarAlMenu, _PALABRAS_ESCAPE, _MAX_INTENTOS,
     linea_dep, linea_opcional, escapar_para_telegram,
     CONSOLA, TIENE_RICH, Panel, Rule,
     NC, NEGRITA, AZUL, AMARILLO, VERDE, ROJO, GRIS, CIAN, BLANCO, MAGENTA,
@@ -119,7 +120,7 @@ def cambiar_rutas_interactivo(db: str) -> None:
         imprimir('[yellow]Esto SOLO modifica rutas en la base; no mueve vídeos ni recalcula hashes.[/]')
         if not pedir_si_no('¿Son correctos el dispositivo y las rutas?', False):
             return
-        if pedir_texto('Escribe CAMBIAR RUTAS para confirmar', obligatorio=True) != 'CAMBIAR RUTAS':
+        if not confirma_frase(pedir_texto('Escribe CAMBIAR RUTAS para confirmar', obligatorio=True), 'CAMBIAR RUTAS'):
             imprimir('[yellow]Confirmación incorrecta. Cancelado.[/]')
             return
         with ProgresoMultilinea(len(plan), 'Cambiar rutas en el inventario') as barra:
@@ -202,7 +203,7 @@ def depurar_carpeta_por_dispositivo(db: str) -> None:
         if not pedir_si_no('¿Confirmas que es el dispositivo y la carpeta correctos?', False):
             return
         respuesta = pedir_texto('Escribe ELIMINAR REGISTROS para confirmar', obligatorio=True)
-        if respuesta != 'ELIMINAR REGISTROS':
+        if not confirma_frase(respuesta, 'ELIMINAR REGISTROS'):
             imprimir('[yellow]No coincide la frase de confirmación. Cancelado.[/]')
             return
             
@@ -289,7 +290,7 @@ def eliminar_faltantes_interactivo(db_defecto: str) -> str:
         return db_defecto
 
     texto = pedir_texto('Escribe ELIMINAR FALTANTES para confirmar', obligatorio=True)
-    if texto != 'ELIMINAR FALTANTES':
+    if not confirma_frase(texto, 'ELIMINAR FALTANTES'):
         imprimir('[yellow]Confirmación incorrecta. Cancelado.[/]')
         return db_defecto
 
@@ -440,6 +441,48 @@ def buscar_ubicacion_interactivo(db: str) -> None:
             continue
         extra.append(raiz)
 
+    # Selección explícita: RaiDrive y otras unidades virtuales también son
+    # carpetas accesibles para os.walk; el usuario decide cuáles omitir.
+    todas_raices = ubicacion.raices_almacenamiento(
+        sugeridas=[*detectadas, *extra])
+    raices_excluidas: List[str] = []
+    if todas_raices and pedir_si_no(
+            '¿Excluir alguna raíz (por ejemplo unidades virtuales de RaiDrive)?', False):
+        imprimir('[bold cyan]Selecciona por número las raíces que NO se recorrerán:[/]')
+        for indice, raiz in enumerate(todas_raices, 1):
+            imprimir(f'  [gold1]{indice:>2}.[/] {rich_escape(raiz)}')
+        imprimir('[grey70]Ejemplo: 2,4,5 o 2-5. Para no excluir ninguna, deja vacío.[/]')
+        while True:
+            seleccion = pedir_texto('Números de raíces a excluir (separados por coma)')
+            if not seleccion:
+                break
+            indices = set()
+            try:
+                for elemento in seleccion.split(','):
+                    elemento = elemento.strip()
+                    if '-' in elemento:
+                        principio, final = elemento.split('-', 1)
+                        a, b = int(principio), int(final)
+                        if b < a:
+                            raise ValueError('intervalo invertido')
+                        indices.update(range(a, b + 1))
+                    else:
+                        indices.add(int(elemento))
+                if not indices or min(indices) < 1 or max(indices) > len(todas_raices):
+                    raise ValueError('fuera de intervalo')
+                if len(indices) == len(todas_raices):
+                    imprimir('[red]No puedes excluir todas las raíces de búsqueda.[/]')
+                    continue
+            except ValueError:
+                imprimir('[yellow]Selecciona números válidos de la lista (p. ej. 2,4-5).[/]')
+                continue
+            raices_excluidas = [raiz for indice, raiz in enumerate(todas_raices, 1)
+                                if indice in indices]
+            imprimir('[green]Raíces excluidas de esta búsqueda:[/]')
+            for raiz in raices_excluidas:
+                imprimir(f'  [yellow]• {rich_escape(raiz)}[/]')
+            break
+
     from core.reporter import ProgresoTareas
     def buscar(lista_faltantes, comando_elevado=None):
         """Usa el progreso de reporter tanto en lectura normal como elevada."""
@@ -450,6 +493,9 @@ def buscar_ubicacion_interactivo(db: str) -> None:
             ultimo = [None]
             def avance(fase: str, hechos: int, total: int) -> None:
                 if total:
+                    # Mientras recorremos raíces, progreso = raíces terminadas.
+                    # Al confirmar coincidencias, progreso = vídeos atendidos.
+                    # Evita mostrar permanentemente 0/13 cuando indexa cinco discos.
                     barras.actualizar('ubicacion', hechos, total, detalle=fase)
             def bytes_leidos(ruta: str, leidos: int, total: int) -> None:
                 if total:
@@ -461,6 +507,7 @@ def buscar_ubicacion_interactivo(db: str) -> None:
                 lista_faltantes, extra, excluidas,
                 progreso=avance, progreso_bytes=bytes_leidos,
                 comando_root=comando_elevado,
+                raices_excluidas=raices_excluidas,
             )
 
     imprimir('\n[cyan]Explorando todos los niveles de carpetas en las raíces seleccionadas…[/]')
@@ -584,7 +631,7 @@ def aplicar_ubicacion_interactivo(db: str) -> None:
         imprimir('[yellow]Operación cancelada.[/]')
         return
     texto = pedir_texto('Escribe APLICAR UBICACION para confirmar', obligatorio=True)
-    if texto != 'APLICAR UBICACION':
+    if not confirma_frase(texto, 'APLICAR UBICACION'):
         imprimir('[yellow]Confirmación incorrecta. Cancelado.[/]')
         return
 

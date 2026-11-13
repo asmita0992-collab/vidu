@@ -177,13 +177,13 @@ def submenu_configuracion(db_defecto: str) -> str:
         elif opc == '7':
             reset_modo_conexion()
             try:
-                imprimir('[bold turquoise2]VIDUP 2.4.5: catálogo de referencia + cambios locales propios.[/]')
+                imprimir(f'[bold turquoise2]VIDUP {__version__}: catálogo protegido, reconciliación y diagnósticos TXT.[/]')
                 imprimir('[sky_blue1]Una SQLite anterior a la última sustitución de Neon '
                          'solo podrá adoptar el catálogo central con autorización y respaldo.[/]')
                 from core.presentacion import pedir_si_no
                 autorizar = pedir_si_no(
-                    '¿Incluir reconciliación de marcas y eliminaciones locales en Neon? '
-                    '(se mostrará un plan y se pedirá confirmación adicional)', False)
+                    '¿Permitir que el plan PROPONGA borrados de registros del catálogo? '
+                    '(no archivos físicos; requiere confirmación adicional)', False)
                 subidos, descargados, elim = sincronizar_local_y_nube(
                     confirmar=True, permitir_eliminaciones=autorizar)
             except Exception as exc:

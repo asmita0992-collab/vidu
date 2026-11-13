@@ -1032,6 +1032,9 @@ class ProgresoMultilinea:
         self._detalle = 'Preparando operación…'
         self._live = None
         self._interactivo = sys.stdout.isatty() and CONSOLA is not None
+        self._bloqueo = threading.RLock()
+        self._fin_latidos = threading.Event()
+        self._hilo_latidos = None
 
     def __enter__(self):
         if self._interactivo:
@@ -1039,9 +1042,22 @@ class ProgresoMultilinea:
             self._live = Live(self._render(), console=CONSOLA,
                               refresh_per_second=4, transient=False)
             self._live.start()
+            # Mantener activo tiempo transcurrido y ETA aun cuando os.walk o
+            # una unidad de red tarde varios segundos en entregar carpetas.
+            self._fin_latidos.clear()
+            self._hilo_latidos = threading.Thread(
+                target=self._actualizar_reloj, daemon=True, name='VIDUP-Progreso')
+            self._hilo_latidos.start()
         else:
             print(f'{self.titulo}: iniciando ({self.total:,} elementos)', flush=True)
         return self
+
+    def _actualizar_reloj(self) -> None:
+        """Redibuja solo la interfaz cada 0.5 s; no interfiere con el escaneo."""
+        while not self._fin_latidos.wait(0.5):
+            with self._bloqueo:
+                if self._live is not None:
+                    self._live.update(self._render(), refresh=True)
 
     @staticmethod
     def _cortar(texto: str, ancho: int) -> str:
@@ -1060,38 +1076,54 @@ class ProgresoMultilinea:
         verdes = min(ancho_barra, int(fraccion * ancho_barra))
         transcurrido = time.monotonic() - self._inicio
         eta = transcurrido * (1 - fraccion) / fraccion if fraccion else 0
-        return Group(
+        ruta_o_detalle, separador, contadores = self._detalle.partition(' || ')
+        lineas = [
             Text(self._cortar(self.titulo, ancho_terminal - 1), style='bold bright_cyan'),
-            Text('Archivo: ' + self._cortar(self._detalle, max(12, ancho_terminal - 10)),
+            Text('Detalle: ' + self._cortar(ruta_o_detalle, max(12, ancho_terminal - 10)),
                  style='white'),
+        ]
+        if separador:
+            lineas.append(Text(self._cortar(contadores, ancho_terminal - 1),
+                               style='turquoise2'))
+        lineas += [
             Text.assemble(('█' * verdes, 'spring_green2'),
                           ('░' * (ancho_barra - verdes), 'grey42'),
                           (f' {fraccion:.0%}', 'bold yellow')),
             Text(f'Avance: {self._actual:,}/{self.total:,}', style='bright_green'),
             Text('Tiempo: ' + _fmt_seg(transcurrido) +
-                 ' · ETA: ' + (_fmt_seg(eta) if fraccion else 'calculando'),
+                 ' · ETA aprox.: ' + (_fmt_seg(eta) if fraccion else 'estimando'),
                  style='grey70'),
-        )
+        ]
+        return Group(*lineas)
 
     def actualizar(self, actual: int, total: Optional[int] = None, detalle: str = '') -> None:
-        self._actual = max(0, int(actual))
-        if total is not None:
-            self.total = max(0, int(total))
-        if detalle:
-            self._detalle = str(detalle)
-        if self._live:
-            self._live.update(self._render(), refresh=True)
-        else:
-            pct = int(100 * min(self._actual, max(1, self.total)) / max(1, self.total))
-            franja = pct // 10
-            if franja != self._ultimo_porcentaje or self._actual == self.total:
-                self._ultimo_porcentaje = franja
-                print(f'  {self._actual:,}/{self.total:,} ({pct}%) · '
-                      f'{self._cortar(self._detalle, 65)}', flush=True)
+        with self._bloqueo:
+            self._actual = max(0, int(actual))
+            if total is not None:
+                self.total = max(0, int(total))
+            if detalle:
+                self._detalle = str(detalle)
+            if self._live:
+                self._live.update(self._render(), refresh=True)
+            else:
+                pct = int(100 * min(self._actual, max(1, self.total)) / max(1, self.total))
+                franja = pct // 10
+                # Incluso con 0 raíces completadas, informar cada cierto
+                # tiempo en redirecciones de terminal sin interfaz Rich.
+                if franja != self._ultimo_porcentaje or self._actual == self.total:
+                    self._ultimo_porcentaje = franja
+                    print(f'  {self._actual:,}/{self.total:,} ({pct}%) · '
+                          f'{self._cortar(self._detalle, 65)}', flush=True)
 
     def __exit__(self, exc_type, exc, tb):
+        self._fin_latidos.set()
+        if self._hilo_latidos is not None:
+            self._hilo_latidos.join(timeout=2)
+            self._hilo_latidos = None
         if self._live:
-            self._live.stop()
+            with self._bloqueo:
+                self._live.stop()
+                self._live = None
         elif exc_type is None:
             print(f'{self.titulo}: finalizado', flush=True)
         else:

@@ -212,7 +212,27 @@ def auditoria_a_txt(datos: dict) -> str:
                           f"Neon={d['fecha_neon'] or 'AUSENTE'}")
     else:
         lineas.append('Las marcas de eliminación coinciden.')
-    lineas += ['', '6. ACLARACIÓN SOBRE LA ADOPCIÓN', datos['advertencia'],
+    marc_solo_neon = sum(m['tipo'] == 'solo_neon' for m in datos['marcas_diferentes'])
+    marc_solo_sqlite = sum(m['tipo'] == 'solo_sqlite' for m in datos['marcas_diferentes'])
+    marc_fechas = sum(m['tipo'] == 'fechas_diferentes' for m in datos['marcas_diferentes'])
+    lineas += ['', '6. QUÉ PUEDES HACER PARA RESOLVER LAS DIFERENCIAS', '-' * 68,
+               'VIDUP ofrece estas alternativas durante la sincronización interactiva:',
+               '1) Aplicar el plan seguro: revisa primero qué operaciones propone.',
+               '2) Copiar solo marcas históricas de Neon a SQLite: no modifica vídeos',
+               '   ni huellas; las marcas relacionadas con vídeos activos se excluyen.',
+               '3) Adoptar todo el catálogo Neon: exige confirmación y respaldo íntegro',
+               '   de SQLite. No modifica ni elimina los archivos multimedia físicos.',
+               '4) Conservar ambas bases intactas y revisar este TXT y el JSON.',
+               '0) Cancelar sin efectuar modificaciones.',
+               '',
+               f'Marcas que están solo en Neon: {marc_solo_neon}',
+               f'Marcas que están solo en SQLite: {marc_solo_sqlite}',
+               f'Marcas con fechas diferentes: {marc_fechas}',
+               'Las marcas locales históricas o ajenas NO se publican sin una',
+               'operación propia registrada: podrían contener borrados obsoletos.',
+               'Tampoco se toma la ausencia de un archivo en otro dispositivo',
+               'como autorización para eliminar su registro.',
+               '', '7. ACLARACIÓN SOBRE LA ADOPCIÓN', datos['advertencia'],
                'El respaldo debe completarse antes de sustituir el catálogo local.', '']
     return '\n'.join(lineas)
 

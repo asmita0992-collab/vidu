@@ -38,6 +38,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import ntpath
 import shlex
 import subprocess
 import posixpath
@@ -121,6 +122,20 @@ def raices_almacenamiento(avisos: Optional[List[str]] = None,
             vistos.add(clave)
             resultado.append(candidata)
     return resultado
+
+
+def clave_raiz(raiz: str) -> str:
+    """Normaliza raíces para exclusiones, incluso rutas Windows desde pruebas Linux."""
+    valor = str(raiz).strip()
+    if re.match(r'^[A-Za-z]:', valor):
+        return ntpath.normcase(ntpath.normpath(valor))
+    return os.path.normcase(os.path.normpath(valor))
+
+
+def filtrar_raices(raices: Sequence[str], excluidas: Sequence[str]) -> List[str]:
+    """Excluye solo los montajes escogidos; nunca los reintroduce al buscar."""
+    bloqueadas = {clave_raiz(raiz) for raiz in excluidas}
+    return [raiz for raiz in raices if clave_raiz(raiz) not in bloqueadas]
 
 
 def separar_almacenamiento(ruta: str) -> Optional[Tuple[str, str]]:
@@ -269,12 +284,11 @@ def _indexar_archivos(
     encontrados: Dict[str, List[str]] = {nombre: [] for nombre in buscados}
     for numero, raiz in enumerate(raices, 1):
         _verificar_cancelacion(cancelar)
-        # No deduplicar por realpath: en Android, una ruta directa denegada
-        # y su enlace de Termux pueden resolver a la misma SD pero tener
-        # distinto acceso por los permisos de montaje.
+        # El porcentaje representa raíces terminadas, no vídeos hallados:
+        # hallar un vídeo no equivale a terminar una unidad.
         if progreso:
-            progreso(f'Explorando subcarpetas ({numero}/{len(raices)}): {raiz}', 0,
-                     len(objetivos))
+            progreso(f'Raíz {numero}/{len(raices)}: {raiz} || Iniciando recorrido',
+                     numero - 1, len(raices))
         if not os.path.isdir(raiz):
             avisos.append(f'Raíz inexistente o inaccesible: {raiz}')
             continue
@@ -283,19 +297,36 @@ def _indexar_archivos(
             errores_esta_raiz[0] += 1
             if errores_esta_raiz[0] <= 5:
                 avisos.append(f'Carpeta no legible: {error.filename}: {error.strerror}')
+        carpetas_visitadas = archivos_visitados = candidatos_vistos = 0
+        ultimo_aviso = 0.0
         try:
             for carpeta, directorios, archivos in os.walk(raiz, onerror=error_ruta,
                                                           followlinks=False):
                 _verificar_cancelacion(cancelar)
+                carpetas_visitadas += 1
+                archivos_visitados += len(archivos)
                 # No seguir enlaces de directorios, que pueden producir ciclos.
                 directorios[:] = [d for d in directorios
                                   if not os.path.islink(os.path.join(carpeta, d))]
                 for nombre in archivos:
                     clave = nombre.casefold()
                     if clave in buscados:
+                        candidatos_vistos += 1
                         encontrados[clave].append(os.path.join(carpeta, nombre))
+                # Informar durante el recorrido, no únicamente al terminar el disco.
+                # Limitar a 4 actualizaciones por segundo para no ralentizar os.walk.
+                ahora = time.monotonic()
+                if progreso and (ahora - ultimo_aviso >= 0.25):
+                    progreso(f'{carpeta} || Carpetas: {carpetas_visitadas:,} · '
+                             f'Archivos: {archivos_visitados:,} · Nombres: {candidatos_vistos:,}',
+                             numero - 1, len(raices))
+                    ultimo_aviso = ahora
         except (OSError, PermissionError) as exc:
             avisos.append(f'No se pudo recorrer {raiz}: {exc}')
+        if progreso:
+            progreso(f'{raiz} || Raíz terminada · Carpetas: {carpetas_visitadas:,} · '
+                     f'Archivos: {archivos_visitados:,} · Nombres: {candidatos_vistos:,}',
+                     numero, len(raices))
         if errores_esta_raiz[0] > 5:
             avisos.append(f'{raiz}: {errores_esta_raiz[0] - 5} carpetas inaccesibles más')
     return encontrados
@@ -383,6 +414,7 @@ def buscar_reubicaciones(
     progreso_bytes: ProgresoBytes = None,
     cancelar: Optional[threading.Event] = None,
     comando_root: Optional[Sequence[str]] = None,
+    raices_excluidas: Sequence[str] = (),
 ) -> Dict[str, Any]:
     """Busca rutas cambiadas dentro de la MISMA unidad y en otras unidades.
 
@@ -407,9 +439,12 @@ def buscar_reubicaciones(
         separado = separar_almacenamiento(f['ruta'])
         if separado:
             extras.append(separado[0])
-    raices = raices_almacenamiento(avisos, sugeridas=extras)
+    raices = filtrar_raices(raices_almacenamiento(avisos, sugeridas=extras),
+                            raices_excluidas)
+    if raices_excluidas:
+        avisos.append(f'Raíces excluidas por el usuario: {", ".join(raices_excluidas)}')
     if not raices:
-        avisos.append('No se hallaron raíces; revisa permisos o añade una raíz manualmente.')
+        avisos.append('No quedan raíces para buscar; revisa exclusiones y permisos.')
 
     indice = _indexar_archivos(raices, faltantes, avisos, cancelar, progreso)
     if comando_root is not None:

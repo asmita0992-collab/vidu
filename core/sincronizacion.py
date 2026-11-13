@@ -1145,6 +1145,72 @@ def _restringir_publicacion(plan: PlanSincronizacion, dispositivo_id: str,
     plan.reemplazar_nube = limpiar_duplas(plan.reemplazar_nube, autorizado_video)
     plan.protegidos.extend(sorted(bloqueadas - set(plan.protegidos)))
 
+
+def _resumen_discrepancias_marcas(marcas_local: dict, marcas_nube: dict) -> dict:
+    """Identifica lápidas exclusivas y fechas divergentes sin alterar el catálogo.
+
+    Las marcas de otro dispositivo NO son cambios que la SQLite actual tenga
+    autorización para subir. Esta distinción evita revivir eliminaciones ajenas.
+    """
+    llaves_local = set(marcas_local)
+    llaves_nube = set(marcas_nube)
+    return {
+        'solo_sqlite': sorted(llaves_local - llaves_nube),
+        'solo_neon': sorted(llaves_nube - llaves_local),
+        'fecha_distinta': sorted(k for k in llaves_local & llaves_nube
+                                 if marcas_local[k] != marcas_nube[k]),
+    }
+
+
+def _plan_solo_marcas_historicas(plan: PlanSincronizacion, local: dict,
+                                 nube: dict) -> PlanSincronizacion:
+    """Ofrece copiar solo lápidas de Neon sin tocar vídeos ni huellas.
+
+    No se importa una marca si cualquiera de los catálogos tiene el vídeo
+    activo: requeriría decidir si prevalece escaneo o borrado y, eventualmente,
+    eliminar un registro. Esa resolución siempre exige el plan completo.
+    """
+    return PlanSincronizacion(marcas_local=[(clave, fecha)
+        for clave, fecha in plan.marcas_local
+        if clave not in local and clave not in nube])
+
+
+def _elegir_solucion_discrepancias(plan: PlanSincronizacion, local: dict,
+                                    nube: dict, marcas_local: dict,
+                                    marcas_nube: dict, archivo_txt: Optional[Path]) -> str:
+    """Pide UNA decisión explícita y muestra alternativas de menor a mayor riesgo.
+
+    Devuelve plan/marcas/adoptar/informe/salir. No ejecuta operaciones por sí
+    misma; una adopción sigue exigiendo una frase completa y respaldo íntegro.
+    """
+    from core.presentacion import pedir_texto, RegresarAlMenu
+    diferencia = _resumen_discrepancias_marcas(marcas_local, marcas_nube)
+    imprimir('[bold gold1]Se encontraron discrepancias entre SQLite y Neon.[/]')
+    imprimir('  Marcas solo SQLite: {0} · solo Neon: {1} · fechas distintas: {2}'.format(
+        len(diferencia['solo_sqlite']), len(diferencia['solo_neon']),
+        len(diferencia['fecha_distinta'])))
+    if archivo_txt:
+        from core.presentacion import rich_escape
+        imprimir(f'  [cyan]Detalle y explicación: {rich_escape(str(archivo_txt))}[/]')
+    imprimir('[bold bright_cyan]Alternativas para resolverlas:[/]')
+    imprimir('  [spring_green2]1[/] Aplicar los cambios seguros del plan, previa confirmación.')
+    imprimir('  [turquoise2]2[/] Copiar SOLO marcas históricas de Neon que no correspondan a vídeos activos; no borrar vídeos.')
+    imprimir('  [orange1]3[/] Adoptar TODO el catálogo de Neon en esta SQLite, con respaldo íntegro.')
+    imprimir('  [sky_blue1]4[/] Conservar bases intactas y consultar el informe TXT.')
+    imprimir('  [grey70]0[/] Cancelar sin cambios.')
+    for _ in range(5):
+        try:
+            valor = pedir_texto('Elige cómo resolver las diferencias (0-4)', '1',
+                                permitir_escape=False).strip()
+        except (RegresarAlMenu, KeyboardInterrupt):
+            return 'salir'
+        respuesta = {'1': 'plan', '2': 'marcas', '3': 'adoptar',
+                     '4': 'informe', '0': 'salir'}.get(valor)
+        if respuesta:
+            return respuesta
+        imprimir('[yellow]Selecciona 0, 1, 2, 3 o 4. Ninguna opción se ejecuta automáticamente.[/]')
+    return 'salir'
+
 def sincronizar_local_y_nube(*, confirmar: bool = True,
                             ruta_local: Optional[str] = None,
                             solo_plan: bool = False,
@@ -1249,7 +1315,8 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
                 raise SincronizacionCancelada('La SQLite no se modificó ni publicó información.')
             texto_confirma = pedir_texto('Escribe ADOPTAR NEON para reemplazar '
                                          'el catálogo local', '', permitir_escape=False)
-            if texto_confirma != 'ADOPTAR NEON':
+            from core.presentacion import confirma_frase
+            if not confirma_frase(texto_confirma, 'ADOPTAR NEON'):
                 raise SincronizacionCancelada('Confirmación incorrecta; se conservó SQLite.')
             respaldo = _adoptar_catalogo_neon(conn_loc, conn_nube, ruta,
                                              generacion, remotos, marcas_remotas)
@@ -1259,8 +1326,10 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
         # Incluso con la misma generación, generar diagnóstico legible cuando
         # hay diferencias. Un plan de operaciones no explica por sí solo qué
         # huella, fecha o metadato difiere, y no debe inducir a sustituir datos.
-        if not _catalogos_iguales(locales, remotos, hashes_local, hashes_nube,
-                                  marcas_locales, marcas_remotas):
+        hay_discrepancias = not _catalogos_iguales(
+            locales, remotos, hashes_local, hashes_nube, marcas_locales, marcas_remotas)
+        ruta_txt = None
+        if hay_discrepancias:
             from core.auditoria_sincronizacion import (
                 construir_auditoria, guardar_auditoria)
             diagnostico = construir_auditoria(
@@ -1279,16 +1348,19 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
         diario = pendientes(conn_loc)
         identidad = info_dispositivo_actual()['dispositivo_id']
         # Una marca local no publicada no puede prevalecer sin evento pendiente.
-        marcas_efectivas = {
+        # La política de publicación solo reconoce borrados locales propios
+        # registrados como evento pendiente. Las marcas de Neon se tratan como
+        # fuente remota real, NO como si ya existieran en SQLite.
+        marcas_locales_publicables = {
             k: v for k, v in marcas_locales.items()
             if diario.get(k) == 'eliminado' and k.startswith(identidad + '|')
         }
-        for k, v in marcas_remotas.items():
-            marcas_efectivas.setdefault(k, v)
+        marcas_bloqueo = set(marcas_locales_publicables) | set(marcas_remotas)
         conn_loc.execute('BEGIN IMMEDIATE')
         plan = calcular_plan(locales, remotos, hashes_local, hashes_nube,
-                            set(marcas_efectivas))
-        _planear_marcas(plan, locales, remotos, marcas_efectivas, marcas_remotas,
+                            marcas_bloqueo)
+        _planear_marcas(plan, locales, remotos,
+                       marcas_locales_publicables, marcas_remotas,
                        autorizar_borrados_nube=permitir_eliminaciones,
                        frames_local=hashes_local, frames_nube=hashes_nube)
         _restringir_publicacion(plan, identidad, diario)
@@ -1298,13 +1370,53 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
         imprimir(f'[cyan]Plan legible TXT: {archivo_plan.parent.parent / "txt" / (archivo_plan.stem + ".txt")}[/]')
 
         if solo_plan:
+            if hay_discrepancias:
+                imprimir('[bold orange1]Solo diagnóstico: existen diferencias, aun si '
+                         'el plan no contiene acciones aplicables.[/]')
             return 0, 0, 0
+        if confirmar and hay_discrepancias:
+            decision = _elegir_solucion_discrepancias(
+                plan, locales, remotos, marcas_locales, marcas_remotas, ruta_txt)
+            if decision in ('salir', 'informe'):
+                conn_loc.rollback()
+                imprimir('[yellow]Sin cambios. Las diferencias siguen pendientes; '
+                         'consulta el informe TXT antes de decidir.[/]')
+                return 0, 0, 0
+            if decision == 'adoptar':
+                # La copia SQLite se genera antes de cualquier modificación.
+                # No realizar backup mientras hay una escritura abierta.
+                conn_loc.rollback()
+                from core.presentacion import pedir_texto, confirma_frase
+                texto = pedir_texto('Escribe ADOPTAR NEON para sustituir todo el '
+                                    'catálogo SQLite (sin tocar vídeos físicos)',
+                                    '', permitir_escape=False)
+                if not confirma_frase(texto, 'ADOPTAR NEON'):
+                    raise SincronizacionCancelada('Adopción no autorizada; SQLite intacta.')
+                respaldo = _adoptar_catalogo_neon(
+                    conn_loc, conn_nube, ruta, generacion, remotos, marcas_remotas)
+                imprimir(f'[bold spring_green2]Catálogo local adoptado desde Neon.[/] '
+                         f'Respaldo completo: {respaldo}')
+                return 0, len(remotos), 0
+            if decision == 'marcas':
+                plan = _plan_solo_marcas_historicas(plan, locales, remotos)
+                imprimir(f'[cyan]Modo marcas históricas: {len(plan.marcas_local)} '
+                         'marcas copiables desde Neon; ninguna eliminación de vídeos.[/]')
         if plan.cambios == 0:
-            if plan.conflictos or plan.conflictos_eliminacion or plan.protegidos:
-                imprimir('[yellow]Sin cambios seguros. Hay conflictos o eliminaciones '
-                         'pendientes de autorización; las bases pueden seguir diferentes.[/]')
+            conn_loc.rollback()
+            if hay_discrepancias:
+                pendientes_marcas = _resumen_discrepancias_marcas(marcas_locales, marcas_remotas)
+                imprimir('[bold orange1]Sin operaciones seguras, pero las bases NO son '
+                         'idénticas. No se han ocultado las discrepancias.[/]')
+                imprimir('  Marcas sin conciliar: {0}'.format(
+                    len(set(pendientes_marcas['solo_sqlite']) |
+                        set(pendientes_marcas['solo_neon']) |
+                        set(pendientes_marcas['fecha_distinta']))))
+                imprimir('[yellow]Alternativas: consultar el TXT, revisar la autoridad '
+                         'de las marcas o adoptar explícitamente Neon con respaldo.[/]')
+            elif plan.conflictos or plan.conflictos_eliminacion or plan.protegidos:
+                imprimir('[yellow]Sin cambios seguros; persisten bloqueos del plan.[/]')
             else:
-                imprimir('[green]Sin cambios pendientes. No se eliminaron registros.[/]')
+                imprimir('[green]Catálogos ya idénticos; no hay cambios pendientes.[/]')
             return 0, 0, 0
 
         if (plan.borrar_nube or plan.borrar_local) and not permitir_eliminaciones:
@@ -1318,7 +1430,8 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
                     f'Se eliminarán {len(plan.borrar_nube)} registros en Neon y '
                     f'{len(plan.borrar_local)} en SQLite (no archivos físicos). '
                     'Escribe CONFIRMAR ELIMINACIONES', '', permitir_escape=False)
-                if frase != 'CONFIRMAR ELIMINACIONES':
+                from core.presentacion import confirma_frase
+                if not confirma_frase(frase, 'CONFIRMAR ELIMINACIONES'):
                     raise SincronizacionCancelada('No se autorizó la eliminación en Neon.')
         elif (plan.borrar_nube or plan.borrar_local) and not os.environ.get('VIDUP_AUTORIZAR_BORRADO_TEST'):
             # Una API sin diálogo no puede habilitar borrados por accidente.
@@ -1327,6 +1440,10 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
         if copia:
             imprimir(f'[bold gold1]Recuperación de registros Neon guardada en: {copia}[/]')
 
+        # La descarga y la copia de lápidas procedentes de Neon no son eventos
+        # nuevos del dispositivo. Mantener sus triggers deshabilitados hasta
+        # terminar evita que una simple sincronización invente borrados locales.
+        suprimir_eventos(conn_loc, True)
         from core.reporter import ProgresoTareas
         with ProgresoTareas([
             ('subir', 'Envío a Neon'), ('bajar', 'Descarga a SQLite'),

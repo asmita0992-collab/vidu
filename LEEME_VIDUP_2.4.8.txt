@@ -1,0 +1,62 @@
+VIDUP 2.4.8 — Actualización de controles de búsqueda y sincronización
+====================================================================
+
+ALCANCE
+Esta actualización parte de VIDUP 2.4.7 y mantiene SQLite como base principal,
+Neon como repositorio central y las restricciones de publicación por dispositivo.
+No se incluyen bases de datos, secretos, credenciales ni identificadores de equipo.
+
+CAMBIOS EN 8.2 — LOCALIZACIÓN DE VÍDEOS
+- Tras mostrar las raíces previstas, se pregunta si deseas agregar otras.
+- Ahora también se permite EXCLUIR raíces durante esa búsqueda (por ejemplo K:, R:
+  y Z: de RaiDrive) mediante sus números, separados por coma o rangos.
+- La opción de exclusión no borra ni cambia configuraciones persistentes.
+- La búsqueda muestra raíz, carpeta que está recorriendo, cantidad de carpetas,
+  archivos vistos y coincidencias, con actualización periódica del panel.
+- Progreso y tiempo transcurrido se muestran con el formato multilínea de
+  reporter.py; mientras no se termina la primera raíz, el ETA no es fiable.
+- La búsqueda no modifica SQLite ni los archivos de vídeo.
+
+CONFIRMACIONES
+- Las frases de seguridad aceptan mayúsculas, minúsculas y combinaciones.
+- Sigue siendo obligatorio escribir la frase COMPLETA; no basta poner "sí".
+
+SINCRONIZACIÓN Y DISCREPANCIAS
+- Se corrigió un problema: se consideraban las marcas de eliminación copiadas
+  de Neon como si ya existieran en SQLite, por lo que el plan podía informar
+  cero cambios aunque la comprobación final detectara diferencias.
+- Ahora las marcas reales de Neon se comparan con las que de verdad existen
+  en SQLite; las que faltan pueden proponerse para copiarse sin borrar vídeos.
+- El diario de cambios propios sigue siendo obligatorio para publicar marcas
+  desde SQLite a Neon. Una copia antigua de un equipo no tiene autoridad para
+  borrar el catálogo actualizado de otro equipo.
+- La interfaz distingue "sin operaciones pendientes" de "bases idénticas".
+- Si existen diferencias, aparece UN menú con alternativas:
+    1) Aplicar el plan seguro, tras revisarlo y autorizarlo.
+    2) Copiar únicamente marcas históricas de Neon, si ningún vídeo está activo.
+    3) Adoptar íntegramente Neon en SQLite (requiere respaldo y frase explícita).
+    4) Conservar ambas bases y consultar los informes TXT y JSON.
+    0) Cancelar sin cambios.
+- Los TXT de auditoría explican las alternativas y muestran cuántas marcas
+  son exclusivas de cada base o presentan fechas diferentes.
+- La descarga de registros y marcas desde Neon no se registra como un nuevo
+  evento local propio. Se evita generar un nuevo pendiente artificial.
+
+RECOMENDACIÓN PARA LA PRIMERA EJECUCIÓN
+1) Cierra VIDUP y respalda la SQLite del dispositivo; conserva también la
+   versión de código anterior por si necesitas regresar.
+2) Extrae el ZIP SOLO_PY encima de 2.4.7 respetando la carpeta core.
+3) En 8.2 excluye las unidades virtuales que no deban recorrerse.
+4) En Configuración > 7 revisa el TXT y, si las discrepancias son marcas de
+   Neon sin vídeos activos, elige 2 para copiarlas sin tocar el catálogo de
+   vídeos. Si existen conflictos, revísalos antes de adoptar o eliminar.
+5) Comprueba los totales por identificador y por marca en ambas bases.
+6) No ejecutes una sustitución completa de Neon solo para igualar marcadores.
+
+PRUEBAS Y LIMITACIONES
+- Se ejecutaron pruebas locales y pruebas simuladas de base remota FakePg.
+- No se conectó el proyecto con tu cuenta real de Neon.
+- No se probó físicamente en tu Windows, Termux/Android ni Xubuntu.
+- Una unidad de red bloqueada dentro del sistema operativo puede tardar en
+  devolver el siguiente directorio; el reloj sigue activo pero no es posible
+  saber anticipadamente el número total de carpetas o un ETA confiable.
