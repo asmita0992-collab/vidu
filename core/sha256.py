@@ -1830,30 +1830,37 @@ def _elegir_carpetas_videos(raiz: Path) -> List[Path]:
     return carpetas
 
 
-def menu(raiz=None, db_defecto=None):
+def menu(raiz=None, db_defecto=None, opciones_permitidas=None, anidado=False):
     raiz = Path(raiz or Path(__file__).resolve().parents[1]).resolve()
     _asegurar_subcarpetas(raiz)
 
     try:
         while True:
             _cabecera_menu(raiz)
-            opciones = (
+            todas_opciones = (
                 ('1', 'Comparar carpeta de vídeos directamente contra base(s) de datos'),
                 ('2', 'Generar SHA256 de UNA O VARIAS carpetas/discos (JSON/TXT/CSV)'),
                 ('3', 'Comparar JSON de SHA256 fuera de línea contra base(s)'),
                 ('4', 'Cargar / Importar JSON de SHA256 fuera de línea a la BD'),
                 ('5', 'Importar carpeta de vídeos como huellas mínimas'),
-                ('00', 'Volver al menú principal'),
             )
+            permitidas = set(opciones_permitidas or ('1','2','3','4','5'))
+            opciones = tuple((n,t) for n,t in todas_opciones if n in permitidas) + (
+                ('0','Volver al menú anterior'),('00','Menú principal'))
             from core.interfaz import menu_rich
             menu_rich('Herramientas SHA256', opciones,
                       subtitulo='Catálogos de archivos y comparación fuera de línea.')
             _imprimir('💡 Las bases de datos pueden ser archivos .db (SQLite) o .json (huellas exportadas).', 'grey37')
 
-            opcion = _pedir_texto('\n¿Qué quieres hacer? (1-5 / 00)', '1').zfill(1)
-            if opcion in ('00', '0'):
+            opcion = _pedir_texto('\n¿Qué quieres hacer? (opciones indicadas / 0 / 00)', sorted(permitidas)[0]).strip()
+            if opcion == '00':
+                if anidado:
+                    from core.presentacion import IrAlMenuPrincipal
+                    raise IrAlMenuPrincipal()
                 return None
-            if opcion in ('1', '2', '3', '4', '5'):
+            if opcion == '0':
+                return None
+            if opcion in permitidas:
                 break
             _imprimir('Elige una opción válida: 1, 2, 3, 4, 5 o 00.', 'yellow')
 

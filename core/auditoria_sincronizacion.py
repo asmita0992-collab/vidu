@@ -276,6 +276,7 @@ def guardar_plan_txt(archivo_json: Path, datos: dict) -> Path:
               ('conflictos_no_resueltos', 'Conflictos no resueltos'),
               ('publicaciones_bloqueadas_o_protegidas', 'Cambios bloqueados'),
               ('videos_borrar_en_neon', 'Bajas propuestas en Neon'),
+              ('bajas_verificadas_por_reporte', 'Bajas de VIDUP con reporte de verificación íntegro'),
               ('videos_borrar_en_sqlite', 'Bajas propuestas en SQLite'),
               ('marcas_para_neon', 'Marcas de eliminación para Neon'),
               ('marcas_para_sqlite', 'Marcas de eliminación para SQLite'),

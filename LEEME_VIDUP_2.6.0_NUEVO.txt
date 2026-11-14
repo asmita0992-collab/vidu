@@ -1,0 +1,99 @@
+VIDUP 2.6.0 — ACTUALIZACIÓN SOBRE VIDUP 2.5.0
+===============================================
+
+IMPORTANTE: el paquete anterior que se entregó con la etiqueta 2.6.0
+correspondía realmente a la versión 2.5.0 tras la corrección manual de
+numeración. ESTE paquete es la nueva versión 2.6.0 sobre aquella base.
+
+CAMBIOS PRINCIPALES
+-------------------
+1) Descargas desde Neon con procedencia verificable.
+   Cuando se crea un NUEVO respaldo SQLite desde Neon, se obtiene un catálogo
+   coherente dentro de una lectura consistente, se comprueban recuentos y se
+   guarda la generación de Neon y la procedencia del respaldo dentro de SQLite.
+   Renombrar posteriormente ese archivo no debería borrar esta información.
+   No se concede una generación vigente a archivos viejos que carecen de ella.
+   Una descarga no puede sobrescribir una SQLite existente: utilice otro nombre.
+   No se altera ninguna base simplemente por instalar el código.
+
+2) Protección y conciliación de bajas verificadas.
+   Se registra evidencia de bajas efectuadas por las herramientas de VIDUP
+   basándose en informes y operaciones constatadas, asociando la clave del vídeo,
+   su SHA256 y el informe correspondiente. La evidencia exige que el informe
+   original exista e íntegro y que el evento siga pendiente en el diario local.
+   Los cambios manuales y los casos dudosos siguen sujetos a confirmación.
+   Ninguna marca de eliminación debe interpretarse automáticamente como prueba
+   de ausencia física de un vídeo en un dispositivo distinto.
+
+3) Menú principal reestructurado:
+   1  Escaneo y catálogos SHA256 (propios y prestados)
+   2  Comparación de vídeos y bases (comparador, SHA256, JSON)
+   3  Gestión, movimientos y ubicación de archivos
+   4  Respaldos y restauración
+   5  Depuración de bases y huellas
+   6  Estadísticas e informes
+   7  Sincronización y conciliación con Neon
+   8  Configuración · Neon, Telegram y recursos
+   0  Salir
+   Se redistribuyeron las funciones del submenú antiguo de SHA256 sin eliminar
+   sus algoritmos. 0 vuelve al nivel anterior; 00 regresa al menú principal
+   en los menús renovados (desde el menú principal ambos finalizan).
+
+4) Submenú 7, sincronización:
+   1  Analizar y guardar un plan verificable (no ejecutarlo)
+   2  Consultar un plan previo y su informe TXT
+   3  Reutilizar un plan guardado solo si sigue vigente
+   4  Nueva sincronización, con revisión y confirmación
+   5  Reconciliación de bajas verificadas, con plan y confirmación
+   6  Bandeja de huellas de análisis externos
+   7  Consulta de generación y procedencia SQLite
+   Los nuevos planes incluyen una huella de estado de SQLite y Neon, además de
+   la generación central. Si cualquiera de ellos cambia, se rechaza la ejecución
+   del plan previo y es necesario generar otro. Se evita crear nuevos informes
+   cuando se reproduce un plan que supera todas las comprobaciones.
+   Los planes de versiones anteriores carecen de esta huella y SOLO SE CONSULTAN;
+   no pueden reproducirse como planes ejecutables de la versión 2.6.0.
+
+5) Interfaz y procesamiento.
+   Una única fuente de versión: core/version.py.
+   Alias visual corto para equipos, sin alterar IDs ni dueños de vídeos.
+   Se puede definir VIDUP_ALIAS_DISPOSITIVO en el entorno para personalizarlo.
+   Menús Rich: muestran estado conocido de Neon (habilitado/deshabilitado,
+   conexión verificada/no verificada) y de Telegram. La etiqueta de estado
+   NO realiza conexiones de red ni afirma conexión si no se verificó.
+   En el panel de workers reaparece la velocidad relativa promedio: 1.00x,
+   9.50x, etc., cuando hay una medida válida del tiempo de vídeo procesado.
+   Permanecen las mejoras del escaneo externo y bandeja temporal de 2.5.0.
+
+INSTALACIÓN Y PRECAUCIONES
+--------------------------
+- CIERRE VIDUP antes de sustituir archivos.
+- Respaldar primero SQLite propia y, antes de cualquier reconciliación, Neon.
+- Preferir VIDUP_2.6.0_SOLO_PY_ACTUALIZACION.zip sobre la versión 2.5.0,
+  extrayendo conservando la jerarquía core/ y reemplazando los .py anteriores.
+- No eliminar ni reemplazar .db, .env, .vidup_device_identity.json, reportes,
+  archivos de vídeo, huellas pendientes ni historiales de auditoría existentes.
+- La instalación NO ejecuta una conciliación ni cambia por sí misma una base.
+- Una SQLite descargada ANTES de esta versión sin metadatos de procedencia no
+  queda certificada por renombrarla o volverla a abrir. Hay que analizarla o
+  crear un respaldo nuevo verificable y preservar el antiguo para recuperación.
+- Para comprobar procedencia: menú 7 → 7. Para ver un plan, menú 7 → 1 o 2.
+- Para empezar, hacer pruebas con copias y ejecutar en modo diagnóstico;
+  NO elegir adopción integral de Neon por rutina.
+- La copia local de una PC NO debe publicar registros de otro dispositivo por
+  el solo hecho de contenerlos; la autoría sigue sujeta a controles estrictos.
+
+VALIDACIÓN EFECTUADA
+--------------------
+Se ejecutaron 88 pruebas automatizadas en bases locales y simulaciones
+PostgreSQL, y 9 pruebas históricas quedaron marcadas como xfailed por emplear
+la sincronización permisiva de versiones anteriores. Código compilado.
+NO se conectó al Neon real ni se ejecutó FFmpeg sobre los dispositivos físicos.
+En este entorno falta una dependencia (`imagehash`) para iniciar la aplicación
+completa desde la consola; se comprobaron los módulos mediante pruebas locales.
+La exportación y las protecciones deben verificarse en una copia y en un Neon
+DE PRUEBAS antes de confiarles datos irreemplazables.
+
+Se incluyen pruebas automatizadas y documentos; ningún ZIP contiene bases
+reales, archivos .env, identidad del dispositivo, contraseñas o reportes
+creados durante las pruebas.

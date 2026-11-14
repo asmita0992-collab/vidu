@@ -9,7 +9,7 @@ Los reportes se guardan junto al programa, dentro de reportes/.
 
 from __future__ import annotations
 
-__version__ = "2.5.0"
+from core.version import VERSION as __version__
 __desc_herramienta__ = "Detector de vídeos duplicados y fragmentos"
 
 import argparse
@@ -58,7 +58,7 @@ from core.presentacion import (
     imprimir, regla, panel, pedir_si_no, pedir_numero, pedir_texto,
     pedir_ruta, pedir_limite_escaneo, RegresarAlMenu, _PALABRAS_ESCAPE, _MAX_INTENTOS,
     linea_dep, linea_opcional, escapar_para_telegram,
-    CONSOLA, TIENE_RICH, Panel, Rule,
+    CONSOLA, TIENE_RICH, Panel, Rule, IrAlMenuPrincipal,
     NC, NEGRITA, AZUL, AMARILLO, VERDE, ROJO, GRIS, CIAN, BLANCO, MAGENTA,
 )
 from core.reporter import (
@@ -133,23 +133,22 @@ def menu_interactivo() -> int:
 
     while True:
 
-        from core.interfaz import menu_rich
+        from core.interfaz import menu_rich, nombre_corto_dispositivo, estado_servicios
         menu_rich(
             f'VIDUP {__version__} · Centro de operaciones',
             [
-                ('1', 'Escanear vídeos · inventario y huellas'),
-                ('2', 'Comparar bases de datos · coincidencias'),
-                ('3', 'Mover vídeos · operaciones verificables'),
-                ('4', 'Respaldos · exportar y sustituir'),
-                ('5', 'Depuración de base de datos'),
-                ('6', 'SHA256 · carpetas y catálogos'),
-                ('7', 'Estadísticas · SQLite y Neon'),
-                ('8', 'Verificación y reubicación de archivos'),
-                ('9', 'Configuración · sincronización con Neon'),
+                ('1', 'Escaneo y catálogos SHA256'),
+                ('2', 'Comparación de vídeos y bases'),
+                ('3', 'Gestión, movimientos y ubicación de archivos'),
+                ('4', 'Respaldos y restauración'),
+                ('5', 'Depuración de bases y huellas'),
+                ('6', 'Estadísticas e informes'),
+                ('7', 'Sincronización y conciliación con Neon'),
+                ('8', 'Configuración · conexión, Telegram y recursos'),
                 ('0', 'Salir de VIDUP'),
             ],
-            subtitulo=f'{info_disp["dispositivo"]} · {info_disp["plataforma"]} · {info_disp["maquina"]}',
-            contexto=f'ID: {info_disp["dispositivo_id"]} · {describir_conexion()}',
+            subtitulo=(f'{nombre_corto_dispositivo(info_disp)}  ·  ID {info_disp["dispositivo_id"]}'),
+            contexto=('SQLite principal  ·  ' + '  ·  '.join(estado_servicios())),
             peligrosas=('5',),
         )
 
@@ -165,26 +164,29 @@ def menu_interactivo() -> int:
             if opcion == '1':
                 db_defecto = submenu_escaneo(db_defecto)
             elif opcion == '2':
-                db_defecto = comparar_interactivo(db_defecto)
+                from core.organizacion import submenu_comparacion
+                db_defecto = submenu_comparacion(db_defecto)
             elif opcion == '3':
-                db_defecto = submenu_mover(db_defecto)
+                from core.organizacion import submenu_archivos
+                db_defecto = submenu_archivos(db_defecto)
             elif opcion == '4':
                 db_defecto = submenu_respaldos(db_defecto)
             elif opcion == '5':
-                db_defecto = submenu_depurar(db_defecto)
+                from core.organizacion import submenu_depuracion
+                db_defecto = submenu_depuracion(db_defecto)
             elif opcion == '6':
-                from core.sha256 import menu as menu_sha256
-                db_defecto = _tras_menu_sha256(menu_sha256(DIR_SCRIPT, db_defecto), db_defecto)
-            elif opcion == '7':
                 db_defecto = submenu_estadisticas(db_defecto)
+            elif opcion == '7':
+                from core.organizacion import submenu_sincronizacion
+                db_defecto = submenu_sincronizacion(db_defecto)
             elif opcion == '8':
-                db_defecto = submenu_verificacion(db_defecto)
-            elif opcion == '9':
                 db_defecto = submenu_configuracion(db_defecto)
             else:
-                imprimir('[yellow]Elige una opción entre 0 y 9.[/]')
+                imprimir('[yellow]Elige una opción entre 0 y 8.[/]')
         except EOFError:
             raise
+        except IrAlMenuPrincipal:
+            continue
         except RegresarAlMenu:
             imprimir('[yellow]↩ Operación cancelada.[/]')
             continue

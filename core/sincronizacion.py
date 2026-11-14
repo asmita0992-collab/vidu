@@ -564,8 +564,58 @@ def _imprimir_plan(plan: PlanSincronizacion, n_local: int, n_nube: int) -> None:
         imprimir(f'  [yellow]... otros {len(plan.conflictos) + len(plan.conflictos_eliminacion) - 10} conflictos.[/]')
 
 
+def _firma_catalogos(locales: dict, remotos: dict, huellas_local: dict,
+                     huellas_neon: dict, marcas_local: dict, marcas_neon: dict,
+                     generacion: str) -> str:
+    """Huella del estado de ambas bases, no del contenido físico de los vídeos.
+
+    Evita ejecutar un plan guardado si una sola fila, revisión, lápida o huella
+    visual cambió después de producir el informe.
+    """
+    import hashlib
+    import json
+    datos = (generacion, locales, remotos, huellas_local, huellas_neon,
+             marcas_local, marcas_neon)
+    texto = json.dumps(datos, sort_keys=True, ensure_ascii=False, default=str)
+    return hashlib.sha256(texto.encode('utf-8')).hexdigest()
+
+
+def _validar_plan_guardado(archivo: Path, *, ruta: Path, generacion: str,
+                          firma: str, plan: PlanSincronizacion) -> dict:
+    """Revalida precedencia y acciones al ejecutar un JSON previamente guardado."""
+    import json
+    datos = json.loads(Path(archivo).read_text(encoding='utf-8'))
+    if not datos.get('firma_catalogos'):
+        raise ErrorSincronizacion('El plan anterior no contiene huella de integridad: '
+                                  'genera un nuevo diagnóstico antes de ejecutarlo.')
+    if datos.get('generacion_neon') != generacion:
+        raise ErrorSincronizacion('La generación de Neon cambió desde el diagnóstico.')
+    if Path(str(datos.get('sqlite', ''))).resolve() != ruta.resolve():
+        raise ErrorSincronizacion('Este plan pertenece a otra SQLite.')
+    if datos['firma_catalogos'] != firma:
+        raise ErrorSincronizacion('El catálogo o sus marcas cambiaron: plan caducado. '
+                                  'Vuelve a analizar antes de aplicar cambios.')
+    operaciones = {
+        'subir': sorted(v['clave_unica'] for v in plan.subir),
+        'bajar': sorted(v['clave_unica'] for v in plan.bajar),
+        'videos_borrar_en_neon': sorted(v['clave_unica'] for v in plan.borrar_nube),
+        'videos_borrar_en_sqlite': sorted(v['clave_unica'] for v in plan.borrar_local),
+        'marcas_para_neon': sorted(str(k) for k, _ in plan.marcas_nube),
+        'marcas_para_sqlite': sorted(str(k) for k, _ in plan.marcas_local),
+    }
+    for campo, actuales in operaciones.items():
+        # Las marcas se guardan como duplas [clave,fecha].
+        anteriores = datos.get(campo, [])
+        anteriores = sorted(str(v[0]) if isinstance(v, (tuple,list)) else str(v)
+                             for v in anteriores)
+        if anteriores != actuales:
+            raise ErrorSincronizacion(f'Operaciones distintas en {campo}: plan inválido.')
+    return datos
+
+
 def _guardar_plan(plan: PlanSincronizacion, ruta_local: Path,
-                  n_local: int, n_nube: int) -> Path:
+                  n_local: int, n_nube: int, *, firma: str = '',
+                  generacion: str = '', evidencias: tuple[str,...] = ()) -> Path:
     """Bitácora del plan calculado; no es copia de seguridad de una depuración."""
     carpeta = DIR_SCRIPT / 'reportes' / 'sincronizacion' / 'json'
     carpeta.mkdir(parents=True, exist_ok=True)
@@ -573,6 +623,7 @@ def _guardar_plan(plan: PlanSincronizacion, ruta_local: Path,
     archivo = carpeta / ('plan_' + datetime.now().strftime('%Y%m%d_%H%M%S_%f') + '.json')
     contenido = {
         'fecha': datetime.now().isoformat(timespec='seconds'),
+        'firma_catalogos': firma, 'generacion_neon': generacion,
         'sqlite': str(ruta_local), 'neon': 'configurada (URL omitida)',
         'videos_locales': n_local, 'videos_neon': n_nube,
         'subir': [v['clave_unica'] for v in plan.subir],
@@ -596,6 +647,7 @@ def _guardar_plan(plan: PlanSincronizacion, ruta_local: Path,
         'reemplazar_version_antigua_neon': [k for k, _ in plan.reemplazar_nube],
         'reemplazar_version_antigua_sqlite': [k for k, _ in plan.reemplazar_local],
         'conflictos_de_eliminacion': plan.conflictos_eliminacion,
+        'bajas_verificadas_por_reporte': list(sorted(evidencias)),
         'eliminaciones_automaticas': 0,
         'precedencia': 'último evento comprobable: escaneo SHA256 o marca de eliminación',
         'nota': 'El plan es informativo. Sin confirmación no se aplican cambios.'
@@ -1218,7 +1270,8 @@ def _elegir_solucion_discrepancias(plan: PlanSincronizacion, local: dict,
 def sincronizar_local_y_nube(*, confirmar: bool = True,
                             ruta_local: Optional[str] = None,
                             solo_plan: bool = False,
-                            permitir_eliminaciones: bool = False) -> Tuple[int, int, int]:
+                            permitir_eliminaciones: bool = False,
+                            archivo_plan_existente: Optional[str] = None) -> Tuple[int, int, int]:
     """Sincronización con generación canónica y diario de cambios propios.
 
     En errores lanza ErrorSincronizacion; NUNCA devuelve (0,0,0) como éxito falso.
@@ -1266,6 +1319,9 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
         marcas_locales = _leer_marcas(conn_loc)
         marcas_remotas = _leer_marcas(conn_nube)
         anterior = estado_generacion(conn_loc)
+        if anterior != generacion and archivo_plan_existente:
+            raise ErrorSincronizacion('Este plan pertenece a una generación diferente: '
+                                      'revise el diagnóstico de procedencia y adopción.')
         if anterior != generacion:
             if _catalogos_iguales(locales, remotos, hashes_local, hashes_nube,
                                   marcas_locales, marcas_remotas):
@@ -1275,8 +1331,17 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
                 imprimir('[bold spring_green2]Catálogo local idéntico a Neon; '
                          'referencia reconocida sin copiar ni borrar vídeos.[/]')
                 return 0, 0, 0
-            imprimir('[bold orange1]Esta SQLite pertenece a una generación anterior '
-                     'a la referencia actual de Neon. Se BLOQUEA la subida.[/]')
+            if not anterior:
+                imprimir('[bold orange1]Esta SQLite no tiene una generación de Neon '
+                         'verificable. Se BLOQUEA la subida hasta comprobar su procedencia.[/]')
+                imprimir('[yellow]Las descargas completas de Neon realizadas desde VIDUP '
+                         '2.6.0 conservan la generación. Las copias antiguas sin ese dato '
+                         'no pueden declararse actuales por su nombre o fecha.[/]')
+            else:
+                imprimir('[bold orange1]La generación reconocida por SQLite NO coincide '
+                         'con la referencia de Neon. Se BLOQUEA la subida.[/]')
+                imprimir(f'[yellow]SQLite reconoce {anterior}; Neon declara {generacion}. '
+                         'Una UUID no demuestra por sí sola cuál es cronológicamente anterior.[/]')
             # Informe exhaustivo: metadatos, huella de audio y fotogramas.
             # No basta con contrastar claves ni los totales del catálogo.
             from core.auditoria_sincronizacion import (
@@ -1382,7 +1447,7 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
         hay_discrepancias = not _catalogos_iguales(
             locales, remotos, hashes_local, hashes_nube, marcas_locales, marcas_remotas)
         ruta_txt = None
-        if hay_discrepancias:
+        if hay_discrepancias and not archivo_plan_existente:
             from core.auditoria_sincronizacion import (
                 construir_auditoria, guardar_auditoria)
             diagnostico = construir_auditoria(
@@ -1418,9 +1483,24 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
                        frames_local=hashes_local, frames_nube=hashes_nube)
         _restringir_publicacion(plan, identidad, diario)
         _imprimir_plan(plan, len(locales), len(remotos))
-        archivo_plan = _guardar_plan(plan, ruta, len(locales), len(remotos))
-        imprimir(f'[cyan]Plan verificable JSON: {archivo_plan}[/]')
-        imprimir(f'[cyan]Plan legible TXT: {archivo_plan.parent.parent / "txt" / (archivo_plan.stem + ".txt")}[/]')
+        firma = _firma_catalogos(locales, remotos, hashes_local, hashes_nube,
+                                 marcas_locales, marcas_remotas, generacion)
+        if archivo_plan_existente:
+            archivo_plan = Path(archivo_plan_existente).resolve()
+            _validar_plan_guardado(archivo_plan, ruta=ruta,
+                                  generacion=generacion, firma=firma, plan=plan)
+            imprimir(f'[spring_green2]Plan vigente y verificable: {archivo_plan}[/]')
+            imprimir('[turquoise2]No se generan nuevos informes; se utiliza el plan validado.[/]')
+        else:
+            from core.control_sincronizacion import bajas_verificadas
+            verificadas = bajas_verificadas(conn_loc,
+                              (v['clave_unica'] for v in plan.borrar_nube))
+            archivo_plan = _guardar_plan(plan, ruta, len(locales), len(remotos),
+                        firma=firma, generacion=generacion,
+                        evidencias=tuple(verificadas))
+            imprimir(f'[cyan]Plan verificable JSON: {archivo_plan}[/]')
+            imprimir(f'[cyan]Plan legible TXT: '
+                     f'{archivo_plan.parent.parent / "txt" / (archivo_plan.stem + ".txt")}[/]')
 
         if solo_plan:
             if hay_discrepancias:
@@ -1546,13 +1626,24 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
             if not pedir_si_no('¿Aplicar el plan verificado de sincronización?', False):
                 raise SincronizacionCancelada('No se aplicaron cambios.')
             if plan.borrar_nube or plan.borrar_local:
-                frase = pedir_texto(
-                    f'Se eliminarán {len(plan.borrar_nube)} registros en Neon y '
-                    f'{len(plan.borrar_local)} en SQLite (no archivos físicos). '
-                    'Escribe CONFIRMAR ELIMINACIONES', '', permitir_escape=False)
-                from core.presentacion import confirma_frase
-                if not confirma_frase(frase, 'CONFIRMAR ELIMINACIONES'):
-                    raise SincronizacionCancelada('No se autorizó la eliminación en Neon.')
+                from core.control_sincronizacion import bajas_verificadas
+                verificadas = bajas_verificadas(conn_loc,
+                    (v['clave_unica'] for v in plan.borrar_nube))
+                todas_verificadas = (bool(plan.borrar_nube) and not plan.borrar_local and
+                    all(v['clave_unica'] in verificadas for v in plan.borrar_nube))
+                if todas_verificadas:
+                    imprimir(f'[spring_green2]{len(verificadas)} bajas de vídeos del dispositivo '
+                            'verificadas mediante reportes originales íntegros.[/]')
+                    imprimir('[yellow]La aprobación del plan anterior cubre estas bajas. '
+                            'No es necesario volver a escribir una frase.[/]')
+                else:
+                    frase = pedir_texto(
+                        f'Se eliminarán {len(plan.borrar_nube)} registros en Neon y '
+                        f'{len(plan.borrar_local)} en SQLite (no archivos físicos). '
+                        'Escribe CONFIRMAR ELIMINACIONES', '', permitir_escape=False)
+                    from core.presentacion import confirma_frase
+                    if not confirma_frase(frase, 'CONFIRMAR ELIMINACIONES'):
+                        raise SincronizacionCancelada('No se autorizó la eliminación en Neon.')
         elif (plan.borrar_nube or plan.borrar_local) and not os.environ.get('VIDUP_AUTORIZAR_BORRADO_TEST'):
             # Una API sin diálogo no puede habilitar borrados por accidente.
             raise ErrorSincronizacion('Los borrados requieren confirmación interactiva.')

@@ -13,6 +13,7 @@ import sqlite3
 from pathlib import Path
 
 from core.horario import fmt_ahora_utc6, id_utc6
+from core.version import VERSION
 
 CAMPOS_COMPLETABLES = (
     'hash_rapido','duracion','ancho','alto','fps','codec_video','codec_audio',
@@ -98,7 +99,7 @@ def guardar_plan(plan: dict, directorio: Path) -> tuple[Path,Path]:
     nombre='conciliacion_selectiva_'+id_utc6()
     ruta_json=json_dir/(nombre+'.json'); ruta_txt=txt_dir/(nombre+'.txt')
     ruta_json.write_text(json.dumps(plan,ensure_ascii=False,indent=2,default=str),encoding='utf8')
-    lineas=['VIDUP 2.6 — PROPUESTA DE RECONCILIACIÓN SELECTIVA', '='*66,
+    lineas=[f'VIDUP {VERSION} — PROPUESTA DE RECONCILIACIÓN SELECTIVA', '='*66,
             'Generado: '+plan['generado'], '',
             f'Vídeos que solo están en SQLite: {plan["local_solo"]}',
             f'Vídeos que solo están en Neon: {plan["neon_solo"]}',

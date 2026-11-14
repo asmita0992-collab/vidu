@@ -1032,6 +1032,8 @@ def submenu_escaneo(db_defecto: str) -> str:
         menu_rich('Escaneo de vídeos', [
             ('1','Escaneo de vídeos propios'),
             ('2','Escaneo de vídeos de otro dispositivo · transferencia temporal'),
+            ('3','Catálogos SHA256 · generación, comparación e importación'),
+            ('4','Completar metadatos faltantes (FFprobe)'),
             ('0','Volver al menú principal'),
             ('00','Volver al menú principal'),
         ],subtitulo='Tipo de propietario del vídeo; el procesador no cambia la propiedad.')
@@ -1041,8 +1043,17 @@ def submenu_escaneo(db_defecto: str) -> str:
             return db_defecto
         if op in ('0','00'):
             return db_defecto
+        if op == '4':
+            from core.utilidades_interactivas import completar_metadatos_interactivo
+            completar_metadatos_interactivo(db_defecto)
+            continue
+        if op == '3':
+            from core.sha256 import menu as menu_sha
+            salida = menu_sha(DIR_SCRIPT, db_defecto, opciones_permitidas=('2','3','5'), anidado=True)
+            db_defecto = _tras_menu_sha256(salida, db_defecto)
+            continue
         if op not in ('1','2'):
-            imprimir('[yellow]Elige 1, 2, 0 o 00.[/]')
+            imprimir('[yellow]Elige 1, 2, 3, 0 o 00.[/]')
             continue
         try:
             propietario = None

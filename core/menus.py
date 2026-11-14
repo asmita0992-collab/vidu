@@ -94,14 +94,16 @@ def _cabecera_submenu(titulo: str) -> None:
     from core import __version__
     from core.database import describir_conexion, info_dispositivo_actual
     info = info_dispositivo_actual()
+    from core.interfaz import nombre_corto_dispositivo, estado_servicios
+    alias = nombre_corto_dispositivo(info)
+    neon, tg = estado_servicios()
     if CONSOLA is not None and Panel is not None:
         CONSOLA.print()
         CONSOLA.print(Panel.fit(
             f'[bold bright_white]{titulo}[/]\n'
-            f'[deep_sky_blue1]Dispositivo:[/] [spring_green2]{rich_escape(str(info["dispositivo"]))}[/]  [grey37](ID {info["dispositivo_id"]})[/]\n'
-            f'[deep_sky_blue1]Plataforma :[/] [turquoise2]{rich_escape(str(info["plataforma"]))}[/] ({rich_escape(str(info["maquina"]))})\n'
-            f'[deep_sky_blue1]Conexión   :[/] [gold1]{describir_conexion()}[/]\n'
-            f'[deep_sky_blue1]Telegram   :[/] {"[spring_green2]activo[/]" if telegram_configurado() else "[orange3]desactivado[/]"}',
+            f'[deep_sky_blue1]Equipo:[/] [spring_green2]{rich_escape(alias)}[/]  [grey70]ID {info["dispositivo_id"]}[/]\n'
+            f'[deep_sky_blue1]BD:[/] SQLite principal  ·  [gold1]{rich_escape(neon)}[/]\n'
+            f'[deep_sky_blue1]{rich_escape(tg)}[/]',
             title=f'[bold plum1]VIDUP[/] [bold gold1]v{__version__}[/]',
             border_style='bright_cyan',
         ))
@@ -109,10 +111,10 @@ def _cabecera_submenu(titulo: str) -> None:
         print(f'\n{"═" * 72}')
         print(f'{NEGRITA}{titulo} — VIDUP v{__version__}{NC}')
         print(f'{"═" * 72}')
-        print(f'Dispositivo: {info["dispositivo"]} (ID {info["dispositivo_id"]})')
+        print(f'Equipo: {alias} (ID {info["dispositivo_id"]})')
         print(f'Plataforma : {info["plataforma"]} ({info["maquina"]})')
-        print(f'Conexión   : {describir_conexion()}')
-        print(f'Telegram   : {"activo" if telegram_configurado() else "desactivado"}')
+        print(f'SQLite principal · {neon}')
+        print(tg)
 
 
 def _mostrar_menu_opciones(opciones: Sequence[tuple[str, str]], peligrosas=()) -> None:
@@ -174,13 +176,10 @@ def submenu_estadisticas(db_defecto: str) -> str:
             ('3', 'Exportar estadísticas a TXT, JSON y CSV (local)'),
             ('4', 'Exportar estadísticas a TXT, JSON y CSV (Neon)'),
             ('5', 'Generar reporte de vídeos faltantes de huellas (TXT, JSON y CSV)'),
-            ('6', 'Gestionar carpetas excluidas del escaneo'),
-            ('7', 'Completar metadatos faltantes (FFprobe)'),
-            ('8', 'Cambiar la ruta de un vídeo o carpeta en la base'),
             ('00', 'Volver al menú principal'),
         ])
-        opcion = _pedir_opcion('¿Qué quieres hacer? (1-8 / 00)',
-                              tuple(str(x) for x in range(1,9)) + ('00','0'), '1')
+        opcion = _pedir_opcion('¿Qué quieres hacer? (1-5 / 0 / 00)',
+                              tuple(str(x) for x in range(1,6)) + ('00','0'), '1')
         if opcion in ('00', '0'):
             return db_defecto
         try:
@@ -239,7 +238,7 @@ def submenu_estadisticas(db_defecto: str) -> str:
             imprimir(f'[red][ERROR] Estadísticas e inventario: {rich_escape(str(exc))}[/]')
 
 
-def submenu_mover(db_defecto: str) -> str:
+def submenu_mover(db_defecto: str, *, anidado: bool = False) -> str:
     from core.mover import (mover_interactivo, mover_desde_sha256,
                             mover_desde_reporte_huellas, eliminar_desde_comparativa,
                             eliminar_desde_sha256, vaciar_carpeta_eliminar)
@@ -250,13 +249,16 @@ def submenu_mover(db_defecto: str) -> str:
         _mostrar_menu_opciones([
             ('1', 'Mover vídeos de una comparativa (visual)'),
             ('2', 'Mover nuevos/ya registrados desde JSON SHA256'),
-            ('3', 'Mover desde reporte de huellas faltantes (submenú 7.5)'),
+            ('3', 'Mover desde reporte de huellas faltantes (Estadísticas e informes (menú 6, opción 5))'),
             ('4', 'Eliminar duplicados EXACTOS locales desde comparativa'),
             ('5', 'Eliminar coincidencias SHA256 locales'),
             ('6', 'Vaciar carpeta de revisión/eliminar (borrado físico y de BD)'),
             ('00', 'Volver al menú principal'),
         ], peligrosas=('4', '5', '6'))
         opcion = _pedir_opcion('¿Qué quieres hacer? (1-6 / 00)', ('1', '2', '3', '4', '5', '6', '00', '0'), '1')
+        if opcion == '00' and anidado:
+            from core.presentacion import IrAlMenuPrincipal
+            raise IrAlMenuPrincipal()
         if opcion in ('00', '0'):
             return db_defecto
 
@@ -309,7 +311,7 @@ def submenu_mover(db_defecto: str) -> str:
                 mover_desde_sha256(ruta_json, destino, _carpeta_reportes() / 'movimientos', grupos=grupos, db_path=db_defecto)
             elif opcion == '3':
                 ruta = elegir_archivo_reciente(
-                    'Reporte de vídeos faltantes de huellas del submenú 7.5',
+                    'Reporte de vídeos faltantes de huellas del Estadísticas e informes (menú 6, opción 5)',
                     ['videos_faltantes_huellas_*.json'], ['estadisticas/json'])
                 destino = pedir_ruta(
                     'Directorio de destino para los vídeos',
@@ -499,7 +501,7 @@ def submenu_respaldos(db_defecto: str) -> str:
     return db_defecto
 
 
-def submenu_verificacion(db_defecto: str) -> str:
+def submenu_verificacion(db_defecto: str, *, anidado: bool = False) -> str:
     """Menú 8: comprobación de disco, ubicación de archivos y reparación de rutas."""
     while True:
         _cabecera_submenu('Verificación y ubicación de archivos')
@@ -513,6 +515,9 @@ def submenu_verificacion(db_defecto: str) -> str:
         ], peligrosas=('3', '5'))
         opcion = _pedir_opcion('¿Qué quieres hacer? (1-5 / 00)',
                                ('1', '2', '3', '4', '5', '00', '0'), '1')
+        if opcion == '00' and anidado:
+            from core.presentacion import IrAlMenuPrincipal
+            raise IrAlMenuPrincipal()
         if opcion in ('00', '0'):
             return db_defecto
         try:
@@ -536,7 +541,7 @@ def submenu_verificacion(db_defecto: str) -> str:
             imprimir(f'[red][ERROR] {exc}[/]')
 
 
-def submenu_depurar(db_defecto: str) -> str:
+def submenu_depurar(db_defecto: str, *, anidado: bool = False) -> str:
     from core.database import _usa_neon, _es_pg, cerrar, conectar, estadisticas, info_dispositivo_actual
 
     while True:
@@ -549,6 +554,9 @@ def submenu_depurar(db_defecto: str) -> str:
             ('00', 'Volver al menú principal'),
         ], peligrosas=('1', '2', '4'))
         opcion = _pedir_opcion('¿Qué quieres hacer? (1-4 / 00)', ('1', '2', '3', '4', '00', '0'), '1')
+        if opcion == '00' and anidado:
+            from core.presentacion import IrAlMenuPrincipal
+            raise IrAlMenuPrincipal()
         if opcion in ('00', '0'):
             return db_defecto
 

@@ -688,7 +688,7 @@ def mover_desde_reporte_huellas(ruta_json, directorio_destino, carpeta_reportes,
     with Path(ruta_json).open(encoding='utf-8-sig') as archivo:
         datos = json.load(archivo)
     if not isinstance(datos, dict) or not isinstance(datos.get('dispositivos'), list):
-        raise ValueError('Selecciona un JSON de vídeos faltantes de huellas generado por el submenú 7.5.')
+        raise ValueError('Selecciona un JSON de vídeos faltantes de huellas generado por el Estadísticas e informes (menú 6, opción 5).')
     if not (datos.get('tipo_informe') == 'videos_faltantes_huellas'
             or 'total_videos_faltantes_huellas' in datos):
         raise ValueError('El JSON no corresponde a un reporte de vídeos faltantes de huellas.')
@@ -1767,6 +1767,14 @@ def vaciar_carpeta_eliminar(directorio_eliminar, db_path):
                     'eliminado_db': False,
                 }
                 try:
+                    # Guardar identidad de catálogo antes del borrado físico.
+                    # No se vuelve a calcular el SHA256 del archivo.
+                    previa = conn.execute('SELECT clave_unica, hash_archivo FROM videos '
+                                          'WHERE ruta=? AND dispositivo_id=?',
+                                          (ruta_str, disp_id)).fetchone()
+                    if previa and previa['hash_archivo']:
+                        evento['_clave_baja'] = previa['clave_unica']
+                        evento['_sha256_baja'] = previa['hash_archivo']
                     video.unlink()
                     eliminados_disco += 1
                     evento['estado'] = 'eliminado'
@@ -1784,6 +1792,15 @@ def vaciar_carpeta_eliminar(directorio_eliminar, db_path):
                 except OSError:
                     pass
                 registros_log.append(evento)
+        # El archivo de bitácora ya está cerrado y su SHA256 no cambiará.
+        from core.control_sincronizacion import registrar_baja_verificada
+        for evento in registros_log:
+            if evento.get('eliminado_db') and evento.get('_clave_baja') and evento.get('_sha256_baja'):
+                try:
+                    registrar_baja_verificada(conn, evento['_clave_baja'],
+                          str(bitacora), evento['_sha256_baja'], 'vaciado_verificado_vidup')
+                except (OSError,ValueError) as exc:
+                    _imprimir(f'Baja aplicada; evidencia no vinculada: {exc}', 'yellow')
     finally:
         cerrar(conn)
 

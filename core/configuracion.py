@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Módulo para gestionar la configuración de VIDUP (BD en línea, Telegram, Lotes y Sincronización)."""
+"""Configuración local de VIDUP: Neon, Telegram, prioridad y lotes."""
 
 from __future__ import annotations
 
@@ -85,7 +85,7 @@ def submenu_configuracion(db_defecto: str) -> str:
 
         from core.interfaz import menu_rich
         menu_rich(
-            'Configuración y sincronización',
+            'Configuración',
             [
                 ('1', 'Activar o desactivar conexión Neon'),
                 ('2', 'Configurar conexión Neon PostgreSQL'),
@@ -93,8 +93,8 @@ def submenu_configuracion(db_defecto: str) -> str:
                 ('4', 'Configurar credenciales Telegram'),
                 ('5', 'Probar notificación de Telegram'),
                 ('6', 'Pausa entre lotes de escaneo'),
-                ('7', 'Sincronización protegida · control de generación y autoría'),
-                ('8', 'Prioridad de ejecución del sistema'),
+                ('7', 'Prioridad de ejecución del sistema'),
+                ('8', 'Gestionar carpetas excluidas del escaneo'),
                 ('0', 'Volver al menú principal'),
             ],
             subtitulo=f'Neon: {modo_neon} · Telegram: {estado_tg}',
@@ -175,22 +175,6 @@ def submenu_configuracion(db_defecto: str) -> str:
             imprimir(f'[spring_green2]✓ Tiempo de pausa entre lotes actualizado a {nuevo_texto} min.[/]')
 
         elif opc == '7':
-            reset_modo_conexion()
-            try:
-                imprimir(f'[bold turquoise2]VIDUP {__version__}: catálogo protegido, reconciliación y diagnósticos TXT.[/]')
-                imprimir('[sky_blue1]Una SQLite anterior a la última sustitución de Neon '
-                         'solo podrá adoptar el catálogo central con autorización y respaldo.[/]')
-                from core.presentacion import pedir_si_no
-                autorizar = pedir_si_no(
-                    '¿Permitir que el plan PROPONGA borrados de registros del catálogo? '
-                    '(no archivos físicos; requiere confirmación adicional)', False)
-                subidos, descargados, elim = sincronizar_local_y_nube(
-                    confirmar=True, permitir_eliminaciones=autorizar)
-            except Exception as exc:
-                imprimir(f'[bold red]Sincronización no aplicada/completada: {exc}[/]')
-            # El motor anuncia el resultado; no convertir errores/cancelaciones en éxito.
-
-        elif opc == '8':
             imprimir('\n[bold cyan]Niveles de prioridad del proceso:[/]')
             for k, item in OPCIONES_PRIORIDAD.items():
                 imprimir(f'  [gold1]{k}.[/] [bright_white]{item["etiqueta"]}[/]')
@@ -202,5 +186,9 @@ def submenu_configuracion(db_defecto: str) -> str:
                 imprimir(f'[spring_green2]✓ Prioridad del proceso guardada y aplicada: {nombre_prio}[/]')
             else:
                 imprimir('[yellow]Opción de prioridad inválida.[/]')
+
+        elif opc == '8':
+            from core.flujo_escaneo import gestionar_exclusiones
+            gestionar_exclusiones()
 
     return db_defecto

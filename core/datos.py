@@ -278,6 +278,12 @@ def cmd_descargar_neon(args: argparse.Namespace) -> int:
     imprimir(f'[cyan]Frames copiados : {conteo["frames"]}[/]')
     imprimir(f'[cyan]Errores         : {conteo["errores"]}[/]')
     imprimir(f'[cyan]Lotes fallidos  : {conteo["lotes_fallidos"]}[/]')
+    if conteo.get('generacion'):
+        imprimir('[spring_green2]Procedencia certificada: este respaldo conserva '
+                 f'la generación de Neon {conteo["generacion"]}.[/]')
+    else:
+        imprimir('[orange1]Sin referencia certificada de generación: revisar origen '
+                 'antes de usarlo para publicar cambios.[/]')
     imprimir(f'[cyan]Tiempo          : {tiempo:.1f} s[/]')
 
     notificar_fin('Descargar respaldo Neon', ok, f'{conteo["videos"]}/{total} vídeos')

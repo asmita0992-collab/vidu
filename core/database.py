@@ -1795,17 +1795,26 @@ def volcar_todo_a_sqlite(
     progreso=None,
 ) -> Dict[str, int]:
     import time as _time
+    if os.environ.get('VIDUP_FORZAR_OFFLINE', '').strip().lower() in ('1','true','yes','sí'):
+        raise RuntimeError('Modo fuera de línea activo. Activa Neon de forma expresa para descargar.')
     if not _usa_neon():
         raise RuntimeError('No hay conexión Neon activa.')
     destino = Path(ruta_destino).expanduser().resolve()
+    # No mezclar una instantánea de Neon con registros antiguos de otro .db.
+    if destino.exists() and destino.stat().st_size:
+        raise FileExistsError('El destino ya contiene una SQLite. Escoja un nombre nuevo para el respaldo de Neon.')
     destino.parent.mkdir(parents=True, exist_ok=True)
     conteo = {'videos': 0, 'frames': 0, 'eliminados': 0, 'errores': 0, 'lotes_fallidos': 0}
     conn_local = conectar_sqlite(str(destino))
+    from core.control_sincronizacion import suprimir_eventos, establecer_generacion
+    suprimir_eventos(conn_local, True)  # Descargar datos de Neon no constituye escaneo local.
+    conn_local.commit()
     try:
         def abrir_neon():
             url = os.environ['NEON_DATABASE_URL'].strip()
             c = psycopg2.connect(url, connect_timeout=5)
-            c.autocommit = True
+            # Una descarga consistente exige ver todas las tablas en la MISMA instantánea.
+            c.set_session(isolation_level='REPEATABLE READ', readonly=True, autocommit=False)
             return c
         conn_neon = None
         try:
@@ -1948,6 +1957,40 @@ def volcar_todo_a_sqlite(
                     borrados)
             conn_local.commit()
             conteo['eliminados'] = len(borrados)
+            # La generación solo acredita una descarga íntegra y consistente.
+            # Si la conexión se perdió o hay filas distintas, NO certificar.
+            if conteo['lotes_fallidos'] == 0 and conteo['errores'] == 0:
+                try:
+                    with conn_neon.cursor() as cur:
+                        cur.execute('SELECT generacion FROM vidup_sync_catalogo WHERE id = 1')
+                        fila_gen = cur.fetchone()
+                        cur.execute('SELECT COUNT(*) FROM frame_hashes')
+                        total_frames_neon = int(cur.fetchone()[0])
+                    generacion = str(fila_gen[0]) if fila_gen and fila_gen[0] else ''
+                    total_sqlite = int(conn_local.execute('SELECT COUNT(*) FROM videos').fetchone()[0])
+                    frames_sqlite = int(conn_local.execute('SELECT COUNT(*) FROM frame_hashes').fetchone()[0])
+                    marcas_sqlite = int(conn_local.execute('SELECT COUNT(*) FROM videos_eliminados').fetchone()[0])
+                    if (generacion and conteo['videos'] == total_sqlite == total
+                            and frames_sqlite == total_frames_neon == conteo['frames']
+                            and marcas_sqlite == len(borrados)
+                            and not list(conn_local.execute('PRAGMA foreign_key_check'))):
+                        establecer_generacion(conn_local, generacion)
+                        conn_local.execute('INSERT INTO vidup_sync_estado (clave, valor) VALUES (?, ?) '
+                                           'ON CONFLICT(clave) DO UPDATE SET valor=excluded.valor',
+                                           ('respaldo_origen', 'NEON_VERIFICADO'))
+                        from core.horario import fmt_ahora_utc6
+                        conn_local.execute('INSERT INTO vidup_sync_estado (clave, valor) VALUES (?, ?) '
+                                           'ON CONFLICT(clave) DO UPDATE SET valor=excluded.valor',
+                                           ('respaldo_fecha', fmt_ahora_utc6()))
+                        conteo['generacion'] = generacion
+                    else:
+                        _imprimir('[AVISO] Respaldo sin procedencia verificada: discrepancia de '
+                                  'conteos, huellas o generación. No podrá publicar cambios.', 'yellow')
+                except Exception as exc:
+                    _imprimir(f'[AVISO] No fue posible verificar la procedencia de Neon: {exc}', 'yellow')
+            # Siempre restaurar el seguimiento normal; nunca dejar la base bloqueada.
+            suprimir_eventos(conn_local, False)
+            conn_local.commit()
         finally:
             try:
                 if conn_neon is not None:
@@ -1955,6 +1998,11 @@ def volcar_todo_a_sqlite(
             except Exception:
                 pass
     finally:
+        try:
+            suprimir_eventos(conn_local, False)
+            conn_local.commit()
+        except Exception:
+            pass
         cerrar(conn_local)
     return conteo
 

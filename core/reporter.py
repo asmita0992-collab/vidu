@@ -1482,6 +1482,10 @@ class Dashboard:
             bloque.append(f'{estado}', style='orange1' if quieto >= 120 else 'deep_sky_blue1')
             bloque.append(f'  ·  Archivo {_fmt_hms_ms(ahora-desde)[:8]}', style='grey85')
             bloque.append(f'  ·  Sin avance {_fmt_hms_ms(quieto)[:8]}', style='orange1' if quieto >= 120 else 'grey70')
+            tiempo_video = float(d.get('tiempo_actual') or 0)
+            velocidad = (tiempo_video / max(0.001, ahora-desde)) if tiempo_video > 0 else 0.0
+            bloque.append(f'  ·  Velocidad prom. {velocidad:.2f}x' if velocidad else '  ·  Velocidad: —',
+                          style='bold medium_spring_green' if velocidad else 'grey70')
             eta = d.get('eta_texto') or 'no disponible'
             bloque.append(f'\nVídeo {_fmt_hms_ms(d.get("tiempo_actual",0))[:8]} / '
                           f'{_fmt_hms_ms(d.get("dur_total",0))[:8]} · ETA {eta}',

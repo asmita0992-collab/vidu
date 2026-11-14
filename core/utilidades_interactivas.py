@@ -306,7 +306,24 @@ def eliminar_faltantes_interactivo(db_defecto: str) -> str:
             sha = item.get('sha256', '')
             tam = item.get('tamanio_bytes', '')
             if ruta:
+                # Solo la baja del propio dispositivo y con SHA256 coincidente
+                # puede considerarse respaldada por el reporte de verificación.
+                propia = disp_id == info_dispositivo_actual()['dispositivo_id']
+                existente = None
+                if propia:
+                    existente = conn.execute('SELECT clave_unica,hash_archivo,tamanio_bytes '
+                         'FROM videos WHERE ruta=? AND dispositivo_id=?', (ruta,disp_id)).fetchone()
+                identidad_reportada = bool(existente and sha and
+                    str(existente['hash_archivo']).lower() == str(sha).lower() and
+                    (tam in ('',None) or int(existente['tamanio_bytes'] or 0) == int(tam)))
                 if eliminar_por_ruta(conn, ruta, disp_id):
+                    if identidad_reportada:
+                        try:
+                            from core.control_sincronizacion import registrar_baja_verificada
+                            registrar_baja_verificada(conn, str(existente['clave_unica']),
+                                                      str(archivo_json), str(sha), 'faltante_verificado')
+                        except (ValueError,OSError) as exc:
+                            imprimir(f'[yellow]Baja aplicada; no se pudo vincular la evidencia: {exc}[/]')
                     eliminados += 1
                     registros_log.append({
                         'ruta': ruta, 'nombre': nombre, 'estado': 'eliminado',
@@ -400,7 +417,7 @@ def buscar_ubicacion_interactivo(db: str) -> None:
         '[grey70]Se revisan subcarpetas de la misma unidad y de otras memorias.\n'
         'Nombre + tamaño sirven de filtro; SHA256 confirma coincidencias.\n'
         'Esta operación no modifica archivos ni la base de datos.[/]',
-        'Búsqueda de ubicación — submenú 8.2', 'bright_blue',
+        'Búsqueda de ubicación — Gestión de archivos (3.2)', 'bright_blue',
     )
     por_carpeta = Counter(os.path.dirname(f['ruta']) for f in faltantes)
     for carpeta, cantidad in por_carpeta.most_common(12):

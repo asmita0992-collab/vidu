@@ -27,6 +27,14 @@ CREATE TABLE IF NOT EXISTS vidup_cambios_pendientes (
     evento TEXT NOT NULL CHECK(evento IN ('video', 'eliminado')),
     fecha_cambio TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS vidup_bajas_verificadas (
+    clave_unica TEXT PRIMARY KEY,
+    reporte_origen TEXT NOT NULL,
+    reporte_sha256 TEXT NOT NULL,
+    sha256_archivo TEXT NOT NULL,
+    tipo TEXT NOT NULL,
+    fecha_verificacion TEXT NOT NULL
+);
 """
 
 
@@ -64,6 +72,55 @@ def marcar_sincronizados(conn: sqlite3.Connection, claves: Iterable[str]) -> Non
     conn.executemany('DELETE FROM vidup_cambios_pendientes WHERE clave_unica = ?',
                      ((str(clave),) for clave in set(claves)))
 
+
+def registrar_baja_verificada(conn: sqlite3.Connection, clave_unica: str,
+                              reporte: str, sha256_archivo: str, tipo: str) -> None:
+    """Deja evidencia vinculada a un reporte existente y al SHA del catálogo.
+
+    Se registra exclusivamente después de una baja de VIDUP ya completada.
+    No convierte una ausencia de registros en prueba de eliminación.
+    """
+    import hashlib
+    from pathlib import Path
+    fuente = Path(reporte).resolve()
+    sha = str(sha256_archivo or '').strip().lower()
+    if not fuente.is_file() or len(sha) != 64 or any(c not in '0123456789abcdef' for c in sha):
+        raise ValueError('Se requiere informe real y SHA256 válido para declarar baja verificada.')
+    with fuente.open('rb') as fp:
+        huella_reporte = hashlib.file_digest(fp, 'sha256').hexdigest()
+    from core.horario import fmt_ahora_utc6
+    conn.execute("""INSERT INTO vidup_bajas_verificadas
+        (clave_unica,reporte_origen,reporte_sha256,sha256_archivo,tipo,fecha_verificacion)
+        VALUES (?,?,?,?,?,?) ON CONFLICT(clave_unica) DO UPDATE SET
+        reporte_origen=excluded.reporte_origen, reporte_sha256=excluded.reporte_sha256,
+        sha256_archivo=excluded.sha256_archivo,tipo=excluded.tipo,
+        fecha_verificacion=excluded.fecha_verificacion""",
+        (clave_unica,str(fuente),huella_reporte,sha,tipo,fmt_ahora_utc6()))
+    conn.commit()
+
+
+def bajas_verificadas(conn: sqlite3.Connection, claves: Iterable[str]) -> set[str]:
+    """Valida el informe original y el diario antes de aceptar una baja probada."""
+    import hashlib
+    from pathlib import Path
+    sal = set()
+    for clave in set(claves):
+        try:
+            fila = conn.execute("""SELECT reporte_origen,reporte_sha256,sha256_archivo
+                FROM vidup_bajas_verificadas WHERE clave_unica=?""",(clave,)).fetchone()
+            diario = conn.execute('SELECT evento FROM vidup_cambios_pendientes WHERE clave_unica=?',
+                                  (clave,)).fetchone()
+            if not fila or not diario or diario[0] != 'eliminado':
+                continue
+            origen,digest,sha = fila
+            if len(sha or '') != 64 or not Path(origen).is_file():
+                continue
+            with Path(origen).open('rb') as fp:
+                if hashlib.file_digest(fp, 'sha256').hexdigest() == digest:
+                    sal.add(clave)
+        except (OSError, ValueError, sqlite3.Error):
+            continue
+    return sal
 
 def instalar(conn: sqlite3.Connection, dispositivo_id: str) -> None:
     """Activa el diario solo para cambios posteriores a esta instalación.

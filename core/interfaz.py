@@ -70,6 +70,10 @@ def menu_rich(titulo: str, opciones: Sequence[tuple[str, str]], *,
         encabezado.append('\n' + subtitulo, style='light_sky_blue1')
     if contexto:
         encabezado.append('\n' + contexto, style='grey70')
+    if 'Neon:' not in contexto and 'Telegram:' not in contexto:
+        neon, telegram = estado_servicios()
+        encabezado.append('\n' + neon, style='gold1')
+        encabezado.append('  ·  ' + telegram, style='grey85')
     CONSOLA.print(Panel(encabezado, border_style='medium_purple',
                        title='VIDUP · NAVEGACIÓN', title_align='left',
                        box=box.ROUNDED, padding=(0, 1)))
@@ -105,3 +109,41 @@ def mensaje_estado(titulo: str, descripcion: str, estado: str = 'info') -> None:
                            border_style=color, box=box.ROUNDED))
     else:
         imprimir(f'{titulo}: {descripcion}')
+
+
+def nombre_corto_dispositivo(info: dict) -> str:
+    """Alias de presentación: no modifica el identificador persistente del equipo."""
+    import os
+    manual = os.environ.get('VIDUP_ALIAS_DISPOSITIVO', '').strip()
+    if manual:
+        return manual[:36]
+    nombre = str(info.get('dispositivo', '')).split('|', 1)[0].strip()
+    plataforma = str(info.get('plataforma', '')).lower()
+    maquina = str(info.get('maquina', '')).lower()
+    if 'xiaomi' in nombre.lower():
+        return 'Xiaomi'
+    if 'infinix' in nombre.lower():
+        return 'Infinix'
+    if 'laptop' in nombre.lower():
+        return 'Laptop HP' if 'hp' in nombre.lower() else nombre[:30]
+    if 'escritorio' in nombre.lower():
+        return 'PC escritorio Xubuntu' if 'linux' in plataforma else 'PC escritorio Windows'
+    return nombre[:30] or 'Dispositivo'
+
+
+def estado_servicios() -> tuple[str, str]:
+    """Muestra configuración y conectividad comprobada, sin hacer una conexión de red."""
+    import os
+    from core.database import estado_conexion
+    from core.telegram import configurado
+    forzado = os.getenv('VIDUP_FORZAR_OFFLINE', '').strip().lower() in ('1','true','yes','sí')
+    disponible = bool(os.getenv('NEON_DATABASE_URL', '').strip())
+    if forzado or not disponible:
+        neon = 'Neon: desactivado'
+    else:
+        estado = estado_conexion()
+        modo = estado.get('modo')
+        neon = ('Neon: disponible (última comprobación)' if modo == 'neon' else
+                'Neon: sin conexión' if modo == 'sqlite_fallback' else
+                'Neon: activado · no comprobado')
+    return neon, ('Telegram: activado' if configurado() else 'Telegram: desactivado')
