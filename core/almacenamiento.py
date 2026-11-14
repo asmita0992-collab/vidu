@@ -250,12 +250,20 @@ def _interpretar_error_ffmpeg(lineas: List[str]) -> str:
             '"moov" que guarda las pistas del vídeo. Suele ocurrir cuando la '
             'descarga o la copia se cortó a la mitad.'
         )
+    if ('invalid nal unit size' in texto or
+        'error splitting the input into nal units' in texto or
+        'missing picture in access unit' in texto):
+        return ('El flujo de vídeo H.264 tiene bloques codificados incompletos o '
+                'inconsistentes. Puede reproducirse en VLC aunque FFmpeg no consiga '
+                'extraer todas las huellas. No significa que el archivo entero sea ilegible.')
+    if ('sample rate index' in texto or 'reserved bit set' in texto or
+        'prediction is not allowed in aac-lc' in texto):
+        return ('El audio AAC presenta información codificada inconsistente. '
+                'Un reproductor puede tolerarla, pero el análisis de audio podría fallar.')
     if 'invalid data found when processing input' in texto:
-        return (
-            'El archivo no es un vídeo válido o está corrupto: FFmpeg no reconoce '
-            'el formato. Puede que tenga la extensión ".mp4" pero contenga otro '
-            'tipo de datos.'
-        )
+        return ('FFmpeg rechazó bloques del vídeo o del audio durante la '
+                'decodificación. No demuestra que el archivo completo sea inválido; '
+                'consulte los mensajes de H.264/AAC y el último progreso registrado.')
     if 'permission denied' in texto:
         return 'FFmpeg no tiene permiso para leer el archivo.'
     if 'no such file or directory' in texto:
@@ -291,9 +299,7 @@ def _registrar_error_video_detallado(
     """
     _registrar_error_video(nombre, ruta, causa)
 
-    if not detalle or not detalle.strip():
-        return
-
+    # Incluso una cancelación/espera agotada sin stderr produce un TXT humano.
     try:
         from core.database import info_dispositivo_actual
         info_disp = info_dispositivo_actual()
@@ -301,7 +307,9 @@ def _registrar_error_video_detallado(
         info_disp = {}
 
     lineas = [linea for linea in detalle.splitlines() if linea.strip()]
-    explicacion = _interpretar_error_ffmpeg(lineas)
+    explicacion = (_interpretar_error_ffmpeg(lineas) if lineas else
+        'El análisis terminó sin diagnóstico suficiente de FFmpeg. Revise si '
+        'se canceló, superó el límite de espera o si el proceso dejó de avanzar.')
 
     carpeta = carpeta_errores_detalle()
     archivo = carpeta / f'{Path(nombre).stem}.txt'
@@ -326,8 +334,12 @@ def _registrar_error_video_detallado(
                 '----------------------------\n'
                 'Estas son las líneas literales que devolvió la herramienta:\n\n'
             )
-            for linea in lineas:
+            if not lineas:
+                manejador.write('  Sin salida literal conservada en este intento.\n')
+            for linea in lineas[-120:]:
                 manejador.write(f'  {linea}\n')
+            if len(lineas) > 120:
+                manejador.write(f'  (Se omitieron {len(lineas)-120} líneas repetidas o anteriores.)\n')
             manejador.write(
                 '\n\nCÓMO PROCEDER\n'
                 '--------------\n'

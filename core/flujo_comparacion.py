@@ -508,8 +508,10 @@ def comparar_interactivo(db_defecto: str) -> str:
             ('1', 'Completa · SHA256, visual y fragmentos'),
             ('2', 'Rápida · SHA256 para duplicados exactos'),
         ])
-        metodo = _pedir_opcion('Método (1-2)', ('1', '2'), '2')
-        
+        metodo = _pedir_opcion('Método (1-2; 0 volver; 00 inicio)', ('1','2','0','00'), '2')
+        if metodo in ('0','00'):
+            return db
+
         solo_sha256 = (metodo == '2')
         parametros = (dict(umbral_phash=10, umbral_visual=80.0, umbral_fragmento=75.0,
                            umbral_posible_fragmento=25.0, margen_duracion=5.0, ratio_min=5.0)

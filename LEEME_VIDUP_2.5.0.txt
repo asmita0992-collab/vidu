@@ -1,0 +1,107 @@
+VIDUP 2.5.0 — GUÍA DE ACTUALIZACIÓN Y SEGURIDAD
+================================================
+
+ORIGEN
+------
+Se ha preparado a partir de los fuentes de VIDUP 2.4.9, último proyecto completo
+cuya versión estaba disponible en los archivos de esta conversación. Los cambios
+funcionales 2.5.0 son acumulativos sobre esa base. Si instalaste una versión
+posterior a 2.4.9 por otros medios, compara el código antes de sobrescribirlo.
+
+INSTALACIÓN
+-----------
+1. Cierra VIDUP en todos los dispositivos antes de reemplazar archivos.
+2. Respalda las bases SQLite en un estado consistente. Si tienen WAL activo,
+   usa sqlite3.backup() o cierra todas las conexiones antes de copiar DB/WAL/SHM.
+3. Conserva también una copia/snapshot recuperable de Neon.
+4. Extrae el archivo VIDUP_2.5.0_SOLO_PY.zip sobre la carpeta de tu instalación,
+   preservando subcarpetas como core/. Incluye también los NUEVOS módulos:
+   core/escaneo_externo.py, core/escaneos_pendientes.py y
+   core/reconciliacion_selectiva.py. No sustituyas tus archivos .db/.env.
+5. Comprueba la versión 2.5.0 y prueba inicialmente en una COPIA de SQLite.
+6. Antes de utilizar la publicación directa en Neon desde un dispositivo auxiliar,
+   verifica la bandeja remota y crea un respaldo de la nube.
+
+ESCANEO DE VÍDEOS — MENÚ 1
+-------------------------
+1) Vídeos propios: escaneo ordinario, identificación en este dispositivo.
+2) Vídeos de otro dispositivo: seleccionar primero propietario, después método,
+   luego carpeta temporal. Los resultados NO se insertan como vídeos nuevos de PC.
+   El catálogo fuente debe contener la identidad, ruta original, tamaño y SHA256.
+
+Métodos disponibles para ambos tipos de escaneo:
+  1 Estándar (SHA256 y huellas)
+  2 Previo (identificar códecs, reporte)
+  3 Por códec (optimizar)
+
+ESCANEO AUXILIAR Y BANDEJA DE RESULTADOS
+----------------------------------------
+- Cada resultado se empareja con un vídeo activo del propietario por nombre,
+  tamaño y SHA256, sin alterar ruta, propietario ni SHA256 original.
+- Los resultados se exportan en un paquete JSON y se guardan en la tabla local
+  vidup_escaneos_pendientes, SEPARADA de videos y frame_hashes.
+- La bandeja permite subirlos a la tabla separada vidup_escaneos_pendientes en
+  Neon: esto requiere conexión y permiso CREATE TABLE la primera vez.
+- Vía normal: el propietario (por ejemplo, el Xiaomi) descarga e importa las
+  huellas que faltan. Antes de escribir SQLite genera copia con sqlite3.backup.
+- Vía excepcional: la PC procesadora puede solicitar aplicación directa con
+  confirmación textual. Se limita a SUS resultados, no a los de otra PC.
+  Comprueba generación, propietario, ruta, tamaño, SHA256, marcas de borrado,
+  huellas existentes y no modifica datos básicos. Hace una copia JSON de los
+  valores que va a completar antes de actualizar Neon.
+- Si hay cualquier conflicto, cancela la aplicación del lote. No se modifican
+  ni eliminan archivos multimedia en ninguno de los dispositivos.
+- Las huellas externas NO entran en la cuenta de vídeos hasta que se importan
+  al registro activo del propietario. Ejecutar nuevamente una importación no
+  duplica huellas. Los paquetes con errores permanecen para revisión.
+
+SINCRONIZACIÓN INTELIGENTE
+--------------------------
+- Se conserva el BLOQUEO estricto de generación de Neon.
+- Cuando una SQLite tenga una generación anterior, puede elegirse una propuesta
+  de enriquecimiento LOCAL selectivo: únicamente completar datos, metadatos,
+  huellas visuales y audio faltantes, siempre que identidad/propietario/ruta,
+  tamaño y SHA256 coincidan en ambas bases.
+- No elimina vídeos exclusivos, no reactiva registros borrados y no sobrescribe
+  huellas existentes incompatibles. Crea un respaldo y plan TXT + JSON.
+- Si quedan diferencias en rutas, marcas, revisiones o SHA256, permanecen en
+  conflicto. Una conciliación parcial NO desactiva el bloqueo de publicación.
+- La adopción completa de Neon sigue siendo opcional, con confirmación y
+  respaldo; no es una obligación causada por simples diferencias de metadatos.
+
+PROGRESO Y FFMPEG
+-----------------
+- reporter.py centraliza un panel fijo con hora de inicio UTC-6, tiempo global,
+  progreso/tiempo individual por trabajador, inactividad, ETA y cinco eventos.
+  En terminal sin TTY, no repite el contador por cada iteración.
+- Al cancelar, se intenta conservar reporte TXT del estado de cada trabajador.
+- Los fallos individuales de un archivo ya no se anotan como exclusiones
+  permanentes de aceleración de todo el dispositivo. El historial previo se
+  preserva, pero no implica automáticamente un veto global.
+- Selección de hardware guiada por GPU disponible y sistema; no por CPU AMD.
+- FFmpeg usa su progreso estructurado y recoge stderr separadamente para
+  evitar bloquear la supervisión al intentar leer stderr de un proceso vivo.
+- Valores configurables (segundos): VIDUP_FFMPEG_ESPERA_INICIAL=120,
+  VIDUP_FFMPEG_SIN_AVANCE=300, VIDUP_FFMPEG_MAXIMO=3600.
+- El TXT clasifica fallos H.264 y AAC sin confundir reproduccion normal con
+  decodificación necesariamente completa.
+
+NAVEGACIÓN Y RICH
+-----------------
+- En la jerarquía renovada de escaneo: 0=etapa/menú anterior; 00=menú principal.
+  En el menú principal 0 o 00 finaliza VIDUP.
+- La gestión de exclusiones regresa al escaneo pendiente, sin reiniciar el flujo.
+- El comparador ahora acepta 0 y 00 al elegir método.
+- Se enriquecieron rutas, mensajes y menús de los flujos modificados con Rich.
+
+VALIDACIÓN Y LÍMITES
+--------------------
+- Se ejecutaron pruebas automatizadas sobre SQLite y adaptadores remotos
+  simulados, sin tocar Neon real ni bases de los dispositivos físicos.
+- Los primeros ensayos deben realizarse en copias. Los módulos PostgreSQL,
+  los permisos de acceso remoto y la extracción real con FFmpeg necesitan
+  pruebas de integración en tu entorno antes de usarse con tu catálogo principal.
+- Si un vídeo cambia de contenido, ruta o propietario desde que se generó un
+  paquete auxiliar, no se importará automáticamente.
+- La versión conserva módulos y funciones existentes de la rama 2.4.9, excepto
+  las rutas de navegación y los controles que se explican arriba.

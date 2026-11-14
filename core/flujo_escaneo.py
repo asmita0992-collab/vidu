@@ -26,7 +26,7 @@ from core.plataforma import (
 )
 from core.presentacion import (
     imprimir, regla, panel, pedir_si_no, pedir_numero, pedir_texto,
-    pedir_ruta, pedir_limite_escaneo, RegresarAlMenu, _PALABRAS_ESCAPE, _MAX_INTENTOS,
+    pedir_ruta, pedir_limite_escaneo, RegresarAlMenu, IrAlMenuPrincipal, _PALABRAS_ESCAPE, _MAX_INTENTOS,
     linea_dep, linea_opcional, escapar_para_telegram,
     CONSOLA, TIENE_RICH, Panel, Rule,
     NC, NEGRITA, AZUL, AMARILLO, VERDE, ROJO, GRIS, CIAN, BLANCO, MAGENTA,
@@ -394,6 +394,7 @@ def cmd_escanear(args: argparse.Namespace) -> int:
         acel_desc = args.aceleracion
 
     info_disp = info_dispositivo_actual()
+    hora_inicio = fmt_ahora_utc6()
 
     if CONSOLA is not None and Table is not None and rich_box is not None:
         tabla = Table(box=rich_box.ROUNDED, border_style='cyan', show_header=False)
@@ -408,6 +409,7 @@ def cmd_escanear(args: argparse.Namespace) -> int:
         tabla.add_row('Aceleración', acel_desc)
         tabla.add_row('Dispositivo', info_disp['dispositivo'])
         tabla.add_row('ID dispositivo', info_disp['dispositivo_id'])
+        tabla.add_row('Inicio (UTC−6)', hora_inicio)
         CONSOLA.print(tabla)
     else:
         print(f' Directorio        : {directorio}')
@@ -420,6 +422,7 @@ def cmd_escanear(args: argparse.Namespace) -> int:
         print(f' Aceleración video : {acel_desc}')
         print(f' Dispositivo       : {info_disp["dispositivo"]}')
         print(f' ID dispositivo    : {info_disp["dispositivo_id"]}')
+        print(f' Inicio (UTC−6)    : {hora_inicio}')
 
     so_nombre = detectar_so().upper()
     es_recursivo = recursivo
@@ -464,7 +467,8 @@ def cmd_escanear(args: argparse.Namespace) -> int:
 
     try:
         hashes_previos = _cargar_hashes_previos(videos, args.db)
-        imprimir(f'[cyan]Cola acotada a {max(1, trabajadores * 2)} tareas; iniciando los primeros vídeos...[/]')
+        imprimir(f'[cyan]Cola acotada a {max(1, trabajadores * 2)} tareas; '
+                 'reloj global y tiempos individuales visibles en el panel...[/]')
         dashboard.iniciar(len(videos))
 
         with ThreadPoolExecutor(max_workers=trabajadores, thread_name_prefix='vidup') as executor:
@@ -565,6 +569,29 @@ def cmd_escanear(args: argparse.Namespace) -> int:
         evento_cancelacion.set()
     finally:
         signal.signal(signal.SIGINT, manejador_anterior)
+        if interrumpido:
+            try:
+                estado = dashboard.estado_actual()
+                destino = _carpeta_reportes() / 'errores' / 'detalle_txt' / f'escaneo_cancelado_{_id_utc6()}.txt'
+                destino.parent.mkdir(parents=True, exist_ok=True)
+                lines = [
+                    'VIDUP — ESCANEO CANCELADO POR EL USUARIO',
+                    '=======================================',
+                    f'Fecha: {_fmt_ahora_utc6()} UTC−6',
+                    f'Carpeta: {directorio}',
+                    f'Tiempo global: {estado["tiempo_total"]}',
+                    f'Completados: {procesados}',
+                    f'Errores: {errores}',
+                    '', 'ESTADO DE LOS TRABAJADORES',
+                ]
+                for d in estado['trabajadores']:
+                    lines.append('T{numero}: {nombre} | {fase} | {porcentaje:.1f}% | '
+                                 'tiempo {transcurrido} | sin avance {sin_avance}'.format(**d))
+                lines += ['', 'Últimos eventos:', *estado['eventos']]
+                destino.write_text('\n'.join(lines)+'\n',encoding='utf-8')
+                imprimir(f'[yellow]Reporte de cancelación: {destino}[/]')
+            except Exception as exc:
+                imprimir(f'[yellow]No se pudo crear el reporte de cancelación: {exc}[/]')
         dashboard.detener()
 
     if interrumpido:
@@ -682,7 +709,7 @@ def escanear_interactivo(db_defecto: str, reporte_sha: Optional[str] = None) -> 
         if candidatas_totales:
             imprimir('\n[cyan]Carpetas de vídeo candidatas o utilizadas anteriormente:[/]')
             for i, c in enumerate(candidatas_totales, 1):
-                imprimir(f'  [gold1]{i}.[/] {rich_escape(str(c))}')
+                imprimir(f'  [gold1]{i}.[/] [spring_green2]{rich_escape(str(c))}[/]')
             imprimir(f'  [gold1]{len(candidatas_totales) + 1}.[/] Otra carpeta (ruta manual)')
             opcion = pedir_numero(
                 'Elige una carpeta',
@@ -780,7 +807,7 @@ def _seleccionar_directorio_escaneo(reporte_sha: Optional[str] = None) -> Tuple[
     if candidatas_totales:
         imprimir('\n[cyan]Carpetas de vídeo candidatas o utilizadas anteriormente:[/]')
         for i, c in enumerate(candidatas_totales, 1):
-            imprimir(f'  [gold1]{i}.[/] {rich_escape(str(c))}')
+            imprimir(f'  [gold1]{i}.[/] [spring_green2]{rich_escape(str(c))}[/]')
         imprimir(f'  [gold1]{len(candidatas_totales) + 1}.[/] Otra carpeta (ruta manual)')
         opcion = pedir_numero(
             'Elige una carpeta',
@@ -932,33 +959,100 @@ def escanear_por_codec_interactivo(db_defecto: str) -> str:
 
 
 def submenu_escaneo(db_defecto: str) -> str:
-    """Submenú interactivo de escaneo con tres opciones."""
-    from core import __version__
-    while True:
-        from core.interfaz import menu_rich
-        menu_rich('Escaneo de vídeos', [
-            ('1', 'Escaneo estándar · SHA256 y huellas'),
-            ('2', 'Escaneo previo · identificar códecs y guardar reporte'),
-            ('3', 'Escaneo por códec · optimización de procesos'),
-            ('0', 'Volver al menú principal'),
-        ], subtitulo='SQLite local será la base principal de escritura.')
+    """Jerarquía 2.6: propietario → método → asistente, 0 vuelve y 00 inicia."""
+    from core.interfaz import menu_rich
+    from core.escaneo_externo import (seleccionar_propietario, procesar_ajenos,
+                                     menu_bandeja_externa)
 
+    def seleccionar_metodo(tipo: str, propietario=None) -> str:
+        while True:
+            acciones = [
+                ('1','Escaneo estándar · SHA256 y huellas'),
+                ('2','Escaneo previo · identificar códecs y guardar reporte'),
+                ('3','Escaneo por códec · optimización de procesos'),
+            ]
+            if tipo == 'ajeno':
+                acciones.append(('4','Bandeja de análisis auxiliar · SQLite y Neon'))
+            acciones += [('0','Volver a tipo de escaneo'),('00','Menú principal')]
+            menu_rich('Método de escaneo',acciones,
+                subtitulo=('Los resultados se exportarán sin escribir datos de otro dispositivo.'
+                           if tipo=='ajeno' else 'SQLite local es la base principal.'))
+            respuesta = pedir_texto('Selecciona método','0',permitir_escape=False).strip().lower()
+            if respuesta == '00':
+                raise IrAlMenuPrincipal()
+            if respuesta == '0':
+                return db_defecto
+            if respuesta == '4' and tipo == 'ajeno':
+                try:
+                    menu_bandeja_externa(db_defecto)
+                except RegresarAlMenu as exc:
+                    if isinstance(exc, IrAlMenuPrincipal):
+                        raise
+                continue
+            if respuesta not in ('1','2','3'):
+                imprimir('[yellow]Elige 1, 2, 3, 4 (bandeja externa), 0 o 00.[/]')
+                continue
+            try:
+                if tipo == 'propio':
+                    if respuesta == '1':
+                        resultado = escanear_interactivo(db_defecto)
+                    elif respuesta == '2':
+                        resultado = escaneo_previo_codecs_interactivo(db_defecto)
+                    else:
+                        resultado = escanear_por_codec_interactivo(db_defecto)
+                    # No continuar navegando desde una DB inválida o vacía.
+                    if resultado:
+                        db_actual = resultado
+                        return db_actual  # volver al tipo si termina la operación
+                else:
+                    if propietario is None:
+                        imprimir('[yellow]Selecciona primero el dispositivo propietario.[/]')
+                        return db_defecto
+                    ruta, recursivo, _ = _seleccionar_directorio_escaneo()
+                    if not ruta:
+                        continue
+                    trabajadores = int(pedir_numero('Trabajadores auxiliares',2,1,entero=True))
+                    resultado = procesar_ajenos(db_defecto,propietario[0],propietario[1],ruta,
+                           recursivo=recursivo, trabajadores=trabajadores,
+                           metodo={'1':'estandar','2':'previo','3':'codec'}[respuesta])
+                    imprimir(f'[spring_green2]Resultado de análisis externo: {resultado}[/]')
+                    if resultado.get('pendientes_sqlite'):
+                        imprimir('[turquoise2]Los análisis están en una bandeja separada '
+                                 'de SQLite. No se han asignado a esta PC ni publicado en Neon.[/]')
+                        if pedir_si_no('¿Abrir bandeja para enviarlos a Neon o conservarlos pendientes?',False):
+                            menu_bandeja_externa(db_defecto)
+                    return db_defecto
+            except IrAlMenuPrincipal:
+                raise
+            except RegresarAlMenu:
+                imprimir('[yellow]↩ Volviendo a seleccionar el método.[/]')
+                continue
+
+    while True:
+        menu_rich('Escaneo de vídeos', [
+            ('1','Escaneo de vídeos propios'),
+            ('2','Escaneo de vídeos de otro dispositivo · transferencia temporal'),
+            ('0','Volver al menú principal'),
+            ('00','Volver al menú principal'),
+        ],subtitulo='Tipo de propietario del vídeo; el procesador no cambia la propiedad.')
         try:
-            opcion = pedir_texto('Selecciona una opción', '0').strip().lower()
+            op = pedir_texto('Tipo de escaneo','0',permitir_escape=False).strip()
         except RegresarAlMenu:
             return db_defecto
-
-        if opcion in ('0', '00', 'salir', 'volver'):
+        if op in ('0','00'):
             return db_defecto
-        elif opcion == '1':
-            db_defecto = escanear_interactivo(db_defecto)
-        elif opcion == '2':
-            db_defecto = escaneo_previo_codecs_interactivo(db_defecto)
-        elif opcion == '3':
-            db_defecto = escanear_por_codec_interactivo(db_defecto)
-        else:
-            imprimir('[yellow]Elige una opción válida entre 0 y 3.[/]')
-
+        if op not in ('1','2'):
+            imprimir('[yellow]Elige 1, 2, 0 o 00.[/]')
+            continue
+        try:
+            propietario = None
+            if op == '2':
+                propietario = seleccionar_propietario(db_defecto)
+                if propietario is None:
+                    continue
+            db_defecto = seleccionar_metodo('propio' if op=='1' else 'ajeno', propietario)
+        except IrAlMenuPrincipal:
+            return db_defecto
 
 def _tras_menu_sha256(salida, db_defecto: str) -> str:
     """Decide la base activa y si escanear tras el menú SHA256 (orquestación)."""
@@ -987,9 +1081,11 @@ def gestionar_exclusiones() -> None:
             imprimir(f'  [gold1]{i}.[/] {rich_escape(ruta)}')
         if not actuales:
             imprimir('  [grey70](ninguna)[/]')
-        imprimir('  [green]A.[/] Añadir carpeta  [yellow]Q.[/] Quitar carpeta  [cyan]00.[/] Volver')
-        opcion = pedir_texto('Elegir operación', '00').lower()
-        if opcion in ('00', '0'):
+        imprimir('  [green]A.[/] Añadir carpeta  [yellow]Q.[/] Quitar carpeta  [cyan]0.[/] Volver  [cyan]00.[/] Inicio')
+        opcion = pedir_texto('Elegir operación', '0', permitir_escape=False).lower()
+        if opcion == '00':
+            raise IrAlMenuPrincipal()
+        if opcion == '0':
             return
         if opcion == 'a':
             ruta = pedir_texto('Carpeta a excluir (ruta absoluta)', obligatorio=True)

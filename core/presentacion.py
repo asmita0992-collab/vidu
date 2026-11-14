@@ -129,7 +129,12 @@ _MAX_INTENTOS = 5
 
 
 class RegresarAlMenu(Exception):
-    """Se lanza cuando el usuario pide volver al menú o agota intentos."""
+    """Señala 0: volver al contexto/pregunta anterior."""
+    pass
+
+
+class IrAlMenuPrincipal(RegresarAlMenu):
+    """Señala 00: salir de cualquier asistente hasta el menú principal."""
     pass
 
 
@@ -169,6 +174,8 @@ def pedir_texto(mensaje: str, defecto: str = '', obligatorio: bool = False,
             raise RegresarAlMenu()
 
         if permitir_escape and valor.lower() in _PALABRAS_ESCAPE:
+            if valor == '00' or valor.lower() in ('inicio', 'menu', 'menú'):
+                raise IrAlMenuPrincipal()
             raise RegresarAlMenu()
 
         valor = valor or str(defecto)

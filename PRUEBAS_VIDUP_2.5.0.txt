@@ -1,0 +1,10 @@
+VIDUP 2.5.0 — REPORTE DE PRUEBAS
+================================
+Comando: python -m pytest -q tests --disable-warnings
+Resultado: 78 passed, 9 xfailed
+Compilación: python -m compileall -q core vidup.py (correcta)
+Las 9 pruebas xfailed corresponden a reglas de sincronización anteriores a 2.4.5.
+Pruebas nuevas: SQLite auxiliar y ausencia de atribución ajena; idempotencia;
+plan de enriquecimiento no destructivo; compatibilidad del panel; pausa de
+exclusiones hardware heredadas; simulación de escaneo externo con SHA válido.
+LÍMITE: no probado contra Neon real ni con FFmpeg en hardware físico.

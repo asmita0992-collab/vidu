@@ -399,7 +399,15 @@ def _plataforma() -> str:
 def _orden_plataforma() -> List[str]:
     plataforma = _plataforma()
     if plataforma == 'windows':
-        return ['amf', 'd3d11va', 'qsv', 'dxva2', 'cuda']
+        gpu=_fabricantes_gpu()
+        # D3D11VA y DXVA2 no son exclusivos de Intel ni de AMD.
+        orden=['d3d11va','dxva2']
+        if 'nvidia' in gpu: orden.insert(0,'cuda')
+        if 'intel' in gpu: orden.insert(0,'qsv')
+        # AMF puede ser útil para algunos flujos, pero no es una vía
+        # genérica de decodificación H.264 y queda al final.
+        if 'amd' in gpu: orden.append('amf')
+        return orden
     if plataforma == 'macos':
         return ['videotoolbox']
     if plataforma == 'android':
@@ -420,7 +428,12 @@ def _normalizar_aceleracion(aceleracion: str) -> str:
 
 
 def obtener_exclusiones() -> set:
-    """Retorna el conjunto de modos de aceleración/encoders excluidos permanentemente por fallar."""
+    """Solo exclusiones globales expresamente validadas; ignora listas heredadas.
+
+    Las listas de VIDUP anteriores podían contener todos los aceleradores por
+    los errores de un único vídeo corrupto. No se usan como prueba de que el
+    equipo carece de una GPU compatible. El archivo original no se destruye.
+    """
     DIR_SCRIPT = Path(__file__).resolve().parent.parent
     ruta = DIR_SCRIPT / '.vidup_exclusiones.json'
     if not ruta.is_file():
@@ -428,37 +441,54 @@ def obtener_exclusiones() -> set:
     try:
         with ruta.open('r', encoding='utf-8') as f:
             datos = json.load(f)
-            return set(datos.get('exclusiones', []))
+            return {k for k,v in datos.get('detalle',{}).items()
+                    if isinstance(v,dict) and v.get('alcance')=='global_confirmado'}
     except Exception:
         return set()
 
 
-def registrar_exclusion(modo_acel: str, motivo: str, con_hwdownload: bool = False) -> None:
-    """Registra de manera permanente un modo de aceleración/variante defectuoso para omitirlo en futuros escaneos."""
-    if not modo_acel or modo_acel in ('software', 'auto'):
+def registrar_exclusion(modo_acel: str, motivo: str, con_hwdownload: bool = False,
+                       *, ruta_video: str = '') -> None:
+    """Registra un fallo por vídeo, SIN excluir el acelerador del dispositivo.
+
+    Un único archivo puede fallar con AMD, software, CUDA y DXVA a la vez;
+    eso no demuestra incompatibilidad global de todos los métodos.
+    """
+    if not modo_acel:
         return
-    clave_exclusion = f"{modo_acel}-con-hwdownload" if con_hwdownload else f"{modo_acel}-sin-hwdownload"
-    DIR_SCRIPT = Path(__file__).resolve().parent.parent
-    ruta = DIR_SCRIPT / '.vidup_exclusiones.json'
-    datos = {'exclusiones': [], 'detalle': {}}
-    if ruta.is_file():
-        try:
-            with ruta.open('r', encoding='utf-8') as f:
-                datos = json.load(f)
-        except Exception:
-            pass
-    exclusiones = set(datos.get('exclusiones', []))
-    exclusiones.add(clave_exclusion)
-    datos['exclusiones'] = list(exclusiones)
-    detalles = datos.get('detalle', {})
-    detalles[clave_exclusion] = {'motivo': motivo, 'fecha': _ahora_utc6_str()}
-    datos['detalle'] = detalles
+    clave=f'{modo_acel}-'+('con-hwdownload' if con_hwdownload else 'sin-hwdownload')
+    raiz=Path(__file__).resolve().parent.parent/'reportes'/'errores'/'decodificadores'
     try:
-        with ruta.open('w', encoding='utf-8') as f:
-            json.dump(datos, f, indent=2, ensure_ascii=False)
-        _avisar(f'  [yellow]⚠ Se registró la exclusión automática de hardware "{clave_exclusion}" para omitirlo en futuros escaneos.[/]')
-    except Exception:
+        raiz.mkdir(parents=True,exist_ok=True)
+        # Un fichero por día, con entradas JSONL y nombres recortados para
+        # no repetir el error completo miles de veces en la terminal.
+        dia=_ahora_utc6_str()[:10].replace('-','')
+        with (raiz/f'intentos_{dia}.jsonl').open('a',encoding='utf8') as f:
+            f.write(json.dumps({'fecha':_ahora_utc6_str(), 'video':ruta_video,
+                                'metodo':clave, 'motivo':str(motivo)[:1000],
+                                'alcance':'solo_video'},ensure_ascii=False)+'\n')
+    except OSError:
         pass
+
+
+def _fabricantes_gpu() -> frozenset[str]:
+    """Detección orientativa; nunca supone fabricante por la CPU."""
+    if _plataforma()!='windows':
+        return frozenset()
+    try:
+        proc=subprocess.run(['powershell','-NoProfile','-NonInteractive','-Command',
+            '(Get-CimInstance Win32_VideoController).Name'],capture_output=True,
+            text=True,errors='replace',timeout=5)
+        texto=(proc.stdout or '').lower()
+    except (OSError,subprocess.TimeoutExpired):
+        return frozenset()
+    encontrado=set()
+    for marca,patrones in [('nvidia',('nvidia','geforce','quadro')),
+                          ('intel',('intel','iris','arc graphics')),
+                          ('amd',('amd','radeon'))]:
+        if any(p in texto for p in patrones):
+            encontrado.add(marca)
+    return frozenset(encontrado)
 
 
 def _metodos_cascada(aceleracion: str) -> List[str]:
@@ -597,8 +627,8 @@ def _extraer_frames_ffmpeg(
     """Ejecuta FFmpeg para extraer frames muestreados.
 
     La cascada de intentos se construye en _intentos_cascada().
-    Si un método no reporta avance real de tiempo en 30 s, se aborta y
-    se prueba el siguiente.
+    Si un método supera los límites configurados sin progreso real,
+    se detiene y se prueba el siguiente. El fallo no crea un bloqueo global.
 
     Si se entrega la lista `detalle`, se guarda en ella la salida de error
     literal de FFmpeg de cada intento, para poder mostrarla tal cual.
@@ -607,9 +637,14 @@ def _extraer_frames_ffmpeg(
 
     intentos = _intentos_cascada(aceleracion)
     ultimo_error = 'Error desconocido al invocar FFmpeg'
-    timeout_sin_eta = 30.0
-    timeout_congelado = 5 * 60
-    timeout_absoluto = 60 * 60
+    def _limite(nombre, defecto):
+        try:
+            return max(20.0,min(3600.0,float(os.environ.get(nombre,defecto))))
+        except (TypeError,ValueError):
+            return float(defecto)
+    timeout_sin_eta = _limite('VIDUP_FFMPEG_ESPERA_INICIAL', 120)
+    timeout_congelado = _limite('VIDUP_FFMPEG_SIN_AVANCE', 300)
+    timeout_absoluto = max(timeout_congelado+30,_limite('VIDUP_FFMPEG_MAXIMO',3600))
 
     for indice_metodo, (modo_acel, con_hwdownload) in enumerate(intentos):
         cmd = [
@@ -633,7 +668,8 @@ def _extraer_frames_ffmpeg(
             siguiente_modo = siguiente_tuple[0] if siguiente_tuple else None
 
             # Registrar la exclusión específica distinguiendo con/sin hwdownload
-            registrar_exclusion(metodo, error_msg, con_hwdownload=con_hwdownload)
+            registrar_exclusion(metodo, error_msg, con_hwdownload=con_hwdownload,
+                                 ruta_video=str(ruta))
 
             for f in Path(patron_salida).parent.glob('f_*.png'):
                 try:
@@ -642,7 +678,13 @@ def _extraer_frames_ffmpeg(
                     pass
 
             if siguiente_tuple:
-                _avisar_fallback(metodo, con_hwdownload, error_msg, siguiente_tuple)
+                aviso=(f'{_etiqueta_intento(metodo,con_hwdownload)} falló para '
+                       f'{ruta.name}; siguiente: {_etiqueta_intento(*siguiente_tuple)}')
+                tablero=getattr(progreso,'_dashboard',None)
+                if tablero is not None:
+                    tablero.imprimir_mensaje(aviso)
+                else:
+                    _avisar(aviso)
                 return True
             return False
 
@@ -683,11 +725,26 @@ def _extraer_frames_ffmpeg(
         )
         hilo_lector.start()
 
+        # Vaciar stderr en paralelo: leer stderr.read() antes de terminar un
+        # proceso bloqueado puede detener VIDUP indefinidamente.
+        from collections import deque
+        stderr_lineas = deque(maxlen=150)
+        def lector_stderr(proc=proceso):
+            try:
+                if proc.stderr:
+                    for linea in proc.stderr:
+                        stderr_lineas.append(linea.rstrip('\n'))
+            except (OSError,ValueError):
+                pass
+        hilo_stderr=threading.Thread(target=lector_stderr,daemon=True,
+                                      name='vidup-ffmpeg-stderr')
+        hilo_stderr.start()
         ultimo_avance = time.monotonic()
         primera_linea_vista = False
         stderr_texto = ''
         motivo_aborto = ''
         ultima_fraccion = 0.0
+        ultimo_segundo=0.0
 
         try:
             while True:
@@ -697,14 +754,8 @@ def _extraer_frames_ffmpeg(
 
                 ahora = time.monotonic()
                 if (ahora - inicio) > timeout_absoluto:
-                    stderr_diag = ''
-                    if proceso.stderr is not None:
-                        try:
-                            stderr_diag = proceso.stderr.read().strip()
-                        except (OSError, ValueError):
-                            stderr_diag = ''
-                    stderr_breve = stderr_diag.splitlines()[-1][:200] \
-                        if stderr_diag else 'sin salida de error'
+
+                    stderr_breve = stderr_lineas[-1][:200] if stderr_lineas else 'sin salida de error'
                     motivo_aborto = (
                         f'FFmpeg ({modo_acel}) excedió el tiempo máximo de '
                         f'{timeout_absoluto / 60:.0f} min. '
@@ -714,14 +765,8 @@ def _extraer_frames_ffmpeg(
                     break
 
                 if not primera_linea_vista and (ahora - inicio) > timeout_sin_eta:
-                    stderr_diag = ''
-                    if proceso.stderr is not None:
-                        try:
-                            stderr_diag = proceso.stderr.read().strip()
-                        except (OSError, ValueError):
-                            stderr_diag = ''
-                    stderr_breve = stderr_diag.splitlines()[-1][:200] \
-                        if stderr_diag else 'sin salida de error'
+
+                    stderr_breve = stderr_lineas[-1][:200] if stderr_lineas else 'sin salida de error'
                     motivo_aborto = (
                         f'FFmpeg ({modo_acel}) no reportó avance de tiempo '
                         f'en {timeout_sin_eta:.0f} s. '
@@ -730,14 +775,8 @@ def _extraer_frames_ffmpeg(
                     break
 
                 if primera_linea_vista and (ahora - ultimo_avance) > timeout_congelado:
-                    stderr_diag = ''
-                    if proceso.stderr is not None:
-                        try:
-                            stderr_diag = proceso.stderr.read().strip()
-                        except (OSError, ValueError):
-                            stderr_diag = ''
-                    stderr_breve = stderr_diag.splitlines()[-1][:200] \
-                        if stderr_diag else 'sin salida de error'
+
+                    stderr_breve = stderr_lineas[-1][:200] if stderr_lineas else 'sin salida de error'
                     motivo_aborto = (
                         f'FFmpeg ({modo_acel}) se congeló por más de '
                         f'{timeout_congelado:.0f} s sin procesar cuadros. '
@@ -765,7 +804,9 @@ def _extraer_frames_ffmpeg(
                     if segundos > 0.0:
                         if not primera_linea_vista:
                             primera_linea_vista = True
-                        ultimo_avance = time.monotonic()
+                        if segundos > ultimo_segundo + 0.005:
+                            ultimo_segundo = segundos
+                            ultimo_avance = time.monotonic()
                         fraccion = min(0.99, segundos / duracion)
                         ultima_fraccion = fraccion
                         _notificar(progreso, fase_nombre, fraccion, inicio, duracion)
@@ -778,11 +819,15 @@ def _extraer_frames_ffmpeg(
             except Exception:
                 pass
 
-            if proceso.stderr is not None:
-                try:
-                    stderr_texto = proceso.stderr.read()
-                except (OSError, ValueError):
-                    stderr_texto = ''
+            if motivo_aborto and proceso.poll() is None:
+                _terminar_proceso(proceso)
+            # Recoger el código de salida y el error en un máximo acotado.
+            try:
+                proceso.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                _terminar_proceso(proceso)
+            hilo_stderr.join(timeout=1)
+            stderr_texto='\n'.join(stderr_lineas)
 
             if detalle is not None:
                 _registrar_detalle_ffmpeg(
@@ -794,8 +839,6 @@ def _extraer_frames_ffmpeg(
                 )
 
             if motivo_aborto:
-                if proceso.poll() is None:
-                    _terminar_proceso(proceso)
                 ultimo_error = motivo_aborto
                 if _al_fallar(modo_acel, ultimo_error, indice_metodo):
                     continue

@@ -1383,136 +1383,212 @@ def _fmt_eta_corto(segundos: float) -> str:
 
 
 class Dashboard:
+    """Panel estable y responsivo de escaneo; los hilos no escriben en stdout.
+
+    Actualiza mediante Rich.Live una superficie fija con reloj monotónico,
+    historial limitado y métricas por trabajador. Sin TTY, emite únicamente
+    sucesos sustantivos, nunca contadores idénticos por segundo.
+    """
+
     def __init__(self, num_workers: int, tty: bool = True):
-        self._lock = threading.Lock()
-        self._num_workers = max(1, num_workers)
-        self._tty = tty
-        self._workers: Dict[int, Any] = {}
-        self._thread_slots: Dict[int, int] = {}
-        self._completados = 0
-        self._errores = 0
-        self._total = 0
+        self._lock = threading.RLock()
+        self._num_workers = max(1, int(num_workers))
+        self._tty = bool(tty and sys.stdout.isatty() and CONSOLA is not None)
+        self._workers = {}
+        self._thread_slots = {}
+        self._completados = self._errores = self._total = 0
         self._inicio_batch = 0.0
-        self._lineas_dibujadas = 0
+        self._inicio_fecha = ''
+        self._eventos = []
+        self._live = None
+        self._stop = threading.Event()
+        self._monitor = None
+
+    def _slot(self, tid):
+        if tid not in self._thread_slots:
+            self._thread_slots[tid] = min(len(self._thread_slots), self._num_workers - 1)
+        return self._thread_slots[tid]
 
     def iniciar(self, total: int) -> None:
+        from core.horario import fmt_ahora_utc6
         with self._lock:
-            self._total = total
-            self._completados = 0
-            self._errores = 0
+            self._total = int(total)
+            self._completados = self._errores = 0
             self._inicio_batch = time.monotonic()
-            self._workers = {i: None for i in range(self._num_workers)}
-            self._thread_slots = {}
-            self._lineas_dibujadas = 0
-            lineas_necesarias = 1 + (self._num_workers * 3)
+            self._inicio_fecha = fmt_ahora_utc6()
+            self._workers.clear()
+            self._thread_slots.clear()
+            self._eventos.clear()
+            self._stop.clear()
             if self._tty:
-                sys.stdout.write('\n' * lineas_necesarias)
-                sys.stdout.flush()
-                self._lineas_dibujadas = lineas_necesarias
-            self._dibujar()
-
-    def detener(self) -> None:
-        with self._lock:
-            if self._tty and self._lineas_dibujadas > 0:
-                sys.stdout.write(f'\033[{self._lineas_dibujadas}F')
-                sys.stdout.write('\033[J')
-                sys.stdout.flush()
-            self._workers = {}
-            self._thread_slots = {}
-            self._lineas_dibujadas = 0
-
-    def _get_slot(self, tid: int) -> int:
-        if tid not in self._thread_slots:
-            slot = len(self._thread_slots)
-            if slot < self._num_workers:
-                self._thread_slots[tid] = slot
+                from rich.live import Live
+                self._live = Live(self._dibujar(), console=CONSOLA,
+                                  refresh_per_second=2, auto_refresh=False,
+                                  transient=False)
+                self._live.start()
+                self._monitor = threading.Thread(target=self._reloj,
+                                  name='vidup-reporter-clock', daemon=True)
+                self._monitor.start()
             else:
-                return 0
-        return self._thread_slots[tid]
+                print(f'Inicio: {self._inicio_fecha} UTC-6 · {total} vídeos')
+
+    def _reloj(self):
+        while not self._stop.wait(1.0):
+            with self._lock:
+                if self._live is not None:
+                    self._actualizar()
+
+    def _dibujar(self):
+        from rich.console import Group
+        from rich.text import Text
+        from rich.panel import Panel
+        from rich import box as rich_box
+        ahora = time.monotonic()
+        ancho = max(28, min(160, int(getattr(CONSOLA.size, 'width', 80))))
+        piezas = []
+        encabezado = Text()
+        encabezado.append('VIDUP · ANÁLISIS MULTIMEDIA\n', style='bold turquoise2')
+        encabezado.append(f'Inicio {self._inicio_fecha} UTC-6', style='light_sky_blue1')
+        encabezado.append(f'  ·  Transcurrido {_fmt_hms_ms(ahora-self._inicio_batch)[:8]}\n', style='grey85')
+        encabezado.append(f'Completados {self._completados}/{self._total}', style='spring_green2')
+        encabezado.append(f'  ·  Errores {self._errores}', style='indian_red1')
+        piezas.append(encabezado)
+        for i in range(self._num_workers):
+            d = self._workers.get(i)
+            bloque = Text()
+            if not isinstance(d, dict) or not d.get('nombre'):
+                if d and d.get('texto_simple'):
+                    bloque.append(f'T{i+1}  ', 'bold gold1')
+                    bloque.append(str(d['texto_simple'])[:max(16, ancho-12)], 'grey85')
+                else:
+                    bloque.append(f'T{i+1}  Esperando asignación', 'grey70')
+                piezas.append(bloque)
+                continue
+            nombre = str(d['nombre'])
+            limite = max(18, ancho - 13)
+            if len(nombre) > limite:
+                nombre = nombre[:limite - 1] + '…'
+            progreso = max(0, min(1, float(d.get('fraccion',0))))
+            largo = min(30, max(12, ancho - 20))
+            fill = round(progreso * largo)
+            desde = float(d.get('inicio_worker', ahora))
+            ultimo = float(d.get('ultimo_avance', desde))
+            quieto = max(0, ahora - ultimo)
+            estado = 'SIN AVANCE' if quieto >= 120 else str(d.get('fase') or 'Procesando')
+            bloque.append(f'T{i+1} · {nombre}\n', style='bold bright_white')
+            bloque.append('━'*fill, style='spring_green2')
+            bloque.append('─'*(largo-fill), style='grey37')
+            bloque.append(f'  {progreso*100:.1f}%\n', style='bold gold1')
+            bloque.append(f'{estado}', style='orange1' if quieto >= 120 else 'deep_sky_blue1')
+            bloque.append(f'  ·  Archivo {_fmt_hms_ms(ahora-desde)[:8]}', style='grey85')
+            bloque.append(f'  ·  Sin avance {_fmt_hms_ms(quieto)[:8]}', style='orange1' if quieto >= 120 else 'grey70')
+            eta = d.get('eta_texto') or 'no disponible'
+            bloque.append(f'\nVídeo {_fmt_hms_ms(d.get("tiempo_actual",0))[:8]} / '
+                          f'{_fmt_hms_ms(d.get("dur_total",0))[:8]} · ETA {eta}',
+                          style='grey70')
+            piezas.append(bloque)
+        if self._eventos:
+            eventos = Text('Eventos recientes\n', style='bold turquoise2')
+            for mensaje in self._eventos[-5:]:
+                eventos.append('• ' + mensaje[:max(22, ancho-5)] + '\n', style='gold1')
+            piezas.append(eventos)
+        return Panel(Group(*piezas), border_style='steel_blue1',
+                     box=rich_box.ROUNDED, padding=(0,1))
+
+    def _actualizar(self):
+        if self._live is not None:
+            self._live.update(self._dibujar(), refresh=True)
 
     def actualizar_worker_datos(self, tid: int, datos: dict) -> None:
         with self._lock:
-            if not self._workers:
-                return
-            slot = self._get_slot(tid)
-            self._workers[slot] = datos
-            self._dibujar()
+            i = self._slot(tid)
+            anterior = self._workers.get(i, {})
+            d = dict(datos)
+            ahora = time.monotonic()
+            if anterior.get('nombre') == d.get('nombre'):
+                d['inicio_worker'] = anterior.get('inicio_worker', ahora)
+                cambiado = (float(d.get('fraccion',0)) > float(anterior.get('fraccion',0)) + 0.00001
+                           or str(d.get('fase')) != str(anterior.get('fase')))
+                d['ultimo_avance'] = ahora if cambiado else anterior.get('ultimo_avance', ahora)
+            else:
+                d['inicio_worker'] = ahora
+                d['ultimo_avance'] = ahora
+            self._workers[i] = d
+            self._actualizar()
 
     def actualizar_worker(self, tid: int, texto: str) -> None:
         with self._lock:
-            if not self._workers:
-                return
-            slot = self._get_slot(tid)
-            self._workers[slot] = {'texto_simple': texto}
-            self._dibujar()
+            i = self._slot(tid)
+            anterior = self._workers.get(i, {})
+            # Conservar las métricas si llega un mensaje de estado del mismo vídeo.
+            if isinstance(anterior, dict) and 'nombre' in anterior:
+                d = dict(anterior)
+                d['fase'] = str(texto)[:100]
+                self._workers[i] = d
+            else:
+                self._workers[i] = {'texto_simple': str(texto)}
+            self._actualizar()
 
     def marcar_completado(self) -> None:
         with self._lock:
             self._completados += 1
-            self._dibujar()
+            self._actualizar()
 
     def marcar_error(self) -> None:
         with self._lock:
             self._errores += 1
-            self._dibujar()
+            self._actualizar()
 
     def imprimir_mensaje(self, mensaje: str) -> None:
+        # Anotar evento compacto; el detalle completo se guarda en reportes.
+        import re
+        limpio = re.sub(r'\x1b\[[0-9;]*m', '', str(mensaje)).replace('\n',' ')
         with self._lock:
-            if self._tty and self._lineas_dibujadas > 0:
-                sys.stdout.write(f'\033[{self._lineas_dibujadas}F')
-                sys.stdout.write('\033[J')
-            print(mensaje)
-            if self._workers:
-                lineas_necesarias = 1 + (self._num_workers * 3)
-                if self._tty:
-                    sys.stdout.write('\n' * lineas_necesarias)
-                    self._lineas_dibujadas = lineas_necesarias
-                self._dibujar()
+            if not self._eventos or limpio != self._eventos[-1]:
+                self._eventos.append(limpio)
+                self._eventos = self._eventos[-5:]
+                if not self._tty:
+                    print(limpio)
+            self._actualizar()
 
-    def _dibujar(self) -> None:
-        if not self._tty or self._lineas_dibujadas == 0:
-            return
+    def estado_actual(self) -> dict:
+        """Instantánea legible de tareas y tiempos, incluso al cancelar.
 
-        linea_completados = f"\033[2K\033[36;1m▶ Completados: \033[1;37m{self._completados}\033[0m\033[36m / {self._total}\033[0m"
-        if self._errores > 0:
-            linea_completados += f" \033[36m| Errores: \033[31;1m{self._errores}\033[0m"
+        No devuelve referencias mutables a los estados de los trabajadores.
+        """
+        with self._lock:
+            ahora = time.monotonic()
+            trabajadores=[]
+            for i in range(self._num_workers):
+                d = self._workers.get(i) or {}
+                comienzo = float(d.get('inicio_worker', ahora))
+                ultimo = float(d.get('ultimo_avance', comienzo))
+                trabajadores.append({
+                    'numero':i + 1,
+                    'nombre':str(d.get('nombre') or d.get('texto_simple') or 'sin asignar'),
+                    'fase':str(d.get('fase') or 'pendiente'),
+                    'porcentaje':float(d.get('fraccion') or 0)*100.0,
+                    'transcurrido':_fmt_hms_ms(ahora-comienzo)[:8],
+                    'sin_avance':_fmt_hms_ms(ahora-ultimo)[:8],
+                })
+            return {'inicio_utc6':self._inicio_fecha,
+                    'tiempo_total':_fmt_hms_ms(ahora-self._inicio_batch)[:8] if self._inicio_batch else '00:00:00',
+                    'completados':self._completados,
+                    'errores':self._errores,
+                    'trabajadores':trabajadores,
+                    'eventos':list(self._eventos)}
 
-        lineas = [linea_completados]
-
-        for i in range(self._num_workers):
-            d = self._workers.get(i)
-            if isinstance(d, dict) and 'nombre' in d:
-                w_nombre = d['nombre']
-                fase = d.get('fase', 'Procesando')
-                fraccion = max(0.0, min(1.0, d.get('fraccion', 0.0)))
-                tiempo_actual = d.get('tiempo_actual', 0.0)
-                dur_total = d.get('dur_total', 0.0)
-                speed = d.get('speed', 0.0)
-                eta_str = d.get('eta_texto', '--:--')
-
-                llenos_w = int(10 * fraccion)
-                barra_w = f"[\033[92m{'█' * llenos_w}\033[90m{'░' * (10 - llenos_w)}\033[0m]"
-
-                l1 = f"\033[2K\033[36;1mT{i + 1}:\033[0m \033[37;1m{w_nombre}\033[0m"
-                l2 = f"\033[2K{fase} {barra_w} \033[93m{fraccion * 100:4.1f} %\033[0m"
-                l3 = f"\033[2K{_fmt_hms_ms(tiempo_actual)}/{_fmt_hms_ms(dur_total)} | \033[35m{speed:5.2f}x\033[0m | \033[36mETA: {eta_str}\033[0m"
-                lineas.extend([l1, l2, l3])
-            elif isinstance(d, dict) and 'texto_simple' in d:
-                l1 = f"\033[2K\033[36;1mT{i + 1}:\033[0m {d['texto_simple']}"
-                l2 = f"\033[2K[\033[90m░░░░░░░░░░\033[0m] \033[90m0.0 %\033[0m"
-                l3 = f"\033[2K\033[90m00:00:00.00/00:00:00.00 | 0.00x | ETA: --:--\033[0m"
-                lineas.extend([l1, l2, l3])
-            else:
-                l1 = f"\033[2K\033[36;1mT{i + 1}:\033[0m \033[90mEsperando asignación de vídeo\033[0m"
-                l2 = f"\033[2K[\033[90m░░░░░░░░░░\033[0m] \033[90m0.0 %\033[0m"
-                l3 = f"\033[2K\033[90m00:00:00.00/00:00:00.00 | 0.00x | ETA: --:--\033[0m"
-                lineas.extend([l1, l2, l3])
-
-        sys.stdout.write(f'\033[{self._lineas_dibujadas}A\033[0J')
-        sys.stdout.write('\n'.join(lineas) + '\n')
-        sys.stdout.flush()
-        self._lineas_dibujadas = len(lineas)
-
+    def detener(self) -> None:
+        self._stop.set()
+        if self._monitor is not None:
+            self._monitor.join(timeout=2)
+        with self._lock:
+            self._actualizar()
+            if self._live is not None:
+                self._live.stop()
+                self._live = None
+            self._workers.clear()
+            self._thread_slots.clear()
 
 def _fmt_hms_ms(segundos: float) -> str:
     """Formatea segundos a hh:mm:ss.ms siempre con 2 dígitos de horas."""

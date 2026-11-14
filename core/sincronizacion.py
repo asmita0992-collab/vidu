@@ -1200,18 +1200,19 @@ def _elegir_solucion_discrepancias(plan: PlanSincronizacion, local: dict,
     imprimir('  [orange1]3[/] Adoptar TODO el catálogo de Neon en esta SQLite, con respaldo íntegro.')
     imprimir('  [sky_blue1]4[/] Conservar bases intactas y consultar el informe TXT.')
     imprimir('  [medium_spring_green]5[/] Conciliar reubicaciones propias: publicar marcas de rutas anteriores y retirar identificadores temporales, sin borrar vídeos.')
+    imprimir('  [light_sky_blue1]6[/] Completar huellas y metadatos faltantes desde Neon sin sustituir vídeos.')
     imprimir('  [grey70]0[/] Cancelar sin cambios.')
     for _ in range(5):
         try:
-            valor = pedir_texto('Elige cómo resolver las diferencias (0-5)', '1',
+            valor = pedir_texto('Elige cómo resolver las diferencias (0-6)', '1',
                                 permitir_escape=False).strip()
         except (RegresarAlMenu, KeyboardInterrupt):
             return 'salir'
         respuesta = {'1': 'plan', '2': 'marcas', '3': 'adoptar',
-                     '4': 'informe', '5': 'reubicaciones', '0': 'salir'}.get(valor)
+                     '4': 'informe', '5': 'reubicaciones', '6': 'completar', '0': 'salir'}.get(valor)
         if respuesta:
             return respuesta
-        imprimir('[yellow]Selecciona 0, 1, 2, 3, 4 o 5. Ninguna opción se ejecuta automáticamente.[/]')
+        imprimir('[yellow]Selecciona 0, 1, 2, 3, 4, 5 o 6. Ninguna opción se ejecuta automáticamente.[/]')
     return 'salir'
 
 def sincronizar_local_y_nube(*, confirmar: bool = True,
@@ -1309,23 +1310,72 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
                   not informe['marcas_diferentes']):
                 imprimir('[green]Las diferencias se deben a datos faltantes en SQLite '
                          'que sí están en Neon. Revise el TXT para ver cada campo.[/]')
-            imprimir('[yellow]La adopción reemplaza el CATÁLOGO local desde Neon '
-                     '(no borra archivos de vídeo), con respaldo SQLite completo.[/]')
+            # El control por generación sigue bloqueando CUALQUIER subida:
+            # ofrecemos solo completar datos locales ausentes antes de proponer
+            # una sustitución total. No se interpretan registros exclusivos
+            # como archivos físicos inexistentes.
+            from core.reconciliacion_selectiva import (
+                construir_plan as _plan_selectivo, guardar_plan as _guardar_selectivo,
+                aplicar_plan as _aplicar_selectivo)
+            propuesta = _plan_selectivo(locales,remotos,hashes_local,hashes_nube,
+                                        marcas_locales,marcas_remotas)
+            ruta_plan_json,ruta_plan_txt = _guardar_selectivo(
+                propuesta, DIR_SCRIPT/'reportes'/'sincronizacion')
+            imprimir(f'[bold turquoise2]Se pueden completar datos de '
+                     f'{len(propuesta["actualizaciones"])} registros sin sustituir bases.[/]')
+            imprimir(f'[gold1]Conflictos a revisar: {len(propuesta["bloqueados"])} · '
+                     f'marcas distintas: {len(propuesta["marcas_diferentes"])}.[/]')
+            imprimir(f'[cyan]Explicación de opciones TXT: {ruta_plan_txt}[/]')
+            imprimir('[orange1]La adopción TOTAL sigue disponible, pero no se recomienda '
+                     'automáticamente cuando hay registros exclusivos o conflictos.[/]')
             if solo_plan or not confirmar:
-                raise ErrorSincronizacion('Referencia distinta: adopción pendiente; no hubo cambios.')
-            from core.presentacion import pedir_si_no, pedir_texto
-            if not pedir_si_no('¿Adoptar el catálogo vigente de Neon en esta SQLite?', False):
-                raise SincronizacionCancelada('La SQLite no se modificó ni publicó información.')
-            texto_confirma = pedir_texto('Escribe ADOPTAR NEON para reemplazar '
-                                         'el catálogo local', '', permitir_escape=False)
-            from core.presentacion import confirma_frase
-            if not confirma_frase(texto_confirma, 'ADOPTAR NEON'):
+                raise ErrorSincronizacion('Referencia distinta: adopción pendiente u otras opciones; informe generado, ninguna escritura.')
+            from core.presentacion import pedir_texto, confirma_frase
+            from core.interfaz import menu_rich
+            menu_rich('Resolver generación anterior · sin subir datos antiguos', [
+                ('1','Completar en SQLite únicamente huellas y campos faltantes de registros idénticos'),
+                ('2','Adoptar TODO Neon, con respaldo; retira registros locales exclusivos'),
+                ('3','Consultar informes y conservar ambas bases intactas'),
+                ('0','Cancelar y conservar ambas bases'),
+                ('00','Volver al menú principal')],
+                subtitulo='La generación seguirá bloqueada hasta verificar equivalencia integral.')
+            decision = pedir_texto('Elige una alternativa','3',permitir_escape=False).strip()
+            if decision == '1':
+                if not propuesta['actualizaciones']:
+                    imprimir('[yellow]No hay enriquecimientos seguros. Revisa el TXT; '
+                             'no se modificó ninguna base.[/]')
+                    return 0,0,0
+                frase=pedir_texto('Escribe COMPLETAR DATOS para aplicar solo esos campos',
+                                  '',permitir_escape=False)
+                if not confirma_frase(frase,'COMPLETAR DATOS'):
+                    raise SincronizacionCancelada('No se autorizaron los enriquecimientos.')
+                resultado=_aplicar_selectivo(conn_loc,conn_nube,propuesta,str(ruta),
+                                DIR_SCRIPT/'reportes')
+                imprimir(f'[spring_green2]Se completaron datos de '
+                         f'{resultado["aplicados"]} registros.[/] '
+                         f'Respaldo: {resultado["respaldo"]}')
+                # NO aceptar la generación hasta comprobar equivalencia total.
+                locales_nuevos=_leer_videos(conn_loc)
+                hashes_nuevos=_huellas_resumen(conn_loc)
+                if _catalogos_iguales(locales_nuevos,remotos,hashes_nuevos,hashes_nube,
+                                      _leer_marcas(conn_loc),marcas_remotas):
+                    establecer_generacion(conn_loc,generacion)
+                    conn_loc.commit()
+                    imprimir('[spring_green2]Catálogos equivalentes: generación reconocida.[/]')
+                else:
+                    imprimir('[yellow]Quedan diferencias. La subida continúa BLOQUEADA; '
+                             'consulte el informe para resolver los casos restantes.[/]')
+                return 0,resultado['aplicados'],0
+            if decision != '2':
+                raise SincronizacionCancelada('Sin modificaciones. TXT disponible para revisar.')
+            frase=pedir_texto('Escribe ADOPTAR NEON para sustituir TODO el catálogo local',
+                              '',permitir_escape=False)
+            if not confirma_frase(frase,'ADOPTAR NEON'):
                 raise SincronizacionCancelada('Confirmación incorrecta; se conservó SQLite.')
-            respaldo = _adoptar_catalogo_neon(conn_loc, conn_nube, ruta,
-                                             generacion, remotos, marcas_remotas)
-            imprimir(f'[bold spring_green2]SQLite alineada con la referencia de Neon.[/] '
-                     f'Respaldo local: {respaldo}')
-            return 0, len(remotos), 0
+            respaldo=_adoptar_catalogo_neon(conn_loc,conn_nube,ruta,generacion,remotos,marcas_remotas)
+            imprimir(f'[bold spring_green2]SQLite adoptó Neon tras autorización explícita.[/] '
+                     f'Respaldo: {respaldo}')
+            return 0,len(remotos),0
         # Incluso con la misma generación, generar diagnóstico legible cuando
         # hay diferencias. Un plan de operaciones no explica por sí solo qué
         # huella, fecha o metadato difiere, y no debe inducir a sustituir datos.
@@ -1445,6 +1495,28 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
                     imprimir('[yellow]Persisten diferencias ajenas a estas reubicaciones. '
                              'Revisa el diagnóstico general.[/]')
                 return 0, 0, 0
+            if decision == 'completar':
+                from core.reconciliacion_selectiva import (
+                    construir_plan as _plan_selectivo, guardar_plan as _guardar_selectivo,
+                    aplicar_plan as _aplicar_selectivo)
+                from core.presentacion import pedir_texto, confirma_frase
+                conn_loc.rollback()
+                pro=_plan_selectivo(locales,remotos,hashes_local,hashes_nube,
+                                    marcas_locales,marcas_remotas)
+                _,archivo=_guardar_selectivo(pro,DIR_SCRIPT/'reportes'/'sincronizacion')
+                imprimir(f'[cyan]Plan de enriquecimientos: {archivo}[/]')
+                if not pro['actualizaciones']:
+                    imprimir('[yellow]No hay datos faltantes seguros que copiar.[/]')
+                    return 0,0,0
+                frase=pedir_texto('Escribe COMPLETAR DATOS para actualizar SQLite',
+                                  '',permitir_escape=False)
+                if not confirma_frase(frase,'COMPLETAR DATOS'):
+                    raise SincronizacionCancelada('Sin cambios.')
+                result=_aplicar_selectivo(conn_loc,conn_nube,pro,str(ruta),
+                                          DIR_SCRIPT/'reportes')
+                imprimir(f'[spring_green2]{result["aplicados"]} registros enriquecidos.[/] '
+                         f'Respaldo: {result["respaldo"]}')
+                return 0,result['aplicados'],0
             if decision == 'marcas':
                 plan = _plan_solo_marcas_historicas(plan, locales, remotos)
                 imprimir(f'[cyan]Modo marcas históricas: {len(plan.marcas_local)} '
