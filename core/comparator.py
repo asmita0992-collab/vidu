@@ -364,13 +364,26 @@ def _decidir_cual_eliminar(fp_a: VideoFingerprint, fp_b: VideoFingerprint) -> Di
     pb = fp_b.resolucion[0] * fp_b.resolucion[1]
     ca, cb = _prioridad_codec(fp_a.codec_video), _prioridad_codec(fp_b.codec_video)
     ba, bb = fp_a.bitrate_video_kbps, fp_b.bitrate_video_kbps
-    if fp_a.hash_archivo and fp_a.hash_archivo == fp_b.hash_archivo:
-        # SHA256 igual => mismos bytes; metadatos ausentes no significan peor calidad.
-        conservar, eliminar = fp_a, fp_b
-        criterio = 'empate'
-        motivo = ('SHA256 idéntico: son los mismos bytes. No existe diferencia de '
-                  'calidad; el orden sugerido es convencional y puede invertirse '
-                  'según el dispositivo y la disponibilidad real de las copias.')
+    if (fp_a.hash_archivo and fp_a.hash_archivo == fp_b.hash_archivo
+            and len(fp_a.hash_archivo) == 64
+            and all(c in '0123456789abcdefABCDEF' for c in fp_a.hash_archivo)):
+        # Solo si los 64 caracteres SHA256 son idénticos y una sola copia
+        # es kDrive, se prioriza conservar la copia local. No altera la
+        # comparación audiovisual ni recomienda borrado automático.
+        from .kdrive_identidad import ID_DISPOSITIVO as KDRIVE_ID
+        nube_a = getattr(fp_a, 'dispositivo_id', '') == KDRIVE_ID
+        nube_b = getattr(fp_b, 'dispositivo_id', '') == KDRIVE_ID
+        if nube_a != nube_b:
+            conservar, eliminar = (fp_b, fp_a) if nube_a else (fp_a, fp_b)
+            criterio = 'preferencia_kdrive_sha256_exacto'
+            motivo = ('SHA256 idéntico: se prefiere conservar la copia del '
+                      'dispositivo físico y proponer la de kDrive para papelera. '
+                      'La eliminación remota requiere verificación y confirmación.')
+        else:
+            conservar, eliminar = fp_a, fp_b
+            criterio = 'empate'
+            motivo = ('SHA256 idéntico: son los mismos bytes. No existe diferencia de '
+                      'calidad; sugerencia convencional sin eliminación automática.')
     elif pa > 0 and pb > 0 and pa != pb:
         conservar, eliminar = (fp_a, fp_b) if pa > pb else (fp_b, fp_a)
         criterio = 'resolucion'
@@ -526,6 +539,11 @@ def comparar_par(
             ),
             recomendacion=recomendacion,
         )
+
+    if (getattr(fp_a, 'fingerprint_version', 'phash64_v1') !=
+            getattr(fp_b, 'fingerprint_version', 'phash64_v1')):
+        # Diferentes algoritmos pHash nunca se comparan como si fueran iguales.
+        return None
 
     if (
         not fp_a.frame_hashes

@@ -94,6 +94,7 @@ class VideoFingerprint:
     dispositivo_id: str = ''
     # Detalle técnico literal (stderr de ffmpeg/ffprobe) para diagnósticos.
     detalle_tecnico: str = ''
+    fingerprint_version: str = 'phash64_v1'
 
 
 class ProcesamientoCancelado(Exception):
@@ -199,6 +200,7 @@ def ffprobe_info(
     ruta: Path,
     cancelar: Optional[threading.Event] = None,
     detalle: Optional[List[str]] = None,
+    timeout: float = 30.0,
 ) -> dict:
     """Obtiene metadatos de video mediante ffprobe.
 
@@ -206,13 +208,15 @@ def ffprobe_info(
     que reporta ffprobe para poder mostrarlos después.
     """
     _verificar_cancelacion(cancelar)
+    if not math.isfinite(timeout) or timeout <= 0:
+        raise ValueError('El tiempo máximo de ffprobe debe ser positivo y finito.')
     cmd = [
         'ffprobe', '-v', 'error', '-print_format', 'json',
         '-show_streams', '-show_format', str(ruta),
     ]
     try:
         resultado = _ejecutar_con_cancelacion(
-            cmd, cancelar=cancelar, timeout=30, capturar_salida=True)
+            cmd, cancelar=cancelar, timeout=timeout, capturar_salida=True)
         if resultado is None:
             raise ProcesamientoCancelado('Interrumpido por el usuario')
         if resultado.returncode != 0 or not resultado.stdout.strip():
@@ -233,7 +237,7 @@ def ffprobe_info(
         raise
     except subprocess.TimeoutExpired:
         if detalle is not None:
-            detalle.append('ffprobe agotó el tiempo de espera (30 s).')
+            detalle.append(f'ffprobe agotó el tiempo de espera ({timeout:g} s). En un montaje remoto, revisar latencia y lecturas FUSE/rclone antes de dar el archivo por dañado.')
         return {}
     except (OSError, json.JSONDecodeError):
         if detalle is not None:
@@ -1094,6 +1098,9 @@ def generar_fingerprint(
     aceleracion: str = 'auto',
     codec_video: str = '',
     hash_previo: Optional[dict] = None,
+    sha256_importado: Optional[str] = None,
+    ffprobe_timeout: Optional[float] = None,
+    omitir_validacion_rapida: bool = False,
 ) -> VideoFingerprint:
     """Genera la huella del video.
 
@@ -1101,6 +1108,15 @@ def generar_fingerprint(
     este archivo, con las claves 'hash_archivo', 'hash_rapido' y
     'tamanio_bytes'. Si el archivo no cambió, se reutiliza su SHA256 y
     no se vuelve a leer completo.
+
+    sha256_importado: SOLO para el modo kDrive con catálogo externo confiado
+    por el usuario. Evita también el hash rápido; NO comprueba que el contenido
+    remoto realmente corresponda a ese SHA256. Es un compromiso explícito.
+
+    ffprobe_timeout / omitir_validacion_rapida: destinados a montajes remotos
+    lentos. En kDrive se evita consultar dos veces el mismo archivo y se
+    amplía solo el límite del sondeo de metadatos. El escaneo local conserva
+    la validación previa y sus límites originales.
     """
     from .database import info_dispositivo_actual
     info_disp = info_dispositivo_actual()
@@ -1141,11 +1157,13 @@ def generar_fingerprint(
         if not ruta.is_file():
             return error('La ruta no es un archivo')
 
-        valido, razon = _es_video_valido(ruta, cancelar=cancelar, detalle=detalle_tecnico)
-        if not valido:
-            return error(f'Archivo no válido: {razon}')
+        if not omitir_validacion_rapida:
+            valido, razon = _es_video_valido(ruta, cancelar=cancelar, detalle=detalle_tecnico)
+            if not valido:
+                return error(f'Archivo no válido: {razon}')
 
-        info = ffprobe_info(ruta, cancelar=cancelar, detalle=detalle_tecnico)
+        opciones_probe = {'timeout': ffprobe_timeout} if ffprobe_timeout is not None else {}
+        info = ffprobe_info(ruta, cancelar=cancelar, detalle=detalle_tecnico, **opciones_probe)
         _verificar_cancelacion(cancelar)
         if not info:
             return error('No se pudieron leer metadatos con ffprobe')
@@ -1203,14 +1221,23 @@ def generar_fingerprint(
         _verificar_cancelacion(cancelar)
         tamanio = ruta.stat().st_size
 
-        hash_rapido = calcular_hash_rapido(ruta, cancelar=cancelar)
-
-        hash_archivo = _reutilizar_sha256_previo(hash_previo, tamanio, hash_rapido)
-        if hash_archivo is None:
-            hash_archivo = calcular_hash_completo(
-                ruta, progreso=progreso, cancelar=cancelar)
-        else:
+        if sha256_importado is not None:
+            # kDrive: usar el SHA256 previo, sin volver a leer el archivo
+            # completo ni muestras iniciales/finales para una huella rápida.
+            hash_importado = str(sha256_importado).strip().lower()
+            if len(hash_importado) != 64 or any(c not in '0123456789abcdef' for c in hash_importado):
+                return error('SHA256 importado inválido')
+            hash_rapido = 'sha256_solo'
+            hash_archivo = hash_importado
             _notificar(progreso, 'SHA256', 1.0, time.monotonic())
+        else:
+            hash_rapido = calcular_hash_rapido(ruta, cancelar=cancelar)
+            hash_archivo = _reutilizar_sha256_previo(hash_previo, tamanio, hash_rapido)
+            if hash_archivo is None:
+                hash_archivo = calcular_hash_completo(
+                    ruta, progreso=progreso, cancelar=cancelar)
+            else:
+                _notificar(progreso, 'SHA256', 1.0, time.monotonic())
 
         _verificar_cancelacion(cancelar)
 

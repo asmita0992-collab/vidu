@@ -65,6 +65,7 @@ def submenu_archivos(db: str) -> str:
             ('1','Mover vídeos, duplicados y carpeta de eliminación'),
             ('2','Comprobar disco, buscar faltantes y aplicar reubicaciones'),
             ('3','Cambiar rutas manualmente en una SQLite'),
+            ('4','kDrive (nube) · enviar duplicados verificados a la papelera'),
         ])
         if op == '0':
             return db
@@ -78,6 +79,9 @@ def submenu_archivos(db: str) -> str:
                      ['*.db'], ['respaldos/db'], defecto=db)
             cambiar_rutas_interactivo(origen)
             db = origen
+        elif op == '4':
+            from core.kdrive_remoto import papelera_interactiva
+            papelera_interactiva()
 
 
 def submenu_depuracion(db: str) -> str:
@@ -135,21 +139,22 @@ def submenu_sincronizacion(db: str) -> str:
     from core.sincronizacion import sincronizar_local_y_nube
     while True:
         op = _eleccion('Sincronización y conciliación con Neon', [
-            ('1','Analizar diferencias y guardar plan verificable'),
-            ('2','Consultar TXT / JSON de un plan existente'),
-            ('3','Ejecutar un plan guardado, previa revalidación estricta'),
-            ('4','Sincronizar ahora · proponer operaciones nuevas'),
+            ('1','Sincronizar SQLite local con Neon · proponer operaciones'),
+            ('2','Analizar diferencias y guardar plan verificable'),
+            ('3','Consultar TXT / JSON de un plan existente'),
+            ('4','Ejecutar un plan guardado, previa revalidación estricta'),
             ('5','Reconciliar eliminaciones verificadas · plan y revisión'),
             ('6','Bandeja de análisis externos pendientes'),
             ('7','Consultar generación y procedencia de SQLite'),
+            ('8','Publicar explícitamente SQLite de kDrive en Neon'),
         ])
         if op == '0':
             return db
         try:
-            if op == '1':
+            if op == '2':
                 sincronizar_local_y_nube(ruta_local=db, solo_plan=True,
                                          confirmar=False, permitir_eliminaciones=True)
-            elif op == '2':
+            elif op == '3':
                 ruta = _seleccionar_json_plan()
                 datos = json.loads(ruta.read_text(encoding='utf-8'))
                 if not datos.get('firma_catalogos'):
@@ -164,8 +169,8 @@ def submenu_sincronizacion(db: str) -> str:
                     imprimir('[cyan]Informe legible:[/] ' + rich_escape(str(texto)))
                     if pedir_si_no('¿Mostrar el TXT ahora?',False):
                         imprimir(texto.read_text(encoding='utf-8'), markup=False)
-            elif op in ('3','4','5'):
-                plan = str(_seleccionar_json_plan()) if op == '3' else None
+            elif op in ('1','4','5'):
+                plan = str(_seleccionar_json_plan()) if op == '4' else None
                 if op == '5':
                     imprimir('[yellow]Las bajas requieren reporte y diario de cambios propios; '
                             'no basta con que el registro falte de una base.[/]')
@@ -180,6 +185,9 @@ def submenu_sincronizacion(db: str) -> str:
                 menu_bandeja_externa(db)
             elif op == '7':
                 _mostrar_procedencia(db)
+            elif op == '8':
+                from core.kdrive_neon import publicar_interactivo
+                publicar_interactivo()
         except IrAlMenuPrincipal:
             raise
         except (KeyboardInterrupt, EOFError):

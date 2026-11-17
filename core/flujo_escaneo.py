@@ -1034,6 +1034,7 @@ def submenu_escaneo(db_defecto: str) -> str:
             ('2','Escaneo de vídeos de otro dispositivo · transferencia temporal'),
             ('3','Catálogos SHA256 · generación, comparación e importación'),
             ('4','Completar metadatos faltantes (FFprobe)'),
+            ('5','Escaneo kDrive (nube) · reutilizar SHA256, CUDA en Vast.ai'),
             ('0','Volver al menú principal'),
             ('00','Volver al menú principal'),
         ],subtitulo='Tipo de propietario del vídeo; el procesador no cambia la propiedad.')
@@ -1043,6 +1044,13 @@ def submenu_escaneo(db_defecto: str) -> str:
             return db_defecto
         if op in ('0','00'):
             return db_defecto
+        if op == '5':
+            from core.escaneo_kdrive import escaneo_kdrive_interactivo
+            try:
+                escaneo_kdrive_interactivo()
+            except IrAlMenuPrincipal:
+                return db_defecto
+            continue
         if op == '4':
             from core.utilidades_interactivas import completar_metadatos_interactivo
             completar_metadatos_interactivo(db_defecto)

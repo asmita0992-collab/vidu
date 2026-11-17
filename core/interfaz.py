@@ -68,12 +68,30 @@ def menu_rich(titulo: str, opciones: Sequence[tuple[str, str]], *,
     encabezado.append(titulo, style='bold plum1')
     if subtitulo:
         encabezado.append('\n' + subtitulo, style='light_sky_blue1')
+    # Separar estados por segmentos para no truncar "Telegram: desactivado"
+    # en Termux. El panel se adapta al ancho efectivo de la terminal.
+    def poner_contexto(linea: str) -> None:
+        partes = [p.strip() for p in linea.split(' · ') if p.strip()]
+        disponibles = max(20, ancho - 9)
+        actual = ''
+        for parte in partes:
+            siguiente = (actual + ' · ' + parte) if actual else parte
+            if actual and len(siguiente) > disponibles:
+                encabezado.append('\n' + actual, style='light_sky_blue1')
+                actual = parte
+            else:
+                actual = siguiente
+        if actual:
+            encabezado.append('\n' + actual, style='light_sky_blue1')
+
     if contexto:
-        encabezado.append('\n' + contexto, style='grey70')
-    if 'Neon:' not in contexto and 'Telegram:' not in contexto:
+        poner_contexto(contexto)
+    # Si Neon y Telegram ya están escritos en el subtítulo o contexto, no
+    # generar nuevamente el estado. Evita el panel Configuración duplicado.
+    estados_existentes = subtitulo + ' ' + contexto
+    if 'Neon:' not in estados_existentes and 'Telegram:' not in estados_existentes:
         neon, telegram = estado_servicios()
-        encabezado.append('\n' + neon, style='gold1')
-        encabezado.append('  ·  ' + telegram, style='grey85')
+        poner_contexto(neon + ' · ' + telegram)
     CONSOLA.print(Panel(encabezado, border_style='medium_purple',
                        title='VIDUP · NAVEGACIÓN', title_align='left',
                        box=box.ROUNDED, padding=(0, 1)))

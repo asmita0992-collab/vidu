@@ -42,6 +42,7 @@ from core.telegram import (
 from core.dependencias import verificar_obligatorias, EXTENSIONES_VIDEO
 from core.almacenamiento import (
     carpeta_reportes as _carpeta_reportes,
+    carpeta_bases as _carpeta_bases,
     ruta_errores_jsonl as _ruta_errores_jsonl,
     ruta_errores_txt as _ruta_errores_txt,
     asegurar_estructura_reportes as _asegurar_estructura_reportes,
@@ -378,7 +379,7 @@ def submenu_respaldos(db_defecto: str) -> str:
                     defecto=db_defecto,
                 )
                 nombre = pedir_texto('Nombre de la exportación', f'base_de_datos_{_id_utc6()}')
-                destino = _carpeta_reportes() / 'exportaciones' / 'json' / (Path(nombre).stem + '.json')
+                destino = _carpeta_bases() / 'exportaciones' / 'json' / (Path(nombre).stem + '.json')
                 args = argparse.Namespace(db=db, salida=str(destino))
                 cmd_exportar(args)
                 db_defecto = db
@@ -404,7 +405,7 @@ def submenu_respaldos(db_defecto: str) -> str:
                     continue
                 nombre = pedir_texto('Nombre del archivo de respaldo',
                                      f'respaldo_neon_{_id_utc6()}.db')
-                destino = _carpeta_reportes() / 'respaldos' / 'db' / nombre
+                destino = _carpeta_bases() / 'respaldos' / 'db' / nombre
                 args = argparse.Namespace(db='neon_cloud', salida=str(destino))
                 cmd_descargar_neon(args)
             elif opcion == '4':
@@ -413,9 +414,8 @@ def submenu_respaldos(db_defecto: str) -> str:
                 if estado_conexion()['modo'] != 'neon':
                     imprimir('[red]Neon no está en línea. Sustitución deshabilitada.[/]')
                     continue
-                origen = elegir_archivo_reciente(
-                    'SQLite local con la que se desea sustituir Neon',
-                    ['*.db'], ['respaldos/db'], defecto=db_defecto)
+                from core.almacenamiento import elegir_respaldo_para_reemplazar_neon
+                origen = elegir_respaldo_para_reemplazar_neon()
                 imprimir('[bold red]Esta operación sustituirá TODOS los vídeos, huellas y marcas de eliminación en Neon.[/]')
                 imprimir('[yellow]Primero se respaldará Neon en SQLite. La sustitución es transaccional.[/]')
                 imprimir(f'[cyan]Fuente: {origen}[/]')
@@ -428,7 +428,7 @@ def submenu_respaldos(db_defecto: str) -> str:
                     continue
                 with _progreso_reemplazo_neon() as indicador:
                     resultado = reemplazar_neon_desde_sqlite(
-                        origen, str(_carpeta_reportes() / 'respaldos' / 'db'),
+                        origen, str(_carpeta_bases() / 'respaldos' / 'db'),
                         progreso=indicador.actualizar)
                 imprimir(f'[bold green]Neon sustituida: {resultado["videos"]} vídeos y {resultado["frames"]} frames y {resultado["eliminados"]} eliminaciones.[/]')
                 imprimir(f'[cyan]Respaldo previo: {resultado["respaldo_previo"]}[/]')

@@ -209,7 +209,8 @@ def cmd_exportar(args: argparse.Namespace) -> int:
     conn = conectar(args.db)
     try:
         cantidad = exportar_json(conn, args.salida)
-        ruta_txt = _carpeta_reportes() / 'exportaciones' / 'txt' / (Path(args.salida).stem + '.txt')
+        from core.almacenamiento import carpeta_bases
+        ruta_txt = carpeta_bases() / 'exportaciones' / 'txt' / (Path(args.salida).stem + '.txt')
         exportar_txt(conn, str(ruta_txt))
     finally:
         cerrar(conn)

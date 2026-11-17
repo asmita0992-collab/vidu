@@ -821,6 +821,22 @@ def exportar_candidatos_a_eliminar(
     if not candidatos_map:
         lineas_txt.append('No se encontraron vídeos candidatos a eliminar.')
     else:
+        # Vista rápida ANTES del listado detallado, idéntica a la esperada
+        # por el usuario; también se muestran las cantidades por dispositivo.
+        def nombre_resumido(nombre: str) -> str:
+            n = str(nombre or '').split('|')[0].strip()
+            if 'kdrive' in n.casefold():
+                return 'kDrive (nube)'
+            if 'xiaomi' in n.casefold():
+                return 'Xiaomi'
+            if 'infinix' in n.casefold():
+                return 'INFINIX'
+            return n or 'Dispositivo no identificado'
+        for lista in por_dispositivo.values():
+            lineas_txt.append('DISPOSITIVO: ' + nombre_resumido(lista[0]['dispositivo'])
+                              + f' — ({len(lista)} candidato{"s" if len(lista) != 1 else ""})')
+        lineas_txt.append('')
+        lineas_txt.append('DETALLE DE CANDIDATOS')
         for disp_tag, lista in por_dispositivo.items():
             lineas_txt.append('--------------------------------------------------------------------------------')
             lineas_txt.append(f'DISPOSITIVO: {disp_tag} — ({len(lista)} candidato{"s" if len(lista) != 1 else ""})')
@@ -1475,7 +1491,7 @@ class Dashboard:
             ultimo = float(d.get('ultimo_avance', desde))
             quieto = max(0, ahora - ultimo)
             estado = 'SIN AVANCE' if quieto >= 120 else str(d.get('fase') or 'Procesando')
-            bloque.append(f'T{i+1} · {nombre}\n', style='bold bright_white')
+            bloque.append(f'T{i+1} · {nombre}\n', style='bold deep_pink1')
             bloque.append('━'*fill, style='spring_green2')
             bloque.append('─'*(largo-fill), style='grey37')
             bloque.append(f'  {progreso*100:.1f}%\n', style='bold gold1')

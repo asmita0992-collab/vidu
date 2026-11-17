@@ -398,8 +398,15 @@ def _planear_marcas(plan: PlanSincronizacion,
                     marcas_local: Dict[str, str], marcas_nube: Dict[str, str],
                     *, autorizar_borrados_nube: bool = False,
                     frames_local: Optional[Dict[int, Tuple[int, str]]] = None,
-                    frames_nube: Optional[Dict[int, Tuple[int, str]]] = None) -> None:
+                    frames_nube: Optional[Dict[int, Tuple[int, str]]] = None,
+                    marcas_publicables: Optional[set[str]] = None) -> None:
     """Reconcilia eventos por clave: gana el escaneo o la eliminación posterior.
+
+    Para detectar marcas faltantes, compara SIEMPRE ambos historiales completos.
+    Para que una marca exclusivamente local prevalezca sobre un vídeo activo
+    requiere, además, estar autorizada para publicación. Una marca local ya
+    presente con la misma fecha en Neon conserva su validez histórica aunque
+    no figure en el diario de cambios pendientes. Esto hace el plan idempotente.
 
     La acción de borrar registros sólo se programa si el usuario habilitó la
     reconciliación. Nunca interpreta ausencia de un vídeo como prueba de
@@ -410,7 +417,13 @@ def _planear_marcas(plan: PlanSincronizacion,
     todas = sorted(set(local) | set(nube) | set(marcas_local) | set(marcas_nube))
     for clave in todas:
         vl, vn = local.get(clave), nube.get(clave)
-        fl, fn = marcas_local.get(clave), marcas_nube.get(clave)
+        fecha_local_real, fn = marcas_local.get(clave), marcas_nube.get(clave)
+        # La marca local histórica se reconoce para cotejarla. Pero si SOLO
+        # existe en SQLite y carece de autorización, no puede prevalecer sobre
+        # un vídeo remoto ni causar un borrado de la base local. Cuando ambas
+        # bases ya coinciden, no requiere volver a publicarse.
+        fl = (fecha_local_real if marcas_publicables is None or
+              clave in marcas_publicables or fecha_local_real == fn else None)
         if not (fl or fn or (vl and vn)):
             continue
         fechal, fechan = (_fecha_compatible(v.get('fecha_escaneo')) if v else None
@@ -518,7 +531,7 @@ def _copia_previa_borrados_nube(conn: Any, videos: List[dict]) -> Optional[Path]
     if not videos:
         return None
     from datetime import datetime
-    carpeta = DIR_SCRIPT / 'reportes' / 'respaldos' / 'sincronizacion'
+    carpeta = DIR_SCRIPT / 'bases' / 'respaldos' / 'sincronizacion'
     carpeta.mkdir(parents=True, exist_ok=True)
     ruta = carpeta / ('neon_antes_eliminaciones_' +
                      datetime.now().strftime('%Y%m%d_%H%M%S_%f') + '.json')
@@ -1083,7 +1096,7 @@ def _respaldo_sqlite_de_rebase(conn_loc: Any, ruta: Path) -> Path:
     """Copia SQLite consistente, incluyendo WAL, antes de reemplazar el catálogo."""
     import sqlite3
     from datetime import datetime
-    carpeta = DIR_SCRIPT / 'reportes' / 'respaldos' / 'sincronizacion'
+    carpeta = DIR_SCRIPT / 'bases' / 'respaldos' / 'sincronizacion'
     carpeta.mkdir(parents=True, exist_ok=True)
     destino = carpeta / (f'sqlite_antes_adoptar_neon_{datetime.now():%Y%m%d_%H%M%S_%f}.db')
     try:
@@ -1289,6 +1302,17 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
             f'No existe la SQLite local {ruta}. Escanea primero o selecciona otra base; '
             'no se creará una base vacía durante una sincronización.')
 
+    # Los catálogos kDrive generados en Vast.ai son independientes y no se
+    # publican a Neon aunque el usuario los seleccione por accidente.
+    import sqlite3
+    from contextlib import closing
+    with closing(sqlite3.connect(ruta.resolve().as_uri() + '?mode=ro', uri=True)) as _guard:
+        if _guard.execute("SELECT 1 FROM sqlite_master WHERE type='table' "
+                          "AND name='vidup_catalogo_aislado'").fetchone():
+            if _guard.execute("SELECT 1 FROM vidup_catalogo_aislado WHERE tipo='kdrive_aislado_sin_neon'").fetchone():
+                raise ErrorSincronizacion('Este catálogo es de kDrive (nube) y no puede sincronizarse con Neon. '
+                                          'Utiliza el submenú 2 para compararlo con otras bases.')
+
     conn_loc = None
     conn_nube = None
     nube_confirmada = False
@@ -1477,10 +1501,18 @@ def sincronizar_local_y_nube(*, confirmar: bool = True,
         conn_loc.execute('BEGIN IMMEDIATE')
         plan = calcular_plan(locales, remotos, hashes_local, hashes_nube,
                             marcas_bloqueo)
+        # La reconciliación compara el historial COMPLETO de ambos lados.
+        # El conjunto de marcas publicables sirve exclusivamente para autorizar
+        # cambios hacia Neon; NO representa las marcas existentes en SQLite.
+        # Pasar aquí solo marcas_locales_publicables provocaba que TODAS las
+        # marcas ya sincronizadas se propusieran de nuevo como descargas.
         _planear_marcas(plan, locales, remotos,
-                       marcas_locales_publicables, marcas_remotas,
+                       marcas_locales, marcas_remotas,
                        autorizar_borrados_nube=permitir_eliminaciones,
-                       frames_local=hashes_local, frames_nube=hashes_nube)
+                       frames_local=hashes_local, frames_nube=hashes_nube,
+                       marcas_publicables=set(marcas_locales_publicables))
+        # La política de autoría se mantiene inalterada: nunca publicar marcas
+        # históricas o ajenas sin un evento local propio aún pendiente.
         _restringir_publicacion(plan, identidad, diario)
         _imprimir_plan(plan, len(locales), len(remotos))
         firma = _firma_catalogos(locales, remotos, hashes_local, hashes_nube,

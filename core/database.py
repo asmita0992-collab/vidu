@@ -121,7 +121,8 @@ CREATE TABLE IF NOT EXISTS videos (
     dispositivo_id TEXT NOT NULL DEFAULT '',
     dispositivo_origen TEXT NOT NULL DEFAULT '',
     dispositivo_origen_id TEXT NOT NULL DEFAULT '',
-    error TEXT
+    error TEXT,
+    fingerprint_version TEXT NOT NULL DEFAULT 'phash64_v1'
 );
 
 CREATE TABLE IF NOT EXISTS frame_hashes (
@@ -129,6 +130,8 @@ CREATE TABLE IF NOT EXISTS frame_hashes (
     video_id INTEGER NOT NULL REFERENCES videos(id) ON DELETE CASCADE,
     posicion INTEGER NOT NULL,
     hash_valor TEXT NOT NULL,
+    tiempo_inicio DOUBLE PRECISION,
+    tiempo_fin DOUBLE PRECISION,
     UNIQUE(video_id, posicion)
 );
 
@@ -169,7 +172,8 @@ CREATE TABLE IF NOT EXISTS videos (
     dispositivo_id TEXT NOT NULL DEFAULT '',
     dispositivo_origen TEXT NOT NULL DEFAULT '',
     dispositivo_origen_id TEXT NOT NULL DEFAULT '',
-    error TEXT
+    error TEXT,
+    fingerprint_version TEXT NOT NULL DEFAULT 'phash64_v1'
 );
 
 CREATE TABLE IF NOT EXISTS frame_hashes (
@@ -177,6 +181,8 @@ CREATE TABLE IF NOT EXISTS frame_hashes (
     video_id INTEGER NOT NULL,
     posicion INTEGER NOT NULL,
     hash_valor TEXT NOT NULL,
+    tiempo_inicio REAL,
+    tiempo_fin REAL,
     FOREIGN KEY (video_id) REFERENCES videos(id) ON DELETE CASCADE,
     UNIQUE(video_id, posicion)
 );
@@ -598,6 +604,12 @@ def _migrar_esquema(conn: Any, es_pg: bool) -> None:
                 _imprimir(f'[AVISO NEON] {etiqueta}: {exc}', 'yellow')
                 return False
 
+        ejecutar("ALTER TABLE videos ADD COLUMN IF NOT EXISTS fingerprint_version TEXT NOT NULL DEFAULT 'phash64_v1'",
+                 'No se pudo registrar versión de huellas')
+        ejecutar("ALTER TABLE frame_hashes ADD COLUMN IF NOT EXISTS tiempo_inicio DOUBLE PRECISION",
+                 'No se pudo añadir tiempo_inicio a las huellas')
+        ejecutar("ALTER TABLE frame_hashes ADD COLUMN IF NOT EXISTS tiempo_fin DOUBLE PRECISION",
+                 'No se pudo añadir tiempo_fin a las huellas')
         ejecutar(
             "ALTER TABLE videos ADD COLUMN IF NOT EXISTS dispositivo_id TEXT NOT NULL DEFAULT ''",
             'No se pudo añadir dispositivo_id')
@@ -649,6 +661,10 @@ def _migrar_esquema(conn: Any, es_pg: bool) -> None:
         except Exception:
             pass
     else:
+        cols_tiempo = {f[1] for f in conn.execute('PRAGMA table_info(frame_hashes)').fetchall()}
+        for col in ('tiempo_inicio', 'tiempo_fin'):
+            if col not in cols_tiempo:
+                conn.execute(f'ALTER TABLE frame_hashes ADD COLUMN {col} REAL')
         columnas = {f[1] for f in conn.execute('PRAGMA table_info(videos)').fetchall()}
 
         for columna, definicion in (
@@ -656,6 +672,7 @@ def _migrar_esquema(conn: Any, es_pg: bool) -> None:
             ('dispositivo_origen', "TEXT NOT NULL DEFAULT ''"),
             ('dispositivo_origen_id', "TEXT NOT NULL DEFAULT ''"),
             ('clave_unica', "TEXT NOT NULL DEFAULT ''"),
+            ('fingerprint_version', "TEXT NOT NULL DEFAULT 'phash64_v1'"),
         ):
             if columna not in columnas:
                 try:
@@ -837,6 +854,14 @@ def guardar_fingerprint(
     fecha_utc6 = _ahora_utc6_str()
 
     is_pg = _es_pg(conn)
+    # Las huellas antiguas conservan NULL; el índice reconstruye sus tiempos
+    # desde la duración y el intervalo sin reescanear los vídeos.
+    from .indice_huellas import tiempo_huella
+    valores_frames = [
+        (pos, val, *tiempo_huella(pos, len(fp.frame_hashes),
+                                 float(fp.frame_intervalo or 10), float(fp.duracion or 0)))
+        for pos, val in enumerate(fp.frame_hashes)
+    ]
 
     try:
         if is_pg:
@@ -887,13 +912,15 @@ def guardar_fingerprint(
                     conn.rollback()
                     return None
                 video_id = row['id']
+                cur.execute('UPDATE videos SET fingerprint_version=%s WHERE id=%s',
+                            (fp.fingerprint_version, video_id))
 
                 cur.execute("DELETE FROM frame_hashes WHERE video_id = %s", (video_id,))
                 if fp.frame_hashes:
                     psycopg2.extras.execute_values(
                         cur,
-                        "INSERT INTO frame_hashes (video_id, posicion, hash_valor) VALUES %s",
-                        [(video_id, pos, val) for pos, val in enumerate(fp.frame_hashes)]
+                        "INSERT INTO frame_hashes (video_id, posicion, hash_valor, tiempo_inicio, tiempo_fin) VALUES %s",
+                        [(video_id, pos, val, t0, t1) for pos, val, t0, t1 in valores_frames]
                     )
                 cur.execute('DELETE FROM videos_eliminados WHERE clave_unica = %s', (clave,))
             conn.commit()
@@ -947,11 +974,13 @@ def guardar_fingerprint(
                 conn.rollback()
                 return None
             video_id = int(fila['id'])
+            conn.execute('UPDATE videos SET fingerprint_version=? WHERE id=?',
+                         (fp.fingerprint_version, video_id))
             conn.execute('DELETE FROM frame_hashes WHERE video_id = ?', (video_id,))
             if fp.frame_hashes:
                 conn.executemany(
-                    "INSERT INTO frame_hashes (video_id, posicion, hash_valor) VALUES (?, ?, ?)",
-                    ((video_id, pos, val) for pos, val in enumerate(fp.frame_hashes)),
+                    "INSERT INTO frame_hashes (video_id, posicion, hash_valor, tiempo_inicio, tiempo_fin) VALUES (?, ?, ?, ?, ?)",
+                    ((video_id, pos, val, t0, t1) for pos, val, t0, t1 in valores_frames),
                 )
             conn.execute('DELETE FROM videos_eliminados WHERE clave_unica = ?', (clave,))
             conn.commit()
@@ -987,6 +1016,7 @@ def _row_dict_a_fingerprint(fila: dict, frame_hashes: List[str]) -> VideoFingerp
         error=fila['error'],
         dispositivo=fila.get('dispositivo', '') or '',
         dispositivo_id=fila.get('dispositivo_id', '') or '',
+        fingerprint_version=fila.get('fingerprint_version','phash64_v1') or 'phash64_v1',
     )
 
 
@@ -1010,6 +1040,7 @@ def _fila_sqlite_a_fingerprint(fila: Any, frame_hashes: List[str]) -> VideoFinge
         error=fila['error'],
         dispositivo=(fila['dispositivo'] if 'dispositivo' in claves else '') or '',
         dispositivo_id=(fila['dispositivo_id'] if 'dispositivo_id' in claves else '') or '',
+        fingerprint_version=(fila['fingerprint_version'] if 'fingerprint_version' in claves else 'phash64_v1') or 'phash64_v1',
     )
 
 

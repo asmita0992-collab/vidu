@@ -23,6 +23,17 @@ def carpeta_reportes() -> Path:
     return DIR_SCRIPT / 'reportes'
 
 
+def carpeta_bases() -> Path:
+    """Exportaciones y respaldos junto a vidup.py, fuera de reportes."""
+    return DIR_SCRIPT / 'bases'
+
+
+def asegurar_estructura_bases() -> None:
+    for sub in ('exportaciones/json', 'exportaciones/txt',
+                'respaldos/db', 'respaldos/sincronizacion'):
+        (carpeta_bases() / sub).mkdir(parents=True, exist_ok=True)
+
+
 def carpeta_salida_videos() -> Path:
     """Retorna la ruta de la carpeta donde se guardan vídeos movidos."""
     return DIR_SCRIPT / 'movidos'
@@ -56,14 +67,13 @@ _ruta_errores_txt = ruta_errores_txt
 def asegurar_estructura_reportes() -> None:
     """Crea la estructura de carpetas de reportes si no existe."""
     base = carpeta_reportes()
+    asegurar_estructura_bases()
     for sub in (
         'comparativas/json', 'comparativas/csv', 'comparativas/txt',
         'recursos/txt',
         'errores/jsonl', 'errores/txt',
-        'exportaciones/json', 'exportaciones/txt',
         'movimientos/json', 'movimientos/txt', 'movimientos/jsonl',
         'sha256/json', 'sha256/csv', 'sha256/txt', 'sha256/jsonl',
-        'respaldos/db',
         'escaneos/json', 'escaneos/txt',
         'estadisticas/json', 'estadisticas/txt', 'estadisticas/csv',
         'verificaciones/json', 'verificaciones/txt', 'verificaciones/csv',
@@ -84,7 +94,7 @@ def base_reciente_por_defecto() -> str:
     except Exception:
         pass
 
-    carpeta = carpeta_reportes() / 'respaldos' / 'db'
+    carpeta = carpeta_bases() / 'respaldos' / 'db'
     candidatas: List[Tuple[int, Path]] = []
     if carpeta.is_dir():
         for ruta in carpeta.glob('*.db'):
@@ -94,6 +104,12 @@ def base_reciente_por_defecto() -> str:
                 candidatas.append((ruta.stat().st_mtime_ns, ruta))
             except OSError:
                 continue
+    if not candidatas:
+        antigua = carpeta_reportes() / 'respaldos' / 'db'
+        if antigua.is_dir():
+            for ruta in antigua.glob('*.db'):
+                if ruta.is_file():
+                    candidatas.append((ruta.stat().st_mtime_ns, ruta))
     if candidatas:
         candidatas.sort(reverse=True)
         return str(candidatas[0][1])
@@ -361,21 +377,65 @@ def _registrar_error_video_detallado(
         imprimir(f'[yellow][AVISO] No se pudo escribir el detalle del error: {exc}[/]')
 
 def _archivos_recientes(patrones: List[str], subcarpetas: List[str]) -> List[Path]:
-    base = _carpeta_reportes()
     encontrados: List[Tuple[int, Path]] = []
+    vistos: set[str] = set()
     for sub in subcarpetas:
-        carpeta = base / sub
-        if not carpeta.is_dir():
-            continue
-        for patron in patrones:
-            for ruta in carpeta.glob(patron):
-                if ruta.is_file():
-                    try:
-                        encontrados.append((ruta.stat().st_mtime_ns, ruta))
-                    except OSError:
-                        continue
+        # Primero se admiten las ubicaciones nuevas; las antiguas se conservan
+        # accesibles sin trasladar ni borrar un solo respaldo existente.
+        for base in (carpeta_bases(), _carpeta_reportes(), DIR_SCRIPT):
+            carpeta = base / sub
+            if not carpeta.is_dir():
+                continue
+            for patron in patrones:
+                for ruta in carpeta.glob(patron):
+                    if ruta.is_file() and str(ruta.resolve()) not in vistos:
+                        try:
+                            encontrados.append((ruta.stat().st_mtime_ns, ruta))
+                            vistos.add(str(ruta.resolve()))
+                        except OSError:
+                            continue
     encontrados.sort(reverse=True)
     return [r for _, r in encontrados]
+
+def elegir_respaldo_para_reemplazar_neon() -> str:
+    """Elige una SQLite para sustituir Neon, priorizando los respaldos nuevos.
+
+    No utiliza la SQLite activa como valor por defecto: sustituir Neon es una
+    operación distinta de trabajar sobre la base local del dispositivo.
+    Los respaldos históricos en reportes solo se ofrecen si no hay ninguno en
+    bases/respaldos/db. La elección nunca ejecuta una sustitución.
+    """
+    carpeta_actual = carpeta_bases() / 'respaldos' / 'db'
+    carpeta_legacy = carpeta_reportes() / 'respaldos' / 'db'
+    disponibles: List[Path] = []
+    fuente = ''
+    for carpeta, etiqueta in ((carpeta_actual, 'bases/respaldos/db'),
+                             (carpeta_legacy, 'reportes/respaldos/db (histórico)')):
+        candidatos: List[Tuple[int, Path]] = []
+        if carpeta.is_dir():
+            for patron in ('*.db', '*.sqlite', '*.sqlite3'):
+                for ruta in carpeta.glob(patron):
+                    if ruta.is_file():
+                        try:
+                            candidatos.append((ruta.stat().st_mtime_ns, ruta))
+                        except OSError:
+                            continue
+        if candidatos:
+            candidatos.sort(key=lambda x: (x[0], str(x[1])), reverse=True)
+            disponibles = [ruta for _, ruta in candidatos]
+            fuente = etiqueta
+            break
+    if disponibles:
+        reciente = disponibles[0]
+        imprimir(f'[deep_sky_blue1]Respaldos disponibles en {fuente}:[/]')
+        imprimir(f'[gold1]Más reciente:[/] {reciente}')
+        if len(disponibles) > 1:
+            imprimir(f'[grey70]Otros {len(disponibles) - 1} respaldos en esta carpeta.[/]')
+        respuesta = pedir_texto('¿Usar este respaldo? (s/n)', 's').strip().casefold()
+        if respuesta in ('s', 'si', 'sí', 'y', 'yes', ''):
+            return str(reciente)
+    return pedir_ruta('Ruta de la SQLite que sustituirá Neon', existente=True)
+
 
 def elegir_archivo_reciente(
     descripcion: str,

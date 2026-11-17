@@ -263,6 +263,7 @@ def cmd_comparar(args: argparse.Namespace) -> int:
         return 1
 
     solo_sha256 = bool(getattr(args, 'solo_sha256', False))
+    usar_indice = bool(getattr(args, 'usar_indice', False)) and not solo_sha256
     if solo_sha256:
         # Ruta ligera: no consultar frame_hashes ni abrir vídeos físicos.
         videos = _cargar_registros_para_sha256(args.db, neon=(args.db == 'neon_cloud'))
@@ -334,8 +335,8 @@ def cmd_comparar(args: argparse.Namespace) -> int:
         tabla.add_row('Dispositivo', f'{info_disp["dispositivo"]} (ID {info_disp["dispositivo_id"]})')
         tabla.add_row('Modo conexión', describir_conexion())
         tabla.add_row('Vídeos a comparar', str(len(videos)))
-        tabla.add_row('Método', 'SHA256 rápido (agrupación)' if solo_sha256 else 'SHA256 + visual + fragmentos')
-        tabla.add_row('Pares a evaluar', 'Sin enumerar todos los pares' if solo_sha256 else str(total_pares))
+        tabla.add_row('Método', 'SHA256 rápido' if solo_sha256 else ('Índice persistente + comparación final' if usar_indice else 'SHA256 + visual + fragmentos'))
+        tabla.add_row('Pares a evaluar', 'Sin enumerar todos los pares' if solo_sha256 else (f'{total_pares:,} teóricos; índice preselecciona' if usar_indice else str(total_pares)))
         CONSOLA.print(tabla)
     else:
         print(f'\n Dispositivo actual: {info_disp["dispositivo"]} (ID {info_disp["dispositivo_id"]})')
@@ -399,7 +400,21 @@ def cmd_comparar(args: argparse.Namespace) -> int:
             barra.mostrar_mensaje(lineas_rich, lineas_ansi)
 
         try:
-            resultados = comparar_todos(
+            if usar_indice:
+                from core.indice_huellas import comparar_con_indice
+                import hashlib
+                fuentes = [str(Path(args.db).resolve())] + [str(Path(p).resolve()) for p in (args.db_extra or [])]
+                firma = hashlib.sha256('|'.join(fuentes).encode('utf-8')).hexdigest()[:16]
+                archivo_indice = _carpeta_reportes() / 'indices' / f'indice_comparacion_{firma}.db'
+                imprimir('[turquoise2]Índice persistente:[/] ' + str(archivo_indice))
+                comparador = lambda videos, **params: comparar_con_indice(
+                    videos, ruta_indice=archivo_indice,
+                    modo=getattr(args,'modo_indice','hamming'),
+                    minimo_huellas=int(getattr(args,'minimo_huellas_candidato',2)),
+                    minimo_racha=int(getattr(args,'minimo_racha_consecutiva',2)), **params)
+            else:
+                comparador = comparar_todos
+            resultados = comparador(
                 videos,
                 callback_progreso=barra.actualizar,
                 callback_videos=barra.actualizar_videos,
@@ -416,6 +431,9 @@ def cmd_comparar(args: argparse.Namespace) -> int:
             barra.limpiar()
 
     duracion = time.monotonic() - inicio
+    if usar_indice:
+        imprimir('[turquoise2]Filtro de índice:[/] ' + str(resumen_comparativas.get('pares_preseleccionados',0)) +
+                 ' pares evaluados de ' + str(total_pares) + ' posibles. Se conserva la comparación exhaustiva como alternativa.')
     carpeta = _carpeta_reportes() / 'comparativas'
     for sub in ('json', 'csv', 'txt'):
         (carpeta / sub).mkdir(parents=True, exist_ok=True)
@@ -429,7 +447,7 @@ def cmd_comparar(args: argparse.Namespace) -> int:
         # al modo hash. Conservar aquí sus resultados en una clave propia.
         'comparativas': {} if solo_sha256 else resumen_comparativas,
         'resumen_sha256': resumen_comparativas if solo_sha256 else {},
-        'modo_comparacion': 'solo_sha256' if solo_sha256 else 'completa',
+        'modo_comparacion': 'solo_sha256' if solo_sha256 else ('indice_hamming' if usar_indice else 'completa_exhaustiva'),
         'umbrales': {k: getattr(args, k) for k in (
             'umbral_phash', 'umbral_visual', 'umbral_fragmento',
             'umbral_posible_fragmento', 'margen_duracion', 'ratio_min')},
@@ -505,10 +523,11 @@ def comparar_interactivo(db_defecto: str) -> str:
                     break
                     
         menu_rich('Método de comparación', [
-            ('1', 'Completa · SHA256, visual y fragmentos'),
+            ('1', 'Con índice persistente · pHash Hamming y fragmentos (rápido, filtro heurístico)'),
             ('2', 'Rápida · SHA256 para duplicados exactos'),
+            ('3', 'Exhaustiva · todos los pares (máxima cobertura histórica)'),
         ])
-        metodo = _pedir_opcion('Método (1-2; 0 volver; 00 inicio)', ('1','2','0','00'), '2')
+        metodo = _pedir_opcion('Método (1-3; 0 volver; 00 inicio)', ('1','2','3','0','00'), '1')
         if metodo in ('0','00'):
             return db
 
@@ -517,6 +536,9 @@ def comparar_interactivo(db_defecto: str) -> str:
                            umbral_posible_fragmento=25.0, margen_duracion=5.0, ratio_min=5.0)
                       if solo_sha256 else opciones_comparacion())
                       
-        args = argparse.Namespace(db=db, db_extra=extras, solo_sha256=solo_sha256, **parametros)
+        args = argparse.Namespace(db=db, db_extra=extras, solo_sha256=solo_sha256,
+                                  usar_indice=(metodo == '1'), modo_indice='hamming',
+                                  minimo_huellas_candidato=2, minimo_racha_consecutiva=2,
+                                  **parametros)
         cmd_comparar(args)
         return db

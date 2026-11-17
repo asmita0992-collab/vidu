@@ -248,6 +248,10 @@ class MedicionVideo:
     # Totales del proceso Python del lote (referencia compartida con el medidor)
     totales_proceso: Dict[str, float] = field(default_factory=dict, repr=False)
 
+    # En procesadores remotos, la ruta lógica del reporte difiere del argumento
+    # usado por rclone y del fichero temporal que abre FFmpeg.
+    rutas_procesos: List[str] = field(default_factory=list, repr=False)
+
     _detener: threading.Event = field(default_factory=threading.Event, repr=False)
     _hilo: Optional[threading.Thread] = field(default=None, repr=False)
     _estado_procesos: Dict[int, dict] = field(default_factory=dict, repr=False)
@@ -337,8 +341,10 @@ class MedidorRecursos:
             tot['ultimo_lectura'] = lectura
             tot['ultimo_escritura'] = escritura
 
-    def _procesos_del_video(self, ruta: str) -> List[psutil.Process]:
-        """Hijos activos cuya línea de comando contiene la ruta del video."""
+    def _procesos_del_video(self, ruta: str | List[str]) -> List[psutil.Process]:
+        """Hijos activos de este vídeo (ruta local o argumentos rclone/FFmpeg)."""
+        rutas = (ruta,) if isinstance(ruta, str) else tuple(ruta)
+        rutas = tuple(r for r in rutas if r)
         try:
             hijos = self._proceso_principal.children(recursive=True)
         except (psutil.Error, OSError):
@@ -346,7 +352,8 @@ class MedidorRecursos:
         encontrados: List[psutil.Process] = []
         for hijo in hijos:
             try:
-                if ruta in hijo.cmdline():
+                argumentos = hijo.cmdline()
+                if any(r in argumentos for r in rutas):
                     encontrados.append(hijo)
             except (psutil.Error, OSError):
                 continue
@@ -354,7 +361,7 @@ class MedidorRecursos:
 
     def _tomar_muestra(self, medicion: MedicionVideo) -> MuestraRecursos:
         ahora = time.time()
-        procesos = self._procesos_del_video(medicion.ruta)
+        procesos = self._procesos_del_video([medicion.ruta, *medicion.rutas_procesos])
         cpu_total = 0.0
         ram_total = 0
         hijos_activos = 0

@@ -139,7 +139,9 @@ def aplicar_plan(conn_sqlite, conn_neon, plan: dict, ruta_sqlite: str,
     ruta=Path(ruta_sqlite)
     if not ruta.is_file():
         raise FileNotFoundError('La SQLite original no existe; no se crea una vacía.')
-    destino=Path(reportes)/'respaldos'/'db'
+    from .almacenamiento import carpeta_reportes
+    raiz = Path(reportes).parent if Path(reportes).name == 'reportes' else Path(reportes)
+    destino=raiz/'bases'/'respaldos'/'db'
     destino.mkdir(parents=True,exist_ok=True)
     backup=destino/('sqlite_antes_conciliacion_'+id_utc6()+'.db')
     # Snapshot con sqlite3.backup; no basta copiar un fichero con WAL activo.
